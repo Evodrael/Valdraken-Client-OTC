@@ -24,8 +24,8 @@ Services = {
 Servers = {
   {
     name = "Valdraken",
-    loginLink = "http://127.0.0.1/login.php",
-    clientServicesLink = "http://127.0.0.1/login.php",
+    loginLink = "http://valdraken.com.br/login.php",
+    clientServicesLink = "http://valdraken.com.br/login.php",
     hintsLink = "",
     googleLogin = ""
   }
@@ -33,7 +33,7 @@ Servers = {
 
 -- Link do botao "Join Discord" da barra superior da tela de login. Altere aqui (hook do init).
 -- O topmenu le DISCORD_LINK como padrao; o servidor ainda pode sobrescrever via data.discord_link.
-DISCORD_LINK = "https://discord.gg/rubini"
+DISCORD_LINK = "https://discord.gg/kKQETB8Gtx"
 
 -- Multi-world: os mundos ATIVOS sao lidos automaticamente do login.php (playdata.worlds) e
 -- vinculados a cada personagem pelo worldid. Para multiplos endpoints de login, adicione mais
