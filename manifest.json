@@ -1,6 +1,6 @@
 {
-  "version": "20260619-210209",
-  "generated": "2026-06-19T21:02:09.592625+00:00",
+  "version": "20260619-210502",
+  "generated": "2026-06-19T21:05:02.277731+00:00",
   "count": 13065,
   "files": [
     {
@@ -12310,8 +12310,8 @@
     },
     {
       "path": "data/images/title.png",
-      "sha256": "3586514c588e7cabe15f8ac935b4f276bd5d1755188197e2bffed7e0fd146278",
-      "size": 5308005
+      "sha256": "27341b49159ee04d3fcaaceaf0a3061b577f5549b013b95c14d1245cc7bf88c0",
+      "size": 5160940
     },
     {
       "path": "data/images/topbuttons/analyticsSelectorWidget.png",
