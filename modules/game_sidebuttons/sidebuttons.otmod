@@ -1,0 +1,17 @@
+Module
+  name: game_sidebuttons
+  description: side buttons
+  author: Christianlb
+  website: https://gitlab.com/ezipsoft.inc
+  sandboxed: true
+  scripts: [ sidebuttons ]
+  @onLoad: init()
+  @onUnload: terminate()
+  load-later:
+    - game_highscores
+    - game_compendium
+    - game_guide
+    - game_cyclopedia
+    - game_battle
+    - game_questlog
+    - game_analyser

@@ -1,0 +1,95 @@
+UIWidget
+  size: 67 132
+  image-source: /images/ui/2pixel-up-frame-borderimage
+  image-clip: 0 0 100 100
+  image-border: 10
+  padding: 0
+
+  Button
+    id: closeBtn
+    !text: tr('X')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 2
+    margin-right: 2
+    size: 14 14
+    @onClick: |
+      if self:getParent() then self:getParent():destroy() end
+
+
+
+  UIItem
+    id: slot1
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: 5
+    margin-bottom: 5
+    image-source: /images/game/actionbar/actionbarslot
+    size: 34 34
+    virtual: true
+
+  UIItem
+    id: slot2
+    anchors.right: parent.right
+    anchors.bottom: slot1.top
+    margin-right: 5
+    margin-bottom: 2
+    image-source: /images/game/actionbar/actionbarslot
+    size: 34 34
+    virtual: true
+
+  UIItem
+    id: slot3
+    anchors.right: parent.right
+    anchors.bottom: slot2.top
+    margin-right: 5
+    margin-bottom: 2
+    image-source: /images/game/actionbar/actionbarslot
+    size: 34 34
+    virtual: true
+
+  Label
+    id: label1
+    text: I
+    font: $var-cip-font
+    color: $var-text-color
+    anchors.left: parent.left
+    anchors.right: slot1.left
+    anchors.verticalCenter: slot1.verticalCenter
+    text-align: center
+
+  Label
+    id: label2
+    text: II
+    font: $var-cip-font
+    color: $var-text-color
+    anchors.left: parent.left
+    anchors.right: slot2.left
+    anchors.verticalCenter: slot2.verticalCenter
+    text-align: center
+
+  Label
+    id: label3
+    text: III
+    font: $var-cip-font
+    color: $var-text-color
+    anchors.left: parent.left
+    anchors.right: slot3.left
+    anchors.verticalCenter: slot3.verticalCenter
+    text-align: center
+
+  UIWidget
+    id: arrow1
+    image-source: /images/game/actionbar/arrow-upnew
+    anchors.horizontalCenter: label1.horizontalCenter
+    anchors.verticalCenter: slot1.top
+    margin-bottom: 1
+    virtual: true
+
+  UIWidget
+    id: arrow2
+    image-source: /images/game/actionbar/arrow-upnew
+    anchors.horizontalCenter: label2.horizontalCenter
+    anchors.verticalCenter: slot2.top
+    margin-bottom: 1
+    virtual: true

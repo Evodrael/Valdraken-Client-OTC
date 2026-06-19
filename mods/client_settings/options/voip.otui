@@ -1,0 +1,279 @@
+VoipSettingsWindow < Panel
+  id: voip
+  anchors.fill: parent
+  text-wrap: true
+  image-source: /images/ui/2pixel-up-frame-borderimage
+  image-border: 3
+  padding: 3
+
+  FlatPanel
+    id: generalPanel
+    size: 505 60
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.left: parent.left
+    margin-top: 5
+    margin-left: 4
+    margin-right: 4
+
+    SettingsCheckBox
+      id: enterMutedVoip
+      size: 12 12
+      !text: tr('Entrar em uma party com o som e microfone mutado')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      text-offset: 14 -2
+      anchors.left: parent.left
+      anchors.top: parent.top
+      image-source: /images/ui/checkbox
+      image-clip: 0 0 12 12
+      margin-top: 8
+      margin-left: 5
+
+    SettingsCheckBox
+      id: showOverlayVoip
+      size: 12 12
+      !text: tr('Exibir overlay do chat de voz')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      text-offset: 14 -2
+      anchors.left: parent.left
+      anchors.top: prev.bottom
+      image-source: /images/ui/checkbox
+      image-clip: 0 0 12 12
+      margin-top: 11
+      margin-left: 5
+
+  FlatPanel
+    id: devicesPanel
+    size: 505 105
+    anchors.top: prev.bottom
+    anchors.right: parent.right
+    anchors.left: parent.left
+    margin-top: 6
+    margin-left: 4
+    margin-right: 4
+
+    Label
+      !text: tr('Dispositivo de entrada:')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-top: 7
+      margin-left: 5
+
+    ComboBox
+      id: microphoneVoip
+      size: 395 20
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-left: 5
+      margin-top: 4
+      color: $var-text-cip-color
+      text-truncate: true
+      @onSetup: modules.client_settings.setupVoipDeviceCombo(self, 'input')
+      @onOptionChange: modules.client_settings.setTempOption(self:getId(), self.currentIndex)
+
+    Label
+      !text: tr('Dispositivo de saida:')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      anchors.left: parent.left
+      anchors.top: microphoneVoip.bottom
+      margin-top: 8
+      margin-left: 5
+
+    ComboBox
+      id: speakerVoip
+      size: 395 20
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-left: 5
+      margin-top: 4
+      color: $var-text-cip-color
+      text-truncate: true
+      @onSetup: modules.client_settings.setupVoipDeviceCombo(self, 'output')
+      @onOptionChange: modules.client_settings.setTempOption(self:getId(), self.currentIndex)
+
+    Button
+      id: refreshDevices
+      !text: tr('Atualizar')
+      size: 65 20
+      anchors.right: parent.right
+      anchors.top: microphoneVoip.top
+      margin-right: 8
+      @onClick: modules.client_settings.refreshVoipDevices()
+
+  FlatPanel
+    id: levelsPanel
+    size: 505 105
+    anchors.top: prev.bottom
+    anchors.right: parent.right
+    anchors.left: parent.left
+    margin-top: 6
+    margin-left: 4
+    margin-right: 4
+
+    Label
+      id: micSensitivityVoipLabel
+      !text: tr('Sensibilidade do microfone: 100%%')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-top: 6
+      margin-left: 5
+
+    SettingsHorizontalScrollBar
+      id: micSensitivityVoip
+      width: 175
+      anchors.top: prev.top
+      anchors.right: parent.right
+      step: 1
+      minimum: 0
+      maximum: 100
+      margin-right: 21
+      margin-top: 1
+      pixels-scroll: true
+
+    Label
+      id: micGainVoipLabel
+      !text: tr('Volume do seu microfone: 200%%')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      anchors.left: parent.left
+      anchors.top: prev.bottom
+      margin-top: 14
+      margin-left: 5
+
+    SettingsHorizontalScrollBar
+      id: micGainVoip
+      width: 175
+      anchors.top: prev.top
+      anchors.right: parent.right
+      step: 1
+      minimum: 0
+      maximum: 200
+      margin-right: 21
+      margin-top: 1
+      pixels-scroll: true
+
+    Label
+      id: speakerVolumeVoipLabel
+      !text: tr('Volume da chamada: 100%%')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      anchors.left: parent.left
+      anchors.top: prev.bottom
+      margin-top: 14
+      margin-left: 5
+
+    SettingsHorizontalScrollBar
+      id: speakerVolumeVoip
+      width: 175
+      anchors.top: prev.top
+      anchors.right: parent.right
+      step: 1
+      minimum: 0
+      maximum: 200
+      margin-right: 21
+      margin-top: 1
+      pixels-scroll: true
+
+  FlatPanel
+    id: modePanel
+    size: 505 68
+    anchors.top: prev.bottom
+    anchors.right: parent.right
+    anchors.left: parent.left
+    margin-top: 6
+    margin-left: 4
+    margin-right: 4
+
+    Label
+      !text: tr('Filtro de voz:')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-top: 8
+      margin-left: 5
+
+    ComboBox
+      id: inputProfileVoip
+      size: 170 20
+      anchors.left: parent.left
+      anchors.top: prev.bottom
+      margin-left: 5
+      margin-top: 6
+      color: $var-text-cip-color
+      @onSetup: |
+        self:addOption(tr('Estudio (Audio Puro)'))
+        self:addOption(tr('Isolamento de voz'))
+      @onOptionChange: modules.client_settings.setTempOption(self:getId(), self.currentIndex)
+
+    Label
+      !text: tr('Modo de captacao:')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      anchors.left: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 8
+      margin-left: 10
+
+    ComboBox
+      id: micModeVoip
+      size: 170 20
+      anchors.left: prev.left
+      anchors.top: prev.bottom
+      margin-top: 6
+      color: $var-text-cip-color
+      @onSetup: |
+        self:addOption(tr('Push-to-Talk'))
+        self:addOption(tr('Microfone Aberto'))
+      @onOptionChange: modules.client_settings.setTempOption(self:getId(), self.currentIndex)
+
+  FlatPanel
+    id: testPanel
+    size: 505 55
+    anchors.top: prev.bottom
+    anchors.right: parent.right
+    anchors.left: parent.left
+    margin-top: 6
+    margin-left: 4
+    margin-right: 4
+
+    ProgressBar
+      id: voiceActivity
+      minimum: 0
+      maximum: 100
+      value: 0
+      image-source: /images/ui/progressbar
+      image-border: 2
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.top: parent.top
+      margin-top: 7
+      margin-left: 8
+      margin-right: 8
+      height: 17
+      background-color: #7a1f12
+
+    Button
+      id: testAudio
+      !text: tr('Testar microfone')
+      size: 120 20
+      anchors.top: voiceActivity.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 8
+      @onClick: modules.client_settings.testVoipAudio()

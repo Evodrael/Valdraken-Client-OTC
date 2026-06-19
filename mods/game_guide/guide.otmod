@@ -1,0 +1,8 @@
+Module
+  name: game_guide
+  description: Player Guide
+  author: Shimmer
+  sandboxed: true
+  scripts: [ guide ]
+  @onLoad: init()
+  @onUnload: terminate()

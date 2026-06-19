@@ -1,0 +1,50 @@
+HealthCircle < UIProgressBar
+  image-source: /images/arcs/default-left_empty
+  opacity: 0.7
+  phantom: true
+
+ManaCircle < UIProgressBar
+  image-source: /images/arcs/default-right_empty
+  opacity: 0.7
+  phantom: true
+
+HealthCircleFront < UIProgressBar
+  image-source: /images/arcs/default-left_full
+  opacity: 0.7
+  phantom: true
+
+ManaCircleFront < UIProgressBar
+  image-source: /images/arcs/default-right_full
+  opacity: 0.7
+  image-color: #2020D4
+  phantom: true
+
+ManaShieldCircle < UIWidget
+  image-source: /images/arcs/default-bg-full
+  opacity: 0.7
+  phantom: true
+
+ManaShieldCircleFront < UIProgressBar
+  image-source: /images/arcs/default-minimal_white
+  opacity: 0.7
+  image-color: #7F00A9
+  phantom: true
+
+MonkCircleBackground < UIWidget
+  image-source: /images/arcs/monk/default/left/default-bg-full-monk
+  opacity: 0.7
+  phantom: true
+
+MonkHealthCircle < UIProgressBar
+  image-source: /images/arcs/monk/default/left/default-maximal-monk
+  opacity: 0.7
+  phantom: true
+
+MonkSereneCircle < UIWidget
+  image-source: /images/arcs/monk/default/left/default-circle-purple-monk
+  opacity: 0.7
+  phantom: true
+
+MonkHarmonySlot < UIWidget
+  opacity: 0.7
+  phantom: true

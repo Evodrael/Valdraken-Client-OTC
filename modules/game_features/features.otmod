@@ -1,0 +1,10 @@
+Module
+  name: game_features
+  description: Manager game features
+  reloadable: false
+  sandboxed: true
+  dependencies:
+    - game_things
+  scripts: [features]
+  @onLoad: init()
+  @onUnload: terminate()

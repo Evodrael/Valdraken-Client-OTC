@@ -1,0 +1,920 @@
+TutorialWindow < NewHeadlessWindow
+  size: 957 453
+  !moveable: false
+
+  UIWidget
+    size: 145 56
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: -33
+    image-source: /images/game/tutorial/backdrop_crest
+    phantom: true
+
+  UIWidget
+    id: banner
+    size: 505 44
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 14
+    image-source: /images/game/tutorial/banner_tutorialpopup01
+    phantom: true
+
+  SmallReversedQtPanel
+    id: knightPanel
+    size: 181 361
+    anchors.top: banner.bottom
+    anchors.left: parent.left
+    margin-top: 18
+    margin-left: 16
+    UIWidget
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/backdrop_knight
+      phantom: true
+    UIWidget
+      id: knightBanner
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      image-source: /images/game/tutorial/banner_vocation_knight
+      phantom: true
+    Label
+      id: knightDescription
+      anchors.top: knightBanner.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      font: $var-cip-font-rounded
+      color: #dfdfdf
+      text: Resilient Meele Fighter
+      phantom: true
+    Label
+      id: knightDescription2
+      anchors.top: knightDescription.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      font: $var-cip-font-rounded
+      color: #aaaaaa
+      text: Sword, Axe and Club
+      phantom: true
+    UIWidget
+      id: knightClip
+      size: 179 227
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: -4
+      clipping: true
+      phantom: true
+      UIWidget
+        id: knightInfo
+        size: 179 227
+        anchors.top: parent.top
+        margin-top: 227
+        image-source: /images/game/tutorial/backdrop-vocationinfo
+        phantom: true
+        UIWidget
+          id: knightSlot1
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 15
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: knightSlot1Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIWidget
+          id: knightSlot2
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 60
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: knightSlot2Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIItem
+          id: knightGear1
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: knightGear2
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: knightGear3
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 144
+          virtual: true
+          phantom: true
+        UIItem
+          id: knightGear4
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: knightGear5
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: knightGear6
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 144
+          virtual: true
+          phantom: true
+    UIWidget
+      id: knightStartButton
+      size: 120 33
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: 43
+      image-source: /images/game/tutorial/button_startplaying_idle
+      UIButton
+        id: knightSelectBtn
+        size: 108 20
+        anchors.centerIn: parent
+        margin-top: -1
+        image-source: /images/game/tutorial/button-9grid-green-up
+        image-border: 4
+        font: cipsoftFont
+        color: #ffffff
+        text: Select Knight
+        $pressed:
+          image-source: /images/game/tutorial/button-9grid-green-down
+        $checked:
+          image-source: /images/game/tutorial/button-9grid-green-down
+    UIWidget
+      id: knightHighlight
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/big_border
+      phantom: true
+      visible: false
+
+  SmallReversedQtPanel
+    id: sorcererPanel
+    size: 181 361
+    anchors.top: knightPanel.top
+    anchors.left: knightPanel.right
+    margin-left: 5
+    UIWidget
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/backdrop_sorcerer
+      phantom: true
+    UIWidget
+      id: sorcererBanner
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      image-source: /images/game/tutorial/banner_vocation_sorcerer
+      phantom: true
+    Label
+      id: sorcererDescription
+      anchors.top: sorcererBanner.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 16
+      font: $var-cip-font-rounded
+      color: #dfdfdf
+      text: Destructive Magic User
+      phantom: true
+    Label
+      id: sorcererDescription2
+      anchors.top: sorcererDescription.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      font: $var-cip-font-rounded
+      color: #aaaaaa
+      text: Fire, Energy and Death Magic
+      phantom: true  
+    UIWidget
+      id: sorcererClip
+      size: 179 227
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: -4
+      clipping: true
+      phantom: true
+      UIWidget
+        id: sorcererInfo
+        size: 179 227
+        anchors.top: parent.top
+        margin-top: 227
+        image-source: /images/game/tutorial/backdrop-vocationinfo
+        phantom: true
+        UIWidget
+          id: sorcererSlot1
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 15
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: sorcererSlot1Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIWidget
+          id: sorcererSlot2
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 60
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: sorcererSlot2Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIItem
+          id: sorcererGear1
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: sorcererGear2
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: sorcererGear3
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 144
+          virtual: true
+          phantom: true
+        UIItem
+          id: sorcererGear4
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: sorcererGear5
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: sorcererGear6
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 144
+          virtual: true
+          phantom: true
+    UIWidget
+      id: sorcererStartButton
+      size: 120 33
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: 43
+      image-source: /images/game/tutorial/button_startplaying_idle
+      UIButton
+        id: sorcererSelectBtn
+        size: 108 20
+        anchors.centerIn: parent
+        margin-top: -1
+        image-source: /images/game/tutorial/button-9grid-green-up
+        image-border: 4
+        font: cipsoftFont
+        color: #ffffff
+        text: Select Sorcerer
+        $pressed:
+          image-source: /images/game/tutorial/button-9grid-green-down
+        $checked:
+          image-source: /images/game/tutorial/button-9grid-green-down
+    UIWidget
+      id: sorcererHighlight
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/big_border
+      phantom: true
+      visible: false
+
+  SmallReversedQtPanel
+    id: druidPanel
+    size: 181 361
+    anchors.top: knightPanel.top
+    anchors.left: sorcererPanel.right
+    margin-left: 5
+    UIWidget
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/backdrop_druid
+      phantom: true
+    UIWidget
+      id: druidBanner
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      image-source: /images/game/tutorial/banner_vocation_druid
+      phantom: true
+    Label
+      id: druidDescription
+      anchors.top: druidBanner.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 12
+      font: $var-cip-font-rounded
+      color: #dfdfdf
+      text: Supportive Magic User
+      phantom: true
+    Label
+      id: druidDescription2
+      anchors.top: druidDescription.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      font: $var-cip-font-rounded
+      color: #aaaaaa
+      text: Ice, Earth and Healing Magic
+      phantom: true  
+    UIWidget
+      id: druidClip
+      size: 179 227
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: -4
+      clipping: true
+      phantom: true
+      UIWidget
+        id: druidInfo
+        size: 179 227
+        anchors.top: parent.top
+        margin-top: 227
+        image-source: /images/game/tutorial/backdrop-vocationinfo
+        phantom: true
+        UIWidget
+          id: druidSlot1
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 15
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: druidSlot1Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIWidget
+          id: druidSlot2
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 60
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: druidSlot2Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIItem
+          id: druidGear1
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: druidGear2
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: druidGear3
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 144
+          virtual: true
+          phantom: true
+        UIItem
+          id: druidGear4
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: druidGear5
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: druidGear6
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 144
+          virtual: true
+          phantom: true
+    UIWidget
+      id: druidStartButton
+      size: 120 33
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: 43
+      image-source: /images/game/tutorial/button_startplaying_idle
+      UIButton
+        id: druidSelectBtn
+        size: 108 20
+        anchors.centerIn: parent
+        margin-top: -1
+        image-source: /images/game/tutorial/button-9grid-green-up
+        image-border: 4
+        font: cipsoftFont
+        color: #ffffff
+        text: Select Druid
+        $pressed:
+          image-source: /images/game/tutorial/button-9grid-green-down
+        $checked:
+          image-source: /images/game/tutorial/button-9grid-green-down
+    UIWidget
+      id: druidHighlight
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/big_border
+      phantom: true
+      visible: false
+
+  SmallReversedQtPanel
+    id: paladinPanel
+    size: 181 361
+    anchors.top: knightPanel.top
+    anchors.left: druidPanel.right
+    margin-left: 5
+    UIWidget
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/backdrop_paladin
+      phantom: true
+    UIWidget
+      id: paladinBanner
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      image-source: /images/game/tutorial/banner_vocation_paladin
+      phantom: true
+    Label
+      id: paladinDescription
+      anchors.top: paladinBanner.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 11
+      font: $var-cip-font-rounded
+      color: #dfdfdf
+      text: Ranged All-Rounder
+      phantom: true
+    Label
+      id: paladinDescription2
+      anchors.top: paladinDescription.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      font: $var-cip-font-rounded
+      color: #aaaaaa
+      text: Bow, Crossbow and Holy Magic
+      phantom: true  
+    UIWidget
+      id: paladinClip
+      size: 179 227
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: -4
+      clipping: true
+      phantom: true
+      UIWidget
+        id: paladinInfo
+        size: 179 227
+        anchors.top: parent.top
+        margin-top: 227
+        image-source: /images/game/tutorial/backdrop-vocationinfo
+        phantom: true
+        UIWidget
+          id: paladinSlot1
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 15
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: paladinSlot1Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIWidget
+          id: paladinSlot2
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 60
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: paladinSlot2Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIItem
+          id: paladinGear1
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: paladinGear2
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: paladinGear3
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 144
+          virtual: true
+          phantom: true
+        UIItem
+          id: paladinGear4
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: paladinGear5
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: paladinGear6
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 144
+          virtual: true
+          phantom: true
+    UIWidget
+      id: paladinStartButton
+      size: 120 33
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: 43
+      image-source: /images/game/tutorial/button_startplaying_idle
+      UIButton
+        id: paladinSelectBtn
+        size: 108 20
+        anchors.centerIn: parent
+        margin-top: -1
+        image-source: /images/game/tutorial/button-9grid-green-up
+        image-border: 4
+        font: cipsoftFont
+        color: #ffffff
+        text: Select Paladin
+        $pressed:
+          image-source: /images/game/tutorial/button-9grid-green-down
+        $checked:
+          image-source: /images/game/tutorial/button-9grid-green-down
+    UIWidget
+      id: paladinHighlight
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/big_border
+      phantom: true
+      visible: false
+
+  SmallReversedQtPanel
+    id: monkPanel
+    size: 181 361
+    anchors.top: knightPanel.top
+    anchors.left: paladinPanel.right
+    margin-left: 5
+    UIWidget
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/backdrop_monk
+      phantom: true
+    UIWidget
+      id: monkBanner
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      image-source: /images/game/tutorial/banner_vocation_monk
+      phantom: true
+    Label
+      id: monkDescription
+      anchors.top: monkBanner.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 13
+      font: $var-cip-font-rounded
+      color: #dfdfdf
+      text: Melee All-Rounder
+      phantom: true
+    Label
+      id: monkDescription2
+      anchors.top: monkDescription.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      font: $var-cip-font-rounded
+      color: #aaaaaa
+      text: Fist Fighting and Healind Magic
+      phantom: true    
+    UIWidget
+      id: monkClip
+      size: 179 227
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: -4
+      clipping: true
+      phantom: true
+      UIWidget
+        id: monkInfo
+        size: 179 227
+        anchors.top: parent.top
+        margin-top: 227
+        image-source: /images/game/tutorial/backdrop-vocationinfo
+        phantom: true
+        UIWidget
+          id: monkSlot1
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 15
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: monkSlot1Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIWidget
+          id: monkSlot2
+          size: 40 40
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 15
+          margin-left: 60
+          image-source: /images/game/tutorial/border-vocationinfo-spells
+          phantom: true
+          UIWidget
+            id: monkSlot2Icon
+            size: 32 32
+            anchors.centerIn: parent
+            phantom: true
+        UIItem
+          id: monkGear1
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: monkGear2
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: monkGear3
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 70
+          margin-left: 144
+          virtual: true
+          phantom: true
+        UIItem
+          id: monkGear4
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 64
+          virtual: true
+          phantom: true
+        UIItem
+          id: monkGear5
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 104
+          virtual: true
+          phantom: true
+        UIItem
+          id: monkGear6
+          size: 32 32
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-top: 110
+          margin-left: 144
+          virtual: true
+          phantom: true
+    UIWidget
+      id: monkStartButton
+      size: 120 33
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: 43
+      image-source: /images/game/tutorial/button_startplaying_idle
+      UIButton
+        id: monkSelectBtn
+        size: 108 20
+        anchors.centerIn: parent
+        margin-top: -1
+        image-source: /images/game/tutorial/button-9grid-green-up
+        image-border: 4
+        font: cipsoftFont
+        color: #ffffff
+        text: Select Monk
+        $pressed:
+          image-source: /images/game/tutorial/button-9grid-green-down
+        $checked:
+          image-source: /images/game/tutorial/button-9grid-green-down
+    UIWidget
+      id: monkHighlight
+      anchors.fill: parent
+      margin: -3
+      image-source: /images/game/tutorial/big_border
+      phantom: true
+      visible: false
+
+  UIWidget
+    id: knightConfirmPanel
+    size: 120 33
+    image-source: /images/game/tutorial/button_startplaying_idle
+    visible: false
+    UIButton
+      id: knightConfirmBtn
+      size: 108 20
+      anchors.centerIn: parent
+      margin-top: -1
+      image-source: /images/game/tutorial/button-9grid-green-up
+      image-border: 4
+      font: cipsoftFont
+      color: #ffffff
+      text: Confirm
+      $pressed:
+        image-source: /images/game/tutorial/button-9grid-green-down
+
+  UIWidget
+    id: sorcererConfirmPanel
+    size: 120 33
+    image-source: /images/game/tutorial/button_startplaying_idle
+    visible: false
+    UIButton
+      id: sorcererConfirmBtn
+      size: 108 20
+      anchors.centerIn: parent
+      margin-top: -1
+      image-source: /images/game/tutorial/button-9grid-green-up
+      image-border: 4
+      font: cipsoftFont
+      color: #ffffff
+      text: Confirm
+      $pressed:
+        image-source: /images/game/tutorial/button-9grid-green-down
+
+  UIWidget
+    id: druidConfirmPanel
+    size: 120 33
+    image-source: /images/game/tutorial/button_startplaying_idle
+    visible: false
+    UIButton
+      id: druidConfirmBtn
+      size: 108 20
+      anchors.centerIn: parent
+      margin-top: -1
+      image-source: /images/game/tutorial/button-9grid-green-up
+      image-border: 4
+      font: cipsoftFont
+      color: #ffffff
+      text: Confirm
+      $pressed:
+        image-source: /images/game/tutorial/button-9grid-green-down
+
+  UIWidget
+    id: paladinConfirmPanel
+    size: 120 33
+    image-source: /images/game/tutorial/button_startplaying_idle
+    visible: false
+    UIButton
+      id: paladinConfirmBtn
+      size: 108 20
+      anchors.centerIn: parent
+      margin-top: -1
+      image-source: /images/game/tutorial/button-9grid-green-up
+      image-border: 4
+      font: cipsoftFont
+      color: #ffffff
+      text: Confirm
+      $pressed:
+        image-source: /images/game/tutorial/button-9grid-green-down
+
+  UIWidget
+    id: monkConfirmPanel
+    size: 120 33
+    image-source: /images/game/tutorial/button_startplaying_idle
+    visible: false
+    UIButton
+      id: monkConfirmBtn
+      size: 108 20
+      anchors.centerIn: parent
+      margin-top: -1
+      image-source: /images/game/tutorial/button-9grid-green-up
+      image-border: 4
+      font: cipsoftFont
+      color: #ffffff
+      text: Confirm
+      $pressed:
+        image-source: /images/game/tutorial/button-9grid-green-down
+
+TutorialWindow
+  id: tutorialWindow
+

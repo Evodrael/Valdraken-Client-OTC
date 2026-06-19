@@ -1,0 +1,41 @@
+StatusIconPanel < UIWidget
+  id: statusIconPanel
+  size: 20 21
+  phantom: true
+  focusable: false
+
+StatusIconTop < UIWidget
+  size: 20 10
+  image-source: images/bar_top.png
+  anchors.left: parent.left
+  anchors.top: parent.top
+  opacity: 0.6
+
+StatusIconBottom < UIWidget
+  size: 20 10
+  margin-top: 1
+  image-source: images/bar_bottom.png
+  anchors.left: parent.left
+  anchors.top: prev.bottom
+  opacity: 0.6
+
+StatusIconContainer < UIWidget
+  size: 20 20
+  margin-top: 1
+  phantom: false
+  anchors.left: parent.left
+  anchors.top: prev.bottom
+  opacity: 1.0
+
+  UIWidget
+    id: background
+    anchors.fill: parent
+    image-source: images/bar_box.png
+    opacity: 0.6
+    phantom: true
+
+  UIWidget
+    id: icon
+    size: 16 16
+    anchors.centerIn: parent
+    phantom: true

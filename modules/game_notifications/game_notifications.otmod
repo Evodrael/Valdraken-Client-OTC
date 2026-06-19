@@ -1,0 +1,14 @@
+Module
+  name: game_notifications
+  description: Handles in-game notifications (popups and screenshots)
+  author: ported from mehah/LuminarisOT
+  website: https://github.com/mehah/otclient
+  sandboxed: true
+  autoload: true
+  autoload-priority: 1000
+  dependencies: [ game_interface ]
+  scripts: [ game_notifications, infobanner, screenshot ]
+  @onLoad: |
+    g_ui.importStyle('infobanner.otui')
+    init()
+  @onUnload: terminate()

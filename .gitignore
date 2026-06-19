@@ -1,0 +1,4 @@
+# Logs e config local gerados pelo client em runtime
+otclient.log
+*.log
+otclientrc.lua

@@ -1,0 +1,124 @@
+NotificationFadeText < UILabel
+  opacity: 0
+  background-color: alpha
+  text-align: center
+  focusable: false
+
+NotificationFadeIcon < UIWidget
+  opacity: 0
+  focusable: false
+  phantom: true
+
+InfoBannerWindow < UIWidget
+  size: 289 105
+  focusable: false
+  draggable: false
+  phantom: true
+  // Pin the banner to the top-center of its parent (the game map panel).
+  // Without these anchors the widget renders at the parent's 0,0 and the
+  // updateBannerPosition setMarginLeft call would have no anchor to pull
+  // against, leaving the banner glued to the top-left.
+  anchors.top: parent.top
+  anchors.horizontalCenter: parent.horizontalCenter
+
+  UIWidget
+    id: paper
+    phantom: true
+    focusable: false
+    anchors.left: parent.left
+    anchors.top: parent.top
+    margin-top: 8
+    size: 0 88
+    image-source: /modules/game_notifications/assets/images/infobanner/backdrop-infobanner-bottom
+    image-fixed-ratio: false
+    image-rect: 0 0 0 88
+
+  UIWidget
+    id: animation
+    phantom: true
+    focusable: false
+    anchors.left: parent.left
+    anchors.top: parent.top
+    size: 21 105
+    image-source: /modules/game_notifications/assets/images/infobanner/backdrop-infobanner-anim0
+
+  UIWidget
+    id: content
+    phantom: true
+    focusable: false
+    anchors.fill: parent
+
+    UIWidget
+      id: icon
+      phantom: true
+      focusable: false
+      opacity: 0
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-left: 3
+      margin-top: -10
+      size: 72 75
+      image-source: /modules/game_notifications/assets/images/nodo/icon-infobanner-achievements
+
+    UIWidget
+      id: icon2
+      phantom: true
+      focusable: false
+      opacity: 0
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-left: 46
+      margin-top: 46
+      size: 10 25
+      image-source: /modules/game_notifications/assets/images/infobanner/backdrop-infobanner-top
+
+    UIWidget
+      id: icon3
+      phantom: true
+      focusable: false
+      opacity: 0
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-left: -1
+      margin-top: 1
+      size: 11 40
+      image-source: /modules/game_notifications/assets/images/infobanner/backdrop-infobanner-mid
+
+    Label
+      id: title
+      opacity: 0
+      background-color: alpha
+      focusable: false
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-left: 70
+      margin-top: 25
+      size: 205 18
+      font: terminus-14px-bold
+      color: #FFE1B5
+      text-align: center
+
+    Label
+      id: desc
+      opacity: 0
+      background-color: alpha
+      focusable: false
+      text-wrap: true
+      text-auto-resize: false
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-left: 75
+      margin-top: 45
+      size: 190 40
+      color: #c0c0c0
+      text-align: center
+
+    UIWidget
+      id: append
+      focusable: false
+      phantom: true
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-left: 3
+      margin-top: -10
+      size: 72 75

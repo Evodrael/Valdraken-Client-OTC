@@ -1,0 +1,8 @@
+PartyButton < CreatureButton
+  &isBattleButton: true
+
+BattleButton < CreatureButton
+  height: 24
+  width: 152
+  margin-left: 1
+  &isBattleButton: true

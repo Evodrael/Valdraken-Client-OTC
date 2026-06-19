@@ -1,0 +1,12 @@
+Module
+  name: game_taskhunting
+  description: Task Board System (Bounty / Weekly / Shop) adapted for OTCV8
+  author: Claude Code v6
+  website:
+  sandboxed: true
+  autoload: true
+  autoload-priority: 1000
+  dependencies: [ game_interface ]
+  scripts: [ taskhunting_otcv8_bridge, taskhunting_utility, taskhunting_preferred, taskhunting_bounty, taskhunting_weekly, taskhunting_shop, taskhunting_soulseal, taskhunting ]
+  @onLoad: init()
+  @onUnload: terminate()

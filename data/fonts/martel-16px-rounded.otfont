@@ -1,0 +1,8 @@
+Font
+  name: martel-16px-rounded
+  texture: martel-16px-rounded
+  height: 18
+  glyph-size: 18 18
+  y-offset: -2
+  spacing: 0 -3
+  space-width: 6

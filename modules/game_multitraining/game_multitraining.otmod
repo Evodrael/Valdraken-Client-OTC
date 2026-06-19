@@ -1,0 +1,10 @@
+Module
+  name: game_multitraining
+  description: Multi Offline Training
+  author: MMOServers
+  website:
+  sandboxed: true
+  dependencies: [ game_interface, game_skills ]
+  scripts: [ game_multitraining ]
+  @onLoad: init()
+  @onUnload: terminate()

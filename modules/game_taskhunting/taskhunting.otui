@@ -1,0 +1,2862 @@
+WeeklyKillTask < Panel
+  size: 144 100
+  image-source: /images/ui/t2pixel-up-frame-borderimage
+  image-border: 6
+  image-border-top: 27
+  focusable: false
+
+  Label
+    id: monsterName
+    width: 130
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 2
+    font: $var-cip-font
+    color: $var-text-color-disabled
+    text-auto-resize: false
+    text-align: center
+
+  UIWidget
+    id: creatureIcon
+    size: 66 66
+    image-source: /images/ui/item66
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 26
+    margin-left: 8
+
+  UIWidget
+    id: anyCreatureImg
+    size: 64 64
+    image-source: /images/task_bounty/any_creature
+    anchors.centerIn: creatureIcon
+    visible: false
+
+  Label
+    id: killCurrent
+    anchors.bottom: killOf.top
+    anchors.left: creatureIcon.right
+    margin-left: 21
+    font: $var-cip-font
+    color: #d13b3b
+    text-auto-resize: true
+    text-align: bottom-center
+
+  Label
+    id: killOf
+    !text: tr('of')
+    anchors.verticalCenter: creatureIcon.verticalCenter
+    anchors.left: creatureIcon.right
+    margin-left: 21
+    font: verdana-11px-monochrome
+    color: #dfdfdf
+    text-auto-resize: true
+    text-align: center
+
+  Label
+    id: killTotal
+    anchors.top: killOf.bottom
+    anchors.left: creatureIcon.right
+    margin-left: 21
+    font: $var-cip-font
+    color: #dfdfdf
+    text-auto-resize: true
+    text-align: top-center
+
+  UIWidget
+    id: doneIcon
+    size: 11 11
+    image-source: /images/store/icon-yes
+    anchors.verticalCenter: creatureIcon.verticalCenter
+    anchors.left: creatureIcon.right
+    margin-left: 21
+    visible: false
+
+WeeklyDeliveryTask < Panel
+  size: 144 100
+  image-source: /images/ui/t2pixel-up-frame-borderimage
+  image-border: 6
+  image-border-top: 27
+  focusable: false
+
+  Label
+    id: monsterName
+    width: 130
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 2
+    font: $var-cip-font
+    color: $var-text-color-disabled
+    text-auto-resize: false
+    text-align: center
+
+  UIWidget
+    id: itemIcon
+    size: 66 66
+    image-source: /images/ui/item66
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 26
+    margin-left: 8
+
+    UIItem
+      id: itemDisplay
+      size: 34 34
+      anchors.centerIn: parent
+      virtual: true
+      image-source:
+      @onSetup: self._skipRarityFrame = true
+
+  Label
+    id: killCurrent
+    anchors.top: itemIcon.top
+    anchors.left: itemIcon.right
+    margin-left: 27
+    font: $var-cip-font
+    color: #d13b3b
+    text-auto-resize: true
+    text-align: top-center
+
+  Label
+    id: killOf
+    !text: tr('of')
+    anchors.top: killCurrent.bottom
+    anchors.left: itemIcon.right
+    margin-left: 27
+    font: verdana-11px-monochrome
+    color: #dfdfdf
+    text-auto-resize: true
+    text-align: center
+
+  Label
+    id: killTotal
+    anchors.top: killOf.bottom
+    anchors.left: itemIcon.right
+    margin-left: 27
+    font: $var-cip-font
+    color: #dfdfdf
+    text-auto-resize: true
+    text-align: top-center
+
+  UIWidget
+    id: doneIcon
+    size: 11 11
+    image-source: /images/store/icon-yes
+    anchors.verticalCenter: itemIcon.verticalCenter
+    anchors.left: itemIcon.right
+    margin-left: 27
+    visible: false
+
+  Button
+    id: deliverBtn
+    !text: tr('Deliver')
+    size: 43 20
+    anchors.bottom: itemIcon.bottom
+    anchors.left: itemIcon.right
+    margin-left: 17
+
+BonusPromotionItem < Panel
+  size: 296 146
+  image-source: /images/ui/p2pixel-up-frame-borderimage
+  image-clip: 0 0 100 238
+  image-border: 2
+  font: $var-cip-font
+  text-offset: 0 1
+  text-align: top
+
+  UIWidget
+    id: itemIcon
+    size: 66 66
+    image-source: /images/ui/item66
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 27
+    margin-left: 10
+
+    UIWidget
+      id: promoIcon
+      image-source: /images/task_bounty/icon_tasksystem_promotionpoint
+      anchors.centerIn: parent
+      size: 66 66
+
+  Label
+    id: promoTitle
+    !text: tr('Bonus Promotion')
+    font: $var-cip-font
+    color: $var-text-cip-color
+    anchors.top: parent.top
+    anchors.left: promoIcon.right
+    anchors.right: parent.right
+    margin-top: 30
+    margin-left: 10
+    margin-right: 10
+    text-auto-resize: false
+    text-align: top-left
+
+  Label
+    id: promoDesc
+    !text: tr('+1 Wheel of Destiny point')
+    font: verdana-11px-monochrome
+    color: #dfdfdf
+    anchors.top: promoTitle.bottom
+    anchors.left: promoIcon.right
+    anchors.right: parent.right
+    margin-top: 5
+    margin-left: 10
+    margin-right: 10
+    text-wrap: true
+    text-align: top-left
+
+  HorizontalSeparator
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 43
+    width: 276
+    height: 2
+
+  Button
+    id: buyButton
+    !text: tr('Buy')
+    text-align: center
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    margin-left: 10
+    margin-bottom: 7
+    width: 64
+    height: 20
+
+  Panel
+    id: infoPanel
+    size: 104 20
+    image-source: /images/ui/infoPanel
+    image-border: 3
+    anchors.left: buyButton.right
+    anchors.verticalCenter: buyButton.verticalCenter
+    margin-left: 10
+
+    UIWidget
+      id: priceIcon
+      image-source: /images/task_bounty/task_coin
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-right: 5
+
+    Label
+      id: itemPrice
+      font: $var-cip-font
+      color: $var-text-cip-color
+      text-align: center
+      anchors.centerIn: parent
+      text-auto-resize: true
+
+  UIWidget
+    id: categoryIcon
+    image-source: /images/task_bounty/bonusPromotion_icon
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: -3
+    margin-bottom: 2
+
+ShopItem < Panel
+  size: 296 146
+  image-source: /images/ui/p2pixel-up-frame-borderimage
+  image-clip: 0 0 100 238
+  image-border: 2
+  font: $var-cip-font
+  text-offset: 0 1
+  text-align: top
+  
+  UIWidget
+    id: itemIcon
+    size: 66 66
+    image-source: /images/ui/item66
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 27
+    margin-left: 10
+
+  Item
+    id: itemReal
+    anchors.centerIn: itemIcon
+    size: 32 32
+    virtual: true
+    image-source: 
+    visible: false
+
+  UICreature
+    id: itemCreature
+    anchors.centerIn: itemIcon
+    size: 64 64
+    visible: false
+
+  HorizontalSeparator
+    id: separator
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 43
+    width: 276
+    height: 2
+
+  Button
+    id: buyButton
+    !text: tr('Buy')
+    text-align: center
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    margin-left: 10
+    margin-bottom: 7
+    width: 64
+    height: 20
+
+  Label
+    id: itemDesc
+    anchors.top: itemIcon.top
+    anchors.left: itemIcon.right
+    anchors.right: parent.right
+    anchors.bottom: separator.top
+    margin-left: 10
+    margin-right: 10
+    margin-bottom: 5
+    text-wrap: true
+    text-align: top-left
+    font: verdana-11px-monochrome
+    color: #dfdfdf
+
+  Panel
+    id: infoPanel
+    size: 104 20
+    image-source: /images/ui/infoPanel
+    image-border: 3
+    anchors.left: buyButton.right
+    anchors.verticalCenter: buyButton.verticalCenter
+    margin-left: 10
+
+    UIWidget
+      id: priceIcon
+      image-source: /images/task_bounty/task_coin
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-right: 5
+
+    Label
+      id: itemPrice
+      font: $var-cip-font
+      color: $var-text-cip-color
+      text-align: center
+      anchors.centerIn: parent
+      text-auto-resize: true
+
+  UIWidget
+    id: addonIcon
+    image-source: /images/task_bounty/addon_icon
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: -3
+    margin-bottom: 2
+    visible: false
+
+  UIWidget
+    id: trophyIcon
+    image-source: /images/task_bounty/trophy_icon
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: -3
+    margin-bottom: 2
+    visible: false
+
+  UIWidget
+    id: mountIcon
+    image-source: /images/task_bounty/mount_icon
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: -3
+    margin-bottom: 2
+    visible: false
+
+NewMainWindow
+  id: taskBoardWindow
+  visible: false
+  !text: tr('Task Board')
+  font: $var-cip-font
+  color: $var-text-color-disabled
+  size: 1000 632
+  @onEscape: modules.game_taskhunting.closeTaskBoard()
+
+  Panel
+    id: optionsTabBar
+    size: 968 36
+    image-source: /images/game/destiny_wheel/menuBg
+    image-border: 1
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 12
+    margin-left: 12
+    margin-right: 12
+
+    Button
+      id: bountyTasksBtn
+      anchors.top: parent.top
+      anchors.left: parent.left
+      size: 322 34
+      margin-left: 1
+      margin-top: 1
+      image-source: /images/task_bounty/bounty_button
+      image-clip: 0 0 322 34
+      checkable: true
+      checked: false
+      $hover !checked:
+        image-clip: 0 0 322 34
+      $pressed:
+        image-clip: 0 34 322 34
+      $checked:
+        image-clip: 0 34 322 34
+      @onClick: selectTab('bounty')
+
+    Button
+      id: weeklyTasksBtn
+      anchors.top: parent.top
+      anchors.left: prev.right
+      size: 322 34
+      margin-left: 1
+      margin-top: 1
+      image-source: /images/task_bounty/weekly_button
+      image-clip: 0 0 322 34
+      checkable: true
+      checked: true
+      $hover !checked:
+        image-clip: 0 0 322 34
+      $pressed:
+        image-clip: 0 34 322 34
+      $checked:
+        image-clip: 0 34 322 34
+      @onClick: selectTab('weekly')
+
+    Button
+      id: shopBtn
+      anchors.top: parent.top
+      anchors.right: parent.right
+      size: 322 34
+      margin-right: 1
+      margin-top: 1
+      image-source: /images/task_bounty/shop_button
+      image-clip: 0 0 322 34
+      checkable: true
+      $hover !checked:
+        image-clip: 0 0 322 34
+      $pressed:
+        image-clip: 0 34 322 34
+      $checked:
+        image-clip: 0 34 322 34
+      @onClick: selectTab('shop') 
+
+  Panel
+    id: bountyTab
+    visible: false
+    width: 968
+    height: 504
+    anchors.top: optionsTabBar.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+    image-source: /images/ui/2pixel_up_frame_borderimage
+    image-clip: 0 0 100 100
+    image-border: 2
+
+    Panel
+      id: setupPanel
+      !text: tr('Set Up & Reroll Tasks')
+      font: $var-cip-font
+      color: $var-text-cip-color
+      width: 948
+      height: 58
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 11
+      image-source: /images/ui/t2pixel-up-frame-borderimage
+      image-clip: 0 0 100 125
+      image-border: 10
+      text-align: top
+      text-offset: 0 1
+
+      VerticalSeparator
+        id: leftSeparator
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 57
+        margin-top: 8
+        width: 2
+        height: 20
+
+      UIWidget
+        id: setupInfoIcon
+        image-source: /images/ui/info
+        anchors.verticalCenter: leftSeparator.verticalCenter
+        anchors.right: leftSeparator.left
+        margin-right: 25
+        &tooltip: tr('Select one of three Bounty tasks to complete and earn a reward.\n\nTasks are grouped by difficulty:\n\n  Beginner tasks include easy creatures.\n  Adept tasks include easy and medium creatures.\n  Expert tasks include medium and hard creatures.\n  Master tasks include hard and challenging creatures.\n\nYou can change the difficulty at any time, but it only takes effect when selecting your next task.\n\nUse the Preferred List to customise which tasks can appear when you roll.\n\nTasks can be re-rolled using Reroll Tokens. One token can be claimed for free each day. You can store up to 10 Reroll Tokens at a time.\n\nThere is a chance for Silver and Gold tasks to appear, which grant greater rewards.')
+
+      VerticalSeparator
+        id: centerSeparator
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        margin-top: 8
+        width: 2
+        height: 20
+
+
+
+      Label
+        id: taskDifficultyLabel
+        !text: tr('Task Difficulty:')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        anchors.left: leftSeparator.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 26
+        margin-top: 8
+
+      ComboBox
+        id: difficultyComboBox
+        anchors.left: taskDifficultyLabel.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 26
+        margin-top: 8
+
+
+      Button
+        id: preferredListBtn
+        !text: tr('Preferred List')
+        color: $var-text-cip-color
+        text-align: center
+        anchors.left: difficultyComboBox.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 15
+        margin-top: 8
+        width: 108
+        height: 20
+        @onClick: modules.game_taskhunting.openPreferredList()
+
+      Button
+        id: rerollTasksBtn
+        !text: tr('Reroll Tasks')
+        color: $var-text-cip-color
+        text-align: center
+        anchors.left: centerSeparator.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 25
+        margin-top: 8
+        width: 108
+        height: 20
+
+      Panel
+        id: rerollInfoPanel
+        anchors.left: rerollTasksBtn.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 15
+        margin-top: 8
+        width: 40
+        height: 20
+        image-source: /images/ui/progress
+
+        Label
+          id: rerollCoinsLabel
+          !text: tr('0')
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-align: center
+          anchors.left: parent.left
+          anchors.right: rerollIcon.left
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 2
+
+        UIWidget
+          id: rerollIcon
+          image-source: /images/task_bounty/reroll_icon
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 3
+
+      Button
+        id: claimDailyBtn
+        !text: tr('Claim Daily')
+        color: $var-text-cip-color
+        text-align: center
+        anchors.left: rerollInfoPanel.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-left: 30
+        margin-top: 8
+        width: 108
+        height: 20
+
+    Panel
+      id: tasksPanel
+      width: 948
+      height: 271
+      anchors.top: setupPanel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 15
+      image-source: /images/ui/2pixel_up_frame_borderimage_dark_reversed
+      image-clip: 0 0 100 100
+      image-border: 2
+      layout:
+        type: horizontalBox
+        spacing: 10
+      padding-top: 10
+      padding-bottom: 10
+      padding-left: 20
+
+      Panel
+        id: taskSlot1
+        width: 296
+        height: 251
+        image-source: /images/ui/2pixel-up-frame-borderimage
+        image-clip: 0 0 100 100
+        image-border: 2
+
+        UIWidget
+          id: banner
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: -6
+          image-source: /images/task_bounty/task_banner
+          phantom: true
+
+        Label
+          id: monsterName
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-align: center
+          anchors.top: banner.top
+          anchors.left: banner.left
+          anchors.right: banner.right
+          margin-top: 12
+          text-auto-resize: true
+
+        UIWidget
+          id: creatureSlot
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 41
+          size: 66 66
+          image-source: /images/ui/item66
+
+        Label
+          id: killProgress
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-align: center
+          anchors.top: creatureSlot.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 5
+          text-auto-resize: true
+
+        HorizontalSeparator
+          id: separator
+          anchors.top: killProgress.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 10
+          width: 276
+          height: 2
+
+        Label
+          id: rewardLabel
+          !text: tr('Reward:')
+          font: $var-cip-font
+          color: $var-text-cip-color
+          anchors.top: separator.bottom
+          anchors.left: separator.left
+          margin-top: 15
+
+        Panel
+          id: rewardItem1
+          anchors.top: rewardLabel.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 250
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+        Panel
+          id: rewardItem2
+          anchors.top: rewardItem1.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 250
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+          UIWidget
+            id: bountyIcon
+            image-source: /images/task_bounty/info_icon1
+            anchors.left: rewardText.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 3
+
+        Panel
+          id: rewardItem3
+          anchors.top: rewardItem2.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 250
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+          UIWidget
+            id: rerollIcon
+            image-source: /images/task_bounty/reroll_icon
+            anchors.left: rewardText.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 3
+
+        Button
+          id: selectTaskBtn
+          !text: tr('Select Task')
+          font: $var-cip-font
+          text-align: center
+          text-offset: -5 0
+          anchors.bottom: parent.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-bottom: 10
+          width: 276
+          height: 20
+      Panel
+        id: taskSlot2
+        width: 296
+        height: 251
+        image-source: /images/ui/2pixel-up-frame-borderimage
+        image-clip: 0 0 100 100
+        image-border: 2
+
+        UIWidget
+          id: banner
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: -6
+          image-source: /images/task_bounty/task_banner
+          phantom: true
+
+        Label
+          id: monsterName
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-align: center
+          anchors.top: banner.top
+          anchors.left: banner.left
+          anchors.right: banner.right
+          margin-top: 12
+          text-auto-resize: true
+
+        UIWidget
+          id: creatureSlot
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 41
+          size: 66 66
+          image-source: /images/ui/item66
+
+        Label
+          id: killProgress
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-align: center
+          anchors.top: creatureSlot.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 5
+          text-auto-resize: true
+
+        HorizontalSeparator
+          id: separator
+          anchors.top: killProgress.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 10
+          width: 276
+          height: 2
+
+        Label
+          id: rewardLabel
+          !text: tr('Reward:')
+          font: $var-cip-font
+          color: $var-text-cip-color
+          anchors.top: separator.bottom
+          anchors.left: separator.left
+          margin-top: 15
+
+        Panel
+          id: rewardItem1
+          anchors.top: rewardLabel.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 200
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+        Panel
+          id: rewardItem2
+          anchors.top: rewardItem1.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 250
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+          UIWidget
+            id: bountyIcon
+            image-source: /images/task_bounty/info_icon1
+            anchors.left: rewardText.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 3
+
+        Panel
+          id: rewardItem3
+          anchors.top: rewardItem2.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 250
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+          UIWidget
+            id: rerollIcon
+            image-source: /images/task_bounty/reroll_icon
+            anchors.left: rewardText.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 3
+
+        Button
+          id: selectTaskBtn
+          !text: tr('Select Task')
+          font: $var-cip-font
+          text-align: center
+          text-offset: -5 0
+          anchors.bottom: parent.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-bottom: 10
+          width: 276
+          height: 20
+
+        Button
+          id: claimRewardBtn
+          !text: tr('Claim reward!')
+          text-align: center
+          anchors.bottom: parent.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-bottom: 10
+          width: 276
+          visible: false
+          $pressed:
+
+      Panel
+        id: taskSlot3
+        width: 296
+        height: 251
+        image-source: /images/ui/2pixel-up-frame-borderimage
+        image-clip: 0 0 100 100
+        image-border: 2
+
+        UIWidget
+          id: banner
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: -6
+          image-source: /images/task_bounty/task_banner
+          phantom: true
+
+        Label
+          id: monsterName
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-align: center
+          anchors.top: banner.top
+          anchors.left: banner.left
+          anchors.right: banner.right
+          margin-top: 12
+          text-auto-resize: true
+
+        UIWidget
+          id: creatureSlot
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 41
+          size: 66 66
+          image-source: /images/ui/item66
+
+        Label
+          id: killProgress
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-align: center
+          anchors.top: creatureSlot.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 5
+          text-auto-resize: true
+
+        HorizontalSeparator
+          id: separator
+          anchors.top: killProgress.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 10
+          width: 276
+          height: 2
+
+        Label
+          id: rewardLabel
+          !text: tr('Reward:')
+          font: $var-cip-font
+          color: $var-text-cip-color
+          anchors.top: separator.bottom
+          anchors.left: separator.left
+          margin-top: 15
+
+        Panel
+          id: rewardItem1
+          anchors.top: rewardLabel.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 200
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+        Panel
+          id: rewardItem2
+          anchors.top: rewardItem1.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 250
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+          UIWidget
+            id: bountyIcon
+            image-source: /images/task_bounty/info_icon1
+            anchors.left: rewardText.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 3
+
+        Panel
+          id: rewardItem3
+          anchors.top: rewardItem2.bottom
+          anchors.left: rewardLabel.left
+          margin-top: 5
+          height: 14
+          width: 250
+
+          UIWidget
+            id: dotIcon
+            image-source: /images/ui/dot_ui
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+
+          Label
+            id: rewardText
+            font: $var-cip-font
+            color: $var-text-cip-color
+            anchors.left: dotIcon.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 5
+            text-auto-resize: true
+
+          UIWidget
+            id: rerollIcon
+            image-source: /images/task_bounty/reroll_icon
+            anchors.left: rewardText.right
+            anchors.verticalCenter: parent.verticalCenter
+            margin-left: 3
+
+        Button
+          id: selectTaskBtn
+          !text: tr('Select Task')
+          font: $var-cip-font
+          text-align: center
+          text-offset: -5 0
+          anchors.bottom: parent.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-bottom: 10
+          width: 276
+          height: 20
+
+    Panel
+      id: talismansPanel
+      !text: tr('Bounty Talismans')
+      font: $var-cip-font
+      color: $var-text-cip-color
+      width: 948
+      height: 122
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: 12
+      image-source: /images/ui/t2pixel-up-frame-borderimage
+      image-clip: 0 0 100 125
+      image-border: 10
+      text-align: top
+      text-offset: 0 1
+
+      VerticalSeparator
+        id: talismanSeparator
+        anchors.left: parent.left
+        anchors.top: parent.top
+        margin-left: 29
+        margin-top: 32
+        width: 2
+        height: 75
+
+      UIWidget
+        id: talismanInfoIcon
+        image-source: /images/ui/info
+        anchors.verticalCenter: talismanSeparator.verticalCenter
+        anchors.right: talismanSeparator.left
+        margin-right: 7
+        &tooltip: tr('Upgrades to your Bounty Talisman are permanent and bound to your character.\n\nEquip your Bounty Talisman to activate its effects, but they only apply when battling creatures from your active Bounty Task.\n\nYou can buy a Bounty Talisman from any Jeweller for 5,000 gold.')
+
+      UIWidget
+        id: damageIcon
+        image-source: /images/task_bounty/damage_icon
+        anchors.top: parent.top
+        anchors.left: talismanSeparator.right
+        margin-top: 35
+        margin-left: 16
+
+      Label
+        id: damageLabel
+        !text: tr('Damage Against\nCreatures\nCurrent:')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        anchors.top: damageIcon.top
+        anchors.left: damageIcon.right
+        margin-left: 8
+        text-auto-resize: true
+
+      VerticalSeparator
+        id: talismanSeparator2
+        anchors.left: talismanSeparator.right
+        anchors.top: parent.top
+        margin-left: 229
+        margin-top: 32
+        width: 2
+        height: 75
+
+      UIWidget
+        id: lifeLeechIcon
+        image-source: /images/task_bounty/lifeleech_icon
+        anchors.top: parent.top
+        anchors.left: talismanSeparator2.right
+        margin-top: 35
+        margin-left: 16
+
+      Label
+        id: lifeLeechLabel
+        !text: tr('Life Leech\nCurrent:')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        anchors.top: lifeLeechIcon.top
+        anchors.left: lifeLeechIcon.right
+        margin-left: 8
+        text-auto-resize: true  
+
+      VerticalSeparator
+        id: talismanSeparator3
+        anchors.left: talismanSeparator2.right
+        anchors.top: parent.top
+        margin-left: 229
+        margin-top: 32
+        width: 2
+        height: 75
+
+      UIWidget
+        id: lootIcon
+        image-source: /images/task_bounty/loot_icon
+        anchors.top: parent.top
+        anchors.left: talismanSeparator3.right
+        margin-top: 35
+        margin-left: 16
+
+      Label
+        id: lootLabel
+        !text: tr('More Loot\nCurrent:')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        anchors.top: lootIcon.top
+        anchors.left: lootIcon.right
+        margin-left: 8
+        text-auto-resize: true  
+
+      VerticalSeparator
+        id: talismanSeparator4
+        anchors.left: talismanSeparator3.right
+        anchors.top: parent.top
+        margin-left: 229
+        margin-top: 32
+        width: 2
+        height: 75
+
+      UIWidget
+        id: bestiaryIcon
+        image-source: /images/task_bounty/bestiary_icon
+        anchors.top: parent.top
+        anchors.left: talismanSeparator4.right
+        margin-top: 35
+        margin-left: 16
+
+      Label
+        id: bestiaryLabel
+        !text: tr('Change for Double\nBestiary Progress\nCurrent:')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        anchors.top: bestiaryIcon.top
+        anchors.left: bestiaryIcon.right
+        margin-left: 8
+        text-auto-resize: true  
+
+      Button
+        id: talismanBtn1
+        color: $var-text-cip-color-highlight
+        text-align: center
+        anchors.left: talismanSeparator.right
+        anchors.bottom: talismanSeparator.bottom
+        margin-left: 15
+        width: 108
+        height: 20
+
+      Panel
+        id: talismanInfoPanel1
+        anchors.left: talismanBtn1.right
+        anchors.verticalCenter: talismanBtn1.verticalCenter
+        margin-left: 5
+        width: 86
+        height: 20
+        image-source: /images/ui/progress
+        image-border: 3
+
+        UIWidget
+          id: infoIcon
+          image-source: /images/task_bounty/info_icon1
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 3
+
+        Label
+          id: pointsLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          anchors.right: infoIcon.left
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 5
+          text-auto-resize: true
+          text-align: right
+
+      Button
+        id: talismanBtn2
+        color: $var-text-cip-color-highlight
+        text-align: center
+        anchors.left: talismanSeparator2.right
+        anchors.bottom: talismanSeparator2.bottom
+        margin-left: 15
+        width: 108
+        height: 20
+
+      Panel
+        id: talismanInfoPanel2
+        anchors.left: talismanBtn2.right
+        anchors.verticalCenter: talismanBtn2.verticalCenter
+        margin-left: 5
+        width: 86
+        height: 20
+        image-source: /images/ui/progress
+        image-border: 3
+
+        UIWidget
+          id: infoIcon
+          image-source: /images/task_bounty/info_icon1
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 3
+
+        Label
+          id: pointsLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          anchors.right: infoIcon.left
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 5
+          text-auto-resize: true
+          text-align: right
+
+      Button
+        id: talismanBtn3
+        color: $var-text-cip-color-highlight
+        text-align: center
+        anchors.left: talismanSeparator3.right
+        anchors.bottom: talismanSeparator3.bottom
+        margin-left: 15
+        width: 108
+        height: 20
+
+      Panel
+        id: talismanInfoPanel3
+        anchors.left: talismanBtn3.right
+        anchors.verticalCenter: talismanBtn3.verticalCenter
+        margin-left: 5
+        width: 86
+        height: 20
+        image-source: /images/ui/progress
+        image-border: 3
+
+        UIWidget
+          id: infoIcon
+          image-source: /images/task_bounty/info_icon1
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 3
+
+        Label
+          id: pointsLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          anchors.right: infoIcon.left
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 5
+          text-auto-resize: true
+          text-align: right
+
+      Button
+        id: talismanBtn4
+        color: $var-text-cip-color-highlight
+        text-align: center
+        anchors.left: talismanSeparator4.right
+        anchors.bottom: talismanSeparator4.bottom
+        margin-left: 15
+        width: 108
+        height: 20
+      Panel
+        id: talismanInfoPanel4
+        anchors.left: talismanBtn4.right
+        anchors.verticalCenter: talismanBtn4.verticalCenter
+        margin-left: 5
+        width: 86
+        height: 20
+        image-source: /images/ui/progress
+        image-clip: 0 0 205 20
+        image-border: 3
+
+        UIWidget
+          id: infoIcon
+          image-source: /images/task_bounty/info_icon1
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 3
+
+        Label
+          id: pointsLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          anchors.right: infoIcon.left
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 5
+          text-auto-resize: true
+          text-align: right
+
+    UIWidget
+      id: bountyDitherPattern
+      image-source: /images/ui/ditherpattern
+      image-border: 1
+      anchors.left: setupPanel.left
+      anchors.top: setupPanel.top
+      anchors.right: talismansPanel.right
+      anchors.bottom: talismansPanel.bottom
+      phantom: true
+      visible: false
+
+  Panel
+    id: weeklyTab
+    width: 968
+    height: 504
+    anchors.top: optionsTabBar.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+    image-source: /images/ui/2pixel_up_frame_borderimage
+    image-clip: 0 0 100 100
+    image-border: 2
+    visible: false
+
+    Panel
+      id: killTasksPanel
+      size: 464 347
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-top: 10
+      margin-left: 10
+      image-source: /images/ui/t2pixel-up-frame-borderimage
+      image-border: 30
+
+      Label
+        id: killTasksTitle
+        !text: tr('Kill Tasks')
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 2
+        font: $var-cip-font
+        color: $var-text-cip-color-grey
+        text-auto-resize: true
+
+      Panel
+        id: killTaskPanel
+        width: 444
+        anchors.top: killTasksTitle.bottom
+        anchors.bottom: unlockPermanentlyBtn.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 10
+        margin-bottom: 5
+        layout:
+          type: grid
+          cell-size: 144 100
+          cell-spacing: 5
+          num-columns: 3
+
+      Button
+        id: unlockPermanentlyBtn
+        !text: tr('Unlock permanently')
+        size: 442 100
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-bottom: 12
+        image-source: /images/ui/large_blue_button
+        image-clip: 0 0 108 100
+        image-border: 1
+        font: $var-cip-font
+        $hover !disabled:
+          image-clip: 0 0 108 100
+        $pressed:
+          image-clip: 0 100 108 100
+
+        UIWidget
+          id: tibiaCoinIcon
+          image-source: /images/ui/tibiaCoin
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: parent.horizontalCenter
+          margin-right: 67
+          margin-top: 1
+          phantom: true
+
+    Panel
+      id: deliveryTasksPanel
+      size: 464 347
+      anchors.top: parent.top
+      anchors.left: killTasksPanel.right
+      margin-top: 10
+      margin-left: 16
+      image-source: /images/ui/t2pixel-up-frame-borderimage
+      image-border: 30
+
+      Label
+        id: deliveryTasksTitle
+        !text: tr('Delivery Tasks')
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 2
+        font: $var-cip-font
+        color: $var-text-cip-color-grey
+        text-auto-resize: true
+
+      Panel
+        id: deliveryTaskPanel
+        width: 444
+        anchors.top: deliveryTasksTitle.bottom
+        anchors.bottom: unlockPermanentlyBtnDelivery.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 10
+        margin-bottom: 5
+        layout:
+          type: grid
+          cell-size: 144 100
+          cell-spacing: 5
+          num-columns: 3
+
+      Button
+        id: unlockPermanentlyBtnDelivery
+        !text: tr('Unlock permanently')
+        size: 442 100
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-bottom: 12
+        image-source: /images/ui/large_blue_button
+        image-clip: 0 0 108 100
+        image-border: 1
+        font: $var-cip-font
+        $hover !disabled:
+          image-clip: 0 0 108 100
+        $pressed:
+          image-clip: 0 100 108 100
+
+        UIWidget
+          id: tibiaCoinIcon
+          image-source: /images/ui/tibiaCoin
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: parent.horizontalCenter
+          margin-right: 67
+          margin-top: 1
+          phantom: true
+
+    Label
+      id: weeklyXpRewardLabel
+      anchors.top: killTasksPanel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 5
+      font: verdana-11px-monochrome
+      color: #dfdfdf
+      text-auto-resize: true
+      text-align: center
+
+    Panel
+      id: weeklyProgressPanel
+      size: 781 109
+      anchors.top: killTasksPanel.bottom
+      anchors.left: killTasksPanel.left
+      margin-top: 23
+      image-source: /images/ui/t2pixel-up-frame-borderimage
+      image-border: 30
+
+      Label
+        id: weeklyProgressTitle
+        !text: tr('Weekly progress')
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 2
+        font: $var-cip-font
+        color: $var-text-cip-color-grey
+        text-auto-resize: true
+
+      Label
+        id: weeklyRewardMultiplierLabel
+        !text: tr('Reward multiplier')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        anchors.bottom: weeklyProgressInfoPanel.verticalCenter
+        anchors.left: parent.left
+        margin-bottom: 15
+        margin-left: 11
+
+      Label
+        id: weeklyCompletedTasksLabel
+        !text: tr('Completed tasks')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        anchors.top: weeklyProgressInfoPanel.verticalCenter
+        anchors.left: parent.left
+        margin-top: 15
+        margin-left: 11
+
+      VerticalSeparator
+        id: weeklyProgressSeparator1
+        width: 2
+        height: 50
+        anchors.verticalCenter: weeklyProgressInfoPanel.verticalCenter
+        anchors.left: parent.left
+        margin-left: 286
+
+      VerticalSeparator
+        id: weeklyProgressSeparator2
+        width: 2
+        height: 50
+        anchors.verticalCenter: weeklyProgressInfoPanel.verticalCenter
+        anchors.left: parent.left
+        margin-left: 415
+
+      VerticalSeparator
+        id: weeklyProgressSeparator3
+        width: 2
+        height: 50
+        anchors.verticalCenter: weeklyProgressInfoPanel.verticalCenter
+        anchors.left: parent.left
+        margin-left: 544
+
+      VerticalSeparator
+        id: weeklyProgressSeparator4
+        width: 2
+        height: 50
+        anchors.verticalCenter: weeklyProgressInfoPanel.verticalCenter
+        anchors.left: parent.left
+        margin-left: 673
+
+      Panel
+        id: weeklyProgressInfoPanel
+        size: 589 20
+        anchors.top: parent.top
+        margin-top: 53
+        anchors.right: parent.right
+        margin-right: 32
+        image-source: /images/game/actionbar/1pixel-down-frame
+        image-border: 5
+        padding: 1
+
+        UIWidget
+          id: weeklyProgressBarBg
+          image-source: /images/ui/backdrop-dark-grey
+          image-border: 5
+          anchors.fill: parent
+          phantom: true
+
+        UIWidget
+          id: weeklyProgressBar
+          image-source: /game_cyclopedia/images/bestiary/progressbar-orange-small
+          anchors.left: parent.left
+          anchors.top: parent.top
+          anchors.bottom: parent.bottom
+          width: 0
+          phantom: true
+
+        Label
+          id: progressKillTasksLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: false
+          text-align: center
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          margin-left: 0
+          width: 131
+          phantom: true
+
+        Label
+          id: progressDelivTasksLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: false
+          text-align: center
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          margin-left: 131
+          width: 131
+          phantom: true
+
+        Label
+          id: progressDifficultyLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: false
+          text-align: center
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          margin-left: 262
+          width: 131
+          phantom: true
+
+        Label
+          id: progressKillXpLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: false
+          text-align: center
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          margin-left: 393
+          width: 131
+          phantom: true
+
+        Label
+          id: progressDelivXpLabel
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: false
+          text-align: center
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          margin-left: 524
+          width: 65
+          phantom: true
+
+      Label
+        id: progressSec1TopLabel
+        !text: tr('x1')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: false
+        text-align: center
+        anchors.bottom: weeklyProgressInfoPanel.top
+        anchors.left: weeklyProgressInfoPanel.left
+        margin-left: 0
+        margin-bottom: 12
+        width: 126
+        height: 14
+
+      Label
+        id: progressSec2TopLabel
+        !text: tr('x2')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: false
+        text-align: center
+        anchors.bottom: weeklyProgressInfoPanel.top
+        anchors.left: weeklyProgressInfoPanel.left
+        margin-left: 126
+        margin-bottom: 12
+        width: 129
+        height: 14
+
+      Label
+        id: progressSec3TopLabel
+        !text: tr('x3')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: false
+        text-align: center
+        anchors.bottom: weeklyProgressInfoPanel.top
+        anchors.left: weeklyProgressInfoPanel.left
+        margin-left: 255
+        margin-bottom: 12
+        width: 129
+        height: 14
+
+      Label
+        id: progressSec4TopLabel
+        !text: tr('x5')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: false
+        text-align: center
+        anchors.bottom: weeklyProgressInfoPanel.top
+        anchors.left: weeklyProgressInfoPanel.left
+        margin-left: 384
+        margin-bottom: 12
+        width: 129
+        height: 14
+
+      Label
+        id: progressSec5TopLabel
+        !text: tr('x8')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: false
+        text-align: center
+        anchors.bottom: weeklyProgressInfoPanel.top
+        anchors.left: weeklyProgressInfoPanel.left
+        margin-left: 513
+        margin-bottom: 12
+        width: 76
+        height: 14
+
+      Label
+        id: progressSec1BottomLabel
+        !text: tr('0')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        text-align: left
+        anchors.top: weeklyProgressInfoPanel.bottom
+        anchors.left: weeklyProgressInfoPanel.left
+        margin-top: 12
+
+      Label
+        id: progressSep1BottomLabel
+        !text: tr('4')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        text-align: center
+        anchors.top: weeklyProgressInfoPanel.bottom
+        anchors.horizontalCenter: weeklyProgressSeparator1.horizontalCenter
+        margin-top: 12
+
+      Label
+        id: progressSep2BottomLabel
+        !text: tr('8')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        text-align: center
+        anchors.top: weeklyProgressInfoPanel.bottom
+        anchors.horizontalCenter: weeklyProgressSeparator2.horizontalCenter
+        margin-top: 12
+
+      Label
+        id: progressSep3BottomLabel
+        !text: tr('12')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        text-align: center
+        anchors.top: weeklyProgressInfoPanel.bottom
+        anchors.horizontalCenter: weeklyProgressSeparator3.horizontalCenter
+        margin-top: 12
+
+      Label
+        id: progressSep4BottomLabel
+        !text: tr('16')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        text-align: center
+        anchors.top: weeklyProgressInfoPanel.bottom
+        anchors.horizontalCenter: weeklyProgressSeparator4.horizontalCenter
+        margin-top: 12
+
+      Label
+        id: progressRightBottomLabel
+        !text: tr('18')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        text-align: right
+        anchors.top: weeklyProgressInfoPanel.bottom
+        anchors.right: weeklyProgressInfoPanel.right
+        margin-top: 12
+
+    Panel
+      id: weeklyRewardsPanel
+      size: 152 109
+      anchors.top: weeklyProgressPanel.top
+      anchors.left: weeklyProgressPanel.right
+      margin-left: 11
+      image-source: /images/ui/t2pixel-up-frame-borderimage
+      image-border: 30
+
+      Label
+        id: weeklyRewardsTitle
+        !text: tr('Weekly rewards')
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 2
+        font: $var-cip-font
+        color: $var-text-cip-color-grey
+        text-auto-resize: true
+
+      Panel
+        id: weeklyRewardInfoPanel1
+        size: 95 20
+        anchors.top: parent.top
+        anchors.left: parent.left
+        margin-top: 24
+        margin-left: 10
+        image-source: /images/game/actionbar/1pixel-down-frame
+        image-border: 5
+        padding: 1
+
+        UIWidget
+          image-source: /images/ui/backdrop-dark-grey
+          image-border: 5
+          anchors.fill: parent
+          phantom: true
+
+        UIWidget
+          id: rewardCoinIcon
+          image-source: /images/task_bounty/task_coin
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 4
+
+        Label
+          id: weeklyRewardHTP
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: true
+          text-align: right
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: rewardCoinIcon.left
+          margin-right: 2
+
+      Panel
+        id: weeklyRewardInfoPanel2
+        size: 95 20
+        anchors.top: weeklyRewardInfoPanel1.bottom
+        anchors.left: parent.left
+        margin-top: 14
+        margin-left: 10
+        image-source: /images/game/actionbar/1pixel-down-frame
+        image-border: 5
+        padding: 1
+
+        UIWidget
+          image-source: /images/ui/backdrop-dark-grey
+          image-border: 5
+          anchors.fill: parent
+          phantom: true
+
+        UIWidget
+          id: rewardSealIcon
+          image-source: /images/task_bounty/soulseal_icon
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 4
+
+        Label
+          id: weeklyRewardSeals
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: true
+          text-align: right
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: rewardSealIcon.left
+          margin-right: 2
+
+      UIWidget
+        id: weeklyRewardInfoIcon1
+        image-source: /images/ui/info
+        anchors.verticalCenter: weeklyRewardInfoPanel1.verticalCenter
+        anchors.left: weeklyRewardInfoPanel1.right
+        margin-left: 15
+
+      UIWidget
+        id: weeklyRewardInfoIcon2
+        image-source: /images/ui/info
+        anchors.verticalCenter: weeklyRewardInfoPanel2.verticalCenter
+        anchors.left: weeklyRewardInfoPanel2.right
+        margin-left: 15
+
+      Label
+        id: weeklyDaysRemainingLabel
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        anchors.top: weeklyRewardInfoPanel2.bottom
+        anchors.left: parent.left
+        margin-top: 9
+        margin-left: 8
+
+    UIWidget
+      id: weeklyDitherPattern
+      image-source: /images/ui/ditherpattern
+      image-border: 1
+      anchors.left: killTasksPanel.left
+      anchors.top: killTasksPanel.top
+      anchors.right: deliveryTasksPanel.right
+      anchors.bottom: weeklyProgressPanel.bottom
+      phantom: true
+      visible: false
+
+  Panel
+    id: shopTab
+    width: 968
+    height: 504
+    anchors.top: optionsTabBar.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 6
+    image-source: /images/ui/2pixel-up-frame-borderimage
+    image-clip: 0 0 100 100
+    image-border: 2
+    visible: false
+
+    Panel
+      id: shopInnerPanel
+      width: 944
+      height: 480
+      anchors.centerIn: parent
+      image-source: /images/ui/2pixel-up-frame-borderimage-dark-upside-down
+      image-clip: 0 0 100 100
+      image-border: 2
+
+      ScrollablePanel
+        id: shopItemsPanel
+        anchors.fill: parent
+        padding: 10
+        vertical-scrollbar: shopScrollBar
+        layout:
+          type: grid
+          cell-size: 296 146
+          cell-spacing: 10
+          num-columns: 3
+          flow: true
+
+      VerticalScrollBar
+        id: shopScrollBar
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        margin-top: 1
+        margin-bottom: 2
+        margin-right: 1
+        step: 28
+        pixels-scroll: true
+
+  HorizontalSeparator
+    id: bottomSeparator
+    anchors.top: bountyTab.bottom
+    anchors.left: bountyTab.left
+    anchors.right: bountyTab.right
+    margin-top: 10
+
+  Panel
+    id: infoPanel1
+    width: 130
+    height: 20
+    anchors.top: bottomSeparator.bottom
+    anchors.left: bottomSeparator.left
+    margin-top: 10
+    image-source: /images/ui/progress
+    image-border: 3
+
+    UIWidget
+      id: infoIcon
+      image-source: /images/task_bounty/info_icon1
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-right: 3
+      &tooltip: tr('Bounty Points')
+
+    Label
+      id: bountyPointsValue
+      !text: tr('0')
+      font: $var-cip-font
+      color: $var-text-cip-color
+      text-align: right
+      anchors.right: infoIcon.left
+      anchors.verticalCenter: parent.verticalCenter
+      margin-right: 5
+      text-auto-resize: true
+
+  Panel
+    id: infoPanel2
+    width: 130
+    height: 20
+    anchors.top: bottomSeparator.bottom
+    anchors.left: prev.right
+    margin-top: 10
+    margin-left: 5
+    image-source: /images/ui/progress
+    image-border: 3
+
+    UIWidget
+      id: coinIcon
+      image-source: /images/task_bounty/task_coin
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-right: 4
+      &tooltip: tr('Hunting Task Points')
+
+    Label
+      id: pointsValue
+      font: $var-cip-font
+      color: $var-text-cip-color
+      text-align: right
+      anchors.right: coinIcon.left
+      anchors.verticalCenter: parent.verticalCenter
+      margin-right: 5
+      text-auto-resize: true
+
+  Panel
+    id: infoPanel3
+    width: 130
+    height: 20
+    !text: tr('0')
+    text-align: right
+    text-offset: -13 0
+    font: $var-cip-font
+    color: $var-text-cip-color
+    anchors.top: bottomSeparator.bottom
+    anchors.left: prev.right
+    margin-top: 10
+    margin-left: 5
+    image-source: /images/ui/progress
+    image-border: 3
+
+    UIWidget
+      id: soulsealIcon
+      image-source: /images/task_bounty/soulseal_icon
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-right: 4
+      &tooltip: tr('Soulseals')
+
+  Button
+    id: closeBtn
+    !text: tr('Close')
+    color: #C0C0C0
+    width: 43
+    height: 20
+    anchors.top: bottomSeparator.bottom
+    anchors.right: bottomSeparator.right
+    margin-top: 10
+    @onClick: modules.game_taskhunting.closeTaskBoard()
+
+PreferredListWindow < NewMainWindow
+  id: preferredListWindow
+  !text: tr('Preferred List')
+  size: 600 505
+  anchors.centerIn: parent
+  image-source: /images/ui/2pixel-up-frame-borderimage
+  image-border: 3
+  @onEscape: modules.game_taskhunting.closePreferredList()
+
+  UIWidget
+    id: leftPanel
+    size: 278 425
+    image-source: /images/ui/2pixel-up-frame-borderimage
+    image-border: 3
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 16
+    margin-left: 15
+
+    TextQtEdit
+      id: searchEdit
+      size: 258 24
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 10
+      placeholder: Type to search
+      color: #808080
+      @onTextChange: modules.game_taskhunting.filterPreferredList(self:getText())
+
+    UIWidget
+      id: creaturesListBg
+      height: 371
+      anchors.top: searchEdit.bottom
+      anchors.left: parent.left
+      anchors.right: searchEdit.right
+      margin-top: 10
+      margin-left: 10
+      image-source: /images/ui/1pixel-down-frame
+      image-border: 3
+      phantom: true
+
+    ScrollablePanel
+      id: creaturesList
+      height: 371
+      anchors.top: searchEdit.bottom
+      anchors.left: parent.left
+      anchors.right: searchEdit.right
+      margin-top: 10
+      margin-left: 10
+      padding: 1
+      vertical-scrollbar: creaturesScrollbar
+      layout:
+        type: verticalBox
+        align-top: true
+    
+    VerticalScrollBar
+      id: creaturesScrollbar
+      anchors.top: creaturesList.top
+      anchors.bottom: creaturesList.bottom
+      anchors.right: creaturesList.right
+      margin-top: 1
+      margin-bottom: 1
+      margin-right: 1
+      step: 36
+      pixels-scroll: true
+            
+
+  UIWidget
+    id: rightPanel
+    size: 278 425
+    image-source: /images/ui/2pixel-up-frame-borderimage
+    image-border: 3
+    anchors.top: leftPanel.top
+    anchors.left: leftPanel.right
+    margin-left: 14
+
+    UILabel
+      id: preferredLabel
+      !text: tr('Preferred')
+      font: $var-cip-font
+      color: #dfdfdf
+      text-auto-resize: true
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-top: 9
+      margin-left: 38
+
+    UILabel
+      id: unwantedLabel
+      !text: tr('Unwanted')
+      font: $var-cip-font
+      color: #dfdfdf
+      text-auto-resize: true
+      anchors.top: parent.top
+      anchors.right: parent.right
+      margin-top: 9
+      margin-right: 60
+
+    HorizontalSeparator
+      id: rightTopSeparator
+      anchors.top: preferredLabel.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-left: 5
+      margin-right: 5
+      margin-top: 6
+
+    UIWidget
+      id: preferredCreaturePanel
+      size: 64 64
+      image-source: /images/ui/1pixel-down-frame
+      image-border: 3
+      anchors.top: rightTopSeparator.bottom
+      anchors.left: parent.left
+      margin-top: 15
+      margin-left: 11
+
+    Button
+      id: preferredClearBtn
+      !text: tr('Assign')
+      width: 43
+      height: 20
+      anchors.verticalCenter: preferredCreaturePanel.verticalCenter
+      anchors.left: preferredCreaturePanel.right
+      margin-left: 10
+
+    Panel
+      id: preferredInfoPanel
+      size: 43 20
+      image-source: /images/ui/infoPanel
+      image-border: 3
+      anchors.top: preferredClearBtn.bottom
+      anchors.left: preferredClearBtn.left
+      margin-top: 5
+
+      UIWidget
+        id: infoIcon
+        image-source: /images/task_bounty/info_icon1
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-right: 3
+
+      Label
+        id: valueLabel
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        anchors.right: infoIcon.left
+        anchors.verticalCenter: parent.verticalCenter
+        margin-right: 2
+
+    UIWidget
+      id: unwantedCreaturePanel
+      size: 64 64
+      image-source: /images/ui/1pixel-down-frame
+      image-border: 3
+      anchors.top: preferredCreaturePanel.top
+      anchors.left: preferredClearBtn.right
+      margin-left: 20
+
+    Button
+      id: unwantedClearBtn
+      !text: tr('Assign')
+      width: 43
+      height: 20
+      anchors.verticalCenter: unwantedCreaturePanel.verticalCenter
+      anchors.left: unwantedCreaturePanel.right
+      margin-left: 10
+
+    Panel
+      id: unwantedInfoPanel
+      size: 43 20
+      image-source: /images/ui/infoPanel
+      image-border: 3
+      anchors.top: unwantedClearBtn.bottom
+      anchors.left: unwantedClearBtn.left
+      margin-top: 5
+
+      UIWidget
+        id: infoIcon
+        image-source: /images/task_bounty/info_icon1
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        margin-right: 3
+
+      Label
+        id: valueLabel
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        anchors.right: infoIcon.left
+        anchors.verticalCenter: parent.verticalCenter
+        margin-right: 2
+
+    UIWidget
+      id: additionalSlot1
+      size: 257 64
+      image-source: /images/ui/2pixel-up-frame-borderimage
+      image-border: 3
+      anchors.top: unwantedCreaturePanel.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 15
+
+      UILabel
+        id: slotLabel
+        !text: tr('Additional Slots')
+        font: $var-cip-font
+        color: #dfdfdf
+        text-auto-resize: true
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 14
+
+      UIWidget
+        id: lockIcon
+        size: 8 12
+        image-source: /images/game/destiny_wheel/icon-locked
+        anchors.verticalCenter: slotLabel.verticalCenter
+        anchors.left: slotLabel.right
+        margin-left: 18
+
+      Button
+        id: unlockBtn
+        !text: tr('Unlock')
+        width: 86
+        height: 20
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        margin-bottom: 10
+        margin-left: 38
+
+      Panel
+        id: infoPanel
+        size: 86 20
+        image-source: /images/ui/infoPanel
+        image-border: 3
+        anchors.verticalCenter: unlockBtn.verticalCenter
+        anchors.left: unlockBtn.right
+        margin-left: 5
+
+        UIWidget
+          id: slotIcon
+          image-source: /images/task_bounty/info_icon1
+          image-auto-resize: true
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: parent.right
+          margin-right: 3
+
+    UIWidget
+      id: additionalSlot2
+      size: 257 64
+      image-source: /images/ui/2pixel-up-frame-borderimage
+      image-border: 3
+      anchors.top: additionalSlot1.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 15
+
+      UILabel
+        id: slotLabel
+        !text: tr('Additional Slots')
+        font: $var-cip-font
+        color: #dfdfdf
+        text-auto-resize: true
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 14
+
+      UIWidget
+        id: lockIcon
+        size: 8 12
+        image-source: /images/game/destiny_wheel/icon-locked
+        anchors.verticalCenter: slotLabel.verticalCenter
+        anchors.left: slotLabel.right
+        margin-left: 18
+
+      Button
+        id: unlockBtn
+        !text: tr('Unlock')
+        width: 86
+        height: 20
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        margin-bottom: 10
+        margin-left: 38
+
+      Panel
+        id: infoPanel
+        size: 86 20
+        image-source: /images/ui/infoPanel
+        image-border: 3
+        anchors.verticalCenter: unlockBtn.verticalCenter
+        anchors.left: unlockBtn.right
+        margin-left: 5
+
+        UIWidget
+          id: slotIcon
+          image-source: /images/task_bounty/info_icon1
+          image-auto-resize: true
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: parent.right
+          margin-right: 3
+
+    UIWidget
+      id: additionalSlot3
+      size: 257 64
+      image-source: /images/ui/2pixel-up-frame-borderimage
+      image-border: 3
+      anchors.top: additionalSlot2.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 15
+
+      UILabel
+        id: slotLabel
+        !text: tr('Additional Slots')
+        font: $var-cip-font
+        color: #dfdfdf
+        text-auto-resize: true
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 14
+
+      UIWidget
+        id: lockIcon
+        size: 8 12
+        image-source: /images/game/destiny_wheel/icon-locked
+        anchors.verticalCenter: slotLabel.verticalCenter
+        anchors.left: slotLabel.right
+        margin-left: 18
+
+      Button
+        id: unlockBtn
+        !text: tr('Unlock')
+        width: 86
+        height: 20
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        margin-bottom: 10
+        margin-left: 38
+
+      Panel
+        id: infoPanel
+        size: 86 20
+        image-source: /images/ui/infoPanel
+        image-border: 3
+        anchors.verticalCenter: unlockBtn.verticalCenter
+        anchors.left: unlockBtn.right
+        margin-left: 5
+
+        UIWidget
+          id: slotIcon
+          image-source: /images/task_bounty/info_icon1
+          image-auto-resize: true
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: parent.right
+          margin-right: 3
+
+    UIWidget
+      id: additionalSlot4
+      size: 257 64
+      image-source: /images/ui/2pixel-up-frame-borderimage
+      image-border: 3
+      anchors.top: additionalSlot3.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 15
+
+      UILabel
+        id: slotLabel
+        !text: tr('Additional Slots')
+        font: $var-cip-font
+        color: #dfdfdf
+        text-auto-resize: true
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        margin-top: 14
+
+      UIWidget
+        id: lockIcon
+        size: 8 12
+        image-source: /images/game/destiny_wheel/icon-locked
+        anchors.verticalCenter: slotLabel.verticalCenter
+        anchors.left: slotLabel.right
+        margin-left: 18
+
+      Button
+        id: unlockBtn
+        !text: tr('Unlock')
+        width: 86
+        height: 20
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        margin-bottom: 10
+        margin-left: 38
+
+      Panel
+        id: infoPanel
+        size: 86 20
+        image-source: /images/ui/infoPanel
+        image-border: 3
+        anchors.verticalCenter: unlockBtn.verticalCenter
+        anchors.left: unlockBtn.right
+        margin-left: 5
+
+        UIWidget
+          id: slotIcon
+          image-source: /images/task_bounty/info_icon1
+          image-auto-resize: true
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: parent.right
+          margin-right: 3
+
+  HorizontalSeparator
+    id: bottomSeparator
+    anchors.top: leftPanel.bottom
+    anchors.left: leftPanel.left
+    anchors.right: rightPanel.right
+    margin-top: 10
+
+  Button
+    id: closeBtn
+    !text: tr('Close')
+    color: #C0C0C0
+    width: 43
+    height: 20
+    anchors.top: bottomSeparator.bottom
+    anchors.right: bottomSeparator.right
+    margin-top: 10
+    @onClick: modules.game_taskhunting.closePreferredList()
+
+PreferredListItem < UIWidget
+  height: 36
+  @onClick: modules.game_taskhunting.selectPreferredItem(self)
+
+  UIWidget
+    id: creatureSlot
+    size: 36 36
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent.left
+    margin-left: 4
+    phantom: true
+
+  UILabel
+    id: creatureName
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: creatureSlot.right
+    margin-left: 6
+    text-auto-resize: true
+    color: #dfdfdf
+    font: $var-cip-font
+    phantom: true
+
+// ────────────────────────────────────────────────────────────────────────────
+// SOUL SEALS (Soulpit / Animus Mastery) — ported from Atualizacao 1524 HTML.
+// Triggered when the player uses the Soulpit Obelisk (item id 47367/47379).
+// The server replies with opcode 0xBA which OTCV8's parseTaskHuntingBasicData
+// decodes into g_game.onSoulsealsData(entries) — handled by taskhunting_soulseal.lua.
+// ────────────────────────────────────────────────────────────────────────────
+
+SoulSealRowItem < UIWidget
+  height: 36
+  background-color: alpha
+  $on:
+    background-color: #585858
+  $hover !on:
+    background-color: #414141
+
+  // Mirrors PreferredListItem.creatureSlot — same 36×36 box, populated from
+  // Lua via g_ui.createWidget('UICreature', ...) + setCreatureSize(36).
+  UIWidget
+    id: creatureSlot
+    size: 36 36
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent.left
+    margin-left: 4
+    phantom: true
+
+  UILabel
+    id: nameLabel
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: creatureSlot.right
+    margin-left: 6
+    text-auto-resize: true
+    color: #dfdfdf
+    font: $var-cip-font
+    phantom: true
+
+  // Cost stack at the right side: icon → label → done-icon, in declaration
+  // order so anchors resolve backwards (no forward references).
+  UIWidget
+    id: costIcon
+    size: 16 16
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: parent.right
+    margin-right: 8
+    image-source: /images/task_board/icon-currency-soulseals
+    phantom: true
+
+  Label
+    id: costLabel
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: costIcon.left
+    margin-right: 4
+    text-align: right
+    font: $var-cip-font
+    color: #dfdfdf
+    text-auto-resize: true
+    phantom: true
+
+  UIWidget
+    id: doneIcon
+    size: 14 14
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: costLabel.left
+    margin-right: 6
+    image-source: /images/store/icon-yes
+    phantom: true
+    visible: false
+
+SoulSealsWindow < NewMainWindow
+  id: soulSealsWindow
+  !text: tr('Soulseals')
+  size: 400 520
+  anchors.centerIn: parent
+  @onEscape: modules.game_taskhunting.hideSoulSeals()
+
+  // ── Footer (defined first so other widgets can anchor.bottom to it without
+  // forward references that OTML mis-resolves as "recursively anchored").
+  Button
+    id: closeBtn
+    width: 70
+    height: 22
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-bottom: 14
+    margin-right: 14
+    !text: tr('Close')
+    @onClick: modules.game_taskhunting.hideSoulSeals()
+
+  Panel
+    id: balancePanel
+    width: 100
+    height: 22
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-bottom: 14
+    margin-left: 14
+    image-source: /images/ui/infoPanel
+    image-border: 3
+    UIWidget
+      id: balanceIcon
+      size: 14 14
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.left: parent.left
+      margin-left: 6
+      image-source: /images/task_board/icon-currency-soulseals
+      phantom: true
+    Label
+      id: balanceLabel
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.left: prev.right
+      margin-left: 6
+      text-auto-resize: true
+      font: $var-cip-font
+      color: $var-text-cip-color
+      !text: '0'
+
+  HorizontalSeparator
+    id: footerSep
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: closeBtn.top
+    margin-left: 10
+    margin-right: 10
+    margin-bottom: 8
+
+  // ── Bottom selected-creature area
+  // Height 80 = 6 (top pad) + name(14) + 2 + category(14) + 4 + fightRow(22) + 6 (bottom pad).
+  Panel
+    id: selectedPanel
+    height: 80
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: footerSep.top
+    margin-left: 14
+    margin-right: 14
+    margin-bottom: 8
+    image-source: /images/ui/1pixel-down-frame
+    image-border: 3
+    padding: 4
+
+    UIWidget
+      id: previewFrame
+      size: 64 64
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.left: parent.left
+      margin-left: 4
+      image-source: /images/ui/item
+      phantom: true
+
+      UICreature
+        id: selectedPreview
+        size: 56 56
+        anchors.centerIn: parent
+        idle-animate: true
+        visible: false
+        phantom: true
+
+    Label
+      id: selectedName
+      anchors.top: parent.top
+      anchors.left: previewFrame.right
+      margin-top: 6
+      margin-left: 10
+      font: $var-cip-font
+      color: $var-text-cip-color
+      text-auto-resize: true
+      !text: tr('No creature selected')
+
+    Label
+      id: selectedCategory
+      anchors.top: selectedName.bottom
+      anchors.left: previewFrame.right
+      margin-top: 2
+      margin-left: 10
+      font: $var-cip-font
+      color: #C28400
+      text-auto-resize: true
+
+    // Fight row (Fight button + cost panel + help icon) anchored to the
+    // bottom — stacked BELOW the name/category labels so they don't overlap.
+    Button
+      id: fightBtn
+      width: 60
+      height: 22
+      anchors.bottom: parent.bottom
+      anchors.left: previewFrame.right
+      margin-bottom: 4
+      margin-left: 10
+      !text: tr('Fight')
+      enabled: false
+      @onClick: modules.game_taskhunting.confirmSoulSealFight()
+
+    // Cost display: uses the same /images/ui/infoPanel asset the rest of the
+    // task board uses for value chips so the Soulpit panel matches the look.
+    Panel
+      id: selectedCostPanel
+      width: 56
+      height: 20
+      anchors.verticalCenter: fightBtn.verticalCenter
+      anchors.left: fightBtn.right
+      margin-left: 10
+      image-source: /images/ui/infoPanel
+      image-border: 3
+
+      UIWidget
+        id: selectedCostIcon
+        size: 14 14
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        margin-right: 4
+        image-source: /images/task_board/icon-currency-soulseals
+        phantom: true
+
+      Label
+        id: selectedCostLabel
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: selectedCostIcon.left
+        margin-right: 4
+        font: $var-cip-font
+        color: $var-text-cip-color
+        text-auto-resize: true
+        !text: '0'
+
+    UIWidget
+      id: selectedHintIcon
+      size: 16 16
+      anchors.verticalCenter: fightBtn.verticalCenter
+      anchors.left: selectedCostPanel.right
+      margin-left: 8
+      image-source: /images/skin/show-gui-help-grey
+      tooltip-delayed: true
+      !tooltip: tr('Select a creature from the list.')
+
+  // ── Top filter row: search input + clear button + category combobox.
+  // Define right-side widgets first so left-side widgets can anchor to them.
+  ComboBox
+    id: categoryCombo
+    width: 90
+    height: 22
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 12
+    margin-right: 14
+    @onSetup: |
+      self:addOption('All',         '1')
+      self:addOption('Harmless',    '2')
+      self:addOption('Trivial',     '3')
+      self:addOption('Easy',        '4')
+      self:addOption('Medium',      '5')
+      self:addOption('Hard',        '6')
+      self:addOption('Challenging', '7')
+    @onOptionChange: modules.game_taskhunting.changeSoulSealCategory(self:getCurrentOption().data)
+
+  Button
+    id: searchClearBtn
+    !text: 'X'
+    width: 22
+    height: 22
+    anchors.top: categoryCombo.top
+    anchors.right: categoryCombo.left
+    margin-right: 4
+    @onClick: |
+      local edit = self:getParent():recursiveGetChildById('searchInput')
+      if edit then edit:setText('') end
+
+  TextEdit
+    id: searchInput
+    height: 22
+    anchors.top: categoryCombo.top
+    anchors.left: parent.left
+    anchors.right: searchClearBtn.left
+    margin-left: 14
+    margin-right: 4
+    !placeholder: tr('Type to search')
+    @onTextChange: modules.game_taskhunting.filterSoulSeals(self:getText())
+
+  // List header (2 columns: Creatures | Soulseals)
+  Panel
+    id: listHeader
+    height: 18
+    anchors.top: searchInput.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-left: 14
+    margin-right: 14
+    background-color: alpha
+    Label
+      !text: tr('Creatures')
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.left: parent.left
+      margin-left: 70
+      font: $var-cip-font
+      color: #aaaaaa
+    Label
+      !text: tr('Soulseals')
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: parent.right
+      margin-right: 32
+      font: $var-cip-font
+      color: #aaaaaa
+
+  // ── List + scrollbar. Scrollbar defined before the panel so it can be
+  // referenced by anchors.right without a forward-resolution.
+  VerticalScrollBar
+    id: soulSealListScrollBar
+    width: 12
+    anchors.top: listHeader.bottom
+    anchors.bottom: selectedPanel.top
+    anchors.right: parent.right
+    margin-top: 2
+    margin-right: 14
+    margin-bottom: 10
+    step: 38
+    pixels-scroll: true
+
+  ScrollablePanel
+    id: soulSealList
+    anchors.top: listHeader.bottom
+    anchors.left: listHeader.left
+    anchors.right: soulSealListScrollBar.left
+    anchors.bottom: selectedPanel.top
+    margin-top: 2
+    margin-bottom: 10
+    margin-right: 2
+    vertical-scrollbar: soulSealListScrollBar
+    image-source: /images/ui/1pixel-down-frame
+    image-border: 3
+    padding: 2
+    layout:
+      type: verticalBox
+      align-top: true

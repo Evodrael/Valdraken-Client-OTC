@@ -1,0 +1,9 @@
+UIWidget
+  id: logpass
+  size: 248 41
+  anchors.top: enterGame.bottom
+  anchors.horizontalCenter: enterGame.horizontalCenter
+  margin-top: 25
+  image-size: 248 41
+  image-source: /images/ui/button_startplaying_idle
+  @onClick: modules.logpass.show()

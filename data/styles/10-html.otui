@@ -1,0 +1,13 @@
+Html < UIHtml
+  font: verdana-11px-antialised
+  color: #dfdfdf
+
+  $disabled:
+    color: #dfdfdf88
+
+UIHTML < UIHtml
+  font: verdana-11px-antialised
+  color: #dfdfdf
+
+  $disabled:
+    color: #dfdfdf88

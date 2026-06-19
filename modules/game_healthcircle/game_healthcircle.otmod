@@ -1,0 +1,9 @@
+Module
+  name: game_healthcircle
+  description: Health and mana arcs over the game map
+  author: OTClient team
+  sandboxed: true
+  scripts: [ statusiconbar, game_healthcircle ]
+
+  @onLoad: init()
+  @onUnload: terminate()

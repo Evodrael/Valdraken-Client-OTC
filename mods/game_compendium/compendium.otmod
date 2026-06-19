@@ -1,0 +1,8 @@
+Module
+  name: game_compendium
+  description: compendium
+  author: Shimmer
+  sandboxed: true
+  scripts: [ compendium ]
+  @onLoad: init()
+  @onUnload: terminate()

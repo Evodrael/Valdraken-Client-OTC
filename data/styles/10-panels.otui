@@ -1,0 +1,112 @@
+Panel < UIWidget
+  phantom: true
+  auto-focus: first
+
+ScrollablePanel < UIScrollArea
+  phantom: true
+  auto-focus: first
+
+StoreScrollablePanel < UIScrollArea
+  phantom: true
+  auto-focus: first
+  image-source: /images/ui/panel_flat
+  image-border: 1
+
+FlatPanel < Panel
+  image-source: /images/ui/panel_flat
+  image-border: 1
+
+ScrollableFlatPanel < ScrollablePanel
+  image-source: /images/ui/panel_flat
+  image-border: 1
+
+LightFlatPanel < Panel
+  image-source: /images/ui/panel_lightflat
+  image-border: 1
+
+-- Added for game_tutorial (Luminaris-style 4-side reversed border using the
+-- shared 1pixel_down_frame spritesheet). Same definition as upstream Luminaris
+-- so the tutorial vocation panels render identically.
+SmallReversedQtPanel < UIWidget
+  padding: 4
+  auto-focus: first
+
+  UIWidget
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 2 0 92 2
+    margin-left: -4
+    margin-right: -4
+    margin-top: -4
+    height: 2
+
+  UIWidget
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 0 2 2 92
+    margin-left: -4
+    margin-top: -4
+    margin-bottom: -4
+    width: 2
+
+  UIWidget
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 2 94 92 2
+    margin-left: -4
+    margin-right: -4
+    margin-bottom: -4
+    height: 2
+
+  UIWidget
+    anchors.right: parent.right
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 94 2 2 92
+    margin-top: -4
+    margin-right: -4
+    margin-bottom: -4
+    width: 2
+
+  UIWidget
+    anchors.top: parent.top
+    anchors.left: parent.left
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 0 0 2 2
+    margin-top: -4
+    margin-left: -4
+    size: 2 2
+
+  UIWidget
+    anchors.top: parent.top
+    anchors.right: parent.right
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 94 0 2 2
+    margin-top: -4
+    margin-right: -4
+    size: 2 2
+
+  UIWidget
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 0 94 2 2
+    margin-bottom: -4
+    margin-left: -4
+    size: 2 2
+
+  UIWidget
+    anchors.bottom: parent.bottom
+    anchors.right: parent.left
+    image-source: /images/ui/1pixel_down_frame
+    image-clip: 94 94 2 2
+    margin-bottom: -4
+    margin-right: -4
+    size: 2 2

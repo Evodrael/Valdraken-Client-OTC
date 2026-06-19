@@ -1,0 +1,154 @@
+GuideMenuButton < Button
+  height: 22
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin-left: 2
+  margin-right: 2
+  image-source: /images/store/subcategory
+  image-clip: 0 0 152 20
+  $hover !pressed:
+    image-clip: 0 0 152 20
+  $pressed:
+    image-clip: 0 20 152 20
+
+  Label
+    id: text
+    height: 16
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 4
+    margin-right: 4
+    font: $var-cip-font
+    color: $var-text-cip-color
+    text-align: center
+    text-auto-resize: false
+
+GuideSpellRow < UIWidget
+  height: 26
+  anchors.left: parent.left
+  anchors.right: parent.right
+
+  UIWidget
+    id: spellIcon
+    size: 22 24
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    image-source: /images/game/spells/spell-icons-32x32
+    image-size: 32 32
+
+  Label
+    id: spellName
+    height: 16
+    anchors.left: spellIcon.right
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 5
+    font: $var-cip-font
+    color: $var-text-cip-color
+    text-auto-resize: false
+
+MiniWindow
+  id: guideWindow
+  &type: 'playerGuide'
+  !text: tr('Player Guide')
+  height: 205
+  icon: /images/game/skills/skill_magic
+  icon-size: 9 9
+  icon-offset: 2 0
+  @onEscape: modules.game_guide.hide()
+  @onClose: modules.game_sidebuttons.setButtonVisible("playerGuide", false)
+  &save: true
+  &autoOpen: false
+
+  MiniWindowContents
+    id: contentPanel
+    padding-left: 2
+    padding-right: 2
+    padding-bottom: 1
+
+    Panel
+      id: topArea
+      height: 100
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+
+      Panel
+        id: levelPanel
+        anchors.fill: parent
+        visible: false
+
+        UIWidget
+          id: levelIcon
+          size: 81 75
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          image-source: /images/game/battlepass/player-icon-level
+
+        Label
+          id: levelLabel
+          height: 16
+          anchors.top: levelIcon.top
+          anchors.horizontalCenter: levelIcon.horizontalCenter
+          margin-top: 56
+          font: $var-cip-font
+          color: $var-text-cip-color
+          text-auto-resize: true
+
+      Label
+        id: recentlyLabel
+        height: 16
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        margin-top: 5
+        font: $var-cip-font
+        color: $var-text-cip-color
+        !text: tr('Recently unlocked:')
+        text-auto-resize: false
+
+      GuideMenuButton
+        id: basicsButton
+        height: 54
+        anchors.top: recentlyLabel.bottom
+        margin-top: 10
+
+    HorizontalSeparator
+      id: separator
+      anchors.top: topArea.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 2
+
+    Label
+      id: bottomLabel
+      height: 16
+      anchors.top: separator.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+      font: $var-cip-font
+      color: $var-text-cip-color
+      text-auto-resize: false
+
+    GuideSpellRow
+      id: spellRow1
+      anchors.top: bottomLabel.bottom
+      margin-top: 2
+      visible: false
+
+    GuideSpellRow
+      id: spellRow2
+      anchors.top: spellRow1.bottom
+      visible: false
+
+    GuideMenuButton
+      id: unlockButton1
+      anchors.top: bottomLabel.bottom
+      margin-top: 5
+
+    GuideMenuButton
+      id: unlockButton2
+      anchors.top: unlockButton1.bottom
+      margin-top: 5

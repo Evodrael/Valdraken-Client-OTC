@@ -1,0 +1,267 @@
+NewMainWindow
+  id: multiTrainingWindow
+  !text: tr('Offline Training')
+  anchors.horizontalCenter: parent.horizontalCenter
+  anchors.verticalCenter: parent.verticalCenter
+  size: 240 318
+  @onEscape: modules.game_multitraining.hide()
+
+  Label
+    id: descriptionLabel
+    !text: tr('While logged out, you can train\none of these skills using offline\ntraining. Shielding is Always\ntrained alongside.')
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 8
+    text-align: center
+    width: 210
+    height: 60
+
+  // Magic
+  UIWidget
+    id: skillMagic
+    anchors.top: descriptionLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 7
+    margin-left: 8
+    margin-right: 8
+    height: 21
+
+    SkillNameLabel
+      !text: tr('Magic')
+
+    SkillValueLabel
+      id: value
+      anchors.right: trainBtn.left
+      margin-right: 5
+
+    SkillImage
+      id: icon
+      image-source: /images/game/skills/skill_magic
+      margin-left: 2
+
+    SkillPercentPanel
+      id: percent
+      anchors.left: icon.right
+      anchors.right: trainBtn.left
+      margin-left: 5
+      margin-right: 5
+
+    Button
+      id: trainBtn
+      !text: tr('Train')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-top: 3
+      @onClick: modules.game_multitraining.onTrainClick('magic')
+
+  // Fist
+  UIWidget
+    id: skillFist
+    anchors.top: skillMagic.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-left: 8
+    margin-right: 8
+    height: 21
+
+    SkillNameLabel
+      !text: tr('Fist')
+
+    SkillValueLabel
+      id: value
+      anchors.right: trainBtn.left
+      margin-right: 5
+
+    SkillImage
+      id: icon
+      image-source: /images/game/skills/skill_0
+      margin-left: 2
+
+    SkillPercentPanel
+      id: percent
+      anchors.left: icon.right
+      anchors.right: trainBtn.left
+      margin-left: 5
+      margin-right: 5
+
+    Button
+      id: trainBtn
+      !text: tr('Train')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-top: 3
+      @onClick: modules.game_multitraining.onTrainClick('fist')
+
+  // Club
+  UIWidget
+    id: skillClub
+    anchors.top: skillFist.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-left: 8
+    margin-right: 8
+    height: 21
+
+    SkillNameLabel
+      !text: tr('Club')
+
+    SkillValueLabel
+      id: value
+      anchors.right: trainBtn.left
+      margin-right: 5
+
+    SkillImage
+      id: icon
+      image-source: /images/game/skills/skill_1
+      margin-left: 2
+
+    SkillPercentPanel
+      id: percent
+      anchors.left: icon.right
+      anchors.right: trainBtn.left
+      margin-left: 5
+      margin-right: 5
+
+    Button
+      id: trainBtn
+      !text: tr('Train')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-top: 3
+      @onClick: modules.game_multitraining.onTrainClick('club')
+
+  // Sword
+  UIWidget
+    id: skillSword
+    anchors.top: skillClub.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-left: 8
+    margin-right: 8
+    height: 21
+
+    SkillNameLabel
+      !text: tr('Sword')
+
+    SkillValueLabel
+      id: value
+      anchors.right: trainBtn.left
+      margin-right: 5
+
+    SkillImage
+      id: icon
+      image-source: /images/game/skills/skill_2
+      margin-left: 2
+
+    SkillPercentPanel
+      id: percent
+      anchors.left: icon.right
+      anchors.right: trainBtn.left
+      margin-left: 5
+      margin-right: 5
+
+    Button
+      id: trainBtn
+      !text: tr('Train')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-top: 3
+      @onClick: modules.game_multitraining.onTrainClick('sword')
+
+  // Axe
+  UIWidget
+    id: skillAxe
+    anchors.top: skillSword.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-left: 8
+    margin-right: 8
+    height: 21
+
+    SkillNameLabel
+      !text: tr('Axe')
+
+    SkillValueLabel
+      id: value
+      anchors.right: trainBtn.left
+      margin-right: 5
+
+    SkillImage
+      id: icon
+      image-source: /images/game/skills/skill_3
+      margin-left: 2
+
+    SkillPercentPanel
+      id: percent
+      anchors.left: icon.right
+      anchors.right: trainBtn.left
+      margin-left: 5
+      margin-right: 5
+
+    Button
+      id: trainBtn
+      !text: tr('Train')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-top: 3
+      @onClick: modules.game_multitraining.onTrainClick('axe')
+
+  // Distance
+  UIWidget
+    id: skillDistance
+    anchors.top: skillAxe.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-left: 8
+    margin-right: 8
+    height: 21
+
+    SkillNameLabel
+      !text: tr('Distance')
+
+    SkillValueLabel
+      id: value
+      anchors.right: trainBtn.left
+      margin-right: 5
+
+    SkillImage
+      id: icon
+      image-source: /images/game/skills/skill_4
+      margin-left: 2
+
+    SkillPercentPanel
+      id: percent
+      anchors.left: icon.right
+      anchors.right: trainBtn.left
+      margin-left: 5
+      margin-right: 5
+
+    Button
+      id: trainBtn
+      !text: tr('Train')
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-top: 3
+      @onClick: modules.game_multitraining.onTrainClick('distance')
+
+  HorizontalSeparator
+    id: separator
+    anchors.top: skillDistance.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 14
+    width: 214
+
+  Button
+    !text: tr('Close')
+    anchors.right: separator.right
+    anchors.top: separator.bottom
+    margin-top: 10
+    width: 43
+    height: 20
+    @onClick: modules.game_multitraining.hide()

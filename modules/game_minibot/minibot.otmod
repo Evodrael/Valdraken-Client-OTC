@@ -1,0 +1,8 @@
+Module
+  name: game_minibot
+  description: Manipulate basic actions automaticlly
+  author: Marcosvf132
+  sandboxed: true
+  scripts: [ minibot, pages/combat_attack, pages/combat_shooter, pages/combat_pvp, pages/main_settings, pages/main_defense, pages/main_fortify, pages/healing_conditions, pages/healing_group, pages/healing_health, pages/healing_mana, pages/support_general, pages/support_manashield, pages/combat_timers, pages/hunting_groupFollow, pages/hunting_recorder, pages/hunting_explorer, pages/equipment_amulets, pages/equipment_rings ]
+  @onLoad: init()
+  @onUnload: terminate()

@@ -1,0 +1,374 @@
+CompendiumTreeItem < UIWidget
+  height: 20
+  anchors.top: parent.bottom
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin-left: 5
+  margin-right: 5
+  margin-top: 12
+  draggable: false
+
+  Button
+    id: mainButton
+    image-color: #ffffff
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    size: 170 24
+    margin-top: -5
+    margin-left: 2
+    image-source: /images/store/categorie-up
+    image-clip: 0 0 170 24
+    $hover !checked:
+      image-clip: 0 0 170 24
+    $pressed:
+      image-source: /images/store/categorie-down
+      image-clip: 0 0 170 24
+    $checked:
+      image-source: /images/store/categorie-down
+      image-clip: 0 0 170 24
+
+    UIWidget
+      id: newFlag
+      size: 20 20
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-left: -9
+      margin-top: -9
+      visible: false
+
+    Label
+      id: text
+      height: 14
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-left: 20
+      margin-right: 18
+      margin-top: -7
+      font: $var-cip-font
+      color: $var-text-cip-color
+      text-auto-resize: false
+
+    UIWidget
+      id: scroll
+      anchors.top: parent.top
+      anchors.right: parent.right
+      margin-top: -2
+      margin-right: 2
+      visible: false
+      image-source: /images/arrows/icon-arrow7x7-down
+
+    UIWidget
+      id: activeArrow
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.right: parent.right
+      margin-right: 4
+      visible: false
+      image-source: /images/arrows/icon-arrow7x7-right
+
+  FlatPanel
+    id: panel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 17
+    margin-left: 3
+    margin-right: 2
+    image-source: /images/store/arrow-panel
+    visible: false
+
+  UIWidget
+    id: arrow
+    size: 4 7
+    image-source: /images/store/arrow
+    anchors.top: panel.top
+    anchors.left: parent.left
+    margin-top: 2
+    margin-left: 7
+    visible: false
+
+  $first:
+    anchors.top: parent.top
+
+  $!first:
+    anchors.top: prev.bottom
+
+CompendiumTreeButton < Button
+  size: 152 20
+  anchors.top: parent.top
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin-left: 12
+  margin-top: 1
+  image-source: /images/store/subcategory
+  image-clip: 0 0 152 20
+  $hover !pressed !on:
+    image-clip: 0 0 152 20
+  $pressed:
+    image-clip: 0 20 152 20
+  $on:
+    image-clip: 0 20 152 20
+
+  UIWidget
+    id: newFlag
+    size: 20 20
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-left: -9
+    margin-top: -9
+    visible: false
+
+  Label
+    id: text
+    height: 14
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-left: 5
+    margin-right: 2
+    margin-top: -7
+    font: $var-cip-font
+    color: $var-text-cip-color
+    text-auto-resize: false
+
+  $first:
+    anchors.top: parent.top
+
+  $!first:
+    anchors.top: prev.bottom
+
+CompendiumArticleLabel < Label
+  height: 16
+  margin-left: 2
+  margin-right: 2
+  margin-top: 2
+  text-wrap: true
+  text-auto-resize: true
+  text-align: center
+  font: $var-cip-font
+  color: $var-text-cip-color
+
+CompendiumArticleImage < UIWidget
+  phantom: true
+  image-smooth: true
+  anchors.horizontalCenter: parent.horizontalCenter
+  anchors.verticalCenter: parent.verticalCenter
+
+NewMainWindow
+  id: compendiumWindow
+  !text: tr('Compendium')
+  size: 940 620
+  @onEscape: hide()
+
+  Panel
+    id: contentPanel
+    anchors.fill: parent
+    margin: 12 12 12 12
+
+    Panel
+      id: menuBackground
+      height: 36
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      image-source: /images/ui/back-icons
+
+      Button
+        id: buttonMenu1
+        anchors.top: parent.top
+        anchors.left: parent.left
+        size: 181 34
+        margin-left: 1
+        margin-top: 1
+        image-source: /images/ui/longbutton
+        image-border: 3
+        !text: tr('Game Contents')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        icon: /images/game/compendium/icon-news-player-guide
+        icon-align: left
+        icon-offset: 15 0
+        text-offset: 12 0
+        $pressed:
+          text-offset: 12 0
+        $checked:
+          text-offset: 12 0
+        @onClick: selectCategory('PLAYER GUIDE')
+
+      Button
+        id: buttonMenu2
+        anchors.top: prev.top
+        anchors.left: prev.right
+        size: 181 34
+        margin-left: 1
+        image-source: /images/ui/longbutton
+        image-border: 3
+        !text: tr('Client Features')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        icon: /images/game/compendium/icon-news-client-features
+        icon-align: left
+        icon-offset: 15 0
+        text-offset: 12 0
+        $pressed:
+          text-offset: 12 0
+        $checked:
+          text-offset: 12 0
+        @onClick: selectCategory('CLIENT FEATURES')
+
+      Button
+        id: buttonMenu3
+        anchors.top: prev.top
+        anchors.left: prev.right
+        size: 181 34
+        margin-left: 1
+        image-source: /images/ui/longbutton
+        image-border: 3
+        !text: tr('Useful Info')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        icon: /images/game/compendium/icon-news-useful-info
+        icon-align: left
+        icon-offset: 15 0
+        text-offset: 12 0
+        $pressed:
+          text-offset: 12 0
+        $checked:
+          text-offset: 12 0
+        @onClick: selectCategory('USEFUL INFO')
+
+      Button
+        id: buttonMenu4
+        anchors.top: prev.top
+        anchors.left: prev.right
+        size: 181 34
+        margin-left: 1
+        image-source: /images/ui/longbutton
+        image-border: 3
+        !text: tr('Major Updates')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        icon: /images/game/compendium/icon-news-major-updates
+        icon-align: left
+        icon-offset: 15 0
+        text-offset: 12 0
+        $pressed:
+          text-offset: 12 0
+        $checked:
+          text-offset: 12 0
+        @onClick: selectCategory('MAJOR UPDATES')
+
+      Button
+        id: buttonMenu5
+        anchors.top: prev.top
+        anchors.left: prev.right
+        size: 181 34
+        margin-left: 1
+        image-source: /images/ui/longbutton
+        image-border: 3
+        !text: tr('Support')
+        font: $var-cip-font
+        color: $var-text-cip-color
+        icon: /images/game/compendium/icon-news-support
+        icon-align: left
+        icon-offset: 15 0
+        text-offset: 12 0
+        $pressed:
+          text-offset: 12 0
+        $checked:
+          text-offset: 12 0
+        @onClick: selectCategory('SUPPORT')
+
+    Panel
+      id: categoriesFrame
+      width: 194
+      anchors.top: menuBackground.bottom
+      anchors.left: parent.left
+      anchors.bottom: separator.top
+      margin-bottom: 10
+      margin-top: 7
+      image-source: /images/ui/2pixel-up-frame-borderimage-dark
+      image-border: 4
+      image-border-top: 17
+
+      ScrollablePanel
+        id: categories
+        anchors.fill: parent
+        margin: 3 12 3 3
+        vertical-scrollbar: categoryScroll
+
+      VerticalScrollBar
+        id: categoryScroll
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        margin-top: 1
+        margin-right: 1
+        margin-bottom: 1
+        step: 14
+        pixels-scroll: true
+
+    Panel
+      id: articleFrame
+      anchors.top: categoriesFrame.top
+      anchors.left: categoriesFrame.right
+      anchors.right: parent.right
+      anchors.bottom: separator.top
+      margin-left: 8
+      margin-bottom: 10
+      image-source: /images/ui/t2pixel-up-frame-borderimage
+      image-border: 4
+      image-border-top: 17
+
+      Label
+        id: contentTitle
+        height: 18
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        text-align: center
+        font: $var-cip-font
+        color: $var-text-cip-color
+
+      TextList
+        id: compendiumContent
+        anchors.top: contentTitle.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        margin: 5 5 5 5
+        vertical-scrollbar: contentScroll
+        focusable: false
+        padding-top: 5
+        padding-right: 5
+        padding-left: 5
+        layout:
+          type: verticalBox
+          align-top: true
+
+      VerticalScrollBar
+        id: contentScroll
+        anchors.top: compendiumContent.top
+        anchors.bottom: compendiumContent.bottom
+        anchors.right: compendiumContent.right
+        margin-top: 1
+        margin-right: 1
+        margin-bottom: 1
+        step: 16
+        pixels-scroll: true
+
+    HorizontalSeparator
+      id: separator
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: close.top
+      margin-bottom: 11
+
+    Button
+      id: close
+      size: 43 20
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      !text: tr('Close')
+      @onClick: hide()
