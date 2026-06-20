@@ -1,7 +1,7 @@
 {
-  "version": "20260619-135118",
-  "generated": "2026-06-19T13:51:18.049943+00:00",
-  "count": 13065,
+  "version": "20260620-032418",
+  "generated": "2026-06-20T03:24:18.342762+00:00",
+  "count": 13066,
   "files": [
     {
       "path": ".gitignore",
@@ -12310,8 +12310,8 @@
     },
     {
       "path": "data/images/title.png",
-      "sha256": "3586514c588e7cabe15f8ac935b4f276bd5d1755188197e2bffed7e0fd146278",
-      "size": 5308005
+      "sha256": "27341b49159ee04d3fcaaceaf0a3061b577f5549b013b95c14d1245cc7bf88c0",
+      "size": 5160940
     },
     {
       "path": "data/images/topbuttons/analyticsSelectorWidget.png",
@@ -60775,8 +60775,8 @@
     },
     {
       "path": "init.lua",
-      "sha256": "562904d5511836a822fd217bd36fbc9e938b817ac9154c3b93a015cbf0399dc1",
-      "size": 4298
+      "sha256": "57c5aec0af8c7d4ee3b67ed474994abd28dad0f0145b03adf5b82ccbf8c159f3",
+      "size": 4316
     },
     {
       "path": "meta.lua",
@@ -65327,6 +65327,11 @@
       "path": "otclient_gl_x64.exe",
       "sha256": "b2fb0afdbd20164eb2046dd282c78f66bc13ec88f38f3aabb593e38714c17f50",
       "size": 18603008
+    },
+    {
+      "path": "teste.txt",
+      "sha256": "0e59be22dff4b895299e0b0d6d71be0cf9422bc27fc65dd86ff1684fe66bc8ef",
+      "size": 25
     }
   ]
 }
