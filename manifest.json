@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.00",
-    "generated":  "2026-06-20T04:02:04-03:00",
-    "count":  13067,
+    "version":  "15.24.01",
+    "generated":  "2026-06-20T04:30:33-03:00",
+    "count":  13068,
     "files":  [
                   {
                       "path":  ".gitattributes",
@@ -65329,13 +65329,18 @@
                       "size":  1302
                   },
                   {
+                      "path":  "OLHA_O_TESTE.txt",
+                      "sha256":  "9f67e56ec9e253081373533ff823370671dfc813b9039c2bf06e3ccb27144b58",
+                      "size":  13
+                  },
+                  {
                       "path":  "otclient_gl_x64.exe",
                       "sha256":  "b2fb0afdbd20164eb2046dd282c78f66bc13ec88f38f3aabb593e38714c17f50",
                       "size":  18603008
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "1fdc7b000dffd6259c086a34063645086899b1db09a93f0ac57effd1d0775f68",
+                      "sha256":  "8fc6ee4c68d381cbff9047ef46484ad91a96931f0ad68e8038a432452a71dd96",
                       "size":  9
                   }
               ]
