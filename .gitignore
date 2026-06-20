@@ -2,3 +2,7 @@
 otclient.log
 *.log
 otclientrc.lua
+
+# Arquivos criados pelo launcher na pasta do jogador (nao versionar)
+.launcher_cache.json
+.installed_version
