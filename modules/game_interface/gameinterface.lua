@@ -1943,7 +1943,9 @@ function refreshViewMode()
     if g_app.isMobile() then
       gameMapPanel:setZoom(15)
     else
-      gameMapPanel:setZoom(15)
+      -- Zoom inicial do mapa (altura visivel em tiles). Menor = mais perto.
+      -- 15 = padrao "longe"; 13 = um pouco mais de zoom. Use 11 p/ mais perto ainda.
+      gameMapPanel:setZoom(13)
     end
 
     modules.client_topmenu.getTopMenu():setImageColor('#ffffff66')
