@@ -7,31 +7,52 @@ openedWindows = {}
 
 -- Abreviacao de XP usada pelos analisadores (XP / Hunting).
 -- Regras:
---   < 100.000               -> numero cheio com separador de milhar (ex: 99,999)
---   100.000 .. 999.999      -> 100K .. 999K
---   1.000.000 .. 999.999.999 -> 1M .. 999M
---   1.000.000.000 .. 999.999.999.999 -> 1B .. 999B
---   >= 1.000.000.000.000    -> T (trilhao), evita sobreposicao em valores extremos
+--   < 100.000   -> numero cheio com separador de milhar (ex: 99,999)
+--   >= 100.000  -> sufixo K/M/B/T/Qa/Qi/... com ate' 2 casas decimais
+--                  (ex: 100K, 1.44B, 9.2T), removendo zeros a' direita.
+--
+-- Guarda de overflow: getHourExperience()/getHourRawExperience() estouram o
+-- uint64 quando a sessao mal comecou (elapsed ~ 0ms) e retornam ~2^63. Valores
+-- nessa faixa nao sao dados reais, entao mostramos "-" em vez de um numero falso.
+local XP_INVALID = 2 ^ 63 -- ~9.22e18, ponto de overflow do uint64
+local XP_UNITS = { "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" }
+
 function formatXpAbbrev(value)
   local v = tonumber(value) or 0
+  if v ~= v or math.abs(v) >= XP_INVALID then -- NaN ou overflow do uint64
+    return "-"
+  end
+
   local neg = v < 0
-  local abs = math.floor(math.abs(v))
-  local result
-  if abs >= 1000000000000 then
-    result = math.floor(abs / 1000000000000) .. "T"
-  elseif abs >= 1000000000 then
-    result = math.floor(abs / 1000000000) .. "B"
-  elseif abs >= 1000000 then
-    result = math.floor(abs / 1000000) .. "M"
-  elseif abs >= 100000 then
-    result = math.floor(abs / 1000) .. "K"
+  local abs = math.abs(v)
+
+  if abs < 100000 then
+    return (neg and "-" or "") .. formatMoney(math.floor(abs), ",")
+  end
+
+  local scale = 1000
+  local i = 1
+  while i < #XP_UNITS and abs >= scale * 1000 do
+    scale = scale * 1000
+    i = i + 1
+  end
+
+  local n = abs / scale
+  local str
+  if n >= 100 then
+    str = string.format("%d", math.floor(n))
+  elseif n >= 10 then
+    str = string.format("%.1f", n)
   else
-    result = formatMoney(abs, ",")
+    str = string.format("%.2f", n)
   end
-  if neg then
-    result = "-" .. result
+
+  -- remove zeros a' direita: "63.0" -> "63", "1.40" -> "1.4"
+  if str:find(".", 1, true) then
+    str = str:gsub("0+$", ""):gsub("%.$", "")
   end
-  return result
+
+  return (neg and "-" or "") .. str .. XP_UNITS[i]
 end
 
 local analyserWindows = {
