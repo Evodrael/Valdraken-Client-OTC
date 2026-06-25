@@ -181,11 +181,7 @@ function HuntingAnalyser:updateWindow(ignoreVisible)
 
 	local experience = HuntingAnalyser.xpGain
 	if not contentsPanel.xpGain.lastExperience or contentsPanel.xpGain.lastExperience ~= experience then
-		if experience > 1000000 then
-			contentsPanel.xpGain:setText(formatMoney(tokformat(experience), ","))
-		else
-			contentsPanel.xpGain:setText(formatMoney(experience, ","))
-		end
+		contentsPanel.xpGain:setText(formatXpAbbrev(experience))
 		contentsPanel.xpGain.lastExperience = experience
 	end
 
@@ -198,11 +194,7 @@ function HuntingAnalyser:updateWindow(ignoreVisible)
 	end
 
 	if not contentsPanel.xpHour.lastValue or contentsPanel.xpHour.lastValue ~= HuntingAnalyser.xpHour then
-		if HuntingAnalyser.xpHour > 10000000 then
-			contentsPanel.xpHour:setText(formatMoney(tokformat(HuntingAnalyser.xpHour), ","))
-		else
-			contentsPanel.xpHour:setText(formatMoney(HuntingAnalyser.xpHour, ","))
-		end
+		contentsPanel.xpHour:setText(formatXpAbbrev(HuntingAnalyser.xpHour))
 		contentsPanel.xpHour.lastValue = HuntingAnalyser.xpHour
 	end
 
@@ -210,20 +202,12 @@ function HuntingAnalyser:updateWindow(ignoreVisible)
 	HuntingAnalyser.rawXpHour = g_game.getHourRawExperience()
 
 	if not contentsPanel.rawXpGain.lastValue or contentsPanel.rawXpGain.lastValue ~= rawExperience then
-		if rawExperience > 10000000 then
-			contentsPanel.rawXpGain:setText(formatMoney(tokformat(rawExperience), ","))
-		else
-			contentsPanel.rawXpGain:setText(formatMoney(rawExperience, ","))
-		end
+		contentsPanel.rawXpGain:setText(formatXpAbbrev(rawExperience))
 		contentsPanel.rawXpGain.lastValue = rawExperience
 	end
 
 	if not contentsPanel.rawXpHour.lastValue or contentsPanel.rawXpHour.lastValue ~= HuntingAnalyser.rawXpHour then
-		if HuntingAnalyser.rawXpHour > 10000000 then
-			contentsPanel.rawXpHour:setText(formatMoney(tokformat(HuntingAnalyser.rawXpHour), ","))
-		else
-			contentsPanel.rawXpHour:setText(formatMoney(HuntingAnalyser.rawXpHour, ","))
-		end
+		contentsPanel.rawXpHour:setText(formatXpAbbrev(HuntingAnalyser.rawXpHour))
 		contentsPanel.rawXpHour.lastValue = HuntingAnalyser.rawXpHour
 	end
 

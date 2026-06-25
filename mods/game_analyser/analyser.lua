@@ -5,6 +5,35 @@ end
 
 openedWindows = {}
 
+-- Abreviacao de XP usada pelos analisadores (XP / Hunting).
+-- Regras:
+--   < 100.000               -> numero cheio com separador de milhar (ex: 99,999)
+--   100.000 .. 999.999      -> 100K .. 999K
+--   1.000.000 .. 999.999.999 -> 1M .. 999M
+--   1.000.000.000 .. 999.999.999.999 -> 1B .. 999B
+--   >= 1.000.000.000.000    -> T (trilhao), evita sobreposicao em valores extremos
+function formatXpAbbrev(value)
+  local v = tonumber(value) or 0
+  local neg = v < 0
+  local abs = math.floor(math.abs(v))
+  local result
+  if abs >= 1000000000000 then
+    result = math.floor(abs / 1000000000000) .. "T"
+  elseif abs >= 1000000000 then
+    result = math.floor(abs / 1000000000) .. "B"
+  elseif abs >= 1000000 then
+    result = math.floor(abs / 1000000) .. "M"
+  elseif abs >= 100000 then
+    result = math.floor(abs / 1000) .. "K"
+  else
+    result = formatMoney(abs, ",")
+  end
+  if neg then
+    result = "-" .. result
+  end
+  return result
+end
+
 local analyserWindows = {
   huntingButton = 'styles/hunting',
   lootButton = 'styles/loot',

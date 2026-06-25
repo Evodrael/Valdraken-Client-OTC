@@ -67,10 +67,10 @@ function XPAnalyser:updateWindow(ignoreVisible)
 	local contentsPanel = XPAnalyser.window.contentsPanel
 
 	local experience = XPAnalyser.xpGain
-	contentsPanel.xpGain:setText(formatMoney(experience, ","))
+	contentsPanel.xpGain:setText(formatXpAbbrev(experience))
 
 	local experience = XPAnalyser.rawXPGain
-	contentsPanel.rawXpGain:setText(formatMoney(experience, ","))
+	contentsPanel.rawXpGain:setText(formatXpAbbrev(experience))
 
 	if XPAnalyser.target == 0 and XPAnalyser.xpHour == 0 then
 		XPAnalyser.window.contentsPanel.xpBG.xpArrow:setMarginLeft(targetMaxMargin / 2)
@@ -131,7 +131,7 @@ function XPAnalyser:checkExpHour()
 		XPAnalyser.xpHour = 0
 		contentsPanel.xpHour:setText(0)
 	else
-		contentsPanel.xpHour:setText(formatMoney(XPAnalyser.xpHour, ","))
+		contentsPanel.xpHour:setText(formatXpAbbrev(XPAnalyser.xpHour))
 	end
 
 	local nextLevelExp = modules.game_skills.expForLevel(player:getLevel()+1)
@@ -147,7 +147,7 @@ function XPAnalyser:checkExpHour()
 		XPAnalyser.rawXpHour = 0
 		contentsPanel.rawXpHour:setText(0)
 	else
-		contentsPanel.rawXpHour:setText(formatMoney(XPAnalyser.rawXpHour, ","))
+		contentsPanel.rawXpHour:setText(formatXpAbbrev(XPAnalyser.rawXpHour))
 	end
 
 	XPAnalyser.window.contentsPanel.graphPanel:addValue(1, math.max(0, XPAnalyser.xpHour))
