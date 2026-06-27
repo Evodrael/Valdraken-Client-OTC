@@ -420,6 +420,28 @@ NonClosableMiniWindow
         phantom: true
         visible: true
 
+    // Battle Pass movido para ca (antes ficava na janela de side buttons, acima
+    // do Store). Mesmo tamanho do botao minibot (42x20), apenas o icone
+    // centralizado, sem o texto 'Battle Pass'. Posicionado logo abaixo do minibot.
+    UIWidget
+      id: battlepassButton
+      size: 42 20
+      anchors.top: button_minibot.bottom
+      anchors.left: button_minibot.left
+      margin-top: 6
+
+      Button
+        id: button
+        anchors.fill: parent
+        image-source: /images/ui/buttons-blue
+        icon-source: /images/game/battlepass/mainIcon1
+        // icon-rect (x y w h) centraliza o icone 18x16 no botao 42x20:
+        // x=(42-18)/2=12, y=(20-16)/2=2. NAO usar icon-size (fixa no canto sup-esq).
+        icon-rect: 12 2 18 16
+        tooltip-delayed: true
+        !tooltip: tr('Open the Battle Pass')
+        @onClick: modules.game_battlepass.loadMenu('challengesMenu'); if g_game.requestBattlePass then g_game.requestBattlePass(0) end
+
   UIButton
     id: minButton
     anchors.top: parent.top

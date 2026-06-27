@@ -24,8 +24,8 @@ Services = {
 Servers = {
   {
     name = "Valdraken",
-    loginLink = "http://valdraken.com.br/login.php",
-    clientServicesLink = "http://valdraken.com.br/login.php",
+    loginLink = "https://valdraken.com.br/login.php",
+    clientServicesLink = "https://valdraken.com.br/login.php",
     hintsLink = "",
     googleLogin = ""
   }

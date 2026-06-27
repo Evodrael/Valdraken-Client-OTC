@@ -67,44 +67,6 @@ NonClosableMiniWindow
       visible: false
       image-source: /images/store/rectangle-highlight
 
-    Button
-      id: battlepassButton
-      size: 108 20
-      anchors.top: prev.bottom
-      anchors.left: parent.left
-      image-source: /images/ui/buttons-blue
-      icon-source: /images/game/battlepass/mainIcon1
-      icon-size: 18 16
-      icon-offset: 5 2
-      !text: tr('    Battle Pass')
-      font: $var-cip-font-wheel
-      color: $var-text-cip-color
-      text-offset: 0 -1
-      margin-left: 4
-      margin-top: 4
-      !tooltip: tr('Open the Battle Pass')
-      tooltip-delayed: true
-      @onClick: modules.game_battlepass.loadMenu('challengesMenu'); if g_game.requestBattlePass then g_game.requestBattlePass(0) end
-
-    UIWidget
-      id: border
-      size: 111 22
-      anchors.top: prev.top
-      anchors.left: prev.left
-      margin-left: -1
-      margin-top: -1
-      phantom: true
-      visible: true
-      image-source: /images/store/rectangle-highlight
-
-    UIWidget
-      id: bPassbright
-      size: 108 20
-      anchors.top: battlepassButton.top
-      anchors.left: battlepassButton.left
-      phantom: true
-      image-source: /images/game/battlepass/bright
-
     UIButton
       id: hiddenMenu
       anchors.top: storeButton.top
@@ -151,23 +113,10 @@ NonClosableMiniWindow
         image-clip: 0 0 20 20
       @onClick: modules.client_settings.toggle()
 
-    Button
-      id: bPassSlot
-      size: 20 20
-      anchors.top: prev.bottom
-      anchors.right: logout.right
-      margin-top: 6
-      image-source: /images/ui/buttons-blue
-      icon-source: /images/game/battlepass/mainIcon1
-      icon-size: 18 16
-      icon-offset: 1 1
-      tooltip: Open BattlePass inbox
-      tooltip-delayed: true
-
     Panel
       id: buttons
       size: 108 20
-      anchors.top: battlepassButton.bottom
+      anchors.top: storeButton.bottom
       anchors.left: parent.left
       margin-top: 6
       margin-left: 4

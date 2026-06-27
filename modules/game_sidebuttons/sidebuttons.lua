@@ -7,8 +7,6 @@ highscore = nil
 isHiddenMenuActive = false
 currentOpenWidget = nil
 
-local bPassSlot = nil
-
 -- Hotfix when a new button is introduced
 -- VOIP DESATIVADO: "button_voip" removido daqui p/ nao forcar a criacao do side button de voip.
 -- Reverter: re-adicionar "button_voip" na lista abaixo.
@@ -112,8 +110,11 @@ local function forceActiveButton(activeWidgets, inactiveWidgets, buttonId)
 end
 
 local function getMainButtonsHeight(buttonPanel)
+  -- Base reduzida de 77 -> 53 porque o botao 'Battle Pass' (20px + 4 de margem)
+  -- saiu desta janela (foi movido para baixo do minibot no inventario). Sem isso
+  -- sobrava um espaco vazio no rodape do painel de side buttons.
   local totalLines = math.max(2, math.ceil(buttonPanel:getChildCount() / 5))
-  return 77 + ((totalLines - 1) * 22)
+  return 53 + ((totalLines - 1) * 22)
 end
 
 local function getStaticButtonById(buttonId)
@@ -200,31 +201,8 @@ function init()
   buttonsWindow = g_ui.loadUI('sidebuttons', m_interface.getRightPanel())
   local activeWidgets, inactiveWidgets = getControlButtonOptions()
   local buttonPanel = buttonsWindow:recursiveGetChildById("buttons")
-  local battlePassBorder = buttonsWindow:recursiveGetChildById("border")
   local storeBorder = buttonsWindow:recursiveGetChildById("storeBorder")
 
-  bPassSlot = buttonsWindow:recursiveGetChildById("bPassSlot")
-  bPassSlot.onClick = function()
-    local player = g_game.getLocalPlayer()
-    if not player then return end
-    -- True "independent" Battle Pass Inbox requires the server to ship item
-    -- id 23397 (defined in items.xml) inside appearances.dat so the client
-    -- can render it. Until that asset is delivered, registering it XML-only
-    -- on the server crashes the login flow (the client disconnects when an
-    -- inventory slot references an unknown item id). Fall back to the
-    -- Purse / Store Inbox so the button still opens a usable container.
-    local bpItem = player:getInventoryItem(InventorySlotBattlePass)
-    if not bpItem then
-      bpItem = player:getInventoryItem(InventorySlotPurse)
-    end
-    if bpItem then
-      g_game.use(bpItem)
-    else
-      g_logger.warning("[BattlePassInbox] no item found in BattlePass(12) or Purse(11) slots")
-    end
-  end
-
-  battlePassBorder:setImageShader("text_staff")
   storeBorder:setImageShader("text_staff")
 
   for k, v in pairs(forceButtons) do
