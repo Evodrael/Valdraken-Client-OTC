@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.08",
-    "generated":  "2026-07-11T16:07:05-03:00",
+    "version":  "15.24.09",
+    "generated":  "2026-07-11T16:23:06-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -1615,8 +1615,8 @@
                   },
                   {
                       "path":  "data/images/clienticon.png",
-                      "sha256":  "1201009ec12c7f8962cad2c6edbc4c959eba11d0094569cff8aaecae21c40104",
-                      "size":  72636
+                      "sha256":  "55315fc57f6615a1ab4de025a4e32f16a2a854ba7d72ad9c2f3fbc59d31a7a60",
+                      "size":  87126
                   },
                   {
                       "path":  "data/images/crosshair/cip-default.png",
@@ -12315,8 +12315,8 @@
                   },
                   {
                       "path":  "data/images/title.png",
-                      "sha256":  "d01e795eb4147b836fb283b2ac51bb1d7bec3ad3cc3c149fdf6f7c17a08bf94b",
-                      "size":  11385179
+                      "sha256":  "714cef7863661ee7c59cd1dc91b53917aa7c394cbbc2de3ea547a3943e719c07",
+                      "size":  5356077
                   },
                   {
                       "path":  "data/images/topbuttons/analyticsSelectorWidget.png",
@@ -13410,8 +13410,8 @@
                   },
                   {
                       "path":  "data/images/ui/logo.png",
-                      "sha256":  "39f00c7886711bc2ee13a84e5b04b076ea1eb8e5a640122108453346b36df1b0",
-                      "size":  45051
+                      "sha256":  "55315fc57f6615a1ab4de025a4e32f16a2a854ba7d72ad9c2f3fbc59d31a7a60",
+                      "size":  87126
                   },
                   {
                       "path":  "data/images/ui/logout-down.png",
@@ -106995,7 +106995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "f5b38f41b103ad1fb6f8e508d09cd088cccbef7ed197ca83fb37fb8e7417ea1a",
+                      "sha256":  "6dc3e6d6682d75926a1b501ed9998dda16c610227078d2e0dcf9f876d0869028",
                       "size":  8
                   }
               ]
