@@ -16,7 +16,7 @@ StepOne < Panel
     anchors.top: prev.bottom
     anchors.left: parent.left
     margin-top: 1
-    !text: tr('Please select the OTZudo Rule which is violated.')
+    !text: tr('Please select the Valdraken Rule which is violated.')
     text-auto-resize: true
     font: $var-cip-font
     color: $var-text-cip-color

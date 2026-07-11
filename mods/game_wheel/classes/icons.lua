@@ -994,7 +994,7 @@ BasicMods = {
     [29] = {baseI = 1.5, baseII = 1.5, tooltip = "+%s%% Mana Drain Resistance\n+%s%% Life Drain Resistance"},
     [30] = {baseI = 5, tooltip = "+%s%% Mitigation Multiplier"},
     [31] = {baseStepI = 100, stepTypeI = "health", tooltip = "+%s Hit Points"},
-	-- 32 is missing in cip OTZudo client
+	-- 32 is missing in cip Valdraken client
     [33] = {baseStepI = 50, stepTypeI = "mana", baseII = 1, tooltip = "+%s Mana\n+%s%% Fire Resistance"},
     [34] = {baseStepI = 50, stepTypeI = "mana", baseII = 1, tooltip = "+%s Mana\n+%s%% Energy Resistance"},
     [35] = {baseStepI = 50, stepTypeI = "mana", baseII = 1, tooltip = "+%s Mana\n+%s%% Earth Resistance"},
@@ -1004,7 +1004,7 @@ BasicMods = {
     [39] = {baseStepI = 50, stepTypeI = "health", baseII = 1, tooltip = "+%s Health\n+%s%% Energy Resistance"},
     [40] = {baseStepI = 50, stepTypeI = "health", baseII = 1, tooltip = "+%s Health\n+%s%% Earth Resistance"},
     [41] = {baseStepI = 50, stepTypeI = "health", baseII = 1, tooltip = "+%s Health\n+%s%% Ice Resistance"},
-    -- 42/43 is missing in cip OTZudo client
+    -- 42/43 is missing in cip Valdraken client
     [44] = {baseStepI = 50, stepTypeI = "capacity", baseII = 1, tooltip = "+%s Capacity\n+%s%% Fire Resistance"},
     [45] = {baseStepI = 50, stepTypeI = "capacity", baseII = 1, tooltip = "+%s Capacity\n+%s%% Energy Resistance"},
     [46] = {baseStepI = 50, stepTypeI = "capacity", baseII = 1, tooltip = "+%s Capacity\n+%s%% Earth Resistance"},

@@ -1,10 +1,10 @@
 -- =============================================================================
--- game_hints (OTZudo) — agora funciona como o antigo game_tutorial.
+-- game_hints (Valdraken) — agora funciona como o antigo game_tutorial.
 -- Telas informativas (controls / tutorial 3 paginas / voc_change / arrival) +
 -- o SELETOR INTERATIVO de vocacao (portado do game_tutorial), tudo disparado
 -- pelo MESMO sinal do servidor: g_game.onTutorialHint(id) (opcode 0xDC).
 --
--- Mapa de ids (igual ao game_tutorial do OTZudo; o servidor envia via
+-- Mapa de ids (igual ao game_tutorial do Valdraken; o servidor envia via
 -- player:sendTutorial(id)):
 --   1 = Alternative Controls   -> janela 'controls'
 --   2 = Vocation select        -> SELETOR interativo (escolhe voc -> sendChangeVocation)
@@ -18,7 +18,7 @@ local currentPage = 1
 local openedHints = {}
 
 -- ---------------------------------------------------------------------------
--- Telas informativas (OTZudo original)
+-- Telas informativas (Valdraken original)
 -- ---------------------------------------------------------------------------
 function showHint(hintType)
   local hintPath = 'styles/' .. hintType

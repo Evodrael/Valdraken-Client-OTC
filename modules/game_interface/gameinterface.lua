@@ -188,7 +188,7 @@ function onGameStart()
     LoadedPlayer:setVocation(player:getVocation())
   end
 
-  -- open OTZudo has delay in auto walking
+  -- open Valdraken has delay in auto walking
   if not g_game.isOfficialTibia() then
     g_game.enableFeature(GameForceFirstAutoWalkStep)
   else
@@ -341,7 +341,7 @@ function tryLogout(prompt)
       end
     end
   else
-    msg = 'Are you sure you want to leave OTZudo?'
+    msg = 'Are you sure you want to leave Valdraken?'
 
     yesCallback = function()
       g_game.safeLogout()

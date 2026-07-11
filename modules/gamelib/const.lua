@@ -522,7 +522,7 @@ CIPSOFT_RSA = "1321277432058722840622950990822933849527763264961655079678763618"
               "2907336840325241747827401343576296990629870233111328210165697754" ..
               "88792221429527047321331896351555606801473202394175817"
 
--- set to the latest OTZudo.pic signature to make otclient compatible with official OTZudo
+-- set to the latest Valdraken.pic signature to make otclient compatible with official Valdraken
 PIC_SIGNATURE = 0x56C5DDE7
 
 OsTypes = {
@@ -778,7 +778,7 @@ ControlButtonTooltips = {
   ["rewardWallDialog"] = "%s reward wall",
   ["analyticsSelectorWidget"] = "%s analytics selector window",
   ["compendiumDialog"] = "%s compendium",
-  ["cyclopediaDialog"] = "%s OTZudo Cyclopedia",
+  ["cyclopediaDialog"] = "%s Valdraken Cyclopedia",
   ["bosstiaryDialog"] = "%s Bosstiary Dialog",
   ["bossslotsDialog"] = "%s Boss Slots Dialog",
   ["bosstiaryTrackerWidget"] = "%s Bosstiary tracker window",

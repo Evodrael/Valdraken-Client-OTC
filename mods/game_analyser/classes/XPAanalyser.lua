@@ -1,3 +1,21 @@
+-- Abrevia numeros grandes para caber nos labels (a exp por extenso, ex.: "5,400,000",
+-- estourava a largura e cobria a barra). Estilo Tibia: k = mil, kk = milhao, kkk = bilhao.
+local function abbreviateNumber(value)
+	value = tonumber(value) or 0
+	local abs = math.abs(value)
+	local function trim(n)
+		return (string.format("%.1f", n):gsub("%.0$", ""))
+	end
+	if abs >= 1000000000 then
+		return trim(value / 1000000000) .. "kkk"
+	elseif abs >= 1000000 then
+		return trim(value / 1000000) .. "kk"
+	elseif abs >= 1000 then
+		return trim(value / 1000) .. "k"
+	end
+	return tostring(math.floor(value))
+end
+
 if not XPAnalyser then
 	XPAnalyser = {
 		launchTime = 0,
@@ -67,10 +85,10 @@ function XPAnalyser:updateWindow(ignoreVisible)
 	local contentsPanel = XPAnalyser.window.contentsPanel
 
 	local experience = XPAnalyser.xpGain
-	contentsPanel.xpGain:setText(formatXpAbbrev(experience))
+	contentsPanel.xpGain:setText(abbreviateNumber(experience))
 
 	local experience = XPAnalyser.rawXPGain
-	contentsPanel.rawXpGain:setText(formatXpAbbrev(experience))
+	contentsPanel.rawXpGain:setText(abbreviateNumber(experience))
 
 	if XPAnalyser.target == 0 and XPAnalyser.xpHour == 0 then
 		XPAnalyser.window.contentsPanel.xpBG.xpArrow:setMarginLeft(targetMaxMargin / 2)
@@ -131,7 +149,7 @@ function XPAnalyser:checkExpHour()
 		XPAnalyser.xpHour = 0
 		contentsPanel.xpHour:setText(0)
 	else
-		contentsPanel.xpHour:setText(formatXpAbbrev(XPAnalyser.xpHour))
+		contentsPanel.xpHour:setText(abbreviateNumber(XPAnalyser.xpHour))
 	end
 
 	local nextLevelExp = modules.game_skills.expForLevel(player:getLevel()+1)
@@ -147,7 +165,7 @@ function XPAnalyser:checkExpHour()
 		XPAnalyser.rawXpHour = 0
 		contentsPanel.rawXpHour:setText(0)
 	else
-		contentsPanel.rawXpHour:setText(formatXpAbbrev(XPAnalyser.rawXpHour))
+		contentsPanel.rawXpHour:setText(abbreviateNumber(XPAnalyser.rawXpHour))
 	end
 
 	XPAnalyser.window.contentsPanel.graphPanel:addValue(1, math.max(0, XPAnalyser.xpHour))

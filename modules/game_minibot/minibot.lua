@@ -27,6 +27,7 @@ end
 local function _saveMiniBotSettings()
   if _miniBotSettingsCache ~= nil then
     g_settings.setNode('Minibot_Settings', _miniBotSettingsCache)
+    g_settings.save()
   end
 end
 

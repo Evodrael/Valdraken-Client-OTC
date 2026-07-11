@@ -1,6 +1,6 @@
 Module
   name: game_spells
-  description: OTZudo Spell List
+  description: Valdraken Spell List
   author: Christianlb && ..
   sandboxed: true
   scripts: [ t_spelllist ]

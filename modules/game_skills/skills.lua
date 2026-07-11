@@ -469,7 +469,7 @@ function setSkillBase(id, value, baseValue, loyalty)
     end
   end
 
-  -- OTZudo loyalty flat bonus: the authoritative number comes from the
+  -- Valdraken loyalty flat bonus: the authoritative number comes from the
   -- server via opcode 202 → action "loyalty_info" (see mods/game_store/store.lua).
   -- Read from _G because game_store and game_skills live in separate sandboxed
   -- _ENV tables — a plain `LoyaltyInfo` reference here would resolve to nil.
@@ -497,10 +497,10 @@ function setSkillBase(id, value, baseValue, loyalty)
 
   if value > baseValue or (realBase > baseValue) or loyaltyFlatBonus > 0 then
 	  -- Tooltip layout: "<realValue> = <base> +<items> (+N Loyalty Points)".
-	  -- Item bonuses are computed by subtracting the OTZudo loyalty flat
+	  -- Item bonuses are computed by subtracting the Valdraken loyalty flat
 	  -- bonus and the legacy training-loyalty delta from (value - baseValue)
 	  -- so loyalty is only counted under "(+N Loyalty Points)" — matching the
-	  -- OTZudo spec which advertises a flat "+N skill" perk per title.
+	  -- Valdraken spec which advertises a flat "+N skill" perk per title.
 	  local itemBonus = (value - baseValue) - loyaltyFlatBonus - (loyalty or 0)
 	  if itemBonus < 0 then itemBonus = 0 end
 
@@ -1017,7 +1017,7 @@ end
 
 function onMagicLevelChange(localPlayer, magiclevel, percent)
   setSkillValue('magiclevel', magiclevel + localPlayer:getMagicLoyalty())
-  setSkillPercent('magiclevel', (percent / 100))
+  setSkillPercent('magiclevel', percent)
   onBaseMagicLevelChange(localPlayer, localPlayer:getBaseMagicLevel())
 end
 
@@ -1027,7 +1027,7 @@ end
 
 function onSkillChange(localPlayer, id, level, percent)
   setSkillValue('skillId' .. id, (level + localPlayer:getSkillLoyalty(id)))
-  setSkillPercent('skillId' .. id, (percent / 100))
+  setSkillPercent('skillId' .. id, percent)
   onBaseSkillChange(localPlayer, id, localPlayer:getSkillBaseLevel(id))
 end
 
@@ -1177,7 +1177,7 @@ function instantlyBuyBoost()
     end
   end
 
-  local message = tr("Do you want to buy a XP boost for %s Rubini Coins?", xpBoostPrice)
+  local message = tr("Do you want to buy a XP boost for %s Valdraken Coins?", xpBoostPrice)
   confirmBoostWindow = displayGeneralBox(tr('Warning'), tr(message), {
     { text=tr('Yes'), callback=yesCallback },
     { text=tr('No'), callback=noCallback },

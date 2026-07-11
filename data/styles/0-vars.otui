@@ -1,7 +1,7 @@
 // Labels-Default
 $var-font: verdana-11px-antialised
 
-// RubinOT-Label
+// Valdraken-Label
 $var-cip-font: Verdana Bold-11px
 $var-text-cip-font: Verdana Bold-11px
 $var-cip-font-lowspace: Verdana Bold-11-px-lowspace

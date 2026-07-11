@@ -141,6 +141,15 @@ function sendCurrentMessage(defaultKeybind)
     return
   end
 
+  -- Comandos client-side (prefixo '!') tratados localmente, não enviados ao servidor
+  if message:lower() == '!fps' then
+    consoleTextEdit:setText('')
+    if modules.client_settings and modules.client_settings.toggleOption then
+      modules.client_settings.toggleOption('showFps')
+    end
+    return
+  end
+
   g_chat:sendCurrentMessage()
 end
 

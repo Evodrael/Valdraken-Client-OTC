@@ -991,7 +991,7 @@ function Bazaar:openConfirmation()
 	check3:setColor("$var-text-cip-color")
 	check3:setSize("715 45")
 
-	local secondLabel = ' By confirming the auction, an auction fee of '.. Bazaar.initialFee ..'<img src="/images/store/icon-tibiacointransferable" width="12" height="12" offset="0 2" /> becomes due which will be deducted from your account\'s<p>OTZudo Coins balance. Further, 8% of the auction\'s sales revenue will be kept by OTZudo as commission.</p>'
+	local secondLabel = ' By confirming the auction, an auction fee of '.. Bazaar.initialFee ..'<img src="/images/store/icon-tibiacointransferable" width="12" height="12" offset="0 2" /> becomes due which will be deducted from your account\'s<p>Valdraken Coins balance. Further, 8% of the auction\'s sales revenue will be kept by Valdraken as commission.</p>'
 	check3:setHTML(string.format(stringFormat, '/images/store/icon-yes', secondLabel))
 
 	local check4 = g_ui.createWidget('Label', checkList)
@@ -1000,7 +1000,7 @@ function Bazaar:openConfirmation()
 	check4:setSize("715 15")
 
 	local stringFormat = '<table><tbody><tr><td style="padding-right: 5px;"><img src="%s" width="4" height="9" offset="2 2" /></td><td>%s</td></tr></tbody></table>'
-	local secondLabel = '  Important: Note that the Rubini Coins you receive for selling your character may be partly or completely non-transferable up to 120 days after the auction has ended. Non-transferable Rubini Coins cannot be sold in the Market or gifted to other accounts.\n'
+	local secondLabel = '  Important: Note that the Valdraken Coins you receive for selling your character may be partly or completely non-transferable up to 120 days after the auction has ended. Non-transferable Valdraken Coins cannot be sold in the Market or gifted to other accounts.\n'
 	check4:setHTML(string.format(stringFormat, '/images/store/icon-exclamationmark', secondLabel))
 
 	local check5 = g_ui.createWidget('Label', checkList)

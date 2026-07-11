@@ -272,7 +272,7 @@ function ProtocolLogin:parseCharacterList(msg)
     local rawPremDays = msg:getU32()
     account.premDaysRaw = rawPremDays
     if rawPremDays ~= 0 and rawPremDays ~= 65535 then
-      -- TFS-style servers (OTServBR, OTZudo) often send the premium expiration as a
+      -- TFS-style servers (OTServBR, Valdraken) often send the premium expiration as a
       -- raw Unix timestamp. Older Cipsoft-style servers send a raw day-count instead.
       -- Detect by magnitude: anything above ~10 years' worth of seconds is treated as
       -- a timestamp; smaller values are kept as a day-count directly.

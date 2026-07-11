@@ -1,3 +1,22 @@
+-- Abrevia numeros grandes para caber nos labels do analyzer. A exp por extenso
+-- (ex.: "5,400,000") estourava a largura do label e cobria a barra/linha. Estilo
+-- Tibia: k = mil, kk = milhao, kkk = bilhao. Mantem ate 1 casa decimal (sem ".0").
+local function abbreviateNumber(value)
+	value = tonumber(value) or 0
+	local abs = math.abs(value)
+	local function trim(n)
+		return (string.format("%.1f", n):gsub("%.0$", ""))
+	end
+	if abs >= 1000000000 then
+		return trim(value / 1000000000) .. "kkk"
+	elseif abs >= 1000000 then
+		return trim(value / 1000000) .. "kk"
+	elseif abs >= 1000 then
+		return trim(value / 1000) .. "k"
+	end
+	return tostring(math.floor(value))
+end
+
 -- using object, in the future you can open more than one window
 local valueInSeconds = function(t)
     local d = 0
@@ -181,7 +200,7 @@ function HuntingAnalyser:updateWindow(ignoreVisible)
 
 	local experience = HuntingAnalyser.xpGain
 	if not contentsPanel.xpGain.lastExperience or contentsPanel.xpGain.lastExperience ~= experience then
-		contentsPanel.xpGain:setText(formatXpAbbrev(experience))
+		contentsPanel.xpGain:setText(abbreviateNumber(experience))
 		contentsPanel.xpGain.lastExperience = experience
 	end
 
@@ -194,7 +213,7 @@ function HuntingAnalyser:updateWindow(ignoreVisible)
 	end
 
 	if not contentsPanel.xpHour.lastValue or contentsPanel.xpHour.lastValue ~= HuntingAnalyser.xpHour then
-		contentsPanel.xpHour:setText(formatXpAbbrev(HuntingAnalyser.xpHour))
+		contentsPanel.xpHour:setText(abbreviateNumber(HuntingAnalyser.xpHour))
 		contentsPanel.xpHour.lastValue = HuntingAnalyser.xpHour
 	end
 
@@ -202,12 +221,12 @@ function HuntingAnalyser:updateWindow(ignoreVisible)
 	HuntingAnalyser.rawXpHour = g_game.getHourRawExperience()
 
 	if not contentsPanel.rawXpGain.lastValue or contentsPanel.rawXpGain.lastValue ~= rawExperience then
-		contentsPanel.rawXpGain:setText(formatXpAbbrev(rawExperience))
+		contentsPanel.rawXpGain:setText(abbreviateNumber(rawExperience))
 		contentsPanel.rawXpGain.lastValue = rawExperience
 	end
 
 	if not contentsPanel.rawXpHour.lastValue or contentsPanel.rawXpHour.lastValue ~= HuntingAnalyser.rawXpHour then
-		contentsPanel.rawXpHour:setText(formatXpAbbrev(HuntingAnalyser.rawXpHour))
+		contentsPanel.rawXpHour:setText(abbreviateNumber(HuntingAnalyser.rawXpHour))
 		contentsPanel.rawXpHour.lastValue = HuntingAnalyser.rawXpHour
 	end
 

@@ -151,7 +151,7 @@ HelpWindow < Panel
       Button
         id: importButton
         size: 128 20
-        !text: tr('Import OTZudo 10 Config')
+        !text: tr('Import Valdraken 10 Config')
         anchors.top: parent.top
         anchors.left: parent.left
         margin-top: 5
@@ -169,7 +169,7 @@ HelpWindow < Panel
       Button
         id: importMapButton
         size: 128 20
-        !text: tr('Import OTZudo 10 Map')
+        !text: tr('Import Valdraken 10 Map')
         anchors.top: importButton.bottom
         anchors.left: parent.left
         margin-top: 6

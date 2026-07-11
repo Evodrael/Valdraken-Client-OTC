@@ -70,7 +70,7 @@ function init()
 
   -- Link do Discord configuravel pelo init.lua (DISCORD_LINK); servidor pode sobrescrever depois.
   topMenu.discordLink = (rawget(_G, 'DISCORD_LINK') and #DISCORD_LINK > 0) and DISCORD_LINK
-    or 'https://discord.gg/rubini'
+    or 'https://discord.gg/Valdraken'
   if topMenu.discordLabel then
     topMenu.discordLabel:setText(tr('Join Discord'))
     bindTopLabel(topMenu.discordLabel, function()

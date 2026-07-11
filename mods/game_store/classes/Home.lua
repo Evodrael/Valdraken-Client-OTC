@@ -163,7 +163,7 @@ function HomeOffer:configure(categoryName, offers, scrolling, homePanel, reasons
 	rerollButton.onClick = function(self) HomeOffer:onRerollDailyOffer(self) end
 
 	rerollButton:setEnabled(Store.transferableCoins >= dailyOfferPrice)
-	rerollButton:setTooltip(string.format("Reroll offers for %d Rubini Coins", dailyOfferPrice))
+	rerollButton:setTooltip(string.format("Reroll offers for %d Valdraken Coins", dailyOfferPrice))
 end
 
 local function getOfferUI(offer)
@@ -202,7 +202,7 @@ function HomeOffer:onRerollDailyOffer(button)
 		g_client.setInputLockWidget(StoreWindow)
 	end
 
-	local message = string.format("Are you sure you want to reroll the daily offer for %d Rubini Coins?", HomeOffer.dailyReroll)
+	local message = string.format("Are you sure you want to reroll the daily offer for %d Valdraken Coins?", HomeOffer.dailyReroll)
 
 	HomeOffer.dailyRerollWindow = displayGeneralBox(tr('Confirm reroll'), tr(message), {
 		{ text=tr('Ok'), callback = okButton },

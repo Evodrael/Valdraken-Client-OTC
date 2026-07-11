@@ -165,7 +165,7 @@ function showMonsterPodium(filter)
 	else
 		for _, v in pairs(creatureList) do
 			local currentRace = creatures[v]
-			-- OTZudo: se a race nao existir no g_things (faltando no staticdata do
+			-- Valdraken: se a race nao existir no g_things (faltando no staticdata do
 			-- cliente) nao deixa estourar a janela inteira; apenas pula a entrada.
 			if not currentRace then
 				goto continue

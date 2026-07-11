@@ -4015,7 +4015,7 @@ markers = {
     ["pos"] = { ["x"] = 32019, ["y"] = 32678, ["z"] = 7}
   },
   {
-    ["description"] = "Boat to OTZudo",
+    ["description"] = "Boat to Valdraken",
     ["icon"] = "flag",
     ["pos"] = { ["x"] = 32020, ["y"] = 31692, ["z"] = 7}
   },
@@ -4085,7 +4085,7 @@ markers = {
     ["pos"] = { ["x"] = 32041, ["y"] = 32228, ["z"] = 7}
   },
   {
-    ["description"] = "Boat to OTZudo",
+    ["description"] = "Boat to Valdraken",
     ["icon"] = "flag",
     ["pos"] = { ["x"] = 32045, ["y"] = 31579, ["z"] = 7}
   },
@@ -4315,7 +4315,7 @@ markers = {
     ["pos"] = { ["x"] = 32124, ["y"] = 31139, ["z"] = 7}
   },
   {
-    ["description"] = "Boat to OTZudo",
+    ["description"] = "Boat to Valdraken",
     ["icon"] = "flag",
     ["pos"] = { ["x"] = 32126, ["y"] = 31665, ["z"] = 7}
   },
@@ -5105,7 +5105,7 @@ markers = {
     ["pos"] = { ["x"] = 32384, ["y"] = 32702, ["z"] = 7}
   },
   {
-    ["description"] = "Towards Museum of OTZudon Arts",
+    ["description"] = "Towards Museum of Valdrakenn Arts",
     ["icon"] = "down",
     ["pos"] = { ["x"] = 32387, ["y"] = 32208, ["z"] = 7}
   },
@@ -10565,7 +10565,7 @@ markers = {
     ["pos"] = { ["x"] = 32389, ["y"] = 32604, ["z"] = 8}
   },
   {
-    ["description"] = "Museum of OTZudon arts",
+    ["description"] = "Museum of Valdrakenn arts",
     ["icon"] = "flag",
     ["pos"] = { ["x"] = 32394, ["y"] = 32192, ["z"] = 8}
   },
@@ -16625,7 +16625,7 @@ markers = {
     ["pos"] = { ["x"] = 33455, ["y"] = 31723, ["z"] = 9}
   },
   {
-    ["description"] = "OTZudo Coin",
+    ["description"] = "Valdraken Coin",
     ["icon"] = "star",
     ["pos"] = { ["x"] = 33457, ["y"] = 31031, ["z"] = 9}
   },
@@ -16645,12 +16645,12 @@ markers = {
     ["pos"] = { ["x"] = 33467, ["y"] = 32797, ["z"] = 9}
   },
   {
-    ["description"] = "OTZudo Coin",
+    ["description"] = "Valdraken Coin",
     ["icon"] = "star",
     ["pos"] = { ["x"] = 33469, ["y"] = 31046, ["z"] = 9}
   },
   {
-    ["description"] = "OTZudo Coin",
+    ["description"] = "Valdraken Coin",
     ["icon"] = "star",
     ["pos"] = { ["x"] = 33470, ["y"] = 30995, ["z"] = 9}
   },
@@ -16660,12 +16660,12 @@ markers = {
     ["pos"] = { ["x"] = 33471, ["y"] = 32807, ["z"] = 9}
   },
   {
-    ["description"] = "OTZudo Coin",
+    ["description"] = "Valdraken Coin",
     ["icon"] = "star",
     ["pos"] = { ["x"] = 33474, ["y"] = 31011, ["z"] = 9}
   },
   {
-    ["description"] = "OTZudo Coin",
+    ["description"] = "Valdraken Coin",
     ["icon"] = "star",
     ["pos"] = { ["x"] = 33480, ["y"] = 30999, ["z"] = 9}
   },
@@ -16685,7 +16685,7 @@ markers = {
     ["pos"] = { ["x"] = 33491, ["y"] = 31953, ["z"] = 9}
   },
   {
-    ["description"] = "OTZudo Coin",
+    ["description"] = "Valdraken Coin",
     ["icon"] = "star",
     ["pos"] = { ["x"] = 33496, ["y"] = 31001, ["z"] = 9}
   },

@@ -16,7 +16,7 @@ HirelingWindow < MainWindow
       margin-top: 5
       margin-left: 5
       margin-right: 5
-      !text: tr('Here you can customise your hireling. Make sure that the name does not violate the OTZudo Rules, or your hireling might get reported and receive on automatically generated name.')
+      !text: tr('Here you can customise your hireling. Make sure that the name does not violate the Valdraken Rules, or your hireling might get reported and receive on automatically generated name.')
       text-wrap: true
       text-align: topLeft
   Label

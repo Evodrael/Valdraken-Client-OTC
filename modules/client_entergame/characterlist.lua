@@ -166,7 +166,7 @@ function onGameLoginError(message)
 
   if message:find("Your client version is too old.\n") then
       local okFunc = function()
-        local path = os.getenv("EMAC_OTZudo_LAUNCHER_LAST_PATH")
+        local path = os.getenv("EMAC_Valdraken_LAUNCHER_LAST_PATH")
         if not path then
           return
         end
@@ -191,7 +191,7 @@ function onGameLoginError(message)
         g_app.exit()
       end
 
-      errorBox = displayGeneralBox(tr('Info'), "Your client version is too old.\nRestart OTZudo to update your client.", {
+      errorBox = displayGeneralBox(tr('Info'), "Your client version is too old.\nRestart Valdraken to update your client.", {
         { text=tr('Update'), callback=okFunc },
         { text=tr('Exit'), callback=ExitFunc },
         { text=tr('Cancel'), callback=cancelFunc }
@@ -260,7 +260,7 @@ function onGameConnectionError(message, code)
     end
 
     if code == 16654 then
-        errorBox = displayErrorBox(tr("Connection Failed"), "Cannot connect to the game server.\n\nError: Connection refused.\n\nThe game server is offline. Check www.OTZudo.com\nfor more information.\n\nFor more information take a look at the FAQs in the\nSupport section at www.OTZudo.com.")
+        errorBox = displayErrorBox(tr("Connection Failed"), "Cannot connect to the game server.\n\nError: Connection refused.\n\nThe game server is offline. Check www.Valdraken.com\nfor more information.\n\nFor more information take a look at the FAQs in the\nSupport section at www.Valdraken.com.")
         errorBox.onOk = function()
           errorBox = nil
           CharacterList.showAgain()

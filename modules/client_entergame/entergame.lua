@@ -184,7 +184,7 @@ local function onTibia12HTTPResult(session, playdata)
     local world = worlds[character.worldid]
     if world then
       -- The official Tibia client lets the player pin a "main character" in the
-      -- account panel; TFS-style servers (OTServBR/OTZudo) don't ship that
+      -- account panel; TFS-style servers (OTServBR/Valdraken) don't ship that
       -- feature, so `ismaincharacter` arrives `false` for every character.
       -- Accept any of the names a fork might pick; fall back to a heuristic
       -- (highest-level character on the account) further down once all
@@ -665,7 +665,7 @@ function EnterGame.doLogin(account, password, token, host, gtoken)
     end
   })
 
-  if G.clientVersion == 1000 then -- some people don't understand that OTZudo 10 uses 1100 protocol
+  if G.clientVersion == 1000 then -- some people don't understand that Valdraken 10 uses 1100 protocol
     G.clientVersion = 1100
   end
   -- if you have custom rsa or protocol edit it here

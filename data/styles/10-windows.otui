@@ -241,8 +241,8 @@ RulesWindow < NewHeadlessWindow
       anchors.bottom: parent.bottom
       anchors.left: parent.left
       text-offset: 16 -2
-      !text: tr('I agree with RubinOT Terms and Conditions.')
-      !tooltip: tr('I have read and I agree to the Extended RubinOT Service Agreement and the RubinOT Privacy Policy.')
+      !text: tr('I agree with Valdraken Terms and Conditions.')
+      !tooltip: tr('I have read and I agree to the Extended Valdraken Service Agreement and the Valdraken Privacy Policy.')
       margin-bottom: 5
       font: $var-cip-font
       color: $var-text-cip-color

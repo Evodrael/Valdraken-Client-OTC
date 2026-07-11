@@ -426,9 +426,9 @@ function onCoinBalance(coins, transferableCoins)
 	
 	local coinTooltip = {}
 
-	setStringColor(coinTooltip, "Total Rubini Coins: " .. comma_value(coins + transferableCoins), "#3f3f3f")
+	setStringColor(coinTooltip, "Total Valdraken Coins: " .. comma_value(coins + transferableCoins), "#3f3f3f")
 	setStringColor(coinTooltip, " Â£", "#f7e6fe")
-	setStringColor(coinTooltip, "\nIncluded transferable Rubini Coins: " .. comma_value(transferableCoins), "#3f3f3f")
+	setStringColor(coinTooltip, "\nIncluded transferable Valdraken Coins: " .. comma_value(transferableCoins), "#3f3f3f")
 	setStringColor(coinTooltip, " Â¢", "#f7e6fe")
 
 	marketWindow.contentPanel.coinPanel.gold:setText(comma_value(transferableCoins))

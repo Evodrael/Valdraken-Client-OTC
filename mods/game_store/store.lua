@@ -56,7 +56,7 @@ local function onStoreExtendedJSONOpcode(protocol, opcode, data)
   elseif data.action == "store_error" and data.message then
     g_game.onStoreError(0, data.message)
   elseif data.action == "loyalty_info" then
-    -- OTZudo loyalty info — used by game_skills to render the
+    -- Valdraken loyalty info — used by game_skills to render the
     -- "+N Loyalty Points" tooltip without subtracting baseValue (which would
     -- also include item bonuses and surprise the player). Stored in _G so the
     -- sandboxed game_skills module can read it; sandbox _ENV isolation means a
@@ -287,7 +287,7 @@ end
 function onCoinBalance(coins, transferableCoins, reservedCoins)
   if (SucessOfferWindow and SucessOfferWindow:isVisible()) or StoreWindow:isVisible() then
     StoreWindow.coinsStatus.tibiacoin:setText(formatMoney(coins, ","))
-    local coinsText = string.format(" (%s: %s ", (GameInfo.CoinName and GameInfo.CoinName or "Rubini Coins"), formatMoney(transferableCoins, ","))
+    local coinsText = string.format(" (%s: %s ", (GameInfo.CoinName and GameInfo.CoinName or "Valdraken Coins"), formatMoney(transferableCoins, ","))
     StoreWindow.coinsStatus.tibiacointransferable:setText(coinsText)
 
     Store.coins = coins
@@ -611,50 +611,50 @@ function createDonateRules()
     rulesTextList:destroyChildren()
 
     local longText = "Extended Terms of Conditions for Paid Services\n\n" ..
-                      "These Terms of Service establish the conditions under which OTZudo provides 'VIP Time,' 'Rubini Coins,' and 'Additional Services' (referred to as 'Paid Services') for the online RPG game 'OTZudo.' This document complements the 'OTZudo Service Agreement,' which all users must accept when creating an account.\n\n" ..
+                      "These Terms of Service establish the conditions under which Valdraken provides 'VIP Time,' 'Valdraken Coins,' and 'Additional Services' (referred to as 'Paid Services') for the online RPG game 'Valdraken.' This document complements the 'Valdraken Service Agreement,' which all users must accept when creating an account.\n\n" ..
                       
                       "1 - Object of the Term\n\n" ..
-                      "1.1. 'VIP Time' grants temporary exclusive abilities and benefits to the account holder ('VIP Account') that are not available to free accounts. OTZudo reserves the right to add, modify, or remove such abilities and benefits at any time, respecting the principles of good faith and social function in accordance with the Brazilian Civil Code. The VIP Account is for personal and non-transferable use.\n\n" ..
-                      "1.2. 'Rubini Coins' are virtual currency used to purchase exclusive products and benefits in the games store. OTZudo reserves the right to add, alter, or remove products at any time. Rubini Coins may be transferred between accounts depending on conditions and the payment method, always in compliance with security standards.\n\n" ..
-                      "1.3. 'Additional Services' are special functionalities that assist in managing OTZudo accounts and are non-transferable between accounts.\n\n" ..
+                      "1.1. 'VIP Time' grants temporary exclusive abilities and benefits to the account holder ('VIP Account') that are not available to free accounts. Valdraken reserves the right to add, modify, or remove such abilities and benefits at any time, respecting the principles of good faith and social function in accordance with the Brazilian Civil Code. The VIP Account is for personal and non-transferable use.\n\n" ..
+                      "1.2. 'Valdraken Coins' are virtual currency used to purchase exclusive products and benefits in the games store. Valdraken reserves the right to add, alter, or remove products at any time. Valdraken Coins may be transferred between accounts depending on conditions and the payment method, always in compliance with security standards.\n\n" ..
+                      "1.3. 'Additional Services' are special functionalities that assist in managing Valdraken accounts and are non-transferable between accounts.\n\n" ..
                       
                       "2 - Payment of Fees\n\n" ..
-                      "2.1. Fees for Paid Services must be paid in advance, with acquisition considered full acceptance of the terms herein. Prices are listed on the OTZudo website and may be changed by OTZudo, with new prices applicable to future purchases only.\n\n" ..
+                      "2.1. Fees for Paid Services must be paid in advance, with acquisition considered full acceptance of the terms herein. Prices are listed on the Valdraken website and may be changed by Valdraken, with new prices applicable to future purchases only.\n\n" ..
                       "2.2. Fees are non-refundable, except as provided by law, such as cases of proven technical failure or cancellation within the legal withdrawal period (7 days under Brazilian Consumer Protection Code).\n\n" ..
 
                       "3 - Termination and Limitations\n\n" ..
-                      "3.1. Accounts inactive for two years will have unused Paid Services canceled without refund. OTZudo reserves the right to deactivate such accounts, upholding transparency and good faith.\n\n" ..
+                      "3.1. Accounts inactive for two years will have unused Paid Services canceled without refund. Valdraken reserves the right to deactivate such accounts, upholding transparency and good faith.\n\n" ..
                       "3.2. Upon VIP Time expiration, the account reverts to free status, and VIP benefits end. Users are notified in advance of expiration.\n\n" ..
                       
                       "4 - Right to Cancellation\n\n" ..
-                      "4.1. Users may cancel within 7 days of acceptance if the service has not been used, per article 49 of the Brazilian Consumer Protection Code. The cancellation request must be sent via email to pagamentos@OTZudo.com.\n\n" ..
+                      "4.1. Users may cancel within 7 days of acceptance if the service has not been used, per article 49 of the Brazilian Consumer Protection Code. The cancellation request must be sent via email to pagamentos@Valdraken.com.\n\n" ..
                       "4.2. Refunds for cancellations will be processed within 7 calendar days, using the original payment method.\n\n" ..
 
                       "5 - User Responsibilities\n\n" ..
                       "5.1. Users are fully responsible for protecting their login credentials and for activities under their ownership. Secure passwords and regular changes are recommended.\n\n" ..
                       "5.2. Sharing or transferring access information to third parties is prohibited. Suspected compromise must be reported immediately.\n\n" ..
-                      "5.3. OTZudo is not liable for damages from compromised accounts due to user negligence.\n\n" ..
+                      "5.3. Valdraken is not liable for damages from compromised accounts due to user negligence.\n\n" ..
 
                       "6 - Game Access Suspension\n\n" ..
-                      "6.1. Users must comply with OTZudo rules, available on the official website. Violation may result in account suspension without a refund.\n\n" ..
-                      "6.2. OTZudo may modify OTZudo Rules at any time, with 30 days notice for significant changes.\n\n" ..
-                      "6.3. OTZudo holds the right to ban accounts for bot usage, following a chance for the user to explain.\n\n" ..
+                      "6.1. Users must comply with Valdraken rules, available on the official website. Violation may result in account suspension without a refund.\n\n" ..
+                      "6.2. Valdraken may modify Valdraken Rules at any time, with 30 days notice for significant changes.\n\n" ..
+                      "6.3. Valdraken holds the right to ban accounts for bot usage, following a chance for the user to explain.\n\n" ..
 
                       "7 - Limitation of Warranties\n\n" ..
-                      "7.1. OTZudo will make reasonable efforts to maintain game operation but does not guarantee uninterrupted or error-free service.\n\n" ..
+                      "7.1. Valdraken will make reasonable efforts to maintain game operation but does not guarantee uninterrupted or error-free service.\n\n" ..
                       "7.2. The company is not responsible for internet or equipment failures beyond its control.\n\n" ..
 
                       "8 - Limitation of Liability\n\n" ..
-                      "8.1. OTZudo is not responsible for financial, moral, material, or consequential damages from game usage or data loss.\n\n" ..
+                      "8.1. Valdraken is not responsible for financial, moral, material, or consequential damages from game usage or data loss.\n\n" ..
                       "8.2. The company disclaims responsibility for indirect damages from software failures or gameplay adjustments.\n\n" ..
 
                       "9 - Forum and Jurisdiction\n\n" ..
                       "9.1. These Terms are governed by Brazilian law, with disputes resolved in S?o Paulo/SP.\n\n" ..
 
                       "10 - Final Provisions\n\n" ..
-                      "10.1. OTZudo may amend these Terms in whole or in part, with changes communicated at least 30 days in advance on the OTZudo website.\n\n" ..
+                      "10.1. Valdraken may amend these Terms in whole or in part, with changes communicated at least 30 days in advance on the Valdraken website.\n\n" ..
                       "10.2. Invalid provisions will be replaced, while remaining provisions continue in force.\n\n" ..
-                      "10.3. By using OTZudos services, users accept these Terms, understanding their rights, obligations, and responsibilities.\n\n" ..
+                      "10.3. By using Valdrakens services, users accept these Terms, understanding their rights, obligations, and responsibilities.\n\n" ..
                       "10.4. By electronically accepting these Terms, users confirm their commitment to all clauses."
 
     local label = g_ui.createWidget('UILabel', rulesTextList)
