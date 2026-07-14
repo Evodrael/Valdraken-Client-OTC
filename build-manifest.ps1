@@ -56,8 +56,15 @@ if (Test-Path $versionFile) {
 $rootLen = $root.Length + 1
 $files = New-Object System.Collections.Generic.List[object]
 
-Get-ChildItem -Path $root -Recurse -File | ForEach-Object {
+# -Force garante o mesmo resultado no Windows e no runner Linux da Action: sem ele,
+# o PowerShell no Linux trata dotfiles (.gitattributes, .gitignore) como ocultos e nao
+# os lista, gerando um manifest diferente do gerado localmente (o -Check falhava por isso).
+# Nada que comece com '.' faz parte do client, entao todo caminho com um segmento
+# iniciado por ponto e descartado explicitamente.
+Get-ChildItem -Path $root -Recurse -File -Force | ForEach-Object {
     $rel = $_.FullName.Substring($rootLen).Replace('\', '/')
+
+    if ($rel.Split('/') | Where-Object { $_.StartsWith('.') }) { return }
 
     foreach ($p in $excludeDirPrefixes) {
         if ($rel.StartsWith($p, [System.StringComparison]::OrdinalIgnoreCase)) { return }

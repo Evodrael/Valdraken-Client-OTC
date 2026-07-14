@@ -1,18 +1,8 @@
 {
     "version":  "15.24.10",
-    "generated":  "2026-07-14T13:56:34-03:00",
-    "count":  21399,
+    "generated":  "2026-07-14T14:02:21-03:00",
+    "count":  21397,
     "files":  [
-                  {
-                      "path":  ".gitattributes",
-                      "sha256":  "6bcbbc7872f4b8747fc2dbf2d9f2d6bffea80d7a69f135416cda181c2211f9f7",
-                      "size":  246
-                  },
-                  {
-                      "path":  ".gitignore",
-                      "sha256":  "14a4b4ea0929d9af3cef6e3bcba62a24fc1ee822ff7397736f4b69f5503efc07",
-                      "size":  197
-                  },
                   {
                       "path":  "cacert.pem",
                       "sha256":  "36f84cfe854660ddb06a0037b044498e8140586399290f402d73cd7ce18f83dd",
