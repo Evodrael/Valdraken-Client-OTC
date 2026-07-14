@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.09",
-    "generated":  "2026-07-11T16:23:06-03:00",
+    "version":  "15.24.10",
+    "generated":  "2026-07-14T13:56:34-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -104800,8 +104800,8 @@
                   },
                   {
                       "path":  "mods/game_tibia_imbui/classes/imbuementitem.lua",
-                      "sha256":  "2cc65b7d0134a7020ae65f3306ee513523862d7fdc4b0598e3c5f1cdd6a5e4bc",
-                      "size":  17740
+                      "sha256":  "809a9a69f68934d0760eefe2f8d29438f72ba960778f75a9721c330a3627e37c",
+                      "size":  17982
                   },
                   {
                       "path":  "mods/game_tibia_imbui/classes/imbuementscroll.lua",
@@ -106995,7 +106995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "6dc3e6d6682d75926a1b501ed9998dda16c610227078d2e0dcf9f876d0869028",
+                      "sha256":  "3250feb78cd853438a358a3aeeb170db1dde8e12fae6ee3a68d36d59f53dc039",
                       "size":  8
                   }
               ]

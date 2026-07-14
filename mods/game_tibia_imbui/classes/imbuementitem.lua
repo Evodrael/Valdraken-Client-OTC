@@ -38,8 +38,11 @@ function ImbuementItem.setup(itemId, tier, slots, activeSlots, availableImbuemen
             count, tostring(tier)))
     end
 
+    -- `activeSlots` comes from C++ as a 0-based map holding only the slots that
+    -- actually have an imbuement, so its Lua length is not the slot count.
+    -- Fill every slot of the item so empty ones exist as empty tables.
     self.activeSlots = {}
-    for i = 0, #activeSlots do
+    for i = 0, math.max((slots or 0) - 1, 0) do
         self.activeSlots["slot"..i] = activeSlots[i] or {}
     end
     self.availableImbuements = availableImbuements or {}
@@ -98,14 +101,13 @@ function ImbuementItem.configureWindow(window)
 end
 
 function ImbuementItem.onSelectSlot(widget)
-    local slot = widget:getId()
-    ImbuementItem.onSelectImbuementSlot(widget.slot)
-    local imbuement = self.activeSlots[slot]
-    self.updateWindowState(imbuement)
+    local slot = widget.slot or 0
+    ImbuementItem.onSelectImbuementSlot(slot)
+    self.updateWindowState(self.activeSlots["slot"..slot])
 end
 
 function ImbuementItem.updateWindowState(imbuement)
-    imbuement = imbuement or self.activeSlots['slot0']
+    imbuement = imbuement or self.activeSlots["slot"..(self.selectedSlot or 0)]
 
     if imbuement and imbuement[1] and imbuement[1].id ~= 0 then
         Imbuement:toggleMenu("clearImbue")
