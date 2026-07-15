@@ -418,7 +418,24 @@ NonClosableMiniWindow
         image-border: 1
         size: 44 22
         phantom: true
-        visible: true
+        visible: false
+
+    // Battle Pass movido do painel de side buttons (game_sidebuttons) para
+    // logo abaixo do botao do minibot/assistant. Apenas icone, sem texto e sem
+    // moldura dourada. Reverter: remover este widget e restaurar o
+    // 'battlepassButton'/'border'/'bPassbright' em game_sidebuttons/sidebuttons.otui.
+    Button
+      id: battlepassButton
+      size: 42 20
+      anchors.top: button_minibot.bottom
+      anchors.left: button_minibot.left
+      margin-top: 2
+      image-source: /images/ui/buttons-blue
+      icon-source: /images/game/battlepass/mainIcon1
+      icon-rect: 12 2 18 16
+      !tooltip: tr('Open the Battle Pass')
+      tooltip-delayed: true
+      @onClick: modules.game_battlepass.loadMenu('challengesMenu'); if g_game.requestBattlePass then g_game.requestBattlePass(0) end
 
   UIButton
     id: minButton

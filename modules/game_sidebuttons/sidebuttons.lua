@@ -7,8 +7,6 @@ highscore = nil
 isHiddenMenuActive = false
 currentOpenWidget = nil
 
-local bPassSlot = nil
-
 -- Hotfix when a new button is introduced
 -- VOIP DESATIVADO: "button_voip" removido daqui p/ nao forcar a criacao do side button de voip.
 -- Reverter: re-adicionar "button_voip" na lista abaixo.
@@ -113,7 +111,10 @@ end
 
 local function getMainButtonsHeight(buttonPanel)
   local totalLines = math.max(2, math.ceil(buttonPanel:getChildCount() / 5))
-  return 77 + ((totalLines - 1) * 22)
+  -- Base reduzida em 24px porque o botao do Battle Pass (que ficava entre o
+  -- Store e a grade) foi movido para o painel do inventario. Reverter: voltar
+  -- para 77 ao restaurar o battlepassButton neste painel.
+  return 53 + ((totalLines - 1) * 22)
 end
 
 local function getStaticButtonById(buttonId)
@@ -200,31 +201,12 @@ function init()
   buttonsWindow = g_ui.loadUI('sidebuttons', m_interface.getRightPanel())
   local activeWidgets, inactiveWidgets = getControlButtonOptions()
   local buttonPanel = buttonsWindow:recursiveGetChildById("buttons")
-  local battlePassBorder = buttonsWindow:recursiveGetChildById("border")
   local storeBorder = buttonsWindow:recursiveGetChildById("storeBorder")
 
-  bPassSlot = buttonsWindow:recursiveGetChildById("bPassSlot")
-  bPassSlot.onClick = function()
-    local player = g_game.getLocalPlayer()
-    if not player then return end
-    -- True "independent" Battle Pass Inbox requires the server to ship item
-    -- id 23397 (defined in items.xml) inside appearances.dat so the client
-    -- can render it. Until that asset is delivered, registering it XML-only
-    -- on the server crashes the login flow (the client disconnects when an
-    -- inventory slot references an unknown item id). Fall back to the
-    -- Purse / Store Inbox so the button still opens a usable container.
-    local bpItem = player:getInventoryItem(InventorySlotBattlePass)
-    if not bpItem then
-      bpItem = player:getInventoryItem(InventorySlotPurse)
-    end
-    if bpItem then
-      g_game.use(bpItem)
-    else
-      g_logger.warning("[BattlePassInbox] no item found in BattlePass(12) or Purse(11) slots")
-    end
-  end
+  -- O botao do Battle Pass e seu inbox (bPassSlot) foram removidos daqui e o
+  -- Battle Pass foi movido para o painel do inventario. Reverter: restaurar o
+  -- lookup de 'border'/'bPassSlot' e o setImageShader do battlePassBorder.
 
-  battlePassBorder:setImageShader("text_staff")
   storeBorder:setImageShader("text_staff")
 
   for k, v in pairs(forceButtons) do

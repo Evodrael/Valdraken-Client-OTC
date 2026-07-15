@@ -97,7 +97,21 @@ local function getNpcPriceValue(data)
   return value
 end
 
+-- Mapeia o estado real da opcao "Colourise Loot Value" (Options > Interface).
+-- g_game.getLootValueState() retorna: 0 = None, 1 = Frames, 2 = Corners.
+-- Antes esta funcao retornava "frames" fixo, entao selecionar "None" (ou
+-- "Corners") era ignorado e a moldura continuava aparecendo ao redor dos itens.
 local function getRarityFrameOption()
+  local state = 1
+  if g_game and g_game.getLootValueState then
+    state = g_game.getLootValueState()
+  end
+
+  if state == 0 then
+    return "none"
+  elseif state == 2 then
+    return "tags"
+  end
   return "frames"
 end
 
@@ -360,5 +374,34 @@ function ItemsDatabase.setRarityItem(widget, item, valueOverride)
   local quickLootFlags = widget:getChildById('quicklootflags')
   if quickLootFlags and quickLootFlags.raise then
     quickLootFlags:raise()
+  end
+end
+
+-- Reaplica a moldura de raridade em todos os widgets de item a partir de
+-- 'widget' (recursivo). Usado quando a opcao "Colourise Loot Value" muda, para
+-- que itens ja desenhados na tela adicionem/removam a moldura imediatamente,
+-- em vez de so na proxima vez que forem redesenhados.
+function ItemsDatabase.refreshRarityFrames(widget)
+  if not widget or (widget.isDestroyed and widget:isDestroyed()) then
+    return
+  end
+
+  if widget.getItem and widget.setIcon and ItemsDatabase.setRarityItem then
+    local item = widget:getItem()
+    if not item and widget.getItemId then
+      local itemId = tonumber(widget:getItemId()) or 0
+      if itemId > 0 then
+        item = itemId
+      end
+    end
+    if item then
+      ItemsDatabase.setRarityItem(widget, item)
+    end
+  end
+
+  if widget.getChildren then
+    for _, child in pairs(widget:getChildren()) do
+      ItemsDatabase.refreshRarityFrames(child)
+    end
   end
 end

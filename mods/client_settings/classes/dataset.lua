@@ -1461,6 +1461,15 @@ return {
 		value = 2,
         apply = function(value)
             g_game.setLootValueState(value - 1)
+            -- Reaplica as molduras de raridade nos itens ja visiveis para que a
+            -- mudanca (None/Frames/Corners) tenha efeito imediato, inclusive
+            -- removendo a moldura quando "None" e selecionado.
+            if ItemsDatabase and ItemsDatabase.refreshRarityFrames then
+                local root = (m_interface and m_interface.getRootPanel and m_interface.getRootPanel()) or rootWidget
+                if root then
+                    ItemsDatabase.refreshRarityFrames(root)
+                end
+            end
             return true
         end,
 	},

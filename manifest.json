@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.10",
-    "generated":  "2026-07-14T14:02:21-03:00",
-    "count":  21397,
+    "version":  "15.24.11",
+    "generated":  "2026-07-15T20:26:46-03:00",
+    "count":  21398,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -102465,8 +102465,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/dataset.lua",
-                      "sha256":  "7e3882c297118fecadb82aca0f131bdb1d6c5e6778151f7e4944afee98d8e19d",
-                      "size":  69574
+                      "sha256":  "d8818ec427912545546209921ede3682f7bd5c62ae50b96cf1bf8ee31a615adc",
+                      "size":  70111
                   },
                   {
                       "path":  "mods/client_settings/classes/GameOptions.lua",
@@ -105855,8 +105855,8 @@
                   },
                   {
                       "path":  "modules/game_inventory/inventory.otui",
-                      "sha256":  "2b8ff6b37fe8d269c2a94bbc27e10d998b849c1aac6b68bd65714ab40ee99437",
-                      "size":  12183
+                      "sha256":  "3cf996223af0e6a467cbd78521db8dfaed83b34d47c59fc1797b8cdfec1dbc4f",
+                      "size":  12982
                   },
                   {
                       "path":  "modules/game_itemselector/itemselector.lua",
@@ -105872,6 +105872,11 @@
                       "path":  "modules/game_itemselector/itemselector.otui",
                       "sha256":  "fd60ed0a13c6fed5c0b4acd3b989f4c65b72ef0b219e7e4775b8eb4d7d6fdadc",
                       "size":  1352
+                  },
+                  {
+                      "path":  "modules/game_minibot/GUIA_MINIBOT.md",
+                      "sha256":  "6f6ea65fd0252aff5d8a8405a571c96e11a44811e86c8c6c70d92d22ba205dc4",
+                      "size":  18686
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
@@ -106550,8 +106555,8 @@
                   },
                   {
                       "path":  "modules/game_sidebuttons/sidebuttons.lua",
-                      "sha256":  "979f32280c405d383fe2d1425f21ac5494072bce9923ce4a66b1dc2affe5dcf1",
-                      "size":  27447
+                      "sha256":  "a6d6d5f51828bf7e0591dd5904ae5c68dd0028079e72866906a08f576ff5cf4b",
+                      "size":  26808
                   },
                   {
                       "path":  "modules/game_sidebuttons/sidebuttons.otmod",
@@ -106560,8 +106565,8 @@
                   },
                   {
                       "path":  "modules/game_sidebuttons/sidebuttons.otui",
-                      "sha256":  "89324e0330f6453069c6d490f28a93f314729e0bba44c2988089360105b813ba",
-                      "size":  4912
+                      "sha256":  "02e3af9af53c32bab01067ff46a965a9380041169c1c701686fac25184154071",
+                      "size":  4004
                   },
                   {
                       "path":  "modules/game_skills/skills.lua",
@@ -106855,8 +106860,8 @@
                   },
                   {
                       "path":  "modules/gamelib/items.lua",
-                      "sha256":  "bd0dc9c3edcdb74091e42343a622bb27f08ce1fb234cc3bd8549e875e59d11eb",
-                      "size":  10383
+                      "sha256":  "9c438678d19344391b4c030b0fb183e73eca0e0416650a312af560099d5ddb16",
+                      "size":  11813
                   },
                   {
                       "path":  "modules/gamelib/market.lua",
@@ -106985,7 +106990,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "3250feb78cd853438a358a3aeeb170db1dde8e12fae6ee3a68d36d59f53dc039",
+                      "sha256":  "b53bb3e4b23d8416b5e47e2634c684e3a1e34d93f098025e0d124fdde352f2ce",
                       "size":  8
                   }
               ]
