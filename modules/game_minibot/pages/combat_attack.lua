@@ -104,6 +104,15 @@ function combat_attackModule.reloadInternalModule()
 
     g_minibot.setAutoAttack(type)
 
+    -- O auto-attack no motor exige DUAS condicoes: m_autoAttack > 0 (o modo, acima)
+    -- E o modulo 9 (ModuleAutoAttack) ligado. Antes, so o main_settings ligava o
+    -- modulo 9 (e ele so roda em login/troca de preset), enquanto esta pagina so
+    -- mexia no modo. Resultado: ao ativar/trocar o modo aqui, o modo mudava mas o
+    -- modulo 9 ficava dessincronizado, fazendo o auto-attack funcionar "as vezes".
+    -- Como ambos derivam do mesmo 'autoAttack_enabled', sincronizamos o modulo 9
+    -- aqui tambem para os dois sempre andarem juntos.
+    g_minibot.setModuleToggle(9, autoAttack and true or false)
+
     -- Ammo Refill (module type 23 — separate from Auto-attack=9 to avoid the toggle collision)
     g_minibot.resetModule(23) -- Ammo Refill Module type
     local sAmmoRefill = mSettings['ammo_refill']

@@ -118,16 +118,21 @@ Extraída dos `setModuleToggle(...)` de cada página. Útil ao mexer no liga/des
 | 3 | Combat Timers | combat_timers |
 | 5 | Cave Bot (Recorder) | hunting_recorder |
 | 6 | Healing Group (mestre) | healing_group / main_settings |
+| 9 | Auto Attack (liga/desliga) | main_settings + combat_attack |
 | 10 | Equipment Amulets | equipment_amulets |
 | 11 | Equipment Rings | equipment_rings |
 | 16 | PvP: Tank Mode | combat_pvp |
 | 17 | PvP: Auto-remove Paralyze | combat_pvp |
 | 18–20 | Healing Group (listas internas) | healing_group |
 | 21 | Cave Bot Explorer | hunting_explorer |
-| 23 | Auto Attack | combat_attack |
+| 23 | Ammo Refill (recarga de munição) | combat_attack |
 
-> Os IDs 9 e outros aparecem em `main_settings.lua` como toggles em massa; se for mexer
-> nisso, confirme no arquivo antes. Esta tabela cobre o mapeamento observado no código.
+> **Auto Attack** é especial: o *modo* de alvo (closest/lowest/highest/smart) vem de
+> `g_minibot.setAutoAttack(type)` (type: 1=closest, 2=lowest, 3=highest, 200=smart; +100 = só
+> melee), e o *liga/desliga* é o **módulo 9** (`ModuleAutoAttack`). O motor
+> (`processAutoAttack`) exige **as duas coisas**: `m_autoAttack > 0` **E** módulo 9 ligado.
+> Por isso `combat_attack.reloadInternalModule` sincroniza os dois juntos — se separá-los,
+> o auto-attack passa a funcionar só "às vezes".
 
 ### Padrão comum de uma página
 
