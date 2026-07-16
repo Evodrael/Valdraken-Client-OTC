@@ -134,6 +134,20 @@ Extraída dos `setModuleToggle(...)` de cada página. Útil ao mexer no liga/des
 > Por isso `combat_attack.reloadInternalModule` sincroniza os dois juntos — se separá-los,
 > o auto-attack passa a funcionar só "às vezes".
 
+### Gancho de login (`onPlayerInfo`)
+
+`onPlayerInfo()` é o que seleciona o preset do personagem no login (via `onClickPresetEntry`),
+recarrega os módulos e rebinda as hotkeys. **Ele é disparado por `connect(g_game, { onGameStart
+= onPlayerInfo })`** em [minibot.lua](minibot.lua).
+
+> Historicamente o connect era `onPlayerInfo = onPlayerInfo`, que nunca disparava: o C++ **não
+> emite** `g_game.onPlayerInfo` (o `parsePlayerInfo` só seta premium/vocação/spells, sem
+> `callGlobalField`). Como o módulo carrega no startup ainda offline, o `if g_game.isOnline()`
+> do `init()` também era falso. Resultado: nenhum preset ficava com `selectedPreset = true`, o
+> `getPressetSettings()` devolvia `{}` e **o Assistente não aplicava nada até o jogador abrir a
+> janela e clicar num preset**. Se algum recurso "só funciona depois que eu abro o Assistente",
+> suspeite deste ponto.
+
 ### Padrão comum de uma página
 
 Quase toda página `pages/<x>.lua` expõe um módulo global `game_minibot['<x>Module']` com:
@@ -250,8 +264,15 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
   - **Lure / Lurar**: anda em passos curtos arrastando monstros e matando à distância.
   - **Lure speed / Velocidade de lure**: quanto maior, mais rápido anda entre passos.
   - **Overwrite to all / Alterar para todos**: aplica a config deste waypoint a todos.
-- **AFK Pause (5 min)**: pausa a verificação anti-bot do cave bot 100% AFK por 5 min a cada 2h.
+- **Renovar 1 hora**: compra 1h de tempo de cave bot (`g_game.afkPause(4)`).
 - **Import/Export**: rota exportável por código (versão via `getExportCodeVersion()`).
+
+> **O "AFK Pause (5 min)" foi removido** do painel. `g_game.afkPause(action)` continua sendo o
+> canal de várias ações do cave bot (ver `Game::afkPause`): **0**=limpa pausa AFK, **1**=pausa
+> 5min, **2**=task on, **3**=task off, **4**=renova. Só o **1** deixou de ser usado — o **4** é o
+> botão de renovar e o **0** segue no `init` da página, porque o servidor responde com o estado
+> novo do cave bot e é assim que o timer se atualiza ao abrir a aba. Para pedir o estado sem
+> efeito colateral existe `g_game.requestCaveBot()` (action **6**), usado no login.
 
 > Restrição de servidor: se o jogador for banido do cavebot, aparece a mensagem de proibição
 > com data/hora (o mapa fica bloqueado). Ver linhas ~241/607 de [hunting_recorder.lua](pages/hunting_recorder.lua).
@@ -300,6 +321,21 @@ Config em `settings['support_main']`. Utilidades automáticas:
   como "Auto change gold" por engano — o comportamento é de montaria.)*
 - **Auto eat**: come uma comida selecionada periodicamente.
 - **Auto training**: treina sozinho com uma exercise weapon e um tipo de dummy.
+- **Auto Bless** (`auto_bless`): ao morrer, envia `!bless` automaticamente no próximo login
+  **deste personagem**.
+- **Auto Follow** (`auto_follow`): segue o jogador cujo nick está no campo ao lado, sempre que
+  ele estiver na tela.
+
+> **Auto Bless e Auto Follow não têm módulo no motor.** Diferente das opções acima, elas são
+> 100% Lua e vivem em [minibot.lua](minibot.lua), não na página — o módulo da página só existe
+> enquanto a aba está aberta, e as duas precisam rodar com o Assistente fechado. Lá ficam:
+> `onPlayerDeath` (grava a flag `pending_bless`, por personagem e persistida, para sobreviver ao
+> logout), `sendPendingBless` (chamada por `onPlayerInfo`, já com o preset selecionado) e o tick
+> de 1s do follow (`reloadSupportRuntime`, religado pelo `reloadInternalModule` da página).
+>
+> Cuidado ao mexer no follow: `g_game.follow()` **alterna** — chamar com a criatura que você já
+> segue **cancela** o follow. Por isso o tick compara com `g_game.getFollowingCreature()` antes
+> de agir; sem isso o follow pisca a cada ciclo.
 
 ### 9.2 Mana Shield ([support_manashield.lua](pages/support_manashield.lua))
 Aciona/renova/remove Mana Shield automaticamente. Três blocos:

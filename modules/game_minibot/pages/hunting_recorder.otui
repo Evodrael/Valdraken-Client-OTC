@@ -122,7 +122,7 @@ UIWidget
       anchors.fill: parent
       margin-left: 5
       margin-right: 5
-      margin-bottom: 98
+      margin-bottom: 54
       margin-top: 20
       min-zoom: 0
       visible: false
@@ -186,46 +186,9 @@ UIWidget
       anchors.left: minimap.left
       anchors.right: minimap.right
       anchors.bottom: parent.bottom
-      height: 90
+      height: 46
       margin-bottom: 5
       visible: false
-
-      UIWidget
-        id: title
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        !text: 'AFK Pause:'
-        text-horizontal-auto-resize: true
-        color: #C0C0C0
-        margin-bottom: 5
-        phantom: true
-
-      UIWidget
-        id: help
-        anchors.right: parent.right
-        anchors.verticalCenter: title.verticalCenter
-        color: #C0C0C0
-        image-source: /images/icons/show_gui_help_grey
-        size: 12 12
-
-      MiniBotStoreButton
-        id: button
-        !buttoncolor: 'green'
-        margin-left: 3
-        anchors.verticalCenter: title.verticalCenter
-        anchors.right: help.left
-        margin-right: 10
-        size: 140 18
-        color: #C0C0C0
-        !text: 'Disponivel'
-        font: verdana-11px-rounded
-
-      HorizontalSeparator
-        id: separator
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: button.top
-        margin-bottom: 7
 
       UIWidget
         id: renewTitle
@@ -242,10 +205,11 @@ UIWidget
       MiniBotStoreButton
         id: renewButton
         !buttoncolor: 'yellow'
-        anchors.left: button.left
-        anchors.right: button.right
-        anchors.bottom: separator.top
-        margin-bottom: 3
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        margin-right: 22
+        margin-bottom: 5
+        width: 140
         height: 36
         color: #dddddd
         !text: 'Renovar 1 hora'

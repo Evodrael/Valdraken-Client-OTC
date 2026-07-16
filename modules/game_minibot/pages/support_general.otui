@@ -446,6 +446,88 @@ UIWidget
         size: 12 12
         !tooltip: 'You can select a specific exercise weapon and a dummy type, so that the Assistant will automatically start training.'
 
+    UIWidget
+      id: autoBless
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 5
+      margin-left: 5
+      margin-right: 5
+      image-source: /resources/button_phantom
+      image-clip: 0 46 22 23
+      image-border: 3
+      padding: 5
+      height: 26
+
+      QtCheckBox
+        id: check
+        anchors.left: parent.left
+        anchors.top: parent.top
+        text-horizontal-auto-resize: true
+        !text: 'Auto bless'
+        text-offset: 15 -2
+        color: #C0C0C0
+        @onCheckChange: |
+          modules.game_minibot.callMethod('onAutoBlessChange', self)
+
+      UIWidget
+        id: help
+        anchors.right: parent.right
+        anchors.verticalCenter: check.verticalCenter
+        color: #C0C0C0
+        margin-right: 5
+        image-source: /images/icons/show_gui_help_grey
+        size: 12 12
+        !tooltip: 'When you die, the Assistant will automatically send the !bless command on your next login with this character.'
+
+    UIWidget
+      id: autoFollow
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 5
+      margin-left: 5
+      margin-right: 5
+      image-source: /resources/button_phantom
+      image-clip: 0 46 22 23
+      image-border: 3
+      padding: 5
+      height: 26
+
+      QtCheckBox
+        id: check
+        anchors.left: parent.left
+        anchors.top: parent.top
+        text-horizontal-auto-resize: true
+        !text: 'Auto follow'
+        text-offset: 15 -2
+        color: #C0C0C0
+        @onCheckChange: |
+          modules.game_minibot.callMethod('onAutoFollowChange', self)
+
+      TextEdit
+        id: name
+        anchors.verticalCenter: check.verticalCenter
+        anchors.right: help.left
+        margin-right: 8
+        width: 160
+        !placeholder: 'Type player name'
+        placeholder-font: cipsoftFont
+        color: #C0C0C0
+        @onTextChange: |
+          modules.game_minibot.callMethod('onAutoFollowNameChange', self)
+
+      UIWidget
+        id: help
+        anchors.right: parent.right
+        anchors.verticalCenter: check.verticalCenter
+        color: #C0C0C0
+        margin-right: 5
+        image-source: /images/icons/show_gui_help_grey
+        size: 12 12
+        !tooltip: 'The Assistant will keep following the player with this name whenever they are on your screen.'
+
   UIWidget
     id: dropDownCatcher
     anchors.fill: parent

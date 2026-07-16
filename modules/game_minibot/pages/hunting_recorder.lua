@@ -195,8 +195,7 @@ function hunting_recorderModule.init(widget)
         onMinibotCavebotTimer = hunting_recorderModule.onMinibotCavebotTimer
     })
     connect(LocalPlayer, {
-        onPositionChange = hunting_recorderModule.onPositionChange,
-        onAFKPauseChange = hunting_recorderModule.onAFKPauseChange
+        onPositionChange = hunting_recorderModule.onPositionChange
     })
     connect(g_minibot, {
         onWalkToNextNode = hunting_recorderModule.onWalkToNextNode,
@@ -231,6 +230,9 @@ function hunting_recorderModule.init(widget)
 
     hunting_recorderModule.loadSettings()
     huntingWaypointsWindow.ignoreReloadInformation = nil
+    -- Action 0 = clear the AFK pause (see Game::afkPause). The 5-min pause UI is
+    -- gone, but the server still answers with the fresh cave bot state, which the
+    -- timer below reads, so this stays as the on-open refresh.
     g_game.afkPause(0)
 
     if localPlayer ~= nil then
@@ -257,8 +259,7 @@ function hunting_recorderModule.terminate()
         onMinibotCavebotTimer = hunting_recorderModule.onMinibotCavebotTimer
     })
     disconnect(LocalPlayer, {
-        onPositionChange = hunting_recorderModule.onPositionChange,
-        onAFKPauseChange = hunting_recorderModule.onAFKPauseChange
+        onPositionChange = hunting_recorderModule.onPositionChange
     })
     disconnect(g_minibot, {
         onWalkToNextNode = hunting_recorderModule.onWalkToNextNode,
@@ -414,56 +415,6 @@ function hunting_recorderModule.onMinibotCavebotTimer(timeleft, total, task, ren
     huntingWaypointsWindow.map.titlePanel.renewTitle:setColoredText(string.fromColoredTable(lines))
 end
 
-function hunting_recorderModule.onAFKPauseChange(localPlayer, _)
-    if huntingWaypointsWindow == nil then
-        return
-    end
-
-    local timestamp = localPlayer:getAFKPauseTimestamp()
-    local language = modules.game_minibot.getSettingsValue(false, 'language', 'ptbr')
-    if timestamp <= os.time() then
-        if language == 'ptbr' then
-            huntingWaypointsWindow.map.titlePanel.button:setText('Disponivel')
-        elseif language == 'enus' then
-            huntingWaypointsWindow.map.titlePanel.button:setText('Available')
-        end
-        huntingWaypointsWindow.map.titlePanel.button:setButtonColor('green')
-        huntingWaypointsWindow.map.titlePanel.button.onLeftClick = function()
-            g_game.afkPause(1)
-            modules.game_minibot.toggleDisableCavebot()
-        end
-    else
-        local elapsed = timestamp - os.time()
-
-        local str
-        if elapsed < 60 then
-            str = "< 1 min"
-        else
-            local hours = math.floor(elapsed / 3600)
-            local minutes = math.floor((elapsed % 3600) / 60)
-
-            local hourLabel
-            local minuteLabel = 'min'
-            if language == 'ptbr' then
-                hourLabel = (hours == 1) and 'hora' or 'horas'
-            elseif language == 'enus' then
-                hourLabel = (hours == 1) and 'hour' or 'hours'
-            else
-                hourLabel = (hours == 1) and 'hour' or 'hours'
-            end
-
-            if hours > 0 then
-                str = string.format('%d %s %d %s', hours, hourLabel, minutes, minuteLabel)
-            else
-                str = string.format('%d %s', minutes, minuteLabel)
-            end
-        end
-        huntingWaypointsWindow.map.titlePanel.button:setText(str)
-        huntingWaypointsWindow.map.titlePanel.button.onLeftClick = nil
-        huntingWaypointsWindow.map.titlePanel.button:setButtonColor('red')
-    end
-end
-
 function hunting_recorderModule.setPreWalk(position)
     if hunting_recorderModule.recordingEvent == nil then
         return
@@ -548,8 +499,6 @@ function hunting_recorderModule.reloadLanguage(language)
         huntingWaypointsWindow.warningText = 'Aviso!\n\nVoce esta prestes a substituir TODAS as opcoes de waypoints de registro dessa sessao pela configuracao do waypoint #%d.\n\nContinuar mesmo assim?'
         huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:setText('Velocidade de lure:')
         huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:setTooltip('A forca de Lure ira determinar a velocidade e o tempo que o personagem ficara parado entre movimentos quando estiver com a opcao de lure ativado. Quanto MAIOR a velocidade, mais RAPIDO sera a movimentacao do personagem. Quanto MENOR o valor, mais LENTO o personagem ira se movimentar.')
-        huntingWaypointsWindow.map.titlePanel.title:setText('Pausa AFK por 5 minutos:')
-        huntingWaypointsWindow.map.titlePanel.help:setTooltip('E possivel pausar a verificacao de Cavebot 100% AFK por 5 minutos a cada 2 horas. Com essa pausa, sera visivel para os outros jogadores que voce esta com essa pausa ativa, assim blindando o seu personagem de verificacao anti-bot durante o efeito da pausa.')
 
     elseif language == 'enus' then
         huntingWaypointsWindow.map.title:setText('Map preview')
@@ -567,8 +516,6 @@ function hunting_recorderModule.reloadLanguage(language)
         huntingWaypointsWindow.warningText = 'Warning!\n\nYou are about to overwrite ALL of your record waypoints options with the waypoint #%d config.\n\nContinue?'
         huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:setText('Lure speed:')
         huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:setTooltip('Lure strength determines the character\'s speed and the amount of time they will remain waiting between movements when the lure option is activated. The HIGHER the speed, the FASTER the character will move. The LOWER the value, the SLOWER the character will move.')
-        huntingWaypointsWindow.map.titlePanel.title:setText('AFK Pause for 5 minutes:')
-        huntingWaypointsWindow.map.titlePanel.help:setTooltip('It is possible to pause the 100% AFK Cavebot check for 5 minutes every 2 hours. With this pause, it will be visible to other players that you are on pause, thus shielding your character from anti-bot checks during the pause effect.')
 
     end
 end

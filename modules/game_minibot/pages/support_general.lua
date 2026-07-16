@@ -219,6 +219,11 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoEat.help:setTooltip('Voce pode selecionar uma Food especifica para que seu personagem coma periodicamente, para mante-lo satisfeito.')
         supportGeneralWindow.panel.autoTraining.check:setText('Treino automatico')
         supportGeneralWindow.panel.autoTraining.help:setTooltip('Voce pode selecionar uma Exercise Weapon especifica e um Dummy para que o Assistente inicie o treinamento automaticamente.')
+        supportGeneralWindow.panel.autoBless.check:setText('Bless automatico')
+        supportGeneralWindow.panel.autoBless.help:setTooltip('Ao morrer, o Assistente enviara automaticamente o comando !bless no proximo login deste personagem.')
+        supportGeneralWindow.panel.autoFollow.check:setText('Follow automatico')
+        supportGeneralWindow.panel.autoFollow.name:setPlaceholder('Digite o nome do jogador')
+        supportGeneralWindow.panel.autoFollow.help:setTooltip('O Assistente seguira o jogador com este nome sempre que ele estiver na sua tela.')
 
 
     elseif language == 'enus' then
@@ -236,6 +241,11 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoEat.help:setTooltip('You can select a specific food so that your character will periodically eat it, to maintain you satisfied.')
         supportGeneralWindow.panel.autoTraining.check:setText('Auto training')
         supportGeneralWindow.panel.autoTraining.help:setTooltip('You can select a specific exercise weapon and a dummy type, so that the Assistant will automatically start training.')
+        supportGeneralWindow.panel.autoBless.check:setText('Auto bless')
+        supportGeneralWindow.panel.autoBless.help:setTooltip('When you die, the Assistant will automatically send the !bless command on your next login with this character.')
+        supportGeneralWindow.panel.autoFollow.check:setText('Auto follow')
+        supportGeneralWindow.panel.autoFollow.name:setPlaceholder('Type player name')
+        supportGeneralWindow.panel.autoFollow.help:setTooltip('The Assistant will keep following the player with this name whenever they are on your screen.')
 
     end
 end
@@ -284,6 +294,17 @@ function support_generalModule.saveSettings()
     autoTrainingSettings['item2'] = supportGeneralWindow.panel.autoTraining.item2:getItemId()
     autoTrainingSettings['enabled'] = supportGeneralWindow.panel.autoTraining.check:isChecked()
     sList['auto_training'] = autoTrainingSettings
+
+    -- Auto Bless
+    local autoBlessSettings = {}
+    autoBlessSettings['enabled'] = supportGeneralWindow.panel.autoBless.check:isChecked()
+    sList['auto_bless'] = autoBlessSettings
+
+    -- Auto Follow
+    local autoFollowSettings = {}
+    autoFollowSettings['enabled'] = supportGeneralWindow.panel.autoFollow.check:isChecked()
+    autoFollowSettings['name'] = supportGeneralWindow.panel.autoFollow.name:getText()
+    sList['auto_follow'] = autoFollowSettings
 
     settings['support_main'] = sList
     modules.game_minibot.setPressetSettings(settings)
@@ -374,6 +395,22 @@ function support_generalModule.loadSettings()
     else
         supportGeneralWindow.panel.autoTraining.item2:hide()
     end
+
+    -- Auto Bless
+    local autoBlessSettings = sList['auto_bless'] or {}
+    supportGeneralWindow.panel.autoBless.check.ignoreCallback = true
+    supportGeneralWindow.panel.autoBless.check:setChecked(autoBlessSettings['enabled'] or false)
+    supportGeneralWindow.panel.autoBless.check.ignoreCallback = nil
+
+    -- Auto Follow
+    local autoFollowSettings = sList['auto_follow'] or {}
+    supportGeneralWindow.panel.autoFollow.name.ignoreCallback = true
+    supportGeneralWindow.panel.autoFollow.name:setText(autoFollowSettings['name'] or '')
+    supportGeneralWindow.panel.autoFollow.name.ignoreCallback = nil
+    supportGeneralWindow.panel.autoFollow.check.ignoreCallback = true
+    supportGeneralWindow.panel.autoFollow.check:setChecked(autoFollowSettings['enabled'] or false)
+    support_generalModule.onAutoFollowChange(supportGeneralWindow.panel.autoFollow.check)
+    supportGeneralWindow.panel.autoFollow.check.ignoreCallback = nil
 end
 
 function support_generalModule.onChangeGoldChange(widget)
@@ -386,6 +423,41 @@ function support_generalModule.onChangeGoldChange(widget)
 end
 
 function support_generalModule.onAutoMountChange(widget)
+    if widget.ignoreCallback then
+        return
+    end
+
+    support_generalModule.saveSettings()
+    support_generalModule.reloadInternalModule()
+end
+
+function support_generalModule.onAutoBlessChange(widget)
+    if widget.ignoreCallback then
+        return
+    end
+
+    support_generalModule.saveSettings()
+    support_generalModule.reloadInternalModule()
+end
+
+function support_generalModule.onAutoFollowChange(widget)
+    if widget:isChecked() then
+        supportGeneralWindow.panel.autoFollow.name:setEnabled(true)
+        supportGeneralWindow.panel.autoFollow.name:setOpacity(1)
+    else
+        supportGeneralWindow.panel.autoFollow.name:setEnabled(false)
+        supportGeneralWindow.panel.autoFollow.name:setOpacity(0.3)
+    end
+
+    if widget.ignoreCallback then
+        return
+    end
+
+    support_generalModule.saveSettings()
+    support_generalModule.reloadInternalModule()
+end
+
+function support_generalModule.onAutoFollowNameChange(widget)
     if widget.ignoreCallback then
         return
     end
@@ -639,6 +711,10 @@ function support_generalModule.reloadInternalModule()
     else
         g_minibot.setModuleToggle(22, false)
     end
+
+    -- Auto Bless and Auto Follow have no engine module: they are driven from
+    -- minibot.lua, which owns the death/login hooks and the follow tick.
+    modules.game_minibot.reloadSupportRuntime()
 end
 
 function support_generalModule.closeCatcher()

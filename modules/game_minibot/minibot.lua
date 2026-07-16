@@ -31,6 +31,17 @@ local function _saveMiniBotSettings()
   end
 end
 
+-- Auto Follow tick (Support > General). Declared here so that terminate(), which
+-- is defined above the rest of the runtime, can stop it.
+local autoFollowEvent = nil
+
+local function stopAutoFollow()
+  if autoFollowEvent ~= nil then
+    removeEvent(autoFollowEvent)
+    autoFollowEvent = nil
+  end
+end
+
 local function updateGoldBalanceText(bankBalance, inventoryBalance)
   if MiniBotMiniWindow == nil or MiniBotMiniWindow.balance == nil or MiniBotMiniWindow.balance.text == nil then
     return
@@ -513,11 +524,16 @@ function init()
     onWalkToNextNode = setupMinimapTexts,
   })
 
+  -- g_game never emits onPlayerInfo (parsePlayerInfo has no callGlobalField), and
+  -- this module loads at startup while still offline, so init() above never runs
+  -- onPlayerInfo either. Without onGameStart no preset is ever selected on login
+  -- and getPressetSettings() stays empty, leaving every feature inert.
   connect(g_game, {
-    onPlayerInfo = onPlayerInfo,
+    onGameStart = onPlayerInfo,
     onGameEnd = onGameEnd,
     onMissileTo = onMissileTo,
-    onResourceBalance = onResourceBalance
+    onResourceBalance = onResourceBalance,
+    onDeath = onPlayerDeath
   })
 
   connect(LocalPlayer, {
@@ -527,6 +543,8 @@ function init()
 end
 
 function terminate()
+  stopAutoFollow()
+
   if unbindMinibotHotkeys then
     unbindMinibotHotkeys()
   end
@@ -536,10 +554,11 @@ function terminate()
   })
 
   disconnect(g_game, {
-    onPlayerInfo = onPlayerInfo,
+    onGameStart = onPlayerInfo,
     onGameEnd = onGameEnd,
     onMissileTo = onMissileTo,
-    onResourceBalance = onResourceBalance
+    onResourceBalance = onResourceBalance,
+    onDeath = onPlayerDeath
   })
 
   disconnect(LocalPlayer, {
@@ -947,7 +966,9 @@ function selectPreviousPreset()
 end
 
 function onPlayerInfo()
-  local eventTest = g_stats.startEvent("[LUA] minibot.lua:872")
+  -- No g_stats.startEvent/endEvent here: this build's g_stats only binds
+  -- types/get/clear/getSlow/getSleepTime (see framework/luafunctions.cpp). Those
+  -- calls are leftovers from another fork and throw the moment this runs.
   g_minibot.reset()
 
   local ignoreReload = false
@@ -975,10 +996,119 @@ function onPlayerInfo()
   end
 
   MiniBotMiniWindow.presets.buttons.gamewindow:setChecked(getSettingsValue(true, 'show_preset_name', false))
-  g_stats.endEvent(eventTest)
+
+  -- Runs after the preset is selected above, so the Auto Bless setting is readable.
+  -- The Auto Follow tick is (re)started by support_general's reloadInternalModule.
+  sendPendingBless()
+end
+
+-- Support > General: Auto Bless and Auto Follow have no engine (C++) module, so
+-- the death/login hooks and the follow tick live here, where they keep running
+-- while the Assistant window is closed.
+local function getSupportGeneralSettings()
+  if MiniBotMiniWindow == nil then
+    return {}
+  end
+
+  return getPressetSettings()['support_main'] or {}
+end
+
+local function findPlayerByName(name)
+  local player = g_game.getLocalPlayer()
+  if player == nil then
+    return nil
+  end
+
+  name = name:lower()
+  for _, creature in ipairs(g_map.getSpectators(player:getPosition(), false)) do
+    if creature:isPlayer() and not(creature:isLocalPlayer()) and creature:getName():lower() == name then
+      return creature
+    end
+  end
+
+  return nil
+end
+
+local function autoFollowTick()
+  autoFollowEvent = nil
+
+  if not(g_game.isOnline()) then
+    return
+  end
+
+  local sAutoFollow = getSupportGeneralSettings()['auto_follow']
+  if sAutoFollow == nil or not(sAutoFollow['enabled']) then
+    return
+  end
+
+  local name = sAutoFollow['name'] or ''
+  if name ~= '' then
+    -- g_game.follow() toggles: calling it with the creature we already follow
+    -- cancels the follow, so only act when the target is not the one we want.
+    local following = g_game.getFollowingCreature()
+    if following == nil or following:getName():lower() ~= name:lower() then
+      local creature = findPlayerByName(name)
+      if creature ~= nil then
+        g_game.follow(creature)
+      end
+    end
+  end
+
+  autoFollowEvent = scheduleEvent(autoFollowTick, 1000)
+end
+
+function reloadSupportRuntime()
+  stopAutoFollow()
+
+  if not(g_game.isOnline()) then
+    return
+  end
+
+  local sAutoFollow = getSupportGeneralSettings()['auto_follow']
+  if sAutoFollow == nil or not(sAutoFollow['enabled']) then
+    return
+  end
+
+  autoFollowEvent = scheduleEvent(autoFollowTick, 1000)
+end
+
+function onPlayerDeath()
+  local sAutoBless = getSupportGeneralSettings()['auto_bless']
+  if sAutoBless == nil or not(sAutoBless['enabled']) then
+    return
+  end
+
+  -- Persisted per character: the command can only be sent on the next login.
+  setSettingsValue(true, 'pending_bless', true)
+end
+
+function sendPendingBless()
+  if not(getSettingsValue(true, 'pending_bless', false)) then
+    return
+  end
+
+  local sAutoBless = getSupportGeneralSettings()['auto_bless']
+  if sAutoBless == nil or not(sAutoBless['enabled']) then
+    -- Turned off between the death and this login.
+    setSettingsValue(true, 'pending_bless', false)
+    return
+  end
+
+  scheduleEvent(function()
+    if not(g_game.isOnline()) then
+      return
+    end
+
+    g_game.talk('!bless')
+    -- Only cleared once actually sent, so a disconnect right after login still
+    -- blesses on the next one.
+    setSettingsValue(true, 'pending_bless', false)
+  end, 2000)
 end
 
 function onGameEnd()
+  stopAutoFollow()
+
   if MiniBotEditPresetMiniWindow ~= nil then
     MiniBotEditPresetMiniWindow:destroy()
     MiniBotEditPresetMiniWindow = nil
