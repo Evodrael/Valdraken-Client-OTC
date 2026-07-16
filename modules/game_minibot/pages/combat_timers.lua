@@ -3,149 +3,19 @@ combat_timersModule = {}
 local combatTimersWindow = nil
 
 local itemList = {
-    9087, -- Carrot Cake
-    29409, -- Carrot Pie
-    29412, -- Chilli Con Carniphila
-    11584, -- Coconut Shrimp Bake
-    29411, -- Delicatessen Salad
-    11587, -- Demonic Candy Ball
-    9085, -- Filled Jalapeño Peppers
-    9080, -- Hydra Tongue Salad
-    28486, -- Lemon Cupcake
-    9088, -- Northern Fishburger
-    9081, -- Roasted Dragon Wings
-    29408, -- Roasted Wyvern Wings
-    29413, -- Svargrond Salmon Filet
-    9082, -- Tropical Fried Terrorbird
-    29410, -- Tropical Marinated Tiger
-    9084, -- Veggie Casserole
-    7439, -- Berserk Potion
-    7443, -- Bullseye Potion
-
-    36728, -- Bestiary Betterment
-    36741, -- Death Amplification
-    36734, -- Death Resilience
-    36738, -- Earth Amplification
-    36731, -- Earth Resilience
-    36739, -- Energy Amplification
-    36732, -- Energy Resilience
-    36736, -- Fire Amplification
-    36729, -- Fire Resilience
-    36740, -- Holy Amplification
-    36733, -- Holy Resistance
-    36737, -- Ice Amplification
-    36730, -- Ice Resilience
-    36723, -- Kooldown-Aid
-    7440, -- Mastermind Potion
-    36742, -- Physical Amplification
-    36735, -- Physical Resilience
-    36725, -- Stamina Extension
-    36724, -- Strike Enhancement
-    49271, -- Transcendence Potion
-    36727, -- Wealth Duple
-    40611, -- Seller Pouch
-    40646, -- Divine Food
-    40822, -- Amplification Potion Full
-    40823, -- Kooldown of Avatar
-    40824, -- Special Wealth Duplex
-    40825, -- Resilience Potion Full
-    40838, -- Food Skill
-    40839, -- Defense Scroll
-    40840, -- Defense Scroll
-
-    41060, -- Potion of Critical
-    41061, -- Potion of Dodge
-    41062, -- Potion of Fatal
-    41063, -- Potion of Momentum
-    41064, -- Potion of Speed
-    41065, -- Potion of Transcendence
-
-    41255, -- Convert Dust
-    41254, -- Up Dust
-
-    41433, -- inner force elixir
-    41432, -- blade master potion
-    6530, -- worn soft boots
-    36726, -- charm upgrade
-    40700, -- gift of life cooldown scroll
-    40701, -- damage boost +10% scroll
-    40702, -- damage boost +10% scroll
-    40703, -- damage boost +20% scroll
-    40705, -- experience +20% scroll
-    40704, -- experience +10% scroll
+	44434, -- milk
+	64039, -- gold bank
+	23683, -- trader
+	64086, -- exp boost 100
+	64085, -- exp boost 50	
 }
 
 local regularUseItems = {
-    9087, -- Carrot Cake
-    29409, -- Carrot Pie
-    29412, -- Chilli Con Carniphila
-    11584, -- Coconut Shrimp Bake
-    29411, -- Delicatessen Salad
-    11587, -- Demonic Candy Ball
-    9085, -- Filled Jalapeño Peppers
-    9080, -- Hydra Tongue Salad
-    28486, -- Lemon Cupcake
-    9088, -- Northern Fishburger
-    9081, -- Roasted Dragon Wings
-    29408, -- Roasted Wyvern Wings
-    29413, -- Svargrond Salmon Filet
-    9082, -- Tropical Fried Terrorbird
-    29410, -- Tropical Marinated Tiger
-    9084, -- Veggie Casserole
-    7439, -- Berserk Potion
-    7443, -- Bullseye Potion
-
-    36728, -- Bestiary Betterment
-    36741, -- Death Amplification
-    36734, -- Death Resilience
-    36738, -- Earth Amplification
-    36731, -- Earth Resilience
-    36739, -- Energy Amplification
-    36732, -- Energy Resilience
-    36736, -- Fire Amplification
-    36729, -- Fire Resilience
-    36740, -- Holy Amplification
-    36733, -- Holy Resistance
-    36737, -- Ice Amplification
-    36730, -- Ice Resilience
-    36723, -- Kooldown-Aid
-    7440, -- Mastermind Potion
-    36742, -- Physical Amplification
-    36735, -- Physical Resilience
-    36725, -- Stamina Extension
-    36724, -- Strike Enhancement
-    49271, -- Transcendence Potion
-    36727, -- Wealth Duple
-    40611, -- Seller Pouch
-    40646, -- Divine Food
-    40822, -- Amplification Potion Full
-    40823, -- Kooldown of Avatar
-    40824, -- Special Wealth Duplex
-    40825, -- Resilience Potion Full
-    40838, -- Food Skill
-    40839, -- Defense Scroll
-    40840, -- Defense Scroll
-
-    41060, -- Potion of Critical
-    41061, -- Potion of Dodge
-    41062, -- Potion of Fatal
-    41063, -- Potion of Momentum
-    41064, -- Potion of Speed
-    41065, -- Potion of Transcendence
-
-    41255, -- Convert Dust
-    41254, -- Up Dust
-
-    41433, -- inner force elixir
-    41432, -- blade master potion
-    6530, -- worn soft boots
-    36726, -- charm upgrade
-    40700, -- gift of life cooldown scroll
-    40701, -- damage boost +10% scroll
-    40702, -- damage boost +10% scroll
-    40703, -- damage boost +20% scroll
-    40705, -- experience +20% scroll
-    40704, -- experience +10% scroll
+	44434, -- milk
+	64039, -- gold bank
+	23683, -- trader
+	64086, -- exp boost 100
+	64085, -- exp boost 50	
 }
 
 local spellsSelfPlayerParam = {
@@ -285,6 +155,13 @@ function combat_timersModule.reloadInternalModule()
             enabled = entry['enabled'],
             ignorePz = entry['ignorePz'],
             spell = "",
+            -- Texto livre (ex.: "!fps") para entradas do tipo comando. O motor o
+            -- envia via talk() a cada 'delay' ms, sem exigir alvo.
+            command = entry['command'] or "",
+            -- Delay configurado pelo jogador (o campo Delay é salvo em 'max', em
+            -- segundos) convertido para ms. Antes o motor ignorava isso e usava
+            -- 1200ms fixo. 0 -> o motor cai no padrao de 1200ms.
+            delay = (tonumber(entry['max']) or 0) * 1000,
             reqmana = tonumber(entry['reqmana']) or 0,
             harmony =  tonumber(entry['harmony']) or 0,
             manaMin = 0,
@@ -305,7 +182,17 @@ function combat_timersModule.reloadInternalModule()
 
         local canCast = true
 
-        local spell = g_spells.getSpellInfoById(entry['spell'])
+        -- ATENCAO: 0 e o sentinela de "sem spell" (entradas de item/comando), mas
+        -- existe uma spell REAL com id 0 ("Lightest Magic Missile", words
+        -- "adori dis min vis"). Sem esta guarda, getSpellInfoById(0) retornava
+        -- aquela spell, entao uma entrada de ITEM virava spell e o motor falava
+        -- "adori dis min vis" em vez de usar o item -> o servidor respondia
+        -- "your vocation cannot use this spell" e o item nunca era usado.
+        -- O loadSettings ja usa a mesma guarda (entry['spell'] > 0).
+        local spell = nil
+        if (tonumber(entry['spell']) or 0) > 0 then
+            spell = g_spells.getSpellInfoById(entry['spell'])
+        end
         if spell ~= nil then
             internal.spell = spell.words
             if table.find(spellsSelfPlayerParam, spell.id) then
@@ -522,7 +409,8 @@ function combat_timersModule.loadSettings()
         combatTimersWindow.priority.list:insertChild(combatTimersWindow.priority.list:getChildIndex(newEntryButton), newWidget)
         combatTimersWindow.priority.list:ensureChildVisible(newWidget)
 
-        local isPhantom = (entry['item'] == 0 and entry['spell'] == 0) or entry['max'] == 0
+        local command = entry['command'] or ''
+        local isPhantom = (entry['item'] == 0 and entry['spell'] == 0 and command == '') or entry['max'] == 0
         if isPhantom then
             newWidget.icon:setPhantom(true)
             newWidget.icon:setImageClip(torect('50 0 25 25'))
@@ -556,6 +444,12 @@ function combat_timersModule.loadSettings()
             else
                 newWidget.frameBackground:setTooltip('Unknown spell')
             end
+        end
+
+        if command ~= '' then
+            newWidget.commandText:show()
+            newWidget.commandText:setText(command)
+            newWidget.frameBackground:setTooltip(command)
         end
 
         if entry['max'] > 0 then
@@ -647,6 +541,7 @@ function combat_timersModule.saveSettings()
             value['priority'] = i
             value['item'] = 0
             value['spell'] = 0
+            value['command'] = ''
             value['reqmana'] = 0
             value['min'] = 0
             value['max'] = 1
@@ -669,7 +564,9 @@ function combat_timersModule.saveSettings()
                 value['hitsMax'] = tonumber(string.sub(c.creaturesMaxValue:getText(), 6, -1))
             end
 
-            if c.item:isVisible() then
+            if c.commandText:isVisible() and c.commandText:getText() ~= '' then
+                value['command'] = c.commandText:getText()
+            elseif c.item:isVisible() then
                 value['item'] = c.item:getItemId()
             elseif c.spell:isVisible() then
                 local spellId = g_spells.getSpellRegularIdByImageClipX(c.spell:getImageClip().x)
@@ -777,6 +674,10 @@ function combat_timersModule.onClickEntry(widget)
         end
     end
 
+    -- Entrada do tipo comando: espelha o texto no campo dedicado (vazio para
+    -- entradas normais de item/spell).
+    combatTimersWindow.config.panel.commandInput:setText(widget.commandText:isVisible() and widget.commandText:getText() or '')
+
     local max = ''
     if widget.maxDelay:getText() ~= '1s' then
         max = string.sub(widget.maxDelay:getText(), 1, -2)
@@ -795,7 +696,7 @@ function combat_timersModule.onClickEntry(widget)
     end
     combatTimersWindow.config.panel.creaturesMaxValue:setText(max)
 
-    if not(widget.item:isVisible()) and not(widget.spell:isVisible()) then
+    if not(widget.item:isVisible()) and not(widget.spell:isVisible()) and not(widget.commandText:isVisible()) then
         combatTimersWindow.config.panel.options.itemCheck:setChecked(true)
     end
 
@@ -1036,6 +937,55 @@ function combat_timersModule.onClickEntry(widget)
             selectedWidget.harmony:show()
             selectedWidget.harmony:setImageClip(torect(tostring(harmony * 10) .. " 0 10 39"))
         end
+
+        -- COMANDO: se o campo de comando estiver preenchido, a entrada e um
+        -- comando de texto (ex.: "!fps"), independente de item/spell. Enviado a
+        -- cada Delay segundos, sem precisar de alvo. Tem prioridade sobre item/spell.
+        local commandStr = combatTimersWindow.config.panel.commandInput:getText()
+        if commandStr ~= nil and commandStr ~= '' then
+            selectedWidget.item:hide()
+            selectedWidget.spell:hide()
+            selectedWidget.noVocation:hide()
+            selectedWidget.commandText:show()
+            selectedWidget.commandText:setText(commandStr)
+            selectedWidget.frameBackground:setTooltip(commandStr)
+            selectedWidget.ignorePz:setVisible(combatTimersWindow.config.panel.ignoreProtection:isChecked())
+
+            local cmax = combatTimersWindow.config.panel.maxDelay:getText()
+            local cmaxValue = tonumber(cmax) or 0
+            if cmax == '' then
+                cmax = '1'
+            end
+            selectedWidget.maxDelay:setText(cmax .. 's')
+
+            local cCre = combatTimersWindow.config.panel.creaturesValue:getText()
+            if cCre == '' then
+                cCre = '0'
+            end
+            selectedWidget.creaturesValue:setText('Min: ' .. cCre)
+
+            cCre = combatTimersWindow.config.panel.creaturesMaxValue:getText()
+            if cCre == '' or cCre == '0' then
+                cCre = '-'
+            end
+            selectedWidget.creaturesMaxValue:setText('Max: ' .. cCre)
+
+            if cmaxValue > 0 then
+                selectedWidget.icon:setPhantom(false)
+                selectedWidget.icon:setImageClip(torect('25 0 25 25'))
+            elseif not(selectedWidget.icon:isPhantom()) then
+                selectedWidget.icon:setPhantom(true)
+                selectedWidget.icon:setImageClip(torect('50 0 25 25'))
+            end
+
+            combat_timersModule.saveSettings()
+            return
+        end
+
+        -- Entrada normal (item/spell): garante que qualquer texto de comando de
+        -- uma configuracao anterior desta linha seja removido.
+        selectedWidget.commandText:hide()
+        selectedWidget.commandText:clearText()
 
         if combatTimersWindow.config.panel.options.itemCheck:isChecked() then
             if combatTimersWindow.config.panel.item:getItem() == nil then

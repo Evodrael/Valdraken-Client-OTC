@@ -9,13 +9,21 @@ local itemList = {
     3191, -- Great Fireball Rune
     3198, -- Heavy Magic Missile Rune
     3182, --- Holy Missile Rune
-    3158, -- Icicle Rune 
+    3158, -- Icicle Rune
     3174, -- Light Magic Missile Rune
+    21351, -- Light Stone Shower Rune
+    17512, -- Lightest Magic Missile Rune
+    21352, -- Lightest Missile Rune
     3195, -- Soulfire Rune
     3179, -- Stalagmite Rune
     3175, -- Stone Shower Rune
     3155, -- Sudden Death Rune
     3202, -- Thunderstorm Rune
+
+    64128, -- Vocation Druid Rune
+    64126, -- Vocation Knight Rune
+    64129, -- Vocation Paladin Rune
+    64127, -- Vocation Sorcerer Rune
 
     40936, -- Avalanche Rune (Rune Station)
     40939, -- Greater Fireball Rune (Rune Station)
@@ -25,8 +33,86 @@ local itemList = {
 }
 
 local spellsAppend = {
-    
+
 }
+
+-- Attack spells registered by the server (data/scripts/spells/attack). The client
+-- ships the full Tibia spell table, so without this the drop-down offers spells this
+-- server never registers and the entry silently never fires.
+local spellList = {
+    13, -- Energy Wave
+    19, -- Fire Wave
+    22, -- Energy Beam
+    23, -- Great Energy Beam
+    24, -- Hell's Core
+    43, -- Strong Ice Wave
+    56, -- Wrath of Nature
+    57, -- Strong Ethereal Spear
+    59, -- Front Sweep
+    61, -- Brutal Strike
+    62, -- Annihilation
+    80, -- Berserk
+    87, -- Death Strike
+    88, -- Energy Strike
+    89, -- Flame Strike
+    105, -- Fierce Berserk
+    106, -- Groundshaker
+    107, -- Whirlwind Throw
+    111, -- Ethereal Spear
+    112, -- Ice Strike
+    113, -- Terra Strike
+    118, -- Eternal Winter
+    119, -- Rage of the Skies
+    120, -- Terra Wave
+    121, -- Ice Wave
+    122, -- Divine Missile
+    124, -- Divine Caldera
+    138, -- Ignite
+    139, -- Curse
+    140, -- Electrify
+    141, -- Inflict Wound
+    142, -- Envenom
+    143, -- Holy Flash
+    148, -- Physical Strike
+    149, -- Lightning
+    150, -- Strong Flame Strike
+    151, -- Strong Energy Strike
+    152, -- Strong Ice Strike
+    153, -- Strong Terra Strike
+    154, -- Ultimate Flame Strike
+    155, -- Ultimate Energy Strike
+    156, -- Ultimate Ice Strike
+    157, -- Ultimate Terra Strike
+    167, -- Practise Fire Wave
+    169, -- Apprentice's Strike
+    173, -- Chill Out
+    174, -- Mud Attack
+    177, -- Buzz
+    178, -- Scorch
+    240, -- Great Fire Wave
+    258, -- Divine Grenade
+    260, -- Great Death Beam
+    261, -- Executioner's Throw
+    262, -- Terra Burst
+    263, -- Ice Burst
+
+    284, -- Swift Jab
+    285, -- Double Jab
+    286, -- Forceful Uppercut
+    287, -- Flurry of Blows
+    288, -- Chained Penance
+    289, -- Greater Flurry of Blows
+    290, -- Mystic Repulse
+    291, -- Tiger Clash
+    292, -- Greater Tiger Clash
+    293, -- Devastating Knockout
+    294, -- Sweeping Takedown
+    295, -- Spiritual Outburst
+}
+
+local function isServerSpell(id)
+    return id ~= nil and table.find(spellList, id) ~= nil
+end
 
 local itemAreas = {
     [3161] = "fill_circle_3",
@@ -34,14 +120,22 @@ local itemAreas = {
     [3189] = "target",
     [3191] = "fill_circle_3",
     [3198] = "target",
-    [3182] = "target",
+    [3182] = "fill_circle_2",
     [3158] = "target",
     [3174] = "target",
+    [21351] = "fill_circle_1",
+    [17512] = "target",
+    [21352] = "target",
     [3195] = "target",
     [3179] = "target",
     [3175] = "fill_circle_3",
     [3155] = "target",
     [3202] = "fill_circle_3",
+
+    [64128] = "fill_circle_5",
+    [64126] = "fill_circle_5",
+    [64129] = "fill_circle_5",
+    [64127] = "fill_circle_5",
 
     [40936] = "fill_circle_3",
     [40939] = "fill_circle_3",
@@ -98,6 +192,7 @@ local spellAreas = {
     [169] = "target",
     [172] = "target",
     [173] = "target",
+    [174] = "target",
     [177] = "target",
     [178] = "wave_4_dir",
     [240] = "wave_5_dir",
@@ -195,7 +290,14 @@ function combat_shooterModule.reloadInternalModule()
 
         local canCast = true
 
-        local spell = g_spells.getSpellInfoById(entry['spell'])
+        -- ATENCAO: 0 e o sentinela de "sem spell" (entradas de item), mas existe
+        -- uma spell REAL com id 0 ("Lightest Magic Missile"). Sem esta guarda uma
+        -- entrada de ITEM virava aquela spell e o motor a falava em vez de usar o
+        -- item. O loadSettings ja usa a mesma guarda (entry['spell'] > 0).
+        local spell = nil
+        if (tonumber(entry['spell']) or 0) > 0 then
+            spell = g_spells.getSpellInfoById(entry['spell'])
+        end
         if spell ~= nil then
             internal.spell = spell.words
             if spellAreas[spell.id] ~= 'target' then
@@ -707,7 +809,15 @@ function combat_shooterModule.openCatcher(isItem)
             end
         end
     else
-        local spells = g_spells.getSpellsByGroup(SpellGroup.Attack)
+        local spells = {}
+        for _, spell in ipairs(g_spells.getSpellsByGroup(SpellGroup.Attack)) do
+            if isServerSpell(spell.id) then
+                table.insert(spells, spell)
+            end
+        end
+        table.sort(spells, function(a, b)
+            return a.name < b.name
+        end)
         for _, spell in ipairs(spells) do
             local spellWidget = g_ui.createWidget('MiniBotCombatShooterSpellDropDownEntry', combatShooterWindow.dropDownMenu)
             spellWidget:constructEnviorementVariables()
@@ -950,7 +1060,12 @@ function combat_shooterModule.onClickEntry(widget)
             combatShooterWindow.config.panel.frameBackground:setTooltip(combatShooterWindow.config.panel.item:getItem():getName())
         elseif combatShooterWindow.config.panel.options.spellCheck:isChecked() then
             local strToFind = combatShooterWindow.config.panel.name:getText()
-            local foundList = g_spells.findSpellsByString(strToFind, SpellGroup.Attack)
+            local foundList = {}
+            for _, foundIt in ipairs(g_spells.findSpellsByString(strToFind, SpellGroup.Attack)) do
+                if isServerSpell(foundIt.block.id) then
+                    table.insert(foundList, foundIt)
+                end
+            end
             for _, spell in ipairs(spellsAppend) do
                 if spell.name:lower():contains(strToFind:lower()) then
                     local foundSpell = g_spells.getSpellInfoById(spell.id)
@@ -1123,7 +1238,7 @@ function combat_shooterModule.onClickEntry(widget)
 
         if droppedWidget.spellEntry and droppedWidget.spellId ~= nil and droppedWidget.spellId > 0 then
             local spell = g_spells.getSpellInfoById(droppedWidget.spellId)
-            if spell == nil or not(table.find(spell.groups, SpellGroup.Attack)) then
+            if spell == nil or not(table.find(spell.groups, SpellGroup.Attack)) or not(isServerSpell(spell.id)) then
                 return
             end
 

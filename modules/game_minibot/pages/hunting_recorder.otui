@@ -51,7 +51,7 @@ UIWidget
     height: 280
     color: #92ff92ff
     text-align: center
-    !text: 'Uso de Bot AFK é autorizado.\nVocê pode ter até 4 MCs desde que cada um esteja em uma hunt diferente.'
+    !text: 'AFK Bot use is allowed.\nYou may have up to 4 MCs as long as each one is in a different hunt.'
     text-wrap: true
     text-offset: 2 0
     font: verdana-11px-rounded
@@ -60,7 +60,7 @@ UIWidget
       id: accept
       anchors.centerIn: parent
       margin-top: 40
-      !text: 'Eu aceito as consequencias'
+      !text: 'Start'
       font: cipsoftFont
       width: 140
       color: white

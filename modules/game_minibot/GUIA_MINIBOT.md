@@ -183,11 +183,21 @@ Config em `settings['combat_attack']`.
 
 ### 5.2 Timers ([combat_timers.lua](pages/combat_timers.lua)) — módulo **3**
 Config em `settings['combat_timers']`. É uma **Lista de Prioridade** (Source / Action /
-Monsters). Cada entrada pode ser **Spell** ou **Item** e roda em ciclo por tempo:
-- **Delay**: tempo mínimo entre usos (evita uso desnecessário).
+Monsters). Cada entrada pode ser **Spell**, **Item** ou **Comando de texto** e roda em ciclo por tempo:
+- **Delay**: intervalo entre usos, **em segundos** (salvo no campo `max` da entrada).
 - **Harmony**: nível mínimo de Harmony para disparar.
 - **Monsters on screen**: quantidade mín./máx. de monstros na tela para disparar.
 - **Ignore on PZ**: não dispara em Protection Zone.
+- **Comando de texto** (campo `commandInput` na config): se preenchido (ex.: `!fps`), a
+  entrada vira um comando enviado via `g_game.talk()` a cada Delay segundos, **sem precisar
+  de alvo/monstro nem mana**. Salvo em `entry['command']`.
+
+> **Delay + Comando exigem o motor (C++) atualizado.** O Lua envia `delay` (ms) e `command`
+> ao motor via `g_minibot.addModule(3, ...)`, mas quem os usa é o `processAttackEntry` em
+> `src/client/minibotmanager.cpp`. Historicamente o cooldown dos timers era **fixo em 1200ms**
+> (o Delay do jogador era ignorado) e não existia tipo "comando". A correção lê `entry.delay`
+> por entrada e adiciona o caminho de comando (dispara sem alvo). **Mudar isso requer
+> recompilar o `otclient_gl_x64.exe`.**
 
 ### 5.3 Shooter ([combat_shooter.lua](pages/combat_shooter.lua)) — módulo **0**
 Config em `settings['combat_shooter']`. **Lista de Prioridade** de spells/runas de ataque em área/alvo:

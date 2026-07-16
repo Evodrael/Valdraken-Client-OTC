@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.12",
-    "generated":  "2026-07-15T21:09:58-03:00",
+    "version":  "15.24.13",
+    "generated":  "2026-07-16T12:29:11-03:00",
     "count":  21398,
     "files":  [
                   {
@@ -105875,8 +105875,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
-                      "sha256":  "15d16bdec126001789a87e38d08c0235df79cef610180765748945eb08ef545e",
-                      "size":  19096
+                      "sha256":  "050884eb55adcf457b062870d6746d0cb69ceb921dbd662ba30aa0d67ccd1490",
+                      "size":  19880
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
@@ -105925,8 +105925,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
-                      "sha256":  "694805635a6a371094d1d1674c3c7271e66c36e36fb745fc7332de30a21db9fd",
-                      "size":  59303
+                      "sha256":  "b3f0c6ec97638339acbd4c480168df39f64e5c226fa39fefc01c3118a1f3db46",
+                      "size":  59722
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.otui",
@@ -105935,13 +105935,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
-                      "sha256":  "cbb4ed7de30145565b7c6497cd3e9254cb00cb49ebac6195a48e324d98274786",
-                      "size":  49126
+                      "sha256":  "89501a8eefffb48a4e1b29768e7451646f5e8175461b2d32842ddabd876bcff5",
+                      "size":  48902
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.otui",
-                      "sha256":  "506b3e05461f8e13cd310dc74b17c4f1b7f9ea48e9505de93b1f2e4fe433d083",
-                      "size":  19813
+                      "sha256":  "c5f215e9b639f8cbe922a9d21980450204657564706ac514deb40b642d3cc321",
+                      "size":  21165
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.lua",
@@ -105975,8 +105975,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_group.lua",
-                      "sha256":  "dd7d0f17b9177f31ee9f2e421d4dc8a99ae0acf7e0b8ea7b85bb6f3040f7f5c1",
-                      "size":  55082
+                      "sha256":  "dd0f4f7dc23b2e8ab45d6a23da924a849d8cc3c7c3d045d41ba629e944b1eb03",
+                      "size":  55501
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_group.otui",
@@ -105985,8 +105985,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_health.lua",
-                      "sha256":  "95da8d2a9caffdd877133ae97a47fac666b6c9ef7dfbb82dac61b3ad3991e31b",
-                      "size":  45569
+                      "sha256":  "447b4e22f2ac6d22ef2b4d93bdd5204f9babbc7a8a071673618442159210292d",
+                      "size":  46003
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_health.otui",
@@ -105995,8 +105995,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_mana.lua",
-                      "sha256":  "3ce5eb3acae07ba8bb542211749ccfbba0c4e68bc617a709eca6d315abc3328e",
-                      "size":  37466
+                      "sha256":  "3733c519a77caec0750dd52478bcdc1c8422d59b0f7216e3736f1babe1c63d0e",
+                      "size":  37900
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_mana.otui",
@@ -106985,12 +106985,12 @@
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "b2fb0afdbd20164eb2046dd282c78f66bc13ec88f38f3aabb593e38714c17f50",
-                      "size":  18603008
+                      "sha256":  "c5baa129b056d7b03c03c4b2cf74b4ddd6c8b02c3c35d89830e3c302b55f5d29",
+                      "size":  32979968
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "94ade8db370d34e1010b75644223014ac1bc97564feba72ac6ba767d1b59b44f",
+                      "sha256":  "dde197afb11c682e2aa05b55ee6af96512013eac6de9ac8bcaa2b0b5e88447e2",
                       "size":  8
                   }
               ]

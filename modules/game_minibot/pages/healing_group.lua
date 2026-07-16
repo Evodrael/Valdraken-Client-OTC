@@ -169,7 +169,14 @@ function healing_groupModule.reloadInternalModule()
 
         local canCast = true
 
-        local spell = g_spells.getSpellInfoById(entry['spell'])
+        -- ATENCAO: 0 e o sentinela de "sem spell" (entradas de item), mas existe
+        -- uma spell REAL com id 0 ("Lightest Magic Missile"). Sem esta guarda uma
+        -- entrada de ITEM virava aquela spell e o motor a falava em vez de usar o
+        -- item. O loadSettings ja usa a mesma guarda (entry['spell'] > 0).
+        local spell = nil
+        if (tonumber(entry['spell']) or 0) > 0 then
+            spell = g_spells.getSpellInfoById(entry['spell'])
+        end
         if spell ~= nil then
             internal.spell = spell.words
             if not(modules.game_actionbar.canSpellCast(spell)) then

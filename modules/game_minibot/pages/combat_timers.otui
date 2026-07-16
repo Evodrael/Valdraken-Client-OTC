@@ -149,6 +149,21 @@ MiniBotCombatTimersEntry < UIWidget
     anchors.centerIn: frameBackground
     visible: false
 
+  // Texto do comando (ex.: "!fps") exibido na coluna Fonte quando a entrada e do
+  // tipo comando (sem item/spell). Serve tambem de armazenamento: o saveSettings
+  // le daqui.
+  UIWidget
+    id: commandText
+    anchors.centerIn: frameBackground
+    text-align: center
+    text-wrap: true
+    text-auto-resize: false
+    font: verdana-11px-antialised
+    color: #8ec7ff
+    size: 36 42
+    phantom: true
+    visible: false
+
   UIWidget
     id: maxDelay
     !text: '1s'
@@ -637,6 +652,29 @@ UIWidget
         color: #C0C0C0
         width: 160
         margin-left: 5
+
+      // Entrada do tipo COMANDO: se este campo tiver texto, a entrada vira um
+      // comando (ex.: "!fps") enviado a cada Delay segundos, sem precisar de
+      // item/spell nem de alvo. Deixe vazio para uma entrada normal de item/spell.
+      TextEdit
+        id: commandInput
+        anchors.left: name.left
+        anchors.top: name.bottom
+        margin-top: 8
+        width: 160
+        !placeholder: 'Comando de texto (ex: !fps)'
+        placeholder-font: cipsoftFont
+        color: #8ec7ff
+
+      UIWidget
+        id: commandHelp
+        color: #C0C0C0
+        anchors.left: commandInput.right
+        anchors.verticalCenter: commandInput.verticalCenter
+        margin-left: 4
+        image-source: /images/icons/show_gui_help_grey
+        size: 12 12
+        !tooltip: 'Se preencher este campo, a entrada sera um comando de texto enviado a cada Delay segundos (ex.: !fps), sem precisar de item/spell nem de alvo.'
 
       UIWidget
         id: options

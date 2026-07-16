@@ -5,11 +5,13 @@ local healingManaWindow = nil
 local itemList = {
     238, -- Great Mana Potion
     268, -- Mana Potion
-    237, -- Great Mana Potion
+    237, -- Strong Mana Potion
     23373, -- Ultimate Mana Potion
     7642, -- Great Spirit Potion
     23374, -- Ultimate Spirit Potion
     41096, -- Legendary Spirit Potion
+    60249, -- Eternal Supreme Mana Potion
+    60250, -- Eternal Supreme Spirit Potion
     26074, -- Blessed Acorn
     9086, -- Blessed Steak
     28484, -- Blueberry Cupcake
@@ -157,7 +159,14 @@ function healing_manaModule.reloadInternalModule()
 
         local canCast = true
 
-        local spell = g_spells.getSpellInfoById(entry['spell'])
+        -- ATENCAO: 0 e o sentinela de "sem spell" (entradas de item, ex.: pocoes),
+        -- mas existe uma spell REAL com id 0 ("Lightest Magic Missile"). Sem esta
+        -- guarda uma entrada de POCAO virava aquela spell e o motor a falava em vez
+        -- de usar a pocao. O loadSettings ja usa a mesma guarda (entry['spell'] > 0).
+        local spell = nil
+        if (tonumber(entry['spell']) or 0) > 0 then
+            spell = g_spells.getSpellInfoById(entry['spell'])
+        end
         if spell ~= nil then
             internal.spell = spell.words
             if table.find(spellsSelfPlayerParam, spell.id) then
