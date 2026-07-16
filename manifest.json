@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.15",
-    "generated":  "2026-07-16T20:53:19-03:00",
+    "version":  "15.24.16",
+    "generated":  "2026-07-16T22:09:59-03:00",
     "count":  21398,
     "files":  [
                   {
@@ -102700,8 +102700,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/HuntingAnalyser.lua",
-                      "sha256":  "047309b599489bd8e384819a9c3056670b92db7183ae5c255caf3a40963346fd",
-                      "size":  26987
+                      "sha256":  "772220ad9ada5d650b231954f156b113e883ed395d3506290e4b1522d3f27425",
+                      "size":  27029
                   },
                   {
                       "path":  "mods/game_analyser/classes/ImpactAnalyser.lua",
@@ -102735,8 +102735,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/XPAanalyser.lua",
-                      "sha256":  "bcdbb11f9f0af71c7dc14b6d9abe40abdfed07089050182e5c4451793f482ff8",
-                      "size":  11878
+                      "sha256":  "adc51aecb903e2478d25f4e483e8c299aa015f651e17edc086826907d11765f7",
+                      "size":  11853
                   },
                   {
                       "path":  "mods/game_analyser/styles/boss.otui",
@@ -105035,8 +105035,8 @@
                   },
                   {
                       "path":  "modules/client_entergame/classes/login.lua",
-                      "sha256":  "fd2278e26541b33e170defeddc8e10f4f1ec1adfd180a3797c7619197ffdb72e",
-                      "size":  5052
+                      "sha256":  "9913194b7815654b68379fb36f8c71f2a91352dfe9f39ec336c5ad9268215624",
+                      "size":  5278
                   },
                   {
                       "path":  "modules/client_entergame/classes/proxy.lua",
@@ -105875,13 +105875,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
-                      "sha256":  "9d5f52f6e857d732e301a4e97e6d995041a926649efbc8e0286458ec91a9c2e1",
-                      "size":  22382
+                      "sha256":  "48d990399fe937a6633ace7b5336e8bd10190cffc4af26fa74b3aa3410cc5343",
+                      "size":  24815
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "e8c9afa3fad140f21f7b448ef73e7825b16b675b17553018944203779bf92725",
-                      "size":  44495
+                      "sha256":  "e4f353c50f935ea50948d76c68f6352570eccd6409d6f79e6107163690b98df0",
+                      "size":  45343
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -106065,13 +106065,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "afef31fea0cc91f6e43d9c6ad8fc534fe39d0ee5792a1018da71b0eef93944d9",
-                      "size":  40070
+                      "sha256":  "05c3f0c6e1a1c2b1eb58b4efd550f4dd6c3098f57b5e7a74e737fab775f2457c",
+                      "size":  41489
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
-                      "sha256":  "61062359592003e337c51f1fb061b55b84d76cf54044d052fd0fc590ba0ca39b",
-                      "size":  15003
+                      "sha256":  "c8f4705082b7a67fc1e105093b6685c0553feaddb915113524ef09604f3562cb",
+                      "size":  16099
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_manashield.lua",
@@ -106985,12 +106985,12 @@
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "bc8e0bc1d75517a42849dd30ee6369e76ceb92a0543ef227c39cc17fcdd9fd4b",
+                      "sha256":  "0472ce3509b980096cf8745c4e804327096455f241654d60b5c548e924a08308",
                       "size":  32980480
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "f834995bf7983f4a2c3e8588e880f1bd75e1cbb5de38931a8aa2c95e7a92df12",
+                      "sha256":  "7749ad08d7f1f3a192b6600ff621f8cc7b03ae35860ee72cb89979ed360aa18d",
                       "size":  8
                   }
               ]

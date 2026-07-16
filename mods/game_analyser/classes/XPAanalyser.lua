@@ -1,19 +1,16 @@
--- Abrevia numeros grandes para caber nos labels (a exp por extenso, ex.: "5,400,000",
--- estourava a largura e cobria a barra). Estilo Tibia: k = mil, kk = milhao, kkk = bilhao.
+-- Mesmas faixas do HuntingAnalyser (mantenha as duas copias em sincronia): ate
+-- 999.999 mostra o valor integral; 1.000.000+ vira M; 1.000.000.000+ vira B.
+-- Trunca em vez de arredondar, para nunca exibir "1000M" no lugar de "1B".
 local function abbreviateNumber(value)
 	value = tonumber(value) or 0
 	local abs = math.abs(value)
-	local function trim(n)
-		return (string.format("%.1f", n):gsub("%.0$", ""))
-	end
+	local sign = value < 0 and "-" or ""
 	if abs >= 1000000000 then
-		return trim(value / 1000000000) .. "kkk"
+		return sign .. math.floor(abs / 1000000000) .. "B"
 	elseif abs >= 1000000 then
-		return trim(value / 1000000) .. "kk"
-	elseif abs >= 1000 then
-		return trim(value / 1000) .. "k"
+		return sign .. math.floor(abs / 1000000) .. "M"
 	end
-	return tostring(math.floor(value))
+	return comma_value(math.floor(value))
 end
 
 if not XPAnalyser then

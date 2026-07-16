@@ -263,6 +263,21 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
   - **Walk again if / Voltar a andar se**: retoma se o nº de monstros for ≤ valor (0 = respeita só o "Stop if").
   - **Lure / Lurar**: anda em passos curtos arrastando monstros e matando à distância.
   - **Lure speed / Velocidade de lure**: quanto maior, mais rápido anda entre passos.
+
+> **Estas quatro configs são do motor (C++), não do Lua.** O Lua só as envia em
+> `g_minibot.registerWalkWaypoint(point)`; quem decide é o `processCaveBot` em
+> `src/client/minibotmanager.cpp`. **Mexer nelas exige recompilar o exe.**
+>
+> - **Stop if / Walk again if** (`waypoint.creatures` / `waypoint.resume`): historicamente eram
+>   lidas para o struct `Waypoint` e **nunca usadas** — o `processCaveBot` andava incondicionalmente,
+>   então a config não fazia absolutamente nada. Implementadas em jul/2026 com a mesma histerese do
+>   `processExplorer`: segura o passo quando `nearbyHostileCount(localPlayer, 7) >= creatures` e só
+>   solta quando cai para `<= resume` (`resume = 0` → solta assim que ficar abaixo de `creatures`).
+>   O teste fica **depois** da checagem de chegada, para que parar em cima de um nó ainda avance a rota.
+> - **`waypoint.lure` continua morto**: é lido em `registerWalkWaypointFromLua` e não é consultado em
+>   lugar nenhum. O `lure` que o motor usa é o do **Explorer** (`cfg.use`), que é outra coisa. Ou seja,
+>   o Lure **por waypoint** do Recorder não tem efeito. Só `waypoint.speed` é usado, e apenas como
+>   alcance do `findPath`.
   - **Overwrite to all / Alterar para todos**: aplica a config deste waypoint a todos.
 - **Renovar 1 hora**: compra 1h de tempo de cave bot (`g_game.afkPause(4)`).
 - **Import/Export**: rota exportável por código (versão via `getExportCodeVersion()`).
@@ -325,6 +340,25 @@ Config em `settings['support_main']`. Utilidades automáticas:
   **deste personagem**.
 - **Auto Follow** (`auto_follow`): segue o jogador cujo nick está no campo ao lado, sempre que
   ele estiver na tela.
+- **Auto Reconnect** (`auto_reconnect`): se a conexão cair, refaz o login do personagem.
+
+> **O Auto Reconnect não é implementado aqui.** Quem reconecta é o `client_entergame`
+> (`scheduleAutoReconnect` → `executeAutoReconnect` → `CharacterList.doLogin`, disparado pelos
+> erros de conexão 10054/16654 em `characterlist.lua`). O MiniBot só **liga a chave** — que até
+> jul/2026 nenhuma tela escrevia, e por isso todo esse código nunca tinha rodado.
+>
+> `reloadSupportRuntime` grava **os dois** stores, e ambos são necessários: o
+> `executeAutoReconnect` lê o flag **por personagem** (`saveAutoReconnect`), mas o `onLogout` do
+> `characterlist.lua` **sobrescreve** esse flag a partir do setting **global** `autoReconnect`.
+> Gravar só um dos dois é desfeito silenciosamente.
+>
+> Ao ligar, o teto de tentativas em `classes/login.lua` passou a valer também para o
+> Auto Reconnect (antes o `autoReconnect == false` pulava o freio, o que era inofensivo só
+> porque a opção nunca ligava). Sem o teto, uma queda do servidor viraria N clients tentando
+> login em looping.
+>
+> Só religa em **queda de conexão**, não em logout manual, e só com o client aberto — a senha
+> (`G.password`) vive em memória, some ao fechar.
 
 > **Auto Bless e Auto Follow não têm módulo no motor.** Diferente das opções acima, elas são
 > 100% Lua e vivem em [minibot.lua](minibot.lua), não na página — o módulo da página só existe

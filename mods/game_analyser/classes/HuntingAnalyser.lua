@@ -1,20 +1,18 @@
 -- Abrevia numeros grandes para caber nos labels do analyzer. A exp por extenso
--- (ex.: "5,400,000") estourava a largura do label e cobria a barra/linha. Estilo
--- Tibia: k = mil, kk = milhao, kkk = bilhao. Mantem ate 1 casa decimal (sem ".0").
+-- (ex.: "5,400,000") estourava a largura do label e cobria o titulo da linha.
+-- Faixas pedidas: ate 999.999 mostra o valor integral; 1.000.000+ vira M
+-- (1M, 54M, 999M); 1.000.000.000+ vira B (1B, 23B, 698B). Trunca em vez de
+-- arredondar, para nunca exibir "1000M" no lugar de "1B".
 local function abbreviateNumber(value)
 	value = tonumber(value) or 0
 	local abs = math.abs(value)
-	local function trim(n)
-		return (string.format("%.1f", n):gsub("%.0$", ""))
-	end
+	local sign = value < 0 and "-" or ""
 	if abs >= 1000000000 then
-		return trim(value / 1000000000) .. "kkk"
+		return sign .. math.floor(abs / 1000000000) .. "B"
 	elseif abs >= 1000000 then
-		return trim(value / 1000000) .. "kk"
-	elseif abs >= 1000 then
-		return trim(value / 1000) .. "k"
+		return sign .. math.floor(abs / 1000000) .. "M"
 	end
-	return tostring(math.floor(value))
+	return comma_value(math.floor(value))
 end
 
 -- using object, in the future you can open more than one window

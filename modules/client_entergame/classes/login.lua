@@ -31,8 +31,6 @@ end
 
 function LoginEvent:tryLogin()
   consoleln("[+] LoginEvent.tryLogin()")
-    local autoReconnect = getAutoReconnect(self.charInfo.characterName)
-
     -- Validate and sanitize character info
     local function validateField(field, fieldName)
         if type(field) ~= "string" or field == '' then
@@ -66,7 +64,11 @@ function LoginEvent:tryLogin()
   end
 
   self.loginTries = self.loginTries + 1
-  if autoReconnect == false and self.loginTries > 10 and not CharacterList.waiting then
+  -- The cap applies with Auto Reconnect on too: it used to be skipped entirely when
+  -- autoReconnect was true, which was harmless only because no screen ever turned that
+  -- setting on. Now that Support > General can, an uncapped retry would mean every
+  -- client hammering login in a loop whenever the server goes down.
+  if self.loginTries > 10 and not CharacterList.waiting then
     consoleln("LoginEvent.tryLogin() - Too many login attempts, stopping further attempts.")
     onGameConnectionError("", 16654 )
     return

@@ -528,6 +528,41 @@ UIWidget
         size: 12 12
         !tooltip: 'The Assistant will keep following the player with this name whenever they are on your screen.'
 
+    UIWidget
+      id: autoReconnect
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 5
+      margin-left: 5
+      margin-right: 5
+      image-source: /resources/button_phantom
+      image-clip: 0 46 22 23
+      image-border: 3
+      padding: 5
+      height: 26
+
+      QtCheckBox
+        id: check
+        anchors.left: parent.left
+        anchors.top: parent.top
+        text-horizontal-auto-resize: true
+        !text: 'Auto reconnect'
+        text-offset: 15 -2
+        color: #C0C0C0
+        @onCheckChange: |
+          modules.game_minibot.callMethod('onAutoReconnectChange', self)
+
+      UIWidget
+        id: help
+        anchors.right: parent.right
+        anchors.verticalCenter: check.verticalCenter
+        color: #C0C0C0
+        margin-right: 5
+        image-source: /images/icons/show_gui_help_grey
+        size: 12 12
+        !tooltip: 'If the connection to the game server drops, the client logs this character back in automatically. Only works while the client stays open, and it does not act on a manual logout.'
+
   UIWidget
     id: dropDownCatcher
     anchors.fill: parent

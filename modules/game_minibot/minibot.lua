@@ -1058,13 +1058,27 @@ local function autoFollowTick()
 end
 
 function reloadSupportRuntime()
+  local sList = getSupportGeneralSettings()
+
+  -- Auto Reconnect: client_entergame already owns the reconnect (scheduleAutoReconnect
+  -- -> executeAutoReconnect -> CharacterList.doLogin); we only flip its switch, which
+  -- until now no screen ever wrote. Both stores need it: executeAutoReconnect reads the
+  -- per-character flag, and characterlist's onLogout overwrites that flag from the
+  -- global setting, so writing only one of them gets silently undone.
+  local sAutoReconnect = sList['auto_reconnect']
+  local reconnectEnabled = sAutoReconnect ~= nil and sAutoReconnect['enabled'] or false
+  g_settings.set('autoReconnect', reconnectEnabled)
+  if g_game.isOnline() and modules.client_entergame ~= nil and modules.client_entergame.saveAutoReconnect ~= nil then
+    modules.client_entergame.saveAutoReconnect(g_game.getCharacterName(), reconnectEnabled)
+  end
+
   stopAutoFollow()
 
   if not(g_game.isOnline()) then
     return
   end
 
-  local sAutoFollow = getSupportGeneralSettings()['auto_follow']
+  local sAutoFollow = sList['auto_follow']
   if sAutoFollow == nil or not(sAutoFollow['enabled']) then
     return
   end

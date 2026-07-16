@@ -224,6 +224,8 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoFollow.check:setText('Follow automatico')
         supportGeneralWindow.panel.autoFollow.name:setPlaceholder('Digite o nome do jogador')
         supportGeneralWindow.panel.autoFollow.help:setTooltip('O Assistente seguira o jogador com este nome sempre que ele estiver na sua tela.')
+        supportGeneralWindow.panel.autoReconnect.check:setText('Reconexao automatica')
+        supportGeneralWindow.panel.autoReconnect.help:setTooltip('Se a conexao com o servidor cair, o client refaz o login deste personagem automaticamente. So funciona com o client aberto, e nao age em logout manual.')
 
 
     elseif language == 'enus' then
@@ -246,6 +248,8 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoFollow.check:setText('Auto follow')
         supportGeneralWindow.panel.autoFollow.name:setPlaceholder('Type player name')
         supportGeneralWindow.panel.autoFollow.help:setTooltip('The Assistant will keep following the player with this name whenever they are on your screen.')
+        supportGeneralWindow.panel.autoReconnect.check:setText('Auto reconnect')
+        supportGeneralWindow.panel.autoReconnect.help:setTooltip('If the connection to the game server drops, the client logs this character back in automatically. Only works while the client stays open, and it does not act on a manual logout.')
 
     end
 end
@@ -305,6 +309,11 @@ function support_generalModule.saveSettings()
     autoFollowSettings['enabled'] = supportGeneralWindow.panel.autoFollow.check:isChecked()
     autoFollowSettings['name'] = supportGeneralWindow.panel.autoFollow.name:getText()
     sList['auto_follow'] = autoFollowSettings
+
+    -- Auto Reconnect
+    local autoReconnectSettings = {}
+    autoReconnectSettings['enabled'] = supportGeneralWindow.panel.autoReconnect.check:isChecked()
+    sList['auto_reconnect'] = autoReconnectSettings
 
     settings['support_main'] = sList
     modules.game_minibot.setPressetSettings(settings)
@@ -411,6 +420,12 @@ function support_generalModule.loadSettings()
     supportGeneralWindow.panel.autoFollow.check:setChecked(autoFollowSettings['enabled'] or false)
     support_generalModule.onAutoFollowChange(supportGeneralWindow.panel.autoFollow.check)
     supportGeneralWindow.panel.autoFollow.check.ignoreCallback = nil
+
+    -- Auto Reconnect
+    local autoReconnectSettings = sList['auto_reconnect'] or {}
+    supportGeneralWindow.panel.autoReconnect.check.ignoreCallback = true
+    supportGeneralWindow.panel.autoReconnect.check:setChecked(autoReconnectSettings['enabled'] or false)
+    supportGeneralWindow.panel.autoReconnect.check.ignoreCallback = nil
 end
 
 function support_generalModule.onChangeGoldChange(widget)
@@ -449,6 +464,15 @@ function support_generalModule.onAutoFollowChange(widget)
         supportGeneralWindow.panel.autoFollow.name:setOpacity(0.3)
     end
 
+    if widget.ignoreCallback then
+        return
+    end
+
+    support_generalModule.saveSettings()
+    support_generalModule.reloadInternalModule()
+end
+
+function support_generalModule.onAutoReconnectChange(widget)
     if widget.ignoreCallback then
         return
     end
