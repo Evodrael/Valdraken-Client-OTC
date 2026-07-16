@@ -1,6 +1,6 @@
 {
     "version":  "15.24.13",
-    "generated":  "2026-07-16T12:29:11-03:00",
+    "generated":  "2026-07-16T13:14:54-03:00",
     "count":  21398,
     "files":  [
                   {
@@ -105925,8 +105925,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
-                      "sha256":  "b3f0c6ec97638339acbd4c480168df39f64e5c226fa39fefc01c3118a1f3db46",
-                      "size":  59722
+                      "sha256":  "e01218129f42a1ef90a359a8049a6fb3fd33816cd3cbe2a8a2168d465e477613",
+                      "size":  62903
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.otui",
@@ -105935,8 +105935,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
-                      "sha256":  "89501a8eefffb48a4e1b29768e7451646f5e8175461b2d32842ddabd876bcff5",
-                      "size":  48902
+                      "sha256":  "1816d383f568752897363b27c64df4dfc95ef813702cbda2770761a946f61d92",
+                      "size":  49006
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.otui",
@@ -105985,8 +105985,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_health.lua",
-                      "sha256":  "447b4e22f2ac6d22ef2b4d93bdd5204f9babbc7a8a071673618442159210292d",
-                      "size":  46003
+                      "sha256":  "14deeefd0dd7941eaa340b0b4b478515cf74e0fd290e0d7f1327fa0e03c45799",
+                      "size":  46093
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_health.otui",
@@ -105995,8 +105995,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_mana.lua",
-                      "sha256":  "3733c519a77caec0750dd52478bcdc1c8422d59b0f7216e3736f1babe1c63d0e",
-                      "size":  37900
+                      "sha256":  "4518e3541a218a69a3834dbe98e3325b8401e6953ccebd0ac11064c6e0494d0b",
+                      "size":  37989
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_mana.otui",
@@ -106030,8 +106030,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "5cc983f38ac40c874836fe35be0d76c8cb715aae442a655b60c096e00b78b60b",
-                      "size":  20206
+                      "sha256":  "378b75fd71223a5ce3c44427ff814a7326a1de1a410aaa11d36bc328a07a068e",
+                      "size":  20174
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_defense.lua",
@@ -106985,7 +106985,7 @@
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "c5baa129b056d7b03c03c4b2cf74b4ddd6c8b02c3c35d89830e3c302b55f5d29",
+                      "sha256":  "ec59bff0f9da45e4f4a4fcb8b5670990651723a0f5e6796baf7d3060d0f9766b",
                       "size":  32979968
                   },
                   {
