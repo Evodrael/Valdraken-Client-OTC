@@ -1,14 +1,28 @@
 -- Mesmas faixas do HuntingAnalyser (mantenha as duas copias em sincronia): ate
--- 999.999 mostra o valor integral; 1.000.000+ vira M; 1.000.000.000+ vira B.
--- Trunca em vez de arredondar, para nunca exibir "1000M" no lugar de "1B".
+-- 999.999 mostra o valor integral; acima disso abrevia com 1 casa decimal
+-- (1.8M, 12.8T), omitindo o ".0". Faixas: M, B, T, Q (quadrilhao) e Qi
+-- (quintilhao). Trunca em vez de arredondar, para nunca exibir "1000M" como "1B".
+local abbreviationRanges = {
+	{ 1000000000000000000, "Qi" },
+	{ 1000000000000000, "Q" },
+	{ 1000000000000, "T" },
+	{ 1000000000, "B" },
+	{ 1000000, "M" },
+}
+
 local function abbreviateNumber(value)
 	value = tonumber(value) or 0
 	local abs = math.abs(value)
 	local sign = value < 0 and "-" or ""
-	if abs >= 1000000000 then
-		return sign .. math.floor(abs / 1000000000) .. "B"
-	elseif abs >= 1000000 then
-		return sign .. math.floor(abs / 1000000) .. "M"
+	for _, range in ipairs(abbreviationRanges) do
+		local divisor, suffix = range[1], range[2]
+		if abs >= divisor then
+			local scaled = math.floor(abs / (divisor / 10)) / 10
+			if scaled % 1 == 0 then
+				return sign .. string.format("%d", scaled) .. suffix
+			end
+			return sign .. string.format("%.1f", scaled) .. suffix
+		end
 	end
 	return comma_value(math.floor(value))
 end

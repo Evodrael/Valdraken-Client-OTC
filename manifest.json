@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.16",
-    "generated":  "2026-07-16T22:09:59-03:00",
+    "version":  "15.24.17",
+    "generated":  "2026-07-16T23:34:38-03:00",
     "count":  21398,
     "files":  [
                   {
@@ -102700,8 +102700,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/HuntingAnalyser.lua",
-                      "sha256":  "772220ad9ada5d650b231954f156b113e883ed395d3506290e4b1522d3f27425",
-                      "size":  27029
+                      "sha256":  "081e91009371da7bf31fbbf3a237ff7474a4bbb065d27d264bce4aee8e994a91",
+                      "size":  27451
                   },
                   {
                       "path":  "mods/game_analyser/classes/ImpactAnalyser.lua",
@@ -102735,8 +102735,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/XPAanalyser.lua",
-                      "sha256":  "adc51aecb903e2478d25f4e483e8c299aa015f651e17edc086826907d11765f7",
-                      "size":  11853
+                      "sha256":  "2e6cb633b451d533593e359c9742071b104a4a9ebc158f5630797e35c116870d",
+                      "size":  12257
                   },
                   {
                       "path":  "mods/game_analyser/styles/boss.otui",
@@ -106065,8 +106065,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "05c3f0c6e1a1c2b1eb58b4efd550f4dd6c3098f57b5e7a74e737fab775f2457c",
-                      "size":  41489
+                      "sha256":  "19af8754b14e7020f467a28b4745a4b2743319ad1dbf6c94e1d42401820bee1a",
+                      "size":  41643
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
@@ -106985,12 +106985,12 @@
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "0472ce3509b980096cf8745c4e804327096455f241654d60b5c548e924a08308",
+                      "sha256":  "923a9e1de03c53914049f7bc823b9e5d5cf406a7bf8620264aafee00af9cd613",
                       "size":  32980480
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "7749ad08d7f1f3a192b6600ff621f8cc7b03ae35860ee72cb89979ed360aa18d",
+                      "sha256":  "72d4feed41c44b967786daf6c8c93dd0319ed2a7b6f10ebf5d349f8acf966ac6",
                       "size":  8
                   }
               ]

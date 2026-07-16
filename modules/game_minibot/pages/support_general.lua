@@ -13,158 +13,117 @@ local foodAppend = {
     
 }
 
+-- Armas de treino e dummies do Valdraken.
+--
+-- Fonte (nao inventar ids): o servidor so aceita como exercise weapon os ids de
+-- exerciseWeaponsTable em data/scripts/actions/items/exercise_training_weapons.lua,
+-- e so trata como dummy os itens marcados com type="dummy" em data/items/items.xml
+-- (os mesmos que a loja vende em data/modules/scripts/gamestore/gamestore.lua).
+-- As listas antigas vinham do Tibia global (Daily/Epic/Legend/Mystic/Special/Weak,
+-- Deus/Super/Future Mage Dummy) e NAO existem neste servidor: getThingType nao
+-- achava o id, devolvia o thing nulo (id 0) e a opcao escolhida virava item = 0,
+-- entao o treino nunca comecava.
 local trainingWeapons = {
-    40636, -- Daily Exercise Axe
-    35280, -- Durable Exercise Axe
-    40856, -- Epic Exercise Axe
-    28553, -- Exercise Axe
-    35286, -- Lasting Exercise Axe
-    40863, -- Legend Exercise Axe
-    40820, -- Mystic Exercise Axe
-    40630, -- Special Exercise Axe
-    40687, -- Weak Exercise Axe
+    28541, -- training axe
+    28553, -- exercise axe
+    35280, -- durable exercise axe
+    35286, -- lasting exercise axe
 
-    40637, -- Daily Exercise Bow
-    35282, -- Durable Exercise Bow
-    40857, -- Epic Exercise Bow
-    28555, -- Exercise Bow
-    35288, -- Lasting Exercise Bow
-    40864, -- Legend Exercise Bow
-    40821, -- Mystic Exercise Bow
-    40632, -- Special Exercise Bow
-    40688, -- Weak Exercise Bow
+    28543, -- training bow
+    28555, -- exercise bow
+    35282, -- durable exercise bow
+    35288, -- lasting exercise bow
 
-    40638, -- Daily Exercise Club
-    35281, -- Durable Exercise Club
-    40851, -- Epic Exercise Club
-    28554, -- Exercise Club
-    35287, -- Lasting Exercise Club
-    40858, -- Legend Exercise Club
-    40815, -- Mystic Exercise Club
-    40631, -- Special Exercise Club
-    40689, -- Weak Exercise Club
+    28542, -- training club
+    28554, -- exercise club
+    35281, -- durable exercise club
+    35287, -- lasting exercise club
 
-    40639, -- Daily Exercise Rod
-    35283, -- Durable Exercise Rod
-    40852, -- Epic Exercise Rod
-    28556, -- Exercise Rod
-    35289, -- Lasting Exercise Rod
-    40859, -- Legend Exercise Rod
-    40816, -- Mystic Exercise Rod
-    40633, -- Special Exercise Rod
-    40690, -- Weak Exercise Rod
+    28544, -- training rod
+    28556, -- exercise rod
+    35283, -- durable exercise rod
+    35289, -- lasting exercise rod
 
-    40640, -- Daily Exercise Shield
-    44066, -- Durable Exercise Shield
-    40853, -- Epic Exercise Shield
-    44065, -- Exercise Shield
-    44067, -- Lasting Exercise Shield
-    40860, -- Legend Exercise Shield
-    40817, -- Mystic Exercise Shield
-    40635, -- Special Exercise Shield
-    40691, -- Weak Exercise Shield
+    44064, -- training shield
+    44065, -- exercise shield
+    44066, -- durable exercise shield
+    44067, -- lasting exercise shield
 
-    40641, -- Daily Exercise Sword
-    35279, -- Durable Exercise Sword
-    40854, -- Epic Exercise Sword
-    28552, -- Exercise Sword
-    35285, -- Lasting Exercise Sword
-    40861, -- Legend Exercise Sword
-    40818, -- Mystic Exercise Sword
-    40629, -- Special Exercise Sword
-    40692, -- Weak Exercise Sword
+    28540, -- training sword
+    28552, -- exercise sword
+    35279, -- durable exercise sword
+    35285, -- lasting exercise sword
 
-    40642, -- Daily Exercise Wand
-    35284, -- Durable Exercise Wand
-    40855, -- Epic Exercise Wand
-    28557, -- Exercise Wand
-    35290, -- Lasting Exercise Wand
-    40862, -- Legend Exercise Wand
-    40819, -- Mystic Exercise Wand
-    40634, -- Special Exercise Wand
-    40693, -- Weak Exercise Wand
+    28545, -- training wand
+    28557, -- exercise wand
+    35284, -- durable exercise wand
+    35290, -- lasting exercise wand
 
-    50294, -- Durable Exercise Wraps
-    50293, -- Exercise Wraps
-    50295, -- Lasting Exercise Wraps
-    41021, -- Special Exercise Wraps
-    41022, -- Daily Exercise Wraps
-    41023, -- Weak Exercise Wraps
-    41024, -- Epic Exercise Wraps
-    41025, -- Legend Exercise Wraps
-    41026, -- Mystic Exercise Wraps
+    50292, -- training wraps
+    50293, -- exercise wraps
+    50294, -- durable exercise wraps
+    50295, -- lasting exercise wraps
+    64341, -- training wrap (custom Valdraken)
+    64342, -- exercise wrap (custom Valdraken)
+    64343, -- durable exercise wrap (custom Valdraken)
+    64344, -- lasting exercise wrap (custom Valdraken)
 }
 
+-- Armas que exigem estar coladas no dummy. Rod/bow/wand tem allowFarUse no
+-- servidor; o resto (axe/club/shield/sword/wraps) so funciona corpo a corpo.
 local meleeWeapons = {
-    40636, -- Daily Exercise Axe
-    35280, -- Durable Exercise Axe
-    40856, -- Epic Exercise Axe
-    28553, -- Exercise Axe
-    35286, -- Lasting Exercise Axe
-    40863, -- Legend Exercise Axe
-    40820, -- Mystic Exercise Axe
-    40630, -- Special Exercise Axe
-    40687, -- Weak Exercise Axe
+    28541, -- training axe
+    28553, -- exercise axe
+    35280, -- durable exercise axe
+    35286, -- lasting exercise axe
 
-    40638, -- Daily Exercise Club
-    35281, -- Durable Exercise Club
-    40851, -- Epic Exercise Club
-    28554, -- Exercise Club
-    35287, -- Lasting Exercise Club
-    40858, -- Legend Exercise Club
-    40815, -- Mystic Exercise Club
-    40631, -- Special Exercise Club
-    40689, -- Weak Exercise Club
+    28542, -- training club
+    28554, -- exercise club
+    35281, -- durable exercise club
+    35287, -- lasting exercise club
 
-    40640, -- Daily Exercise Shield
-    44066, -- Durable Exercise Shield
-    40853, -- Epic Exercise Shield
-    44065, -- Exercise Shield
-    44067, -- Lasting Exercise Shield
-    40860, -- Legend Exercise Shield
-    40817, -- Mystic Exercise Shield
-    40635, -- Special Exercise Shield
-    40691, -- Weak Exercise Shield
+    44064, -- training shield
+    44065, -- exercise shield
+    44066, -- durable exercise shield
+    44067, -- lasting exercise shield
 
-    40641, -- Daily Exercise Sword
-    35279, -- Durable Exercise Sword
-    40854, -- Epic Exercise Sword
-    28552, -- Exercise Sword
-    35285, -- Lasting Exercise Sword
-    40861, -- Legend Exercise Sword
-    40818, -- Mystic Exercise Sword
-    40629, -- Special Exercise Sword
-    40692, -- Weak Exercise Sword
+    28540, -- training sword
+    28552, -- exercise sword
+    35279, -- durable exercise sword
+    35285, -- lasting exercise sword
 
-    50294, -- Durable Exercise Wraps
-    50293, -- Exercise Wraps
-    50295, -- Lasting Exercise Wraps
-    41021, -- Special Exercise Wraps
-    41022, -- Daily Exercise Wraps
-    41023, -- Weak Exercise Wraps
-    41024, -- Epic Exercise Wraps
-    41025, -- Legend Exercise Wraps
-    41026, -- Mystic Exercise Wraps
+    50292, -- training wraps
+    50293, -- exercise wraps
+    50294, -- durable exercise wraps
+    50295, -- lasting exercise wraps
+    64341, -- training wrap (custom Valdraken)
+    64342, -- exercise wrap (custom Valdraken)
+    64343, -- durable exercise wrap (custom Valdraken)
+    64344, -- lasting exercise wrap (custom Valdraken)
 }
 
+-- Um id por TIPO de dummy (o que aparece no dropdown).
 local trainingDummies = {
-    28558, -- Dummy Trainer (No name)
-    28561, -- 28562 -- Demon Exercise Dummy
-    40622, -- 40621 -- Deus Dummy
-    28559, -- 28560 -- Ferumbras Exercise Dummy
-    28563, -- 28564 -- Monk Exercise Dummy
-    40648, -- 40647 -- Super Dummy
-    41259, -- 41260 -- Future Mage Dummy
+    28558, -- exercise dummy
+    28561, -- demon exercise dummy
+    28559, -- ferumbras exercise dummy
+    28563, -- monk exercise dummy
+    60086, -- chaotic training dummy
+    60643, -- lich king training dummy
+    61348, -- burn skull training dummy
 }
 
+-- Todos os ids que contam como aquele dummy no chao: cada dummy tem uma variacao
+-- por rotateto (items.xml), e o "ferumbras"/"exercise" tem copias extras com o
+-- mesmo nome. O MiniBot procura qualquer um destes ids no tile.
 local dummiesPositions = {
-    [28558] = { 28558 }, -- Dummy Trainer (No name)
-    [28561] = { 28561, 28562 }, -- Demon Exercise Dummy
-    [40622] = { 40622, 40621 }, -- Deus Dummy
-    [28559] = { 28559, 28560 }, -- Ferumbras Exercise Dummy
-    [28563] = { 28563, 28564 }, -- Monk Exercise Dummy
-    [40648] = { 40648, 40647 }, -- Super Dummy
-    [41259] = { 41259, 41260 }, -- Future Mage Dummy
+    [28558] = { 28558, 28565 }, -- exercise dummy
+    [28561] = { 28561, 28562 }, -- demon exercise dummy
+    [28559] = { 28559, 28560, 60259, 60641, 60645 }, -- ferumbras exercise dummy
+    [28563] = { 28563, 28564 }, -- monk exercise dummy
+    [60086] = { 60086, 60087 }, -- chaotic training dummy
+    [60643] = { 60643, 60644 }, -- lich king training dummy
+    [61348] = { 61348, 61349 }, -- burn skull training dummy
 }
 
 function support_generalModule.init(widget)
@@ -262,11 +221,16 @@ function support_generalModule.saveSettings()
     end
 
     -- Haste
+    -- A spell escolhida fica guardada em spellInfoId. Antes ela era deduzida de
+    -- volta pelo x do image-clip do icone, e o icone nasce com "image-clip: 0 0 32 32"
+    -- no .otui: sem spell escolhida o x era 0, que getSpellRegularIdByImageClipX
+    -- resolve para o primeiro icone da folha (id 3, Ultimate Healing). Ou seja, so
+    -- marcar o check ja gravava "exura vita" como spell do Auto Haste.
     local hasteSettings = {}
-    local spellId = g_spells.getSpellRegularIdByImageClipX(supportGeneralWindow.panel.autoHaste.spell:getImageClip().x)
+    local spellId = supportGeneralWindow.panel.autoHaste.spellInfoId or 0
     local spell = g_spells.getSpellInfoById(spellId)
     if spell ~= nil then
-        hasteSettings['spell'] = math.max(0, spellId)
+        hasteSettings['spell'] = spell.id
         hasteSettings['reqmana'] = spell.mana
     else
         hasteSettings['spell'] = 0
@@ -334,25 +298,21 @@ function support_generalModule.loadSettings()
     supportGeneralWindow.panel.autoHaste.ignoreProtection.ignoreCallback = nil
     support_generalModule.onHasteChange(supportGeneralWindow.panel.autoHaste.check)
     supportGeneralWindow.panel.autoHaste.check.ignoreCallback = nil
-    local spellId = hasteSettings['spell'] or 0
-    if spellId > 0 then
-        local spell = g_spells.getSpellInfoById(spellId)
-        if spell ~= nil then
-            supportGeneralWindow.panel.autoHaste.spell:show()
-            supportGeneralWindow.panel.autoHaste.spell:setImageClip(g_spells.getSpellRegularImageClipById(spell.id))
-            supportGeneralWindow.panel.autoHaste.name:setText(spell.name)
-            supportGeneralWindow.panel.autoHaste.words:setText(spell.words)
-            supportGeneralWindow.panel.autoHaste.frameBackground:setTooltip(spell.name .. '\n\'' .. spell.words .. '\'')
-            if not(modules.game_actionbar.canSpellCast(spell)) then
-                supportGeneralWindow.panel.autoHaste.noVocation:show()
-            else
-                supportGeneralWindow.panel.autoHaste.noVocation:hide()
-            end
+    local spell = g_spells.getSpellInfoById(hasteSettings['spell'] or 0)
+    if spell ~= nil then
+        supportGeneralWindow.panel.autoHaste.spellInfoId = spell.id
+        supportGeneralWindow.panel.autoHaste.spell:show()
+        supportGeneralWindow.panel.autoHaste.spell:setImageClip(g_spells.getSpellRegularImageClipById(spell.id))
+        supportGeneralWindow.panel.autoHaste.name:setText(spell.name)
+        supportGeneralWindow.panel.autoHaste.words:setText(spell.words)
+        supportGeneralWindow.panel.autoHaste.frameBackground:setTooltip(spell.name .. '\n\'' .. spell.words .. '\'')
+        if not(modules.game_actionbar.canSpellCast(spell)) then
+            supportGeneralWindow.panel.autoHaste.noVocation:show()
         else
-            supportGeneralWindow.panel.autoHaste.spell:hide()
             supportGeneralWindow.panel.autoHaste.noVocation:hide()
         end
     else
+        supportGeneralWindow.panel.autoHaste.spellInfoId = 0
         supportGeneralWindow.panel.autoHaste.spell:hide()
         supportGeneralWindow.panel.autoHaste.noVocation:hide()
     end
@@ -390,18 +350,23 @@ function support_generalModule.loadSettings()
     supportGeneralWindow.panel.autoTraining.check:setChecked(autoTrainingSettings['enabled'] or false)
     support_generalModule.onAutoTrainingChange(supportGeneralWindow.panel.autoTraining.check)
     supportGeneralWindow.panel.autoTraining.check.ignoreCallback = nil
+    -- Presets salvos antes da correcao das listas guardam ids do Tibia global que
+    -- nao existem aqui. Limpa a selecao invalida em vez de mostrar um slot vazio
+    -- que parece configurado mas nunca treina.
     local item1 = autoTrainingSettings['item1'] or 0
-    if item1 > 0 then
+    if table.find(trainingWeapons, item1) then
         supportGeneralWindow.panel.autoTraining.item1:show()
         supportGeneralWindow.panel.autoTraining.item1:setItemId(item1)
     else
+        supportGeneralWindow.panel.autoTraining.item1:setItemId(0)
         supportGeneralWindow.panel.autoTraining.item1:hide()
     end
     local item2 = autoTrainingSettings['item2'] or 0
-    if item2 > 0 then
+    if dummiesPositions[item2] ~= nil then
         supportGeneralWindow.panel.autoTraining.item2:show()
         supportGeneralWindow.panel.autoTraining.item2:setItemId(item2)
     else
+        supportGeneralWindow.panel.autoTraining.item2:setItemId(0)
         supportGeneralWindow.panel.autoTraining.item2:hide()
     end
 
@@ -508,7 +473,7 @@ function support_generalModule.onHasteChange(widget)
         supportGeneralWindow.panel.autoHaste.noVocation:setPhantom(true)
         supportGeneralWindow.panel.autoHaste.name:setOpacity(0.3)
         supportGeneralWindow.panel.autoHaste.words:setOpacity(0.3)
-        supportGeneralWindow.panel.autoHaste.ignoreProtection:setEnabled(true)
+        supportGeneralWindow.panel.autoHaste.ignoreProtection:setEnabled(false)
     end
 
     if widget.ignoreCallback then
@@ -790,6 +755,7 @@ function support_generalModule.openSpellCatcher(spellBlock)
 
             spellWidget.onLeftClick = function()
                 if spellBlock ~= nil then
+                    spellBlock.spellInfoId = foundSpell.id
                     spellBlock.spell:show()
                     spellBlock.spell:setImageClip(g_spells.getSpellRegularImageClipById(foundSpell.id))
                     spellBlock.name:setText(foundSpell.name)
@@ -864,13 +830,18 @@ function support_generalModule.openItemTrainingCatcher(itemBlock, type)
     supportGeneralWindow.dropDownMenuScrollBar:show()
     supportGeneralWindow.dropDownMenu:destroyChildren()
 
-    local thingTypes = {}
+    -- getThingType() loga erro e devolve o thing nulo (id 0) para id que nao existe
+    -- nos assets, o que colocaria uma entrada vazia no dropdown. Filtra antes.
+    local ids = nil
     if type == 1 then
-        for _, id in ipairs(trainingWeapons) do
-            table.insert(thingTypes, g_things.getThingType(id, ThingCategoryItem))
-        end
+        ids = trainingWeapons
     elseif type == 2 then
-        for _, id in ipairs(trainingDummies) do
+        ids = trainingDummies
+    end
+
+    local thingTypes = {}
+    for _, id in ipairs(ids or {}) do
+        if g_things.isValidDatId(id, ThingCategoryItem) then
             table.insert(thingTypes, g_things.getThingType(id, ThingCategoryItem))
         end
     end
@@ -905,8 +876,10 @@ function support_generalModule.onMissileTo(missile, from, to)
         return
     end
 
+    -- PlayerStates.StatePz nao existe (o campo chama Pz), entao hasState() recebia
+    -- nil e devolvia sempre false: a animacao do treino nunca aparecia.
     local player = g_game.getLocalPlayer()
-    if player == nil or not(player:hasState(PlayerStates.StatePz)) then
+    if player == nil or not(player:hasState(PlayerStates.Pz)) then
         return
     end
 
