@@ -5,7 +5,7 @@ end
 
 function GiftCoins:onGiftWindow()
 	closeStore()
-	local count = g_game.getTransferableTibiaCoins()
+	local count = Store.transferableCoins
 
 	giftWindow = g_ui.createWidget('GiftWindow', rootWidget)
 	g_client.setInputLockWidget(giftWindow)

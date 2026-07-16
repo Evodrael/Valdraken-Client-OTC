@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.13",
-    "generated":  "2026-07-16T13:14:54-03:00",
+    "version":  "15.24.14",
+    "generated":  "2026-07-16T19:41:24-03:00",
     "count":  21398,
     "files":  [
                   {
@@ -104695,8 +104695,8 @@
                   },
                   {
                       "path":  "mods/game_store/classes/Gift.lua",
-                      "sha256":  "f179eaead8480d7e7d4badb735a09b8bb7d721c50723108022e86321cd0cf463",
-                      "size":  3572
+                      "sha256":  "b07ecdfbd3c1b1338bc957673f070c30b0e52ef4939dea3a44fe4f3744ad2d35",
+                      "size":  3561
                   },
                   {
                       "path":  "mods/game_store/classes/Home.lua",
@@ -104715,8 +104715,8 @@
                   },
                   {
                       "path":  "mods/game_store/store.lua",
-                      "sha256":  "e4d0262b9b4b770682edc21fbdefe0cade61cc172321c415340c89aaaeaaf794",
-                      "size":  28345
+                      "sha256":  "d295eff7327845b8552b54b49edb787450c0d4b19dc70868e4e96482447cb283",
+                      "size":  28334
                   },
                   {
                       "path":  "mods/game_store/store.otmod",
@@ -106985,12 +106985,12 @@
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "ec59bff0f9da45e4f4a4fcb8b5670990651723a0f5e6796baf7d3060d0f9766b",
-                      "size":  32979968
+                      "sha256":  "bc8e0bc1d75517a42849dd30ee6369e76ceb92a0543ef227c39cc17fcdd9fd4b",
+                      "size":  32980480
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "dde197afb11c682e2aa05b55ee6af96512013eac6de9ac8bcaa2b0b5e88447e2",
+                      "sha256":  "38e17f51db5f13e0d6d110b48feadcfd649649ecfe2b0a8b3e72438bbf995d4a",
                       "size":  8
                   }
               ]

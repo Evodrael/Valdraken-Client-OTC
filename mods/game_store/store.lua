@@ -338,7 +338,7 @@ end
 
 
 function onGiftWindow()
-  if g_game.getTransferableTibiaCoins() < Store.coinsPacketSize then
+  if Store.transferableCoins < Store.coinsPacketSize then
     return showError('Gifting not possible', 'You don\'t have enough coins to gift.')
   end
 
