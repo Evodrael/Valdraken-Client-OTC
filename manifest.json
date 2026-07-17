@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.19",
-    "generated":  "2026-07-17T02:37:38-03:00",
-    "count":  21398,
+    "version":  "15.24.20",
+    "generated":  "2026-07-17T18:06:57-03:00",
+    "count":  21399,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -106984,13 +106984,18 @@
                       "size":  1302
                   },
                   {
+                      "path":  "otclient_dx_x64.exe",
+                      "sha256":  "d001b3c5718c191c455df3c9b4e5d56c048475806279ef9a9f9d304ec7d609c9",
+                      "size":  40811008
+                  },
+                  {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "8e8aa4344e634ac1abca40073e8132f3f15d52df7b7bb3ecef325a065eeed859",
+                      "sha256":  "c3e6d971b921b6646d9b40218778aba1612ad144db5eaa50ec7be27f64a53b9d",
                       "size":  32988672
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "b24c3cd5c804ede7f8320dd3697b746651733b42756ed0eb3a0bdef515cb6110",
+                      "sha256":  "eaeaa96a2668b283514b5a8bd0d7195af59b753aa93423cd444297be2c9b4982",
                       "size":  8
                   }
               ]
