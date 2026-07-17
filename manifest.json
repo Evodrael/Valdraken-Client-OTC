@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.20",
-    "generated":  "2026-07-17T18:06:57-03:00",
+    "version":  "15.24.21",
+    "generated":  "2026-07-17T18:20:35-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -106075,8 +106075,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_manashield.lua",
-                      "sha256":  "9a72c006af50f9378d3de3b624edc1f4ffbb8b53f585a56fed1cf02eab2a9555",
-                      "size":  39656
+                      "sha256":  "0a9bb474c93aa937900278fabd18a73f943b7292a02af68a455d00a0f38f060a",
+                      "size":  40187
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_manashield.otui",
@@ -106995,7 +106995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "eaeaa96a2668b283514b5a8bd0d7195af59b753aa93423cd444297be2c9b4982",
+                      "sha256":  "ee40c51bdc066a695c38767a1b81059ccd20c9942273c17b11dbd888e76e5b3a",
                       "size":  8
                   }
               ]

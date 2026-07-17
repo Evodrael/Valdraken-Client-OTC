@@ -520,11 +520,13 @@ function support_manashieldModule.onRenewSpellShieldChange(widget)
     if widget:isChecked() then
         supportManaShieldWindow.panel.list.spellShield.recast.label:setPhantom(false)
         supportManaShieldWindow.panel.list.spellShield.recast.label:setOpacity(1)
+        supportManaShieldWindow.panel.list.spellShield.recast.text:setEnabled(true)
         supportManaShieldWindow.panel.list.spellShield.recast.text:setPhantom(false)
         supportManaShieldWindow.panel.list.spellShield.recast.text:setOpacity(1)
     else
         supportManaShieldWindow.panel.list.spellShield.recast.label:setPhantom(true)
         supportManaShieldWindow.panel.list.spellShield.recast.label:setOpacity(0.5)
+        supportManaShieldWindow.panel.list.spellShield.recast.text:setEnabled(false)
         supportManaShieldWindow.panel.list.spellShield.recast.text:setPhantom(true)
         supportManaShieldWindow.panel.list.spellShield.recast.text:setOpacity(0.5)
     end
@@ -540,11 +542,13 @@ function support_manashieldModule.onRenewItemShieldChange(widget)
     if widget:isChecked() then
         supportManaShieldWindow.panel.list.itemShield.recast.label:setPhantom(false)
         supportManaShieldWindow.panel.list.itemShield.recast.label:setOpacity(1)
+        supportManaShieldWindow.panel.list.itemShield.recast.text:setEnabled(true)
         supportManaShieldWindow.panel.list.itemShield.recast.text:setPhantom(false)
         supportManaShieldWindow.panel.list.itemShield.recast.text:setOpacity(1)
     else
         supportManaShieldWindow.panel.list.itemShield.recast.label:setPhantom(true)
         supportManaShieldWindow.panel.list.itemShield.recast.label:setOpacity(0.5)
+        supportManaShieldWindow.panel.list.itemShield.recast.text:setEnabled(false)
         supportManaShieldWindow.panel.list.itemShield.recast.text:setPhantom(true)
         supportManaShieldWindow.panel.list.itemShield.recast.text:setOpacity(0.5)
     end
@@ -560,11 +564,13 @@ function support_manashieldModule.onCreaturesRemoveShieldChange(widget)
     if widget:isChecked() then
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.label:setPhantom(false)
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.label:setOpacity(1)
+        supportManaShieldWindow.panel.list.removeShield.creaturesNearby.text:setEnabled(true)
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.text:setPhantom(false)
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.text:setOpacity(1)
     else
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.label:setPhantom(true)
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.label:setOpacity(0.5)
+        supportManaShieldWindow.panel.list.removeShield.creaturesNearby.text:setEnabled(false)
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.text:setPhantom(true)
         supportManaShieldWindow.panel.list.removeShield.creaturesNearby.text:setOpacity(0.5)
     end
