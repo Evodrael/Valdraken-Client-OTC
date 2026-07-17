@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.18",
-    "generated":  "2026-07-17T01:18:31-03:00",
+    "version":  "15.24.19",
+    "generated":  "2026-07-17T02:37:38-03:00",
     "count":  21398,
     "files":  [
                   {
@@ -22864,14 +22864,14 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-6be9333e4e51f0b36857fad1a979e6c4c5821aaefc0e9ebf6b053cef274c1adf.dat",
-                      "sha256":  "6be9333e4e51f0b36857fad1a979e6c4c5821aaefc0e9ebf6b053cef274c1adf",
-                      "size":  5508140
-                  },
-                  {
                       "path":  "data/things/1524/appearances-8645c30ff1e869152997dbbd24a297a1cce0c76540977fcd162cdd73a84f1534.dat",
                       "sha256":  "8645c30ff1e869152997dbbd24a297a1cce0c76540977fcd162cdd73a84f1534",
                       "size":  5508142
+                  },
+                  {
+                      "path":  "data/things/1524/appearances-933092f6c6693724c74dea1817683a58f95b88e9b269f6ac46ee6c4be48cb1d5.dat",
+                      "sha256":  "933092f6c6693724c74dea1817683a58f95b88e9b269f6ac46ee6c4be48cb1d5",
+                      "size":  5508138
                   },
                   {
                       "path":  "data/things/1524/appearances-a7bd55ed68e7ef16c26c931c5cf4ba493c8dac24c45d3792e6d9292ddcec4f84.dat",
@@ -22885,8 +22885,8 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "7ec67c5427f82a2f72cd25cca90ddb04865a7c03313faa5283f177c7df971b8f",
-                      "size":  1213428
+                      "sha256":  "b0b6cce8ef8ffa0c3050487d2e1d6f9095226860d8b05b98f429a8846c7b6a9c",
+                      "size":  1501067
                   },
                   {
                       "path":  "data/things/1524/map-149b61053e2a4339363323799f63c6741ef7430730e74a9c51698db12a4c1e93.dat",
@@ -106985,12 +106985,12 @@
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "e2fe509aeaeec1d07bc6f5a3f2870f907ca2d592b1b652670a9ab93da2fe926e",
-                      "size":  32981504
+                      "sha256":  "8e8aa4344e634ac1abca40073e8132f3f15d52df7b7bb3ecef325a065eeed859",
+                      "size":  32988672
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "576d5785e87f3486ec79cdc7c6c367bb06ea71b1a1faa56de5e66fd70667c819",
+                      "sha256":  "b24c3cd5c804ede7f8320dd3697b746651733b42756ed0eb3a0bdef515cb6110",
                       "size":  8
                   }
               ]
