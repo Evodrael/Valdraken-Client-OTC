@@ -1,6 +1,6 @@
 {
     "version":  "15.24.26",
-    "generated":  "2026-07-18T16:36:13-03:00",
+    "generated":  "2026-07-18T16:44:26-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -102595,8 +102595,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "87736867e9eb9b27a6d9a3220c883a96cc7fa7f0907f9ba38435b17b258e915d",
-                      "size":  85483
+                      "sha256":  "6e6f2c71811b04c2f04f341f3b3f7cd22791e3fdad90ba80f5d25d18e65a1c97",
+                      "size":  86347
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -106680,8 +106680,8 @@
                   },
                   {
                       "path":  "modules/game_things/things.lua",
-                      "sha256":  "bff188465af6987489f1580f23e7a510c687258684438e754c25e8f1f5156379",
-                      "size":  2229
+                      "sha256":  "ccace6b9bdfaa848f95f3544eb28a0b34f4216169696f40cc4471f33b8bbf2fd",
+                      "size":  2488
                   },
                   {
                       "path":  "modules/game_things/things.otmod",

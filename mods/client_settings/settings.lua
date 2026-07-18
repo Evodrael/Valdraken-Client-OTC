@@ -50,6 +50,24 @@ local options = {
   {id = "screenshot", style = "ScreenshotWindow", parent = "misc"}
 }
 
+-- O framework de som pode ser desabilitado em tempo de compilacao
+-- (TOGGLE_FRAMEWORK_SOUND=OFF em src/CMakeLists.txt). Sem ele g_sounds nao existe e as
+-- abas de som ficariam mortas nas Opcoes (sliders que nao fazem nada), entao removemos
+-- "Sound" e suas filhas "Battle Sounds" / "UI Sounds".
+-- Feito por deteccao em runtime (e nao apagando as linhas) para que reativar o som no
+-- CMake traga as abas de volta sozinho, sem precisar editar este arquivo.
+-- Os helpers de dataset.lua (setSoundLabel/setSoundWarningVisible) ja sao nil-safe
+-- quando a janela nao existe, entao nada mais precisa mudar.
+if g_sounds == nil then
+  local withoutSound = {}
+  for _, opt in ipairs(options) do
+    if opt.id ~= "sound" and opt.id ~= "battleSounds" and opt.id ~= "uiSounds" then
+      withoutSound[#withoutSound + 1] = opt
+    end
+  end
+  options = withoutSound
+end
+
 loadedWindows = {}
 local loadedButton = {}
 local extraOptions = {}

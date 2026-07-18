@@ -52,7 +52,10 @@ function load()
       errorMessage = errorMessage .. tr("Unable to load static data from '%s'", thingsPath) .. '\n'
     end
 
-    if errorMessage:len() == 0 and not g_sounds.loadClientFiles(soundsPath) then
+    -- g_sounds so existe quando o client e compilado com FRAMEWORK_SOUND. Sem a guarda,
+    -- este acesso lancava "attempt to index a nil value (global 'g_sounds')" e abortava o
+    -- carregamento das things (caminho critico de login).
+    if errorMessage:len() == 0 and g_sounds ~= nil and not g_sounds.loadClientFiles(soundsPath) then
       errorMessage = errorMessage .. tr("Unable to load client sounds from '%s'", soundsPath)
     end
   else
