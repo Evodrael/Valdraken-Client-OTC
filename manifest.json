@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.27",
-    "generated":  "2026-07-18T18:19:35-03:00",
+    "version":  "15.24.28",
+    "generated":  "2026-07-18T18:30:35-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -102595,8 +102595,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "6e6f2c71811b04c2f04f341f3b3f7cd22791e3fdad90ba80f5d25d18e65a1c97",
-                      "size":  86347
+                      "sha256":  "321f6497ab2ff5177d33f568c24242e9e2dbef85250cfbf8bac9582fa637e378",
+                      "size":  86720
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -106995,7 +106995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "62e95ad7fba0852fe88e1521233b7f950f6b91512c31c85eeecde557cc139ef9",
+                      "sha256":  "0a04284f28c318ff7b2cdc2145f8797b63b7e2973b50c196c16283aa5f5a175c",
                       "size":  8
                   }
               ]

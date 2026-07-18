@@ -160,8 +160,14 @@ function init()
 
   optionsButton = modules.client_topmenu.addLeftButton('optionsButton', tr('Options'), '/images/topbuttons/options', toggle)
   -- Botao de mutar/desmutar o som (tela inicial), logo apos o de Options.
-  audioButton = modules.client_topmenu.addLeftButton('audioButton', tr('Toggle sound'), '/images/topbuttons/audio', toggleAudioMute)
-  applyAudioMuteFromSettings()
+  -- So e criado quando o framework de som existe (TOGGLE_FRAMEWORK_SOUND=ON). Sem ele o
+  -- botao ficaria morto na UI (toggleAudioMute retorna cedo sem g_sounds). Nao criando,
+  -- audioButton permanece nil — e os demais usos (updateAudioButtonIcon / hide / show)
+  -- ja testam "if audioButton then", entao nada mais precisa mudar.
+  if g_sounds ~= nil then
+    audioButton = modules.client_topmenu.addLeftButton('audioButton', tr('Toggle sound'), '/images/topbuttons/audio', toggleAudioMute)
+    applyAudioMuteFromSettings()
+  end
 
   addEvent(function() setup() end)
 
