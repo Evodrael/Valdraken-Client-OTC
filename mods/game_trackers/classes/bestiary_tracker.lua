@@ -20,6 +20,32 @@ local sortTypes = {
 	DESCENDING = 5
 }
 
+local function getPercent(current, total)
+	current = tonumber(current) or 0
+	total = tonumber(total) or 0
+	if total <= 0 then
+		return 0
+	end
+	return math.min((current / total) * 100, 100)
+end
+
+-- fills the three stage bars: 0..first, first..second, second..third
+local function setStageBars(widget, currentKills, firstUnlock, secondUnlock, thirdUnlock)
+	widget.trackerContainer.killsBar:setPercent(getPercent(currentKills, firstUnlock))
+	widget.trackerContainer1.killsBar1:setPercent(getPercent(currentKills - firstUnlock, secondUnlock - firstUnlock))
+	widget.trackerContainer2.killsBar2:setPercent(getPercent(currentKills - secondUnlock, thirdUnlock - secondUnlock))
+end
+
+-- true when every tracked entry already has its widget on screen
+local function widgetsMatchList()
+	for _, data in ipairs(BestiaryTrackerList) do
+		if not bestiaryTrackerWindow.contentsPanel:getChildById(data[1]) then
+			return false
+		end
+	end
+	return true
+end
+
 function BestiaryTracker.initSortFields()
 	sortOptions[sortTypes.NAME] = true
 	sortOptions[sortTypes.COMPLETATION] = false
@@ -42,18 +68,7 @@ function BestiaryTracker.updateWidgetTracker(data, widget)
 	widget.trackerContainer1.killsBar1:setTooltip(tr("%s / %s", comma_value(currentKills), comma_value(secondUnlock)))
 	widget.trackerContainer2.killsBar2:setTooltip(tr("%s / %s", comma_value(currentKills), comma_value(thirdUnlock)))
 
-	local firstPercent = math.min((currentKills * 100) / firstUnlock, 100)
-	widget.trackerContainer.killsBar:setPercent(firstPercent)
-
-	if currentKills > firstUnlock then
-		local secondPercent = math.min(((currentKills - firstUnlock) * 100) / (secondUnlock - firstUnlock), 100)
-		widget.trackerContainer1.killsBar1:setPercent(secondPercent)
-	end
-
-	if currentKills > secondUnlock then
-		local thirdPercent = math.min(((currentKills - secondUnlock) * 100) / (thirdUnlock - secondUnlock), 100)
-		widget.trackerContainer2.killsBar2:setPercent(thirdPercent)
-	end
+	setStageBars(widget, currentKills, firstUnlock, secondUnlock, thirdUnlock)
 
 	if currentKills >= thirdUnlock then
 		widget.trackerContainer.killsBar:setImageSource('/mods/game_cyclopedia/images/ui/monster-bar-green')
@@ -96,18 +111,7 @@ function BestiaryTracker.updateWidgetShowTracker(data, monsterList)
 	widget.trackerContainer1.killsBar1:setTooltip(tr("%s / %s", comma_value(currentKills), comma_value(secondUnlock)))
 	widget.trackerContainer2.killsBar2:setTooltip(tr("%s / %s", comma_value(currentKills), comma_value(thirdUnlock)))
 
-	local firstPercent = math.min((currentKills * 100) / firstUnlock, 100)
-	widget.trackerContainer.killsBar:setPercent(firstPercent)
-
-	if currentKills > firstUnlock then
-		local secondPercent = math.min(((currentKills - firstUnlock) * 100) / (secondUnlock - firstUnlock), 100)
-		widget.trackerContainer1.killsBar1:setPercent(secondPercent)
-	end
-
-	if currentKills > secondUnlock then
-		local thirdPercent = math.min(((currentKills - secondUnlock) * 100) / (thirdUnlock - secondUnlock), 100)
-		widget.trackerContainer2.killsBar2:setPercent(thirdPercent)
-	end
+	setStageBars(widget, currentKills, firstUnlock, secondUnlock, thirdUnlock)
 
 	if currentKills >= thirdUnlock then
 		widget.trackerContainer.killsBar:setImageSource('/mods/game_cyclopedia/images/ui/monster-bar-green')
@@ -182,7 +186,12 @@ function BestiaryTracker.updateTrackerList()
 end
 
 function BestiaryTracker.showTrackerData(update)
-	if BestiaryTrackerList and #BestiaryTrackerList == bestiaryTrackerWindow.contentsPanel:getChildCount() and not update then
+	-- the in-place update path only works when the tracked set itself is unchanged.
+	-- matching the counts is not enough: untracking one creature and tracking another
+	-- keeps the count equal, and would leave the old widget on screen with stale kills
+	-- while the newly tracked one never gets created.
+	if BestiaryTrackerList and #BestiaryTrackerList == bestiaryTrackerWindow.contentsPanel:getChildCount()
+		and not update and widgetsMatchList() then
 		BestiaryTracker.updateTrackerList()
 		return
 	end

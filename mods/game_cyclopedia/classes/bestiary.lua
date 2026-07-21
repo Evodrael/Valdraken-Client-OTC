@@ -29,6 +29,18 @@ function Bestiary.getTrackedList()
   return monsterTracked
 end
 
+-- Same stage model used by the bestiary/boss trackers (mods/game_trackers): the
+-- unlock values are cumulative totals, so each bar shows only its own segment
+-- (0..first, first..second, second..third) instead of measuring from zero.
+local function getStagePercent(current, total)
+  current = tonumber(current) or 0
+  total = tonumber(total) or 0
+  if total <= 0 then
+    return 0
+  end
+  return math.min((current / total) * 100, 100)
+end
+
 local function normalizeBestiaryGroup(data)
   if type(data) ~= "table" then
     return nil
@@ -388,18 +400,9 @@ function Cyclopedia.bestiaryMonsterData(monsterId, bestiaryMonster, currentLevel
 
 
   local fullyUnlocked = killCounter >= third
-  VisibleCyclopediaPanel:recursiveGetChildById("first"):setPercent(0)
-  VisibleCyclopediaPanel:recursiveGetChildById("first"):setValue(killCounter, 0, first)
-
-  VisibleCyclopediaPanel:recursiveGetChildById("second"):setPercent(0)
-  VisibleCyclopediaPanel:recursiveGetChildById("third"):setPercent(0)
-
-  if killCounter >= second then
-    VisibleCyclopediaPanel:recursiveGetChildById("second"):setValue(killCounter, 0, second)
-    VisibleCyclopediaPanel:recursiveGetChildById("third"):setValue(killCounter, 0, third)
-  elseif killCounter >= first then
-    VisibleCyclopediaPanel:recursiveGetChildById("second"):setValue(killCounter, 0, second)
-  end
+  VisibleCyclopediaPanel:recursiveGetChildById("first"):setPercent(getStagePercent(killCounter, first))
+  VisibleCyclopediaPanel:recursiveGetChildById("second"):setPercent(getStagePercent(killCounter - first, second - first))
+  VisibleCyclopediaPanel:recursiveGetChildById("third"):setPercent(getStagePercent(killCounter - second, third - second))
 
 
   if fullyUnlocked then

@@ -134,12 +134,13 @@ function BossTracker.showTrackerData()
 		local secondUnlock = tonumber(data[4]) or firstUnlock
 		local thirdUnlock = tonumber(data[5]) or secondUnlock
 
-		local bossName, bossCooldown = modules.game_analyser.BossCooldown:hasCooldown(data[1])
-		if not string.empty(bossName) and bossCooldown ~= -1 then
-			BossTracker.checkTrackerCooldown(bossName, bossCooldown)
-			widget.bossName:setText(short_text(bossName, 14))
-			if #bossName >= 14 then
-				widget.bossName:setTooltip(bossName)
+		-- do not shadow bossName here: it is still needed by the context menu below
+		local cooldownName, bossCooldown = modules.game_analyser.BossCooldown:hasCooldown(data[1])
+		if not string.empty(cooldownName) and bossCooldown ~= -1 then
+			BossTracker.checkTrackerCooldown(cooldownName, bossCooldown)
+			widget.bossName:setText(short_text(cooldownName, 14))
+			if #cooldownName >= 14 then
+				widget.bossName:setTooltip(cooldownName)
 			end
 		end
 
@@ -147,18 +148,10 @@ function BossTracker.showTrackerData()
 		widget.trackerContainer1.killsBar1:setTooltip(tr("%s / %s", comma_value(currentKills), comma_value(secondUnlock)))
 		widget.trackerContainer2.killsBar2:setTooltip(tr("%s / %s", comma_value(currentKills), comma_value(thirdUnlock)))
 
-		local firstPercent = math.min(getPercent(currentKills, firstUnlock), 100)
-		widget.trackerContainer.killsBar:setPercent(firstPercent)
-
-		if currentKills > firstUnlock and secondUnlock > firstUnlock then
-			local secondPercent = math.min(getPercent(currentKills - firstUnlock, secondUnlock - firstUnlock), 100)
-			widget.trackerContainer1.killsBar1:setPercent(secondPercent)
-		end
-
-		if currentKills > secondUnlock and thirdUnlock > secondUnlock then
-			local thirdPercent = math.min(getPercent(currentKills - secondUnlock, thirdUnlock - secondUnlock), 100)
-			widget.trackerContainer2.killsBar2:setPercent(thirdPercent)
-		end
+		-- three stage bars: 0..first, first..second, second..third
+		widget.trackerContainer.killsBar:setPercent(math.min(getPercent(currentKills, firstUnlock), 100))
+		widget.trackerContainer1.killsBar1:setPercent(math.min(getPercent(currentKills - firstUnlock, secondUnlock - firstUnlock), 100))
+		widget.trackerContainer2.killsBar2:setPercent(math.min(getPercent(currentKills - secondUnlock, thirdUnlock - secondUnlock), 100))
 
 		if currentKills >= thirdUnlock then
 			widget.trackerContainer.killsBar:setImageSource('/mods/game_cyclopedia/images/ui/monster-bar-green')
@@ -169,7 +162,7 @@ function BossTracker.showTrackerData()
 			widget.trackerContainer2.killsBar2:setTooltip(widget.trackerContainer2.killsBar2:getTooltip() .. " (fully unlocked)")
 		end
 
-		widget.trackerContainer1.countLabel:setText(data[2])
+		widget.trackerContainer1.countLabel:setText(comma_value(currentKills))
 
     	widget.onMouseRelease = function(widget, mousePos, mouseButton)
       		if widget:containsPoint(mousePos) and mouseButton == MouseRightButton then

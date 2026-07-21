@@ -335,9 +335,9 @@ function Bosstiary.showCreatures()
 		monsters.progressSecond.second:setPercent(0)
 		monsters.progressThird.third:setPercent(0)
 
-		monsters.progressFirst.first:setTooltip(data.kills .. " / " .. baseKill.firstUnlock)
-		monsters.progressSecond.second:setTooltip(data.kills .. " / " .. baseKill.secondUnlock)
-		monsters.progressThird.third:setTooltip(data.kills .. " / " .. baseKill.thirdUnlock)
+		monsters.progressFirst.first:setTooltip(tr("%s / %s", comma_value(data.kills), comma_value(baseKill.firstUnlock)))
+		monsters.progressSecond.second:setTooltip(tr("%s / %s", comma_value(data.kills), comma_value(baseKill.secondUnlock)))
+		monsters.progressThird.third:setTooltip(tr("%s / %s", comma_value(data.kills), comma_value(baseKill.thirdUnlock)))
 
 		if data.isTracked == 1 then
 			monsters.trackBosstiary:setChecked(true)

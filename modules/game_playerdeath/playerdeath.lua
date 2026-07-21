@@ -67,6 +67,10 @@ function openWindow(deathType, penalty)
   deathWindow:focus()
   g_client.setInputLockWidget(deathWindow)
 
+  -- bind the buttons before building the text, so any failure while rendering
+  -- the message can never leave the window without working Ok/Cancel/Store
+  bindButtons()
+
   local messageT = {}
   local textLabel = deathWindow:getChildById('labelText')
   if deathType == DeathType.Regular then
@@ -78,7 +82,7 @@ function openWindow(deathType, penalty)
 	  setStringColor(messageT, 'to get to your character list!\n\nClick on ', "#c0c0c0")
 	  setStringColor(messageT, "Store ", "#ffffff")
 	  setStringColor(messageT, 'to resume your journeys and to shop\nblessings to ease the pain if you are unfortunate\nenough to lose another fight!', "#c0c0c0")
-	  textLabel:setColoredText(messageT)
+	  textLabel:setColoredText(string.fromColoredTable(messageT))
       deathWindow:setHeight(deathWindow.baseHeight + 15)
       deathWindow:setWidth(deathWindow.baseWidth)
     else
@@ -90,15 +94,27 @@ function openWindow(deathType, penalty)
 	  setStringColor(messageT, 'to get to your character list!\n\nClick on ', "#c0c0c0")
 	  setStringColor(messageT, "Store ", "#ffffff")
 	  setStringColor(messageT, 'to resume your journeys and to shop\nblessings to ease the pain if you are unfortunate\nenough to lose another fight!', "#c0c0c0")
-	  textLabel:setColoredText(messageT)
+	  textLabel:setColoredText(string.fromColoredTable(messageT))
       deathWindow:setHeight(deathWindow.baseHeight + 46)
       deathWindow:setWidth(deathWindow.baseWidth)
     end
+  else
+    setStringColor(messageT, 'Alas! Brave adventurer, you have met a sad fate.\nBut do not despair, for the gods will bring you back\ninto the world\n\nThis death penalty has been reduced by 100%\nbecause you are blessed with the Adventurer\'s Blessing\n\nSimply click on ', "#c0c0c0")
+    setStringColor(messageT, "Ok ", "#ffffff")
+    setStringColor(messageT, 'to resume your journeys in game\nor on ', "#c0c0c0")
+    setStringColor(messageT, "Cancel ", "#ffffff")
+    setStringColor(messageT, 'to get to your character list!', "#c0c0c0")
+    textLabel:setColoredText(string.fromColoredTable(messageT))
+    deathWindow:setHeight(deathWindow.baseHeight + 15)
+    deathWindow:setWidth(deathWindow.baseWidth)
   end
+end
 
-  local okButton = deathWindow:getChildById('buttonOk')
-  local cancelButton = deathWindow:getChildById('buttonCancel')
-  local buttonStore = deathWindow:getChildById('buttonStore')
+function bindButtons()
+  local window = deathWindow
+  local okButton = window:getChildById('buttonOk')
+  local cancelButton = window:getChildById('buttonCancel')
+  local buttonStore = window:getChildById('buttonStore')
 
   local buttonStoreFunc = function()
     g_client.setInputLockWidget(nil)
@@ -108,7 +124,7 @@ function openWindow(deathType, penalty)
       RequestOpenStore = true
     end
 
-    deathWindow:destroy()
+    window:destroy()
     deathWindow = nil
   end
 
@@ -119,7 +135,7 @@ function openWindow(deathType, penalty)
       g_game.setDead(false)
     end
 
-    okButton:getParent():destroy()
+    window:destroy()
     deathWindow = nil
   end
   local cancelFunc = function()
@@ -128,12 +144,12 @@ function openWindow(deathType, penalty)
       g_game.safeLogout()
     end
 
-    cancelButton:getParent():destroy()
+    window:destroy()
     deathWindow = nil
   end
 
-  deathWindow.onEnter = okFunc
-  deathWindow.onEscape = cancelFunc
+  window.onEnter = okFunc
+  window.onEscape = cancelFunc
 
   okButton.onClick = okFunc
   cancelButton.onClick = cancelFunc

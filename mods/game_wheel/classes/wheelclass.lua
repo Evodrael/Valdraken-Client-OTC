@@ -424,7 +424,9 @@ function WheelOfDestiny.onMouseMove(widget, position, offset)
       wheelOfDestinyWindow.info.tabContent.information.tabContent.conviction2:setColor("$var-cip-inactive-color")
     end
   elseif type(conviction) == "table" then
-    wheelOfDestinyWindow.info.tabContent.information.tabContent.conviction2:setColoredText(conviction)
+    -- setColoredText binds to std::string_view and does not consume a
+    -- {text, color, ...} table; convert it to the `{text, color}` string form
+    wheelOfDestinyWindow.info.tabContent.information.tabContent.conviction2:setColoredText(string.fromColoredTable(conviction))
   end
 
   wheelPanel.focusSelectedWheel:setVisible(true)
@@ -1176,6 +1178,11 @@ function WheelOfDestiny.configureConviction(index)
   local conviction = getConvictionBonus(index)
 
   local tooltip = getConvictionBonusTooltip(index)
+  if type(tooltip) == "table" then
+    -- some vocations return the tooltip as a colored table; setTooltip takes a string
+    tooltip = string.fromColoredTable(tooltip)
+  end
+
   if type(conviction) == "string" then
     wheelOfDestinyWindow.selection.tabContent.conviction:setTooltip(tooltip)
     wheelOfDestinyWindow.selection.tabContent.conviction:setText(conviction)
@@ -1186,8 +1193,10 @@ function WheelOfDestiny.configureConviction(index)
       wheelOfDestinyWindow.selection.tabContent.conviction:setColor("$var-cip-inactive-color")
     end
   elseif type(conviction) == "table" then
+    -- setColoredText binds to std::string_view and does not consume a
+    -- {text, color, ...} table; convert it to the `{text, color}` string form
     wheelOfDestinyWindow.selection.tabContent.conviction:setTooltip(tooltip)
-    wheelOfDestinyWindow.selection.tabContent.conviction:setColoredText(conviction)
+    wheelOfDestinyWindow.selection.tabContent.conviction:setColoredText(string.fromColoredTable(conviction))
   end
 
 end

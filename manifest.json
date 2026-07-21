@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.29",
-    "generated":  "2026-07-21T13:39:26-03:00",
+    "version":  "15.24.30",
+    "generated":  "2026-07-21T19:44:05-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -12305,8 +12305,8 @@
                   },
                   {
                       "path":  "data/images/title.png",
-                      "sha256":  "714cef7863661ee7c59cd1dc91b53917aa7c394cbbc2de3ea547a3943e719c07",
-                      "size":  5356077
+                      "sha256":  "fa4fd570d3973e7ef9f511a3e9ebc568eca2415e4c10275a4101161f8ca5801b",
+                      "size":  5359295
                   },
                   {
                       "path":  "data/images/topbuttons/analyticsSelectorWidget.png",
@@ -102915,18 +102915,18 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/bestiary.lua",
-                      "sha256":  "c47241ccac69b83cde16a6c44983d10109b68111f0c6e28b5a0bb93253b9af2c",
-                      "size":  38630
+                      "sha256":  "9a40a402e1b61298c1fc6f9b85d343ef6fae0942ca339c32369339152eae8a9b",
+                      "size":  38772
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/boss_slots.lua",
-                      "sha256":  "4e907a16d89123280a99f5564f88657cdb3b473c2dc4a7b96dc634ca00679d27",
-                      "size":  20346
+                      "sha256":  "df031cc9ce58d4f445b169dbae23229f71b81c5f0ac9f1f0d6d336dda3f86cdf",
+                      "size":  20436
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/bosstiary.lua",
-                      "sha256":  "1d59a43972cf660376576e2b9b7236f5da6786c471d7ea2d1b0ee06d7f0e6c5e",
-                      "size":  13231
+                      "sha256":  "b1b144304188ca18d52b490381db0eea490d540e33989190f14f150254997542",
+                      "size":  13321
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/character.lua",
@@ -104860,13 +104860,13 @@
                   },
                   {
                       "path":  "mods/game_trackers/classes/bestiary_tracker.lua",
-                      "sha256":  "1db5169d7846085ff3ac1693393e2c0bc8a5dada6c4ed2918c2c61a6806c78db",
-                      "size":  12912
+                      "sha256":  "552011489d8b02aa4ed5977edb290ef4aeb1f278216bfad15c3b1cb971560a95",
+                      "size":  13220
                   },
                   {
                       "path":  "mods/game_trackers/classes/boss_tracker.lua",
-                      "sha256":  "c6c0f5123547eb71a96a535ca05f7088e918b211d3e7fc47f482ea0a94c43d00",
-                      "size":  12680
+                      "sha256":  "81171d6f3c4d15e39cf44af59192990427015c19d005a0563ed8cffea6aaa284",
+                      "size":  12598
                   },
                   {
                       "path":  "mods/game_trackers/classes/imbuement_tracker.lua",
@@ -104940,8 +104940,8 @@
                   },
                   {
                       "path":  "mods/game_wheel/classes/wheelclass.lua",
-                      "sha256":  "daea10c229a1734ac258989b3e5bf8382f8360cff1153b9eabd3b770e7e12a4e",
-                      "size":  108413
+                      "sha256":  "d063751c81bac091ea10a7d4010f2324a6506e22e4c2200ed6ca3f7ebf72c330",
+                      "size":  108939
                   },
                   {
                       "path":  "mods/game_wheel/classes/wheelnode.lua",
@@ -106415,8 +106415,8 @@
                   },
                   {
                       "path":  "modules/game_playerdeath/playerdeath.lua",
-                      "sha256":  "c704644c40142fc3e775c23240b1a9ce4b77f5b5344cbf642878fe243d4b4ca8",
-                      "size":  5321
+                      "sha256":  "71eb240006d2352be3473e64ba5d1e1b316f8124fd4970da6bb794bf6dd5485f",
+                      "size":  6252
                   },
                   {
                       "path":  "modules/game_playerdeath/playerdeath.otmod",
@@ -106985,17 +106985,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "71505731725e46abfafc8a7450a1526fa4a54e44e18e4f6f12598f01cb1ae729",
-                      "size":  36995584
+                      "sha256":  "484b2b942b9d7c7d250d8840c4df54c1e8d3168c9bddc2eb723faad5207c2d54",
+                      "size":  36998656
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "34044f551b7f15ce72a688b6624e1a73face9282bdfc7dda9ef9d4e7e985df52",
-                      "size":  29134336
+                      "sha256":  "878acd120491284620fbb358443f61464e8731089d4daba23dad8692d739c262",
+                      "size":  29137408
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "41d0b960c3c2fff9ff129387695a230a75fcf158405d3c3bca11ec3d94a19aa5",
+                      "sha256":  "d4487538974e5f18ed1474f0435c63e031d5661a4a1ba729f931358170dce108",
                       "size":  8
                   }
               ]

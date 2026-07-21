@@ -383,9 +383,9 @@ function BosstiarySlot.showBoostedSlot(data)
 		slotPanel.slot3.monster.outfit:setAnimate(true)
 	end
 
-	slotPanel.slot3.first:setTooltip(data.kills .. " / " .. baseKill.firstUnlock)
-	slotPanel.slot3.second:setTooltip(data.kills .. " / " .. baseKill.secondUnlock)
-	slotPanel.slot3.third:setTooltip(data.kills .. " / " .. baseKill.thirdUnlock)
+	slotPanel.slot3.first:setTooltip(tr("%s / %s", comma_value(data.kills), comma_value(baseKill.firstUnlock)))
+	slotPanel.slot3.second:setTooltip(tr("%s / %s", comma_value(data.kills), comma_value(baseKill.secondUnlock)))
+	slotPanel.slot3.third:setTooltip(tr("%s / %s", comma_value(data.kills), comma_value(baseKill.thirdUnlock)))
 
 	local percent = data.kills * 100 / baseKill.firstUnlock
 	slotPanel.slot3.first:setPercent(percent)
