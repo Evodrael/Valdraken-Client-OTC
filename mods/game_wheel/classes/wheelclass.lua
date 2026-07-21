@@ -1780,6 +1780,14 @@ function WheelOfDestiny.create(playerId, canView, changeState, vocationId, point
   WheelOfDestiny.scrollPoints = scrollPoints
   WheelOfDestiny.usedPromotionScrolls = usedPromotionScrolls
   WheelOfDestiny.equipedGems = equipedGems
+  -- push_luavalue(GemData) manda `locked` como inteiro 0/1 e em Lua o 0 e
+  -- verdadeiro, entao todo teste de cadeado (setChecked, o filtro "Locked only"
+  -- e o bloqueio de Switch Domain/Dismantle) enxergava TODA gema como trancada.
+  -- Normaliza uma vez aqui; create() tambem e chamado de novo com a lista ja
+  -- normalizada (presets), por isso os dois formatos sao aceitos.
+  for _, gem in pairs(atelierGems or {}) do
+    gem.locked = (gem.locked == true) or (gem.locked == 1)
+  end
   WheelOfDestiny.atelierGems = atelierGems
   WheelOfDestiny.basicModsUpgrade = basicUpgraded
   WheelOfDestiny.supremeModsUpgrade = supremeUpgraded

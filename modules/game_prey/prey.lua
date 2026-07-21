@@ -187,7 +187,8 @@ function init()
     onPreyWildcard = onPreyWildcard,
     onPreyInactive = onPreyInactive,
     onPreyActive = onPreyActive,
-    onPreySelection = onPreySelection
+    onPreySelection = onPreySelection,
+    onPreyListSelection = onPreyListSelection
   })
 
   preyWindow = g_ui.displayUI('prey')
@@ -316,7 +317,8 @@ function terminate()
     onPreyWildcard = onPreyWildcard,
     onPreyInactive = onPreyInactive,
     onPreyActive = onPreyActive,
-    onPreySelection = onPreySelection
+    onPreySelection = onPreySelection,
+    onPreyListSelection = onPreyListSelection
   })
   if preyButton then
     preyButton:destroy()
@@ -1162,7 +1164,7 @@ function updateSearchWildcard(prey)
       monsterLabel:setText(string.capitalize(creature[1]))
     end
 
-    if isHuntingActive(creature[1]) then
+    if creature and isHuntingActive(creature[1]) then
       monsterLabel.icon:setVisible(true)
       monsterLabel:setTextOffset("21 0")
     else
@@ -1239,8 +1241,16 @@ function onWildcardValueChange(scrollbar, value, delta, slot)
   for i, monsterLabel in ipairs(itemsPool[slot]) do
     local itemId = value > 0 and (startItem + i - 1) or (startItem + i)
     local monsterInfo = currentRaces[slot][itemId]
+    if monsterInfo == nil then
+      monsterLabel:setBackgroundColor("alpha")
+      monsterLabel:setText('')
+      monsterLabel.icon:setVisible(false)
+      monsterLabel:setFocusable(false)
+      goto continue
+    end
 
     local color = ((itemId % 2 == 0) and '#484848' or '#414141')
+    monsterLabel:setFocusable(true)
     monsterLabel:setBackgroundColor(color)
     monsterLabel.background = color
     monsterLabel:setId(monsterInfo)
@@ -1257,13 +1267,14 @@ function onWildcardValueChange(scrollbar, value, delta, slot)
       lastSelectedLabel[slot] = monsterLabel
     end
 
-    if isHuntingActive(creature[1]) then
+    if creature and isHuntingActive(creature[1]) then
       monsterLabel.icon:setVisible(true)
       monsterLabel:setTextOffset("21 0")
     else
       monsterLabel.icon:setVisible(false)
       monsterLabel:setTextOffset("0 0")
     end
+    :: continue ::
   end
 end
 
@@ -1310,7 +1321,7 @@ function updateWildCardWindow()
       if creature then
         monster:setText(string.capitalize(creature[1]))
       end
-      local isInHunting = isHuntingActive(creature[1])
+      local isInHunting = creature and isHuntingActive(creature[1]) or false
       monster.icon:setVisible(isInHunting)
       monster:setTextOffset(isInHunting and "21 0" or "0 0")
       monster.onHoverChange = function(monster, hovered) onSpecialHover("selectionList", bonusType, bonusValue) end
@@ -1327,11 +1338,39 @@ function updateWildCardWindow()
   end
 end
 
+-- The server (Canary) answers PREY_ACTION_REQUEST_ALL_MONSTERS with
+-- PreyDataState_ListSelection (5), which the client parser reports as
+-- onPreyListSelection -- not as onPreyWildcard (state 6, never sent).
+-- Without this bridge the 5 wildcards were spent and no window ever opened.
+function onPreyListSelection(slot, races, timeUntilFreeReroll, lockType)
+  local prey = preyWindow["slot" .. (slot + 1)]
+  if not prey then
+    return
+  end
+
+  onPreyWildcard(slot, races, timeUntilFreeReroll, lockType, prey.bonusType or 0, prey.bonusValue or 0, prey.bonusGrade or 0)
+end
+
 function onPreyWildcard(slot, races, timeUntilFreeReroll, lockType, bonusType, bonusValue, bonusGrade)
   local prey = preyWindow["slot" .. (slot + 1)]
   if not prey then
     return
   end
+
+  if creatureList == nil then
+    creatureList = g_things.getMonsterList()
+  end
+
+  -- The server sends its whole bestiary; race ids missing from the client's
+  -- staticdata would leave creatureList[raceId] nil and blow up the sorting
+  -- and the label filling below.
+  local knownRaces = {}
+  for _, raceId in ipairs(races) do
+    if creatureList[raceId] then
+      table.insert(knownRaces, raceId)
+    end
+  end
+  races = knownRaces
 
   itemListMin[slot] = 0
   itemListMax[slot] = #races
@@ -1351,6 +1390,12 @@ function onPreyWildcard(slot, races, timeUntilFreeReroll, lockType, bonusType, b
 
   prey.wildcard.monsterList:focusChild(nil)
   prey.wildcard.monsterList:destroyChildren()
+
+  -- a stale selection from a previous opening would re-focus a label that no
+  -- longer exists and re-enable the confirm button with the wrong race id
+  selectedMonster[slot] = nil
+  lastSelectedLabel[slot] = nil
+  searchFilterText = ''
 
   local count = 0
   for i = 1, poolSize[slot] do
@@ -1372,9 +1417,13 @@ function onPreyWildcard(slot, races, timeUntilFreeReroll, lockType, bonusType, b
   preyPanel.onHoverChange = function(preyPanel, hovered) onSpecialHover("selectionList", bonusType, bonusValue) end
 
   monsterList = prey.wildcard.monsterList
+  prey.wildcard.choose.button.choosePreyButton:setOn(false)
   prey.wildcard.choose.button.choosePreyButton:setActionId(slot + 1)
   prey.wildcard.choose.button.choosePreyButton.onClick = function()
-    return g_game.preyAction(slot, 4, selectedMonster[slot])
+    if not selectedMonster[slot] then
+      return
+    end
+    return g_game.preyAction(slot, PREY_ACTION_CHANGE_FROM_ALL, selectedMonster[slot])
   end
 
   prey.lockType = lockType
