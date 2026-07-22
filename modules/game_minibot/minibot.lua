@@ -1974,6 +1974,18 @@ function onGameWindowPresetnamgeChange(widget, ignoreSave)
     return
   end
 
+  -- Gravar a escolha nao depende de haver preset selecionado. Enquanto isto vinha
+  -- depois da busca pelo preset (que retornava cedo quando nao havia nenhum),
+  -- marcar a opcao sem preset selecionado era silenciosamente esquecido.
+  if not(ignoreSave) then
+    setSettingsValue(true, 'show_preset_name', widget:isChecked())
+  end
+
+  local panel = modules.game_interface.getMiniBotPresetPanel and modules.game_interface.getMiniBotPresetPanel()
+  if panel == nil then
+    return
+  end
+
   local currentPresetName = nil
   for _, c in ipairs(MiniBotMiniWindow.presets.list:getChildren()) do
     if c.selectedPreset then
@@ -1982,25 +1994,17 @@ function onGameWindowPresetnamgeChange(widget, ignoreSave)
     end
   end
 
-  if currentPresetName == nil then
-    return
-  end
-
-  if not(ignoreSave) then
-    setSettingsValue(true, 'show_preset_name', widget:isChecked())
-  end
-
-  local panel = modules.game_interface.getMiniBotPresetPanel and modules.game_interface.getMiniBotPresetPanel()
-  if panel ~= nil then
-    if widget:isChecked() then
-      panel:show()
-      panel:setMarginTop(7)
-      panel:setText(currentPresetName)
-    else
-      panel:hide()
-      panel:setMarginTop(0)
-      panel:clearText()
-    end
+  -- Esconder nao precisa de nome, so o mostrar. Sem preset selecionado o painel
+  -- fica escondido; ao escolher um, onClickPresetEntry -> setPresetNameOnPanel
+  -- chama isto de novo e o nome aparece.
+  if widget:isChecked() and currentPresetName ~= nil then
+    panel:show()
+    panel:setMarginTop(7)
+    panel:setText(currentPresetName)
+  else
+    panel:hide()
+    panel:setMarginTop(0)
+    panel:clearText()
   end
 end
 

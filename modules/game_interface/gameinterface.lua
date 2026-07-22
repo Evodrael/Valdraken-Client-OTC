@@ -24,6 +24,7 @@ gameLeftLockPanel = nil
 backgroundPanel = nil
 voipOverlay = nil
 miniBotPanel = nil
+miniBotPresetPanel = nil
 miniBotTimerPanel = nil
 pendingHorizontalLeftHeight = 0
 pendingHorizontalRightHeight = 0
@@ -84,6 +85,7 @@ function init()
   gameLeftActionPanel = gameRootPanel:getChildById('gameLeftActionPanel')
   voipOverlay = gameRootPanel:recursiveGetChildById('voipOverlay')
   miniBotPanel = gameRootPanel:recursiveGetChildById('miniBotPanel')
+  miniBotPresetPanel = gameRootPanel:recursiveGetChildById('miniBotPreset')
   miniBotTimerPanel = gameRootPanel:recursiveGetChildById('miniBotTimerPanel')
 
   gameBottomLockPanel = gameRootPanel:recursiveGetChildById('bottomLock')
@@ -1642,6 +1644,14 @@ end
 
 function getMiniBotPanel()
   return miniBotPanel
+end
+
+-- O widget 'miniBotPreset' sempre existiu no gameinterface.otui, mas nunca teve
+-- acessor. O MiniBot chama isto com um `and` de guarda
+-- (onGameWindowPresetnamgeChange), entao a ausencia da funcao nao dava erro: o
+-- panel virava nil e a opcao "mostrar nome do preset" simplesmente nao fazia nada.
+function getMiniBotPresetPanel()
+  return miniBotPresetPanel
 end
 
 function getMiniBotTimerPanel()
