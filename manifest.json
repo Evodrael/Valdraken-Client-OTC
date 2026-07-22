@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.30",
-    "generated":  "2026-07-21T19:44:05-03:00",
+    "version":  "15.24.31",
+    "generated":  "2026-07-22T01:57:45-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -105875,13 +105875,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
-                      "sha256":  "48d990399fe937a6633ace7b5336e8bd10190cffc4af26fa74b3aa3410cc5343",
-                      "size":  24815
+                      "sha256":  "475f9841924e4b9a44eae03aa5afc8b0ed80305a808c0331920043704baf72e0",
+                      "size":  28714
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "e4f353c50f935ea50948d76c68f6352570eccd6409d6f79e6107163690b98df0",
-                      "size":  45343
+                      "sha256":  "b2569fcd4b2543af6c7b709d908de5b4a12d4928dc54be7b64b3394795363435",
+                      "size":  60210
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -106065,13 +106065,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "19af8754b14e7020f467a28b4745a4b2743319ad1dbf6c94e1d42401820bee1a",
-                      "size":  41643
+                      "sha256":  "ac9be76d10eb64fc7f320e1d81fc9f570f60136dc47e4dbada33c0435511fd31",
+                      "size":  30891
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
-                      "sha256":  "c8f4705082b7a67fc1e105093b6685c0553feaddb915113524ef09604f3562cb",
-                      "size":  16099
+                      "sha256":  "48c21ad6c9d8ca4e53f5284e3c45b4d67fb394d6324c15905578ba7e43f00323",
+                      "size":  12566
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_manashield.lua",
@@ -106995,7 +106995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "d4487538974e5f18ed1474f0435c63e031d5661a4a1ba729f931358170dce108",
+                      "sha256":  "00f14a42d002bbb341373c741423dad4d8bdac2a48c313f105e585f724b39b41",
                       "size":  8
                   }
               ]

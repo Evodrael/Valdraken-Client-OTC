@@ -31,15 +31,55 @@ local function _saveMiniBotSettings()
   end
 end
 
--- Auto Follow tick (Support > General). Declared here so that terminate(), which
--- is defined above the rest of the runtime, can stop it.
+-- Auto Follow / Auto Fishing ticks (Support > General). Declared here so that
+-- terminate(), which is defined above the rest of the runtime, can stop them.
 local autoFollowEvent = nil
+local autoFishingEvent = nil
+local autoFishingWarning = nil
+
+-- Estado do Auto Follow. O follow do servidor (g_game.follow) nao serve para
+-- acompanhar troca de andar: ele e cancelado assim que o alvo sai da tela ou
+-- muda de piso. Entao o rastro do alvo e a caminhada sao feitos aqui.
+local followLastPos = nil     -- ultimo SQM conhecido do alvo
+local followPrevPos = nil     -- SQM anterior (de onde ele saiu)
+local followWalkDest = nil    -- ultimo destino enviado ao autoWalk
+local followWalkRetry = 0     -- freio para nao refazer a mesma rota falha em loop
+local followRecoverPos = nil  -- SQM que estamos tentando pisar para reencontrar o alvo
+local followRecoverStage = 0
+local followRecoverNext = 0   -- so avanca de estagio depois deste instante
+local followRecoverDeadline = 0
+local followFloorHint = false -- vimos o alvo trocar de andar?
+local followWarning = nil
+local followTargetName = nil  -- nome do alvo em minusculas; nil = follow desligado
+
+local function resetAutoFollowState()
+  followTargetName = nil
+  followLastPos = nil
+  followPrevPos = nil
+  followWalkDest = nil
+  followWalkRetry = 0
+  followRecoverPos = nil
+  followRecoverStage = 0
+  followRecoverNext = 0
+  followRecoverDeadline = 0
+  followFloorHint = false
+  followWarning = nil
+end
 
 local function stopAutoFollow()
   if autoFollowEvent ~= nil then
     removeEvent(autoFollowEvent)
     autoFollowEvent = nil
   end
+  resetAutoFollowState()
+end
+
+local function stopAutoFishing()
+  if autoFishingEvent ~= nil then
+    removeEvent(autoFishingEvent)
+    autoFishingEvent = nil
+  end
+  autoFishingWarning = nil
 end
 
 local function updateGoldBalanceText(bankBalance, inventoryBalance)
@@ -540,10 +580,17 @@ function init()
     onPartyMembersName = onPartyMembersName,
     onCaveBotTimestamp = onCaveBotTimestamp
   })
+
+  -- Rastro do Auto Follow. Em Creature, nao em LocalPlayer: quem interessa e o
+  -- jogador seguido, e o handler sai cedo enquanto nao ha alvo definido.
+  connect(Creature, {
+    onPositionChange = onFollowCreatureMove
+  })
 end
 
 function terminate()
   stopAutoFollow()
+  stopAutoFishing()
 
   if unbindMinibotHotkeys then
     unbindMinibotHotkeys()
@@ -564,6 +611,10 @@ function terminate()
   disconnect(LocalPlayer, {
     onPartyMembersName = onPartyMembersName,
     onCaveBotTimestamp = onCaveBotTimestamp
+  })
+
+  disconnect(Creature, {
+    onPositionChange = onFollowCreatureMove
   })
 
   for _, c in ipairs(MiniBotMiniWindow.tabs:getChildren()) do
@@ -1020,13 +1071,260 @@ local function findPlayerByName(name)
   end
 
   name = name:lower()
-  for _, creature in ipairs(g_map.getSpectators(player:getPosition(), false)) do
+  -- multiFloor = true: e assim que o follow enxerga o alvo no degrau de cima/baixo
+  -- logo depois de ele subir ou descer. Com o modo de um andar so, a troca de piso
+  -- seria indistinguivel de "saiu da tela" e o rastro nunca marcaria o degrau.
+  for _, creature in ipairs(g_map.getSpectators(player:getPosition(), true)) do
     if creature:isPlayer() and not(creature:isLocalPlayer()) and creature:getName():lower() == name then
       return creature
     end
   end
 
   return nil
+end
+
+-- Ritmo do follow. 250ms e o suficiente: o destino so muda quando o alvo troca
+-- de SQM, e e a troca de destino (nao o tick) que dispara um autoWalk novo.
+local AUTO_FOLLOW_TICK = 250
+-- Depois de um passo manual (setas/WASD) o follow para de agir por um instante,
+-- senao o Assistente e o jogador brigam pelo controle do personagem.
+local AUTO_FOLLOW_MANUAL_PAUSE = 1200
+-- Tempo entre as tentativas de recuperacao, e teto para chegar ao SQM alvo.
+local AUTO_FOLLOW_RECOVER_STEP = 1200
+local AUTO_FOLLOW_RECOVER_TIMEOUT = 15000
+local AUTO_FOLLOW_RETRY = 1000
+local AUTO_FOLLOW_ROPE_ID = 3003 -- rope (data/items/items.xml do servidor)
+
+local function samePos(a, b)
+  return a ~= nil and b ~= nil and a.x == b.x and a.y == b.y and a.z == b.z
+end
+
+local function posDistance(a, b)
+  return math.max(math.abs(a.x - b.x), math.abs(a.y - b.y))
+end
+
+local function isFollowWalkable(pos)
+  if pos.x < 0 or pos.y < 0 then
+    return false
+  end
+
+  local tile = g_map.getTile(pos)
+  -- isWalkable(false) considera criaturas: nao adianta mirar num SQM ocupado.
+  return tile ~= nil and tile:isWalkable(false) and tile:isPathable()
+end
+
+-- O SQM vizinho ao alvo que fica mais perto de nos. Mirar no SQM do proprio alvo
+-- faria o findPath terminar em cima da criatura e o ultimo passo ser recusado.
+local function bestFollowTile(playerPos, targetPos)
+  local best, bestCost = nil, nil
+  for dx = -1, 1 do
+    for dy = -1, 1 do
+      if dx ~= 0 or dy ~= 0 then
+        local pos = { x = targetPos.x + dx, y = targetPos.y + dy, z = targetPos.z }
+        if isFollowWalkable(pos) then
+          -- Chebyshev e o custo real de passos; manhattan so desempata, para
+          -- preferir a aproximacao reta a diagonal.
+          local cost = posDistance(playerPos, pos) * 10
+                     + math.abs(playerPos.x - pos.x) + math.abs(playerPos.y - pos.y)
+          if bestCost == nil or cost < bestCost then
+            best, bestCost = pos, cost
+          end
+        end
+      end
+    end
+  end
+
+  return best
+end
+
+-- O rastro precisa de TODOS os SQMs do alvo, nao dos que o tick por acaso viu. Um
+-- passo com haste sai em ~150ms, abaixo do tick de 250ms: o SQM da escada e
+-- justamente o que se perde, e ai o `use` da recuperacao cairia no tile errado.
+-- Por isso quem alimenta o rastro e o onPositionChange de Creature.
+local function updateFollowTrail(pos)
+  if pos == nil or samePos(pos, followLastPos) then
+    return
+  end
+
+  followPrevPos = followLastPos
+  followLastPos = pos
+
+  if followPrevPos ~= nil and followPrevPos.z ~= pos.z then
+    followFloorHint = true
+  end
+end
+
+-- Global e conectado em Creature (nao em LocalPlayer): dispara para toda criatura
+-- que anda, entao sai cedo no caso comum.
+function onFollowCreatureMove(creature, newPos, _)
+  if followTargetName == nil or creature == nil or newPos == nil then
+    return
+  end
+
+  if not(creature:isPlayer()) or creature:isLocalPlayer() then
+    return
+  end
+
+  if creature:getName():lower() ~= followTargetName then
+    return
+  end
+
+  updateFollowTrail(newPos)
+end
+
+local function warnAutoFollow(reason, name)
+  if followWarning == reason then
+    return
+  end
+  followWarning = reason
+
+  local ptbr = getSettingsValue(false, 'language', 'ptbr') == 'ptbr'
+  local text
+  if reason == 'lost' then
+    if ptbr then
+      text = 'Follow automatico: perdi ' .. name .. ' de vista e nao achei por onde ele passou.'
+    else
+      text = 'Auto follow: lost sight of ' .. name .. ' and could not find where they went.'
+    end
+  else
+    if ptbr then
+      text = 'Follow automatico: ' .. name .. ' nao esta na sua tela.'
+    else
+      text = 'Auto follow: ' .. name .. ' is not on your screen.'
+    end
+  end
+
+  if modules.game_textmessage ~= nil then
+    modules.game_textmessage.displayFailureMessage(text)
+  end
+end
+
+local function followWalkTo(player, dest)
+  if dest == nil or samePos(player:getPosition(), dest) then
+    return
+  end
+
+  -- autoWalk manda a rota inteira num pacote e refaz o findPath: reemitir a cada
+  -- tick viraria flood de walk. So reemite quando o destino muda ou quando a
+  -- caminhada anterior ja terminou/falhou sem chegar la.
+  if samePos(followWalkDest, dest) then
+    if player:isAutoWalking() then
+      return
+    end
+
+    -- Destino repetido e caminhada parada = rota falhou (SQM bloqueado). Sem este
+    -- freio seriam 4 findPath por segundo tentando o mesmo caminho impossivel.
+    if g_clock.millis() < followWalkRetry then
+      return
+    end
+  end
+
+  followWalkDest = dest
+  followWalkRetry = g_clock.millis() + AUTO_FOLLOW_RETRY
+  player:autoWalk(dest)
+end
+
+local function clearFollowRecover()
+  followRecoverPos = nil
+  followRecoverStage = 0
+  followRecoverNext = 0
+  followRecoverDeadline = 0
+  followFloorHint = false
+end
+
+-- Recuperacao: o alvo sumiu (saiu da tela, subiu/desceu ou entrou num teleport).
+-- A ideia e ir pisar no SQM de onde ele saiu. Escada, buraco e teleport resolvem
+-- sozinhos so de pisar; escada de mao, bueiro e corda precisam de uma acao, que
+-- e tentada em escala depois que chegamos e nada aconteceu.
+--
+-- Nao ha classificacao de tile por id de proposito: a flag hasFloorChange do .dat
+-- nunca e preenchida no caminho protobuf/appearances que este client usa (so em
+-- protocolo < 7.80), e listas de id fixas seriam ids do Tibia global, que nao
+-- valem nos assets customizados do Valdraken.
+local function autoFollowRecover(player, name)
+  local ppos = player:getPosition()
+
+  if followRecoverPos == nil then
+    -- O ultimo SQM conhecido que esteja no NOSSO andar. Se o alvo trocou de piso,
+    -- followLastPos ja esta no andar novo e quem serve e o anterior: o SQM da
+    -- escada/buraco.
+    if followLastPos ~= nil and followLastPos.z == ppos.z then
+      followRecoverPos = followLastPos
+    elseif followPrevPos ~= nil and followPrevPos.z == ppos.z then
+      followRecoverPos = followPrevPos
+    else
+      warnAutoFollow('lost', name)
+      return
+    end
+
+    followRecoverStage = 0
+    followRecoverNext = 0
+    followRecoverDeadline = g_clock.millis() + AUTO_FOLLOW_RECOVER_TIMEOUT
+  end
+
+  if not(samePos(ppos, followRecoverPos)) then
+    if g_clock.millis() > followRecoverDeadline then
+      clearFollowRecover()
+      warnAutoFollow('lost', name)
+      return
+    end
+
+    followWalkTo(player, followRecoverPos)
+    return
+  end
+
+  -- Chegamos e o alvo continua sumido. Cada estagio precisa de um intervalo: o
+  -- servidor leva um tempo para responder, e sem isso os quatro seriam disparados
+  -- no mesmo segundo.
+  local now = g_clock.millis()
+  if now < followRecoverNext then
+    return
+  end
+  followRecoverNext = now + AUTO_FOLLOW_RECOVER_STEP
+
+  if followRecoverStage == 0 then
+    -- Pisamos e nada: talvez o alvo tenha entrado num SQM adiante que nao chegamos
+    -- a ver (teleport). Segue mais um passo na direcao em que ele andava.
+    followRecoverStage = 1
+    if followPrevPos ~= nil and followLastPos ~= nil and followPrevPos.z == followLastPos.z then
+      local ahead = {
+        x = followLastPos.x + (followLastPos.x - followPrevPos.x),
+        y = followLastPos.y + (followLastPos.y - followPrevPos.y),
+        z = followLastPos.z
+      }
+      if not(samePos(ahead, followLastPos)) and isFollowWalkable(ahead) then
+        followRecoverPos = ahead
+        followRecoverDeadline = now + AUTO_FOLLOW_RECOVER_TIMEOUT
+        return
+      end
+    end
+  end
+
+  -- Escada de mao, bueiro e corda so entram quando sabemos que o alvo trocou de
+  -- andar. Se ele apenas correu para fora da tela no mesmo piso, dar use no SQM
+  -- onde ele estava mexeria em alavanca, porta ou o que mais estivesse ali.
+  if followFloorHint then
+    local tile = g_map.getTile(ppos)
+    local thing = tile ~= nil and tile:getTopUseThing() or nil
+
+    if thing ~= nil and followRecoverStage <= 1 then
+      followRecoverStage = 2
+      g_game.use(thing) -- escada de mao / bueiro
+      return
+    end
+
+    if thing ~= nil and followRecoverStage == 2 then
+      followRecoverStage = 3
+      local rope = g_game.findPlayerItem(AUTO_FOLLOW_ROPE_ID, -1)
+      if rope ~= nil then
+        g_game.useWith(rope, thing)
+        return
+      end
+    end
+  end
+
+  clearFollowRecover()
+  warnAutoFollow('lost', name)
 end
 
 local function autoFollowTick()
@@ -1038,23 +1336,173 @@ local function autoFollowTick()
 
   local sAutoFollow = getSupportGeneralSettings()['auto_follow']
   if sAutoFollow == nil or not(sAutoFollow['enabled']) then
+    resetAutoFollowState()
     return
   end
 
+  autoFollowEvent = scheduleEvent(autoFollowTick, AUTO_FOLLOW_TICK)
+
   local name = sAutoFollow['name'] or ''
-  if name ~= '' then
-    -- g_game.follow() toggles: calling it with the creature we already follow
-    -- cancels the follow, so only act when the target is not the one we want.
+  if name == '' then
+    return
+  end
+
+  local player = g_game.getLocalPlayer()
+  if player == nil or player:isDead() then
+    return
+  end
+
+  -- game_walking marca cada passo manual em lastManualWalk. Usar esse valor evita
+  -- registrar teclas por conta propria (e brigar com os binds do modulo de andar).
+  local walking = modules.game_walking
+  if walking ~= nil and walking.lastManualWalk ~= nil
+     and g_clock.millis() - walking.lastManualWalk < AUTO_FOLLOW_MANUAL_PAUSE then
+    followWalkDest = nil
+    return
+  end
+
+  if player:isWalkLocked() then
+    return
+  end
+
+  local ppos = player:getPosition()
+  local target = findPlayerByName(name)
+  local tpos = target ~= nil and target:getPosition() or nil
+
+  -- Rede de seguranca: o rastro normal vem do onFollowCreatureMove, mas quem
+  -- aparece na tela ja parado nao dispara evento nenhum.
+  updateFollowTrail(tpos)
+
+  if tpos ~= nil and tpos.z ~= ppos.z then
+    followFloorHint = true
+  end
+
+  -- Alvo visivel e no mesmo andar: caminhada normal.
+  if tpos ~= nil and tpos.z == ppos.z then
+    clearFollowRecover()
+    followWarning = nil
+
+    -- Sobra do follow do servidor: ele andaria junto e brigaria com o autoWalk.
     local following = g_game.getFollowingCreature()
-    if following == nil or following:getName():lower() ~= name:lower() then
-      local creature = findPlayerByName(name)
-      if creature ~= nil then
-        g_game.follow(creature)
+    if following ~= nil and following:getId() == target:getId() then
+      g_game.follow(nil)
+    end
+
+    if posDistance(ppos, tpos) <= 1 then
+      followWalkDest = nil
+      return
+    end
+
+    followWalkTo(player, bestFollowTile(ppos, tpos) or tpos)
+    return
+  end
+
+  -- Alvo fora da tela ou em outro andar: tenta reencontrar pelo rastro.
+  if followLastPos == nil then
+    warnAutoFollow('offscreen', name)
+    return
+  end
+
+  autoFollowRecover(player, name)
+end
+
+-- Auto Fishing: usa a Mechanical Fishing Rod na Bath Tub a cada 2 segundos.
+-- Os dois ids sao fixos (nao ha selecao de item na tela), entao ficam aqui.
+local AUTO_FISHING_ROD_ID = 9306    -- Mechanical Fishing Rod (na backpack)
+local AUTO_FISHING_SPOT_ID = 26077  -- Bath Tub (na tela)
+local AUTO_FISHING_DELAY = 2000
+
+-- So conta o que esta na tela: a area visivel e 15x11 SQMs centrada no jogador,
+-- e no mesmo andar (usar a vara num tub de outro floor nao funciona).
+local function findAutoFishingSpot()
+  local player = g_game.getLocalPlayer()
+  if player == nil then
+    return nil
+  end
+
+  local pos = player:getPosition()
+  if pos == nil then
+    return nil
+  end
+
+  for dx = -7, 7 do
+    for dy = -5, 5 do
+      -- x/y sao uint16 do lado do C++: coordenada negativa na borda do mapa
+      -- daria wrap em vez de "tile inexistente".
+      local x, y = pos.x + dx, pos.y + dy
+      local tile = nil
+      if x >= 0 and y >= 0 then
+        tile = g_map.getTile({ x = x, y = y, z = pos.z })
+      end
+      if tile ~= nil then
+        for _, item in ipairs(tile:getItems()) do
+          if item:getId() == AUTO_FISHING_SPOT_ID then
+            return item
+          end
+        end
       end
     end
   end
 
-  autoFollowEvent = scheduleEvent(autoFollowTick, 1000)
+  return nil
+end
+
+-- O aviso so aparece quando o motivo muda: sem isso o tick de 2s viraria spam
+-- na tela enquanto o jogador anda ate a Bath Tub.
+local function warnAutoFishing(reason)
+  if autoFishingWarning == reason then
+    return
+  end
+  autoFishingWarning = reason
+
+  local ptbr = getSettingsValue(false, 'language', 'ptbr') == 'ptbr'
+  local text
+  if reason == 'rod' then
+    if ptbr then
+      text = 'Pesca automatica: voce precisa de uma Mechanical Fishing Rod numa mochila aberta.'
+    else
+      text = 'Auto fishing: you need a Mechanical Fishing Rod inside an open backpack.'
+    end
+  else
+    if ptbr then
+      text = 'Pesca automatica: nao ha nenhuma Bath Tub na sua tela.'
+    else
+      text = 'Auto fishing: there is no Bath Tub on your screen.'
+    end
+  end
+
+  if modules.game_textmessage ~= nil then
+    modules.game_textmessage.displayFailureMessage(text)
+  end
+end
+
+local function autoFishingTick()
+  autoFishingEvent = nil
+
+  if not(g_game.isOnline()) then
+    return
+  end
+
+  local sAutoFishing = getSupportGeneralSettings()['auto_fishing']
+  if sAutoFishing == nil or not(sAutoFishing['enabled']) then
+    return
+  end
+
+  -- findPlayerItem varre os slots do inventario e depois os containers ABERTOS:
+  -- com a mochila fechada a vara nao e encontrada, dai o texto do aviso.
+  local rod = g_game.findPlayerItem(AUTO_FISHING_ROD_ID, -1)
+  local spot = findAutoFishingSpot()
+
+  if rod == nil then
+    warnAutoFishing('rod')
+  elseif spot == nil then
+    warnAutoFishing('spot')
+  else
+    autoFishingWarning = nil
+    g_game.useWith(rod, spot)
+  end
+
+  autoFishingEvent = scheduleEvent(autoFishingTick, AUTO_FISHING_DELAY)
 end
 
 function reloadSupportRuntime()
@@ -1073,9 +1521,16 @@ function reloadSupportRuntime()
   end
 
   stopAutoFollow()
+  stopAutoFishing()
 
   if not(g_game.isOnline()) then
     return
+  end
+
+  local sAutoFishing = sList['auto_fishing']
+  if sAutoFishing ~= nil and sAutoFishing['enabled'] then
+    -- Primeiro tick imediato: e ele que avisa na hora se falta a vara ou a Bath Tub.
+    autoFishingEvent = scheduleEvent(autoFishingTick, 1)
   end
 
   local sAutoFollow = sList['auto_follow']
@@ -1083,7 +1538,14 @@ function reloadSupportRuntime()
     return
   end
 
-  autoFollowEvent = scheduleEvent(autoFollowTick, 1000)
+  local name = sAutoFollow['name'] or ''
+  if name == '' then
+    return
+  end
+
+  -- Liga o rastro (onFollowCreatureMove sai cedo enquanto isto for nil).
+  followTargetName = name:lower()
+  autoFollowEvent = scheduleEvent(autoFollowTick, 1)
 end
 
 function onPlayerDeath()
@@ -1122,6 +1584,7 @@ end
 
 function onGameEnd()
   stopAutoFollow()
+  stopAutoFishing()
 
   if MiniBotEditPresetMiniWindow ~= nil then
     MiniBotEditPresetMiniWindow:destroy()

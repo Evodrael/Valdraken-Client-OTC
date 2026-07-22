@@ -330,16 +330,16 @@ Sub-abas: **General** e **Mana Shield**.
 
 ### 9.1 General ([support_general.lua](pages/support_general.lua))
 Config em `settings['support_main']`. Utilidades automáticas:
-- **Auto Haste**: recasta o haste quando o buff acaba (opção **Ignore on PZ**).
 - **Auto change gold**: converte gold/platinum para a versão de maior valor ao acumular 100.
 - **Auto mount**: ao sair de PZ, mantém a montaria ativa. *(obs.: o rótulo no código está
   como "Auto change gold" por engano — o comportamento é de montaria.)*
-- **Auto eat**: come uma comida selecionada periodicamente.
+- **Auto Fishing** (`auto_fishing`): usa a **Mechanical Fishing Rod** (id 9306) na **Bath Tub**
+  (id 26077) a cada 2 s. Os dois ids são fixos, não há seleção de item.
 - **Auto training**: treina sozinho com uma exercise weapon e um tipo de dummy.
 - **Auto Bless** (`auto_bless`): ao morrer, envia `!bless` automaticamente no próximo login
   **deste personagem**.
-- **Auto Follow** (`auto_follow`): segue o jogador cujo nick está no campo ao lado, sempre que
-  ele estiver na tela.
+- **Auto Follow** (`auto_follow`): **anda atrás** do jogador cujo nick está no campo ao lado,
+  acompanhando escadas, buracos, teleports, escadas de mão e bueiros.
 - **Auto Reconnect** (`auto_reconnect`): se a conexão cair, refaz o login do personagem.
 
 > **O Auto Reconnect não é implementado aqui.** Quem reconecta é o `client_entergame`
@@ -360,16 +360,67 @@ Config em `settings['support_main']`. Utilidades automáticas:
 > Só religa em **queda de conexão**, não em logout manual, e só com o client aberto — a senha
 > (`G.password`) vive em memória, some ao fechar.
 
-> **Auto Bless e Auto Follow não têm módulo no motor.** Diferente das opções acima, elas são
-> 100% Lua e vivem em [minibot.lua](minibot.lua), não na página — o módulo da página só existe
-> enquanto a aba está aberta, e as duas precisam rodar com o Assistente fechado. Lá ficam:
+> **Auto Bless, Auto Follow e Auto Fishing não têm módulo no motor.** Diferente das opções acima,
+> elas são 100% Lua e vivem em [minibot.lua](minibot.lua), não na página — o módulo da página só
+> existe enquanto a aba está aberta, e as três precisam rodar com o Assistente fechado. Lá ficam:
 > `onPlayerDeath` (grava a flag `pending_bless`, por personagem e persistida, para sobreviver ao
-> logout), `sendPendingBless` (chamada por `onPlayerInfo`, já com o preset selecionado) e o tick
-> de 1s do follow (`reloadSupportRuntime`, religado pelo `reloadInternalModule` da página).
+> logout), `sendPendingBless` (chamada por `onPlayerInfo`, já com o preset selecionado), o tick
+> de 1s do follow e o tick de 2s da pesca (`reloadSupportRuntime`, religado pelo
+> `reloadInternalModule` da página).
 >
-> Cuidado ao mexer no follow: `g_game.follow()` **alterna** — chamar com a criatura que você já
-> segue **cancela** o follow. Por isso o tick compara com `g_game.getFollowingCreature()` antes
-> de agir; sem isso o follow pisca a cada ciclo.
+> O tick da pesca (`autoFishingTick`) procura a vara com `g_game.findPlayerItem` — que varre os
+> slots do inventário e depois os containers **abertos**, então com a mochila fechada a vara não é
+> encontrada — e a Bath Tub varrendo os tiles visíveis (15x11 SQMs, mesmo andar) com
+> `g_map.getTile`. Se faltar um dos dois, mostra um aviso via
+> `modules.game_textmessage.displayFailureMessage`, **uma vez por motivo** (`autoFishingWarning`):
+> sem esse controle o aviso repetiria a cada 2 s.
+
+> **Auto Haste (módulo 4) e Auto Eat (módulo 8) foram removidos** do painel em jul/2026. O código
+> C++ dos dois módulos continua no motor; o `reloadInternalModule` da página agora só chama
+> `resetModule` + `setModuleToggle(false)` para os dois, porque os toggles são estado de sessão e
+> presets antigos ainda carregam as chaves `haste` / `auto_eat` no `support_main`.
+>
+#### Auto Follow: como funciona (reescrito em jul/2026)
+
+O follow **não usa mais `g_game.follow()`**. O follow do servidor é cancelado assim que o alvo
+sai da tela ou troca de andar, então ele nunca acompanhava escada/teleport. Hoje o tick (250 ms,
+`autoFollowTick`) **anda por conta própria** com `localPlayer:autoWalk()`, que é o mesmo caminho
+do clique no mapa.
+
+- **Mesmo andar, alvo visível**: mira no SQM **vizinho** ao alvo mais perto de nós
+  (`bestFollowTile`), nunca no SQM do próprio alvo — o `findPath` trata o destino como caminhável
+  mesmo ocupado, e o último passo seria recusado pelo servidor. Para de andar a 1 SQM de distância.
+- **Alvo sumiu** (fora da tela, outro andar ou teleport): `autoFollowRecover` vai **pisar no SQM de
+  onde ele saiu**. Escada, buraco e teleport resolvem sozinhos só de pisar. Se pisar não resolveu,
+  escala: (1) mais um passo na direção em que ele andava — cobre o teleport que não chegamos a ver;
+  (2) `g_game.use` no tile — escada de mão e bueiro; (3) `useWith(rope, tile)` — corda (id 3003).
+
+> **Não há lista de ids de escada/teleport, e isso é de propósito.** A flag `hasFloorChange` do
+> ThingType **só é preenchida para protocolo < 7.80**; no caminho protobuf/appearances que este
+> client usa ela nunca é setada, então `Tile:hasFloorChange()` é sempre `false` aqui. E listas de id
+> fixas (como as do script do zerobot que inspirou isto) são ids do **Tibia global**, que não valem
+> nos assets customizados do Valdraken — é a mesma armadilha das listas de dummy do Auto Training.
+> Por isso a lógica é "vá até onde ele sumiu e tente", não "identifique o tile".
+
+Quatro detalhes que parecem opcionais e não são:
+
+- **O rastro vem de evento, não do tick.** `onFollowCreatureMove` é conectado em `Creature`
+  (`onPositionChange`) no `init()`. Um passo com haste sai em ~150 ms, abaixo do tick de 250 ms —
+  amostrar a posição no tick perde SQMs, e o que se perde é justamente o degrau da escada, fazendo
+  o `use` da recuperação cair no tile errado. O handler é global e sai cedo enquanto
+  `followTargetName` for `nil`. Conectar em `Creature` (não em `LocalPlayer`) é o que faz o hook
+  valer para instâncias `Player`, via a cadeia `Player.__index = Creature`.
+- `findPlayerByName` usa `g_map.getSpectators(pos, **true**)` (multi-andar). Com `false`, subir uma
+  escada seria indistinguível de sair da tela e o rastro nunca marcaria o degrau — escada de mão,
+  bueiro e corda parariam de funcionar.
+- `use`/corda só disparam com `followFloorHint` ligado (vimos o alvo mudar de `z`). Sem essa trava,
+  o alvo apenas correr para fora da tela faria o personagem dar `use` no SQM onde ele estava —
+  alavanca, porta, o que estivesse ali.
+- `followWalkTo` só reemite o `autoWalk` quando o **destino muda**, com um freio de 1 s quando a
+  rota falha. O `autoWalk` manda a rota inteira num pacote; chamar a cada tick vira flood de walk.
+
+A pausa manual lê `modules.game_walking.lastManualWalk` (o módulo de andar já grava o instante de
+cada passo por tecla). Registrar as teclas aqui brigaria com os binds do `game_walking`.
 
 ### 9.2 Mana Shield ([support_manashield.lua](pages/support_manashield.lua))
 Aciona/renova/remove Mana Shield automaticamente. Três blocos:

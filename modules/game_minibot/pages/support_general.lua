@@ -2,16 +2,10 @@ support_generalModule = {}
 
 local supportGeneralWindow = nil
 
-local hasteSpells = {
-    { id = 6, words = "utani hur", name = "Haste" },
-    { id = 39, words = "utani gran hur", name = "Strong Haste" },
-    { id = 134, words = "utamo tempo san", name = "Swift Foot" },
-    { id = 131, words = "utani tempo hur", name = "Charge" },
-}
-
-local foodAppend = {
-    
-}
+-- Auto Fishing: os ids sao fixos, o jogador nao escolhe item nenhum. Os mesmos
+-- valores estao em minibot.lua, que e quem roda o tick de 2s.
+local FISHING_ROD_ID = 9306    -- Mechanical Fishing Rod
+local FISHING_SPOT_ID = 26077  -- Bath Tub
 
 -- Armas de treino e dummies do Valdraken.
 --
@@ -131,27 +125,17 @@ function support_generalModule.init(widget)
 
     support_generalModule.loadSettings()
 
-    supportGeneralWindow.panel.autoHaste.frameBackground.onLeftClick = function()
-        supportGeneralWindow.dropDownMenu:setMarginLeft(48)
-        supportGeneralWindow.dropDownMenu:setMarginTop(65)
-        support_generalModule.openSpellCatcher(supportGeneralWindow.panel.autoHaste)
-    end
-
-    supportGeneralWindow.panel.autoEat.frameBackground.onLeftClick = function()
-        supportGeneralWindow.dropDownMenu:setMarginLeft(48)
-        supportGeneralWindow.dropDownMenu:setMarginTop(175)
-        support_generalModule.openItemCatcher(supportGeneralWindow.panel.autoEat)
-    end
-
+    -- 185 = topo do bloco autoTraining na lista atual. Ao adicionar/remover um
+    -- bloco acima dele, este valor tem de ser reajustado ou o dropdown abre torto.
     supportGeneralWindow.panel.autoTraining.frameBackground1.onLeftClick = function()
         supportGeneralWindow.dropDownMenu:setMarginLeft(48)
-        supportGeneralWindow.dropDownMenu:setMarginTop(265)
+        supportGeneralWindow.dropDownMenu:setMarginTop(185)
         support_generalModule.openItemTrainingCatcher(supportGeneralWindow.panel.autoTraining, 1)
     end
 
     supportGeneralWindow.panel.autoTraining.frameBackground2.onLeftClick = function()
         supportGeneralWindow.dropDownMenu:setMarginLeft(0)
-        supportGeneralWindow.dropDownMenu:setMarginTop(265)
+        supportGeneralWindow.dropDownMenu:setMarginTop(185)
         support_generalModule.openItemTrainingCatcher(supportGeneralWindow.panel.autoTraining, 2)
     end
 end
@@ -165,48 +149,40 @@ end
 function support_generalModule.reloadLanguage(language)
     if language == 'ptbr' then
         supportGeneralWindow.panel.title:setText('Geral')
-        supportGeneralWindow.panel.autoHaste.noVocation:setTooltip('Sua vocacao nao pode usar esta spell.')
-        supportGeneralWindow.panel.autoHaste.help:setTooltip('O AutoHaste detectara automaticamente quando seu bonus de velocidade acabar e usara a spell selecionada.')
-        supportGeneralWindow.panel.autoHaste.ignoreProtection:setText('Ignorar em PZ')
-        supportGeneralWindow.panel.autoHaste.ignoreProtection:setTextOffset('0 0')
-        supportGeneralWindow.panel.autoHaste.ignoreProteconMask:setMarginLeft(0)
         supportGeneralWindow.panel.changeGold.check:setText('Troca de coin automatico')
         supportGeneralWindow.panel.changeGold.help:setTooltip('Todas as suas moedas de gold/platinum serao automaticamente transformadas em sua versao mais valiosa quando acumuladas em 100 unidades.')
         supportGeneralWindow.panel.autoMount.check:setText('Montaria automatica')
         supportGeneralWindow.panel.autoMount.help:setTooltip('Ao sair de uma Protection Zone, o Assistente ira tentar manter sempre a montaria ativa no seu personagem.')
-        supportGeneralWindow.panel.autoEat.check:setText('Comer automaticamente')
-        supportGeneralWindow.panel.autoEat.help:setTooltip('Voce pode selecionar uma Food especifica para que seu personagem coma periodicamente, para mante-lo satisfeito.')
+        supportGeneralWindow.panel.autoFishing.check:setText('Pesca automatica')
+        supportGeneralWindow.panel.autoFishing.name:setText('Mechanical Fishing Rod + Bath Tub')
+        supportGeneralWindow.panel.autoFishing.help:setTooltip('Usa a Mechanical Fishing Rod da sua mochila na Bath Tub que estiver na sua tela, a cada 2 segundos.\nVoce precisa da vara numa mochila aberta e de uma Bath Tub na tela, senao recebe um aviso.')
         supportGeneralWindow.panel.autoTraining.check:setText('Treino automatico')
         supportGeneralWindow.panel.autoTraining.help:setTooltip('Voce pode selecionar uma Exercise Weapon especifica e um Dummy para que o Assistente inicie o treinamento automaticamente.')
         supportGeneralWindow.panel.autoBless.check:setText('Bless automatico')
         supportGeneralWindow.panel.autoBless.help:setTooltip('Ao morrer, o Assistente enviara automaticamente o comando !bless no proximo login deste personagem.')
         supportGeneralWindow.panel.autoFollow.check:setText('Follow automatico')
         supportGeneralWindow.panel.autoFollow.name:setPlaceholder('Digite o nome do jogador')
-        supportGeneralWindow.panel.autoFollow.help:setTooltip('O Assistente seguira o jogador com este nome sempre que ele estiver na sua tela.')
+        supportGeneralWindow.panel.autoFollow.help:setTooltip('O Assistente andara atras do jogador com este nome, acompanhando escadas, buracos, teleports e escadas de mao.\nSe voce andar com as setas ou WASD, o follow pausa por um instante para nao brigar pelo controle.')
         supportGeneralWindow.panel.autoReconnect.check:setText('Reconexao automatica')
         supportGeneralWindow.panel.autoReconnect.help:setTooltip('Se a conexao com o servidor cair, o client refaz o login deste personagem automaticamente. So funciona com o client aberto, e nao age em logout manual.')
 
 
     elseif language == 'enus' then
         supportGeneralWindow.panel.title:setText('General')
-        supportGeneralWindow.panel.autoHaste.noVocation:setTooltip('Your vocation cannot use this spell.')
-        supportGeneralWindow.panel.autoHaste.help:setTooltip('Auto Haste will automatically detect when your haste buff is gone and cast the selected spell.')
-        supportGeneralWindow.panel.autoHaste.ignoreProtection:setText('Ignore on PZ')
-        supportGeneralWindow.panel.autoHaste.ignoreProtection:setTextOffset('0 0')
-        supportGeneralWindow.panel.autoHaste.ignoreProteconMask:setMarginLeft(0)
         supportGeneralWindow.panel.changeGold.check:setText('Auto change gold')
         supportGeneralWindow.panel.changeGold.help:setTooltip('All your gold/platinum coins will be automatically transformed into their most valuable version when it stacks into 100 units.')
         supportGeneralWindow.panel.autoMount.check:setText('Auto change gold')
         supportGeneralWindow.panel.autoMount.help:setTooltip('When leaving a Protection Zone, the Assistant will try to always keep the mount active on your character.')
-        supportGeneralWindow.panel.autoEat.check:setText('Auto eat')
-        supportGeneralWindow.panel.autoEat.help:setTooltip('You can select a specific food so that your character will periodically eat it, to maintain you satisfied.')
+        supportGeneralWindow.panel.autoFishing.check:setText('Auto fishing')
+        supportGeneralWindow.panel.autoFishing.name:setText('Mechanical Fishing Rod + Bath Tub')
+        supportGeneralWindow.panel.autoFishing.help:setTooltip('Uses the Mechanical Fishing Rod from your backpack on the Bath Tub on your screen, every 2 seconds.\nYou need the rod inside an open backpack and a Bath Tub on screen, otherwise you get a warning.')
         supportGeneralWindow.panel.autoTraining.check:setText('Auto training')
         supportGeneralWindow.panel.autoTraining.help:setTooltip('You can select a specific exercise weapon and a dummy type, so that the Assistant will automatically start training.')
         supportGeneralWindow.panel.autoBless.check:setText('Auto bless')
         supportGeneralWindow.panel.autoBless.help:setTooltip('When you die, the Assistant will automatically send the !bless command on your next login with this character.')
         supportGeneralWindow.panel.autoFollow.check:setText('Auto follow')
         supportGeneralWindow.panel.autoFollow.name:setPlaceholder('Type player name')
-        supportGeneralWindow.panel.autoFollow.help:setTooltip('The Assistant will keep following the player with this name whenever they are on your screen.')
+        supportGeneralWindow.panel.autoFollow.help:setTooltip('The Assistant walks after the player with this name, keeping up through stairs, holes, teleports and ladders.\nIf you walk with the arrows or WASD, the follow pauses for a moment so it does not fight you for control.')
         supportGeneralWindow.panel.autoReconnect.check:setText('Auto reconnect')
         supportGeneralWindow.panel.autoReconnect.help:setTooltip('If the connection to the game server drops, the client logs this character back in automatically. Only works while the client stays open, and it does not act on a manual logout.')
 
@@ -220,36 +196,15 @@ function support_generalModule.saveSettings()
         settings['shortcuts'] = {}
     end
 
-    -- Haste
-    -- A spell escolhida fica guardada em spellInfoId. Antes ela era deduzida de
-    -- volta pelo x do image-clip do icone, e o icone nasce com "image-clip: 0 0 32 32"
-    -- no .otui: sem spell escolhida o x era 0, que getSpellRegularIdByImageClipX
-    -- resolve para o primeiro icone da folha (id 3, Ultimate Healing). Ou seja, so
-    -- marcar o check ja gravava "exura vita" como spell do Auto Haste.
-    local hasteSettings = {}
-    local spellId = supportGeneralWindow.panel.autoHaste.spellInfoId or 0
-    local spell = g_spells.getSpellInfoById(spellId)
-    if spell ~= nil then
-        hasteSettings['spell'] = spell.id
-        hasteSettings['reqmana'] = spell.mana
-    else
-        hasteSettings['spell'] = 0
-        hasteSettings['reqmana'] = 0
-    end
-    hasteSettings['enabled'] = supportGeneralWindow.panel.autoHaste.check:isChecked()
-    hasteSettings['ignorePz'] = supportGeneralWindow.panel.autoHaste.ignoreProtection:isChecked()
-    sList['haste'] = hasteSettings
-
     -- Change gold
     local changeGoldSettings = {}
     changeGoldSettings['enabled'] = supportGeneralWindow.panel.changeGold.check:isChecked()
     sList['change_gold'] = changeGoldSettings
 
-    -- Auto Eat
-    local autoEatSettings = {}
-    autoEatSettings['item'] = supportGeneralWindow.panel.autoEat.item:getItemId()
-    autoEatSettings['enabled'] = supportGeneralWindow.panel.autoEat.check:isChecked()
-    sList['auto_eat'] = autoEatSettings
+    -- Auto Fishing
+    local autoFishingSettings = {}
+    autoFishingSettings['enabled'] = supportGeneralWindow.panel.autoFishing.check:isChecked()
+    sList['auto_fishing'] = autoFishingSettings
 
     -- Auto Mount
     local autoMountSettings = {}
@@ -289,53 +244,26 @@ function support_generalModule.loadSettings()
     local sList = settings['support_main'] or {}
     local sShortcut = settings['shortcuts'] or {}
 
-    -- Haste
-    local hasteSettings = sList['haste'] or {}
-    supportGeneralWindow.panel.autoHaste.check.ignoreCallback = true
-    supportGeneralWindow.panel.autoHaste.check:setChecked(hasteSettings['enabled'] or false)
-    supportGeneralWindow.panel.autoHaste.ignoreProtection.ignoreCallback = true
-    supportGeneralWindow.panel.autoHaste.ignoreProtection:setChecked(hasteSettings['ignorePz'] or false)
-    supportGeneralWindow.panel.autoHaste.ignoreProtection.ignoreCallback = nil
-    support_generalModule.onHasteChange(supportGeneralWindow.panel.autoHaste.check)
-    supportGeneralWindow.panel.autoHaste.check.ignoreCallback = nil
-    local spell = g_spells.getSpellInfoById(hasteSettings['spell'] or 0)
-    if spell ~= nil then
-        supportGeneralWindow.panel.autoHaste.spellInfoId = spell.id
-        supportGeneralWindow.panel.autoHaste.spell:show()
-        supportGeneralWindow.panel.autoHaste.spell:setImageClip(g_spells.getSpellRegularImageClipById(spell.id))
-        supportGeneralWindow.panel.autoHaste.name:setText(spell.name)
-        supportGeneralWindow.panel.autoHaste.words:setText(spell.words)
-        supportGeneralWindow.panel.autoHaste.frameBackground:setTooltip(spell.name .. '\n\'' .. spell.words .. '\'')
-        if not(modules.game_actionbar.canSpellCast(spell)) then
-            supportGeneralWindow.panel.autoHaste.noVocation:show()
-        else
-            supportGeneralWindow.panel.autoHaste.noVocation:hide()
-        end
-    else
-        supportGeneralWindow.panel.autoHaste.spellInfoId = 0
-        supportGeneralWindow.panel.autoHaste.spell:hide()
-        supportGeneralWindow.panel.autoHaste.noVocation:hide()
-    end
-
     -- Change gold
     supportGeneralWindow.panel.changeGold.check.ignoreCallback = true
     supportGeneralWindow.panel.changeGold.check:setChecked(sList['change_gold'] ~= nil and sList['change_gold']['enabled'] or false)
     supportGeneralWindow.panel.changeGold.check.ignoreCallback = nil
 
-    -- Auto Eat
-    local autoEatSettings = sList['auto_eat'] or {}
-    supportGeneralWindow.panel.autoEat.check.ignoreCallback = true
-    supportGeneralWindow.panel.autoEat.check:setChecked(autoEatSettings['enabled'] or false)
-    support_generalModule.onAutoEatChange(supportGeneralWindow.panel.autoEat.check)
-    supportGeneralWindow.panel.autoEat.check.ignoreCallback = nil
-    local item = autoEatSettings['item'] or 0
-    if item > 0 then
-        supportGeneralWindow.panel.autoEat.item:show()
-        supportGeneralWindow.panel.autoEat.item:setItemId(item)
-        supportGeneralWindow.panel.autoEat.name:setText(supportGeneralWindow.panel.autoEat.item:getItem():getName())
-    else
-        supportGeneralWindow.panel.autoEat.item:hide()
+    -- Auto Fishing
+    -- Os dois icones sao so ilustrativos (nao ha selecao): mostram exatamente o
+    -- que o recurso exige. isValidDatId evita o thing nulo se o id nao existir
+    -- nos assets carregados.
+    local autoFishingSettings = sList['auto_fishing'] or {}
+    if g_things.isValidDatId(FISHING_ROD_ID, ThingCategoryItem) then
+        supportGeneralWindow.panel.autoFishing.rod:setItemId(FISHING_ROD_ID)
     end
+    if g_things.isValidDatId(FISHING_SPOT_ID, ThingCategoryItem) then
+        supportGeneralWindow.panel.autoFishing.spot:setItemId(FISHING_SPOT_ID)
+    end
+    supportGeneralWindow.panel.autoFishing.check.ignoreCallback = true
+    supportGeneralWindow.panel.autoFishing.check:setChecked(autoFishingSettings['enabled'] or false)
+    support_generalModule.onAutoFishingChange(supportGeneralWindow.panel.autoFishing.check)
+    supportGeneralWindow.panel.autoFishing.check.ignoreCallback = nil
 
     -- Auto Mount
     local autoMountSettings = sList['auto_mount'] or {}
@@ -455,55 +383,15 @@ function support_generalModule.onAutoFollowNameChange(widget)
     support_generalModule.reloadInternalModule()
 end
 
-function support_generalModule.onHasteChange(widget)
+function support_generalModule.onAutoFishingChange(widget)
     if widget:isChecked() then
-        supportGeneralWindow.panel.autoHaste.block:hide()
-        supportGeneralWindow.panel.autoHaste.spell:setOpacity(1)
-        supportGeneralWindow.panel.autoHaste.frameBackground:setPhantom(false)
-        supportGeneralWindow.panel.autoHaste.noVocation:setOpacity(1)
-        supportGeneralWindow.panel.autoHaste.noVocation:setPhantom(false)
-        supportGeneralWindow.panel.autoHaste.name:setOpacity(1)
-        supportGeneralWindow.panel.autoHaste.words:setOpacity(1)
-        supportGeneralWindow.panel.autoHaste.ignoreProtection:setEnabled(true)
+        supportGeneralWindow.panel.autoFishing.rod:setOpacity(1)
+        supportGeneralWindow.panel.autoFishing.spot:setOpacity(1)
+        supportGeneralWindow.panel.autoFishing.name:setOpacity(1)
     else
-        supportGeneralWindow.panel.autoHaste.block:show()
-        supportGeneralWindow.panel.autoHaste.spell:setOpacity(0.3)
-        supportGeneralWindow.panel.autoHaste.frameBackground:setPhantom(true)
-        supportGeneralWindow.panel.autoHaste.noVocation:setOpacity(0.5)
-        supportGeneralWindow.panel.autoHaste.noVocation:setPhantom(true)
-        supportGeneralWindow.panel.autoHaste.name:setOpacity(0.3)
-        supportGeneralWindow.panel.autoHaste.words:setOpacity(0.3)
-        supportGeneralWindow.panel.autoHaste.ignoreProtection:setEnabled(false)
-    end
-
-    if widget.ignoreCallback then
-        return
-    end
-
-    support_generalModule.saveSettings()
-    support_generalModule.reloadInternalModule()
-end
-
-function support_generalModule.onIgnoreProtectionChange(widget)
-    if widget.ignoreCallback then
-        return
-    end
-
-    support_generalModule.saveSettings()
-    support_generalModule.reloadInternalModule()
-end
-
-function support_generalModule.onAutoEatChange(widget)
-    if widget:isChecked() then
-        supportGeneralWindow.panel.autoEat.block:hide()
-        supportGeneralWindow.panel.autoEat.item:setOpacity(1)
-        supportGeneralWindow.panel.autoEat.frameBackground:setPhantom(false)
-        supportGeneralWindow.panel.autoEat.name:setOpacity(1)
-    else
-        supportGeneralWindow.panel.autoEat.block:show()
-        supportGeneralWindow.panel.autoEat.item:setOpacity(0.3)
-        supportGeneralWindow.panel.autoEat.frameBackground:setPhantom(true)
-        supportGeneralWindow.panel.autoEat.name:setOpacity(0.3)
+        supportGeneralWindow.panel.autoFishing.rod:setOpacity(0.3)
+        supportGeneralWindow.panel.autoFishing.spot:setOpacity(0.3)
+        supportGeneralWindow.panel.autoFishing.name:setOpacity(0.3)
     end
 
     if widget.ignoreCallback then
@@ -543,44 +431,14 @@ function support_generalModule.reloadInternalModule()
     local sList = settings['support_main'] or {}
     local sShortcut = settings['shortcuts'] or {}
 
-    -- Haste
-    g_minibot.resetModule(4) -- Healing Haste Module type
-    local sHaste = sList['haste']
-    if sHaste ~= nil then
-        local internal = {
-            item = 0,
-            use = false,
-            min = 0,
-            max = 0,
-            enabled = sHaste['enabled'],
-            ignorePz = sHaste['ignorePz'],
-            spell = "",
-
-            spellGroup = {},
-            spellId = {},
-
-            area = "",
-            target = "",
-            health = 0,
-            mana = 0,
-            hits = 0,
-            harmony = 0,
-            itemGroup = {},
-        }
-        local spell = g_spells.getSpellInfoById(sHaste['spell'])
-        if spell ~= nil then
-            internal.spell = spell.words
-            internal.reqmana = spell.mana
-            table.insert(internal.spellId, spell.id)
-            for _, group in ipairs(spell.groups) do
-                table.insert(internal.spellGroup, group)
-            end
-        end
-        g_minibot.addModule(4, internal)
-        g_minibot.setModuleToggle(4, sHaste['enabled']) -- Haste needs its toggle or it never runs
-    else
-        g_minibot.setModuleToggle(4, false)
-    end
+    -- Auto Haste (modulo 4) e Auto Eat (modulo 8) foram removidos do painel. Os
+    -- toggles do motor sao estado de sessao: presets antigos ainda guardam as
+    -- chaves 'haste'/'auto_eat', e sem desligar explicitamente aqui um preset que
+    -- os tinha ligados continuaria rodando no motor ate o proximo login.
+    g_minibot.resetModule(4)
+    g_minibot.setModuleToggle(4, false)
+    g_minibot.resetModule(8)
+    g_minibot.setModuleToggle(8, false)
 
     -- Change Gold
     g_minibot.resetModule(7) -- Change Gold Module type
@@ -608,34 +466,6 @@ function support_generalModule.reloadInternalModule()
         })
     end
     g_minibot.setModuleToggle(7, changeGoldEnabled) -- Change Gold Module type
-
-    -- Auto Eat
-    g_minibot.resetModule(8) -- Auto Eat Module type
-    local sAutoEat = sList['auto_eat']
-    if sAutoEat ~= nil then
-        local internal = {
-            item = sAutoEat['item'],
-            use = true,
-            enabled = true,
-
-            min = 0,
-            max = 0,
-            spell = "",
-            spellGroup = {},
-            spellId = {},
-            area = "",
-            target = "",
-            health = 0,
-            mana = 0,
-            hits = 0,
-            harmony = 0,
-            itemGroup = { 255 }, -- Multiuse
-        }
-        g_minibot.addModule(8, internal)
-        g_minibot.setModuleToggle(8, sAutoEat['enabled'])
-    else
-        g_minibot.setModuleToggle(8, false)
-    end
 
     -- Auto Training
     g_minibot.resetModule(12) -- Auto Training Module type
@@ -701,8 +531,8 @@ function support_generalModule.reloadInternalModule()
         g_minibot.setModuleToggle(22, false)
     end
 
-    -- Auto Bless and Auto Follow have no engine module: they are driven from
-    -- minibot.lua, which owns the death/login hooks and the follow tick.
+    -- Auto Bless, Auto Follow and Auto Fishing have no engine module: they are
+    -- driven from minibot.lua, which owns the death/login hooks and the ticks.
     modules.game_minibot.reloadSupportRuntime()
 end
 
@@ -720,100 +550,6 @@ function support_generalModule.closeCatcher()
     supportGeneralWindow.dropDownCatcher:hide()
     supportGeneralWindow.dropDownMenuScrollBar:hide()
     supportGeneralWindow.dropDownMenu:hide()
-end
-
-function support_generalModule.openSpellCatcher(spellBlock)
-    supportGeneralWindow.dropDownCatcher:show()
-    supportGeneralWindow.dropDownCatcher.onLeftClick = support_generalModule.closeCatcher
-
-    local windowCatcher = modules.game_minibot.getDropDownCatcher()
-    if windowCatcher ~= nil then
-        windowCatcher:show()
-        windowCatcher.onLeftClick = support_generalModule.closeCatcher
-    end
-
-    supportGeneralWindow.dropDownMenu:show()
-    supportGeneralWindow.dropDownMenuScrollBar:show()
-    supportGeneralWindow.dropDownMenu:destroyChildren()
-
-    for _, spell in ipairs(hasteSpells) do
-        local foundSpell = g_spells.getSpellInfoById(spell.id)
-        if foundSpell ~= nil then
-            local spellWidget = g_ui.createWidget('MiniBotSupportGeneralSpellDropDownEntry', supportGeneralWindow.dropDownMenu)
-            spellWidget:constructEnviorementVariables()
-
-            if not(modules.game_actionbar.canSpellCast(foundSpell)) then
-                spellWidget.block:show()
-                spellWidget.icon:setOpacity(0.3)
-            else
-                spellWidget.block:hide()
-                spellWidget.icon:setOpacity(1)
-            end
-
-            spellWidget.icon:setImageClip(g_spells.getSpellRegularImageClipById(foundSpell.id))
-            spellWidget:setTooltip(foundSpell.name .. '\n\'' .. foundSpell.words .. '\'')
-
-            spellWidget.onLeftClick = function()
-                if spellBlock ~= nil then
-                    spellBlock.spellInfoId = foundSpell.id
-                    spellBlock.spell:show()
-                    spellBlock.spell:setImageClip(g_spells.getSpellRegularImageClipById(foundSpell.id))
-                    spellBlock.name:setText(foundSpell.name)
-                    spellBlock.words:setText(foundSpell.words)
-                    spellBlock.frameBackground:setTooltip(foundSpell.name .. '\n\'' .. foundSpell.words .. '\'')
-                    if not(modules.game_actionbar.canSpellCast(foundSpell)) then
-                        spellBlock.noVocation:show()
-                    else
-                        spellBlock.noVocation:hide()
-                    end
-                end
-                support_generalModule.closeCatcher()
-                support_generalModule.saveSettings()
-            end
-        end
-    end
-end
-
-function support_generalModule.openItemCatcher(itemBlock)
-    supportGeneralWindow.dropDownCatcher:show()
-    supportGeneralWindow.dropDownCatcher.onLeftClick = support_generalModule.closeCatcher
-
-    local windowCatcher = modules.game_minibot.getDropDownCatcher()
-    if windowCatcher ~= nil then
-        windowCatcher:show()
-        windowCatcher.onLeftClick = support_generalModule.closeCatcher
-    end
-
-    supportGeneralWindow.dropDownMenu:show()
-    supportGeneralWindow.dropDownMenuScrollBar:show()
-    supportGeneralWindow.dropDownMenu:destroyChildren()
-
-    local thingTypes = g_things.findItemTypeByMarketCategory(MarketCategory.Food)
-    for _, item in ipairs(foodAppend) do
-        local thingType = g_things.getThingType(item)
-        if thingType ~= nil then
-            table.insert(thingTypes, thingType)
-        end
-    end
-
-    for _, thingType in ipairs(thingTypes) do
-        local itemWidget = g_ui.createWidget('MiniBotSupportGeneralItemDropDownEntry', supportGeneralWindow.dropDownMenu)
-        itemWidget:constructEnviorementVariables()
-
-        itemWidget.item:setItemId(thingType:getId())
-        itemWidget:setTooltip(thingType:getName())
-
-        itemWidget.onLeftClick = function()
-            if itemBlock ~= nil then
-                itemBlock.item:show()
-                itemBlock.item:setItemId(thingType:getId())
-                itemBlock.name:setText(thingType:getName())
-                itemBlock.frameBackground:setTooltip(thingType:getName())
-            end
-            support_generalModule.closeCatcher()
-            support_generalModule.saveSettings()
-        end
-    end
 end
 
 function support_generalModule.openItemTrainingCatcher(itemBlock, type)
