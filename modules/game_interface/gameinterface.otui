@@ -505,6 +505,29 @@ UIWidget
       cell-size: 19 21
       cell-spacing: 1
 
+  # Alca de arraste do hub do minibot: fica colada no topo do painel e permite
+  # reposiciona-lo. O comportamento de arraste e ligado em codigo
+  # (main_settings.setupMiniBotPanelDrag). Visibilidade sincronizada com o painel.
+  UIWidget
+    id: miniBotPanelGrip
+    anchors.left: miniBotPanel.left
+    anchors.right: miniBotPanel.right
+    anchors.bottom: miniBotPanel.top
+    height: 9
+    image-source: /resources/border_minibot_dropdown
+    image-border: 5
+    visible: false
+    change-cursor-image: true
+    cursor: pointer
+    !tooltip: 'Arraste para mover o painel'
+
+    UIWidget
+      id: gripDots
+      anchors.centerIn: parent
+      size: 12 3
+      background-color: #ffffff44
+      phantom: true
+
   UIWidget
     id: miniBotTimerPanel
     anchors.right: miniBotPanel.left

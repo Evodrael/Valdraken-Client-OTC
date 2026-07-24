@@ -1045,9 +1045,11 @@ UIWidget
           $!checked pressed:
             image-clip: 19 21 19 21
 
+      # Timer do Cave Bot removido das configuracoes (recurso desativado).
       UIWidget
         id: huntingRecorderTimer
-        height: 25
+        height: 0
+        visible: false
 
         UIWidget
           id: label

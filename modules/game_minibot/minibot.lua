@@ -1410,11 +1410,15 @@ end
 -- Os dois ids sao fixos (nao ha selecao de item na tela), entao ficam aqui.
 local AUTO_FISHING_ROD_ID = 9306    -- Mechanical Fishing Rod (na backpack)
 local AUTO_FISHING_SPOT_ID = 26077  -- Bath Tub (na tela)
+local AUTO_FISHING_RIVER_ID = 4601  -- Rio (na tela) - opcao extra quando nao ha Bath Tub
 local AUTO_FISHING_DELAY = 2000
+local AUTO_FISHING_RIVER_DELAY = 1000
 
 -- So conta o que esta na tela: a area visivel e 15x11 SQMs centrada no jogador,
--- e no mesmo andar (usar a vara num tub de outro floor nao funciona).
-local function findAutoFishingSpot()
+-- e no mesmo andar (usar a vara num alvo de outro floor nao funciona).
+-- includeGround: o rio (4601) costuma ser o ground do tile, entao precisa ser
+-- checado com getGround; a Bath Tub e um item empilhado (getItems).
+local function findFishingThingOnScreen(id, includeGround)
   local player = g_game.getLocalPlayer()
   if player == nil then
     return nil
@@ -1435,8 +1439,14 @@ local function findAutoFishingSpot()
         tile = g_map.getTile({ x = x, y = y, z = pos.z })
       end
       if tile ~= nil then
+        if includeGround then
+          local ground = tile:getGround()
+          if ground ~= nil and ground:getId() == id then
+            return ground
+          end
+        end
         for _, item in ipairs(tile:getItems()) do
-          if item:getId() == AUTO_FISHING_SPOT_ID then
+          if item:getId() == id then
             return item
           end
         end
@@ -1447,9 +1457,19 @@ local function findAutoFishingSpot()
   return nil
 end
 
+local function findAutoFishingSpot()
+  return findFishingThingOnScreen(AUTO_FISHING_SPOT_ID, false)
+end
+
+local function findAutoFishingRiver()
+  return findFishingThingOnScreen(AUTO_FISHING_RIVER_ID, true)
+end
+
 -- O aviso so aparece quando o motivo muda: sem isso o tick de 2s viraria spam
 -- na tela enquanto o jogador anda ate a Bath Tub.
-local function warnAutoFishing(reason)
+-- reason: 'rod' (falta a vara) ou 'spot' (falta o alvo). riverEnabled ajusta o
+-- texto de 'spot' para mencionar o rio, ja que nesse modo qualquer um dos dois serve.
+local function warnAutoFishing(reason, riverEnabled)
   if autoFishingWarning == reason then
     return
   end
@@ -1462,6 +1482,12 @@ local function warnAutoFishing(reason)
       text = 'Pesca automatica: voce precisa de uma Mechanical Fishing Rod numa mochila aberta.'
     else
       text = 'Auto fishing: you need a Mechanical Fishing Rod inside an open backpack.'
+    end
+  elseif riverEnabled then
+    if ptbr then
+      text = 'Pesca automatica: nao ha nenhuma Bath Tub nem rio na sua tela.'
+    else
+      text = 'Auto fishing: there is no Bath Tub or river on your screen.'
     end
   else
     if ptbr then
@@ -1492,17 +1518,30 @@ local function autoFishingTick()
   -- com a mochila fechada a vara nao e encontrada, dai o texto do aviso.
   local rod = g_game.findPlayerItem(AUTO_FISHING_ROD_ID, -1)
   local spot = findAutoFishingSpot()
+  local riverEnabled = sAutoFishing['river_enabled'] and true or false
+  local nextDelay = AUTO_FISHING_DELAY
 
   if rod == nil then
     warnAutoFishing('rod')
-  elseif spot == nil then
-    warnAutoFishing('spot')
-  else
+  elseif spot ~= nil then
+    -- Prioridade: Bath Tub (delay padrao de 2s).
     autoFishingWarning = nil
     g_game.useWith(rod, spot)
+  elseif riverEnabled then
+    -- Sem Bath Tub: tenta um rio na tela (delay de 1s).
+    local river = findAutoFishingRiver()
+    if river ~= nil then
+      autoFishingWarning = nil
+      g_game.useWith(rod, river)
+      nextDelay = AUTO_FISHING_RIVER_DELAY
+    else
+      warnAutoFishing('spot', true)
+    end
+  else
+    warnAutoFishing('spot', false)
   end
 
-  autoFishingEvent = scheduleEvent(autoFishingTick, AUTO_FISHING_DELAY)
+  autoFishingEvent = scheduleEvent(autoFishingTick, nextDelay)
 end
 
 function reloadSupportRuntime()

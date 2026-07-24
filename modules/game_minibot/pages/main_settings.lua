@@ -123,11 +123,9 @@ function main_settingsModule.init(widget)
     end
     onMiniBotGameWindowChangeKeyCombo('huntingRecorder', modules.client_options.getGeneralHotkeyCombo('assistantHuntingRecorderToggle'))
 
-    gameWindow = modules.game_minibot.getSettingsValue(true, 'huntingRecorderTimer_gamewindow', false)
-    mainSettingsWindow.settings.keysPanel.huntingRecorderTimer.button.ignoreCallback = true
-    mainSettingsWindow.settings.keysPanel.huntingRecorderTimer.button:setChecked(gameWindow)
-    main_settingsModule.onGameWindowChange(mainSettingsWindow.settings.keysPanel.huntingRecorderTimer.button)
-    mainSettingsWindow.settings.keysPanel.huntingRecorderTimer.button.ignoreCallback = nil
+    -- Timer do Cave Bot removido das configuracoes (opcao desativada no minibot).
+    -- A linha huntingRecorderTimer esta oculta no .otui e o painel de timer nunca
+    -- e mais exibido (ver reloadInternalModule).
 
     --gameWindow = modules.game_minibot.getSettingsValue(true, 'huntingExplorer_gamewindow', false)
     --mainSettingsWindow.settings.keysPanel.huntingExplorer.button.ignoreCallback = true
@@ -492,7 +490,8 @@ function main_settingsModule.reloadInternalModule()
     --local tankModeEnabled = sSettings['tankMode_enabled']
     local equipmentRingEnabled = sSettings['equipmentRing_enabled']
     local huntingRecorderEnabled = sSettings['huntingRecorder_enabled']
-    local huntingRecorderTimerEnabled = modules.game_minibot.getSettingsValue(true, 'huntingRecorderTimer_gamewindow', false)
+    -- Timer do Cave Bot desativado: nunca exibir o painel de contador no jogo.
+    local huntingRecorderTimerEnabled = false
     --local huntingExplorerEnabled = sSettings['huntingExplorer_enabled']
 
     g_minibot.setModuleToggle(0, shooterEnabled) -- Shooter (Attack)
@@ -732,6 +731,104 @@ function main_settingsModule.reloadInternalModule()
                 end
             end
         end
+
+        -- Aplica arraste + posicao salva do hub (e sincroniza a alca).
+        applyMiniBotPanelPlacement()
+    end
+end
+
+-- ============================================================================
+-- Hub do minibot movel: uma alca (grip) no topo do painel permite arrasta-lo
+-- para qualquer posicao. A posicao e salva de forma global (mesma para todos os
+-- personagens). Enquanto o jogador nao arrastar, o painel mantem as ancoras
+-- padrao (topo-direito).
+-- ============================================================================
+function setupMiniBotPanelDrag()
+    local grip = modules.game_interface.getMiniBotPanelGrip()
+    local panel = modules.game_interface.getMiniBotPanel()
+    if grip == nil or panel == nil then
+        return
+    end
+    if grip.dragSetup then
+        return
+    end
+    grip.dragSetup = true
+
+    grip.onMousePress = function(self, mousePos, button)
+        -- Clique direito reseta o painel para a posicao padrao (topo-direito).
+        if button == MouseRightButton then
+            modules.game_minibot.setSettingsValue(false, 'panelPosX', nil)
+            modules.game_minibot.setSettingsValue(false, 'panelPosY', nil)
+            main_settingsModule.reloadInternalModule()
+            return true
+        end
+
+        if button ~= MouseLeftButton then
+            return false
+        end
+        panel:breakAnchors()
+        self.dragging = true
+        self.moveRef = { x = mousePos.x - panel:getX(), y = mousePos.y - panel:getY() }
+        self:grabMouse()
+        return true
+    end
+
+    grip.onMouseMove = function(self, mousePos, moved)
+        if not self.dragging then
+            return false
+        end
+        panel:setPosition({ x = mousePos.x - self.moveRef.x, y = mousePos.y - self.moveRef.y })
+        panel:bindRectToParent()
+        return true
+    end
+
+    grip.onMouseRelease = function(self, mousePos, button)
+        if button ~= MouseLeftButton or not self.dragging then
+            return false
+        end
+        self.dragging = false
+        pcall(function() self:ungrabMouse() end)
+        modules.game_minibot.setSettingsValue(false, 'panelPosX', panel:getX())
+        modules.game_minibot.setSettingsValue(false, 'panelPosY', panel:getY())
+        return true
+    end
+end
+
+function applyMiniBotPanelPlacement()
+    local grip = modules.game_interface.getMiniBotPanelGrip()
+    local panel = modules.game_interface.getMiniBotPanel()
+    if grip == nil or panel == nil then
+        return
+    end
+
+    setupMiniBotPanelDrag()
+
+    -- A alca so aparece junto com o painel.
+    grip:setVisible(panel:isVisible())
+    if not panel:isVisible() then
+        return
+    end
+
+    local px = modules.game_minibot.getSettingsValue(false, 'panelPosX', nil)
+    local py = modules.game_minibot.getSettingsValue(false, 'panelPosY', nil)
+    if px ~= nil and py ~= nil then
+        -- Restaura a posicao salva (livre).
+        panel:breakAnchors()
+        panel:setPosition({ x = px, y = py })
+        panel:bindRectToParent()
+        -- Evita que a alca (acima do painel) fique fora do topo da tela.
+        local parent = panel:getParent()
+        if parent ~= nil and panel:getY() < parent:getY() + grip:getHeight() then
+            panel:setY(parent:getY() + grip:getHeight())
+        end
+    else
+        -- Sem posicao salva: (re)aplica as ancoras padrao (topo-direito). Isso
+        -- tambem faz o clique-direito de reset voltar o painel ao lugar original.
+        panel:breakAnchors()
+        panel:addAnchor(AnchorTop, 'miniBotPreset', AnchorBottom)
+        panel:addAnchor(AnchorRight, 'gameRightPanels', AnchorLeft)
+        panel:setMarginTop(7)
+        panel:setMarginRight(12)
     end
 end
 

@@ -156,6 +156,8 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoFishing.check:setText('Pesca automatica')
         supportGeneralWindow.panel.autoFishing.name:setText('Mechanical Fishing Rod + Bath Tub')
         supportGeneralWindow.panel.autoFishing.help:setTooltip('Usa a Mechanical Fishing Rod da sua mochila na Bath Tub que estiver na sua tela, a cada 2 segundos.\nVoce precisa da vara numa mochila aberta e de uma Bath Tub na tela, senao recebe um aviso.')
+        supportGeneralWindow.panel.autoFishing.riverCheck:setText('Tambem pescar em rios (sem Bath Tub)')
+        supportGeneralWindow.panel.autoFishing.riverHelp:setTooltip('Se nao houver Bath Tub na sua tela, usa a vara num rio que estiver na tela, a cada 1 segundo.')
         supportGeneralWindow.panel.autoTraining.check:setText('Treino automatico')
         supportGeneralWindow.panel.autoTraining.help:setTooltip('Voce pode selecionar uma Exercise Weapon especifica e um Dummy para que o Assistente inicie o treinamento automaticamente.')
         supportGeneralWindow.panel.autoBless.check:setText('Bless automatico')
@@ -176,6 +178,8 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoFishing.check:setText('Auto fishing')
         supportGeneralWindow.panel.autoFishing.name:setText('Mechanical Fishing Rod + Bath Tub')
         supportGeneralWindow.panel.autoFishing.help:setTooltip('Uses the Mechanical Fishing Rod from your backpack on the Bath Tub on your screen, every 2 seconds.\nYou need the rod inside an open backpack and a Bath Tub on screen, otherwise you get a warning.')
+        supportGeneralWindow.panel.autoFishing.riverCheck:setText('Also fish in rivers when no Bath Tub')
+        supportGeneralWindow.panel.autoFishing.riverHelp:setTooltip('If there is no Bath Tub on your screen, uses the rod on a river tile on your screen every 1 second.')
         supportGeneralWindow.panel.autoTraining.check:setText('Auto training')
         supportGeneralWindow.panel.autoTraining.help:setTooltip('You can select a specific exercise weapon and a dummy type, so that the Assistant will automatically start training.')
         supportGeneralWindow.panel.autoBless.check:setText('Auto bless')
@@ -204,6 +208,7 @@ function support_generalModule.saveSettings()
     -- Auto Fishing
     local autoFishingSettings = {}
     autoFishingSettings['enabled'] = supportGeneralWindow.panel.autoFishing.check:isChecked()
+    autoFishingSettings['river_enabled'] = supportGeneralWindow.panel.autoFishing.riverCheck:isChecked()
     sList['auto_fishing'] = autoFishingSettings
 
     -- Auto Mount
@@ -260,6 +265,9 @@ function support_generalModule.loadSettings()
     if g_things.isValidDatId(FISHING_SPOT_ID, ThingCategoryItem) then
         supportGeneralWindow.panel.autoFishing.spot:setItemId(FISHING_SPOT_ID)
     end
+    supportGeneralWindow.panel.autoFishing.riverCheck.ignoreCallback = true
+    supportGeneralWindow.panel.autoFishing.riverCheck:setChecked(autoFishingSettings['river_enabled'] or false)
+    supportGeneralWindow.panel.autoFishing.riverCheck.ignoreCallback = nil
     supportGeneralWindow.panel.autoFishing.check.ignoreCallback = true
     supportGeneralWindow.panel.autoFishing.check:setChecked(autoFishingSettings['enabled'] or false)
     support_generalModule.onAutoFishingChange(supportGeneralWindow.panel.autoFishing.check)
@@ -384,15 +392,16 @@ function support_generalModule.onAutoFollowNameChange(widget)
 end
 
 function support_generalModule.onAutoFishingChange(widget)
-    if widget:isChecked() then
-        supportGeneralWindow.panel.autoFishing.rod:setOpacity(1)
-        supportGeneralWindow.panel.autoFishing.spot:setOpacity(1)
-        supportGeneralWindow.panel.autoFishing.name:setOpacity(1)
-    else
-        supportGeneralWindow.panel.autoFishing.rod:setOpacity(0.3)
-        supportGeneralWindow.panel.autoFishing.spot:setOpacity(0.3)
-        supportGeneralWindow.panel.autoFishing.name:setOpacity(0.3)
-    end
+    -- A opacidade dos icones e a disponibilidade do sub-checkbox de rio seguem
+    -- sempre o checkbox PRINCIPAL, nao o widget que disparou o callback (pode ser
+    -- o proprio riverCheck).
+    local enabled = supportGeneralWindow.panel.autoFishing.check:isChecked()
+    local opacity = enabled and 1 or 0.3
+    supportGeneralWindow.panel.autoFishing.rod:setOpacity(opacity)
+    supportGeneralWindow.panel.autoFishing.spot:setOpacity(opacity)
+    supportGeneralWindow.panel.autoFishing.name:setOpacity(opacity)
+    supportGeneralWindow.panel.autoFishing.riverCheck:setEnabled(enabled)
+    supportGeneralWindow.panel.autoFishing.riverHelp:setEnabled(enabled)
 
     if widget.ignoreCallback then
         return

@@ -32,7 +32,7 @@ function combat_attackModule.reloadLanguage(language)
         combatAttackWindow.settings.title:setText('Opcoes de Ataque')
         combatAttackWindow.settings.attackPanel.meleeAttack:setText('Atacar apenas corpo a corpo.')
         combatAttackWindow.settings.attackPanel.meleeAttackHelp:setTooltip('Ao ativar esta caixa, o sistema so atacara quando uma criatura estiver no alcance corpo a corpo. Caso contrario, ele atacara qualquer um que esteja no seu campo de visao.')
-        combatAttackWindow.settings.attackPanel.autoAttack:setText('Ataque automatico em criaturas proximas')
+        combatAttackWindow.settings.attackPanel.autoAttackLabel:setText('Ligue o auto attack e escolha a opcao abaixo')
         combatAttackWindow.settings.attackPanel.autoAttackHelp:setTooltip('Ao ativar esta caixa, o sistema detectara automaticamente o melhor alvo com base na opcao selecionada abaixo.')
         combatAttackWindow.settings.attackPanel.attackClosestHelp:setTooltip('Encontrara o melhor alvo pela posicao mais proxima. Se houver duas ou mais criaturas na mesma distancia, ele identificara a melhor criatura pela vida mais baixa.')
         combatAttackWindow.settings.attackPanel.attackLowestHelp:setTooltip('Encontrara o melhor alvo pela menor porcentagem de vida.')
@@ -50,7 +50,7 @@ function combat_attackModule.reloadLanguage(language)
         combatAttackWindow.settings.title:setText('Attack options')
         combatAttackWindow.settings.attackPanel.meleeAttack:setText('Atacar only melee.')
         combatAttackWindow.settings.attackPanel.meleeAttackHelp:setTooltip('Activating this box, the system will only attack when a creature is on melee range. Otherwise, it will attack anyone in you field of vision.')
-        combatAttackWindow.settings.attackPanel.autoAttack:setText('Auto Attack nearby creatures')
+        combatAttackWindow.settings.attackPanel.autoAttackLabel:setText('Auto Attack nearby creatures')
         combatAttackWindow.settings.attackPanel.autoAttackHelp:setTooltip('Activating this box, the system will auto detect the best target based on your selected option below.')
         combatAttackWindow.settings.attackPanel.attackClosestHelp:setTooltip('Will find the best target by the closest position. If there are two or more creatures on the same distance, it will identify the best creature by the lowest health.')
         combatAttackWindow.settings.attackPanel.attackLowestHelp:setTooltip('Will find the best target by the lowest health percentage.')
@@ -297,25 +297,23 @@ function combat_attackModule.saveSettings()
 end
 
 function combat_attackModule.onAutoAttackCheckChange(widget)
-    if widget:isChecked() then
-        combatAttackWindow.settings.attackPanel.closest:setEnabled(true)
-        combatAttackWindow.settings.attackPanel.attackClosestHelp:setEnabled(true)
-        combatAttackWindow.settings.attackPanel.health:setEnabled(true)
-        combatAttackWindow.settings.attackPanel.attackLowestHelp:setEnabled(true)
-        combatAttackWindow.settings.attackPanel.highHealth:setEnabled(true)
-        combatAttackWindow.settings.attackPanel.attackHighestHelp:setEnabled(true)
-        combatAttackWindow.settings.attackPanel.smartArrow:setEnabled(true)
-        combatAttackWindow.settings.attackPanel.attackSmartArrowHelp:setEnabled(true)
-    else
-        combatAttackWindow.settings.attackPanel.closest:setEnabled(false)
-        combatAttackWindow.settings.attackPanel.attackClosestHelp:setEnabled(false)
-        combatAttackWindow.settings.attackPanel.health:setEnabled(false)
-        combatAttackWindow.settings.attackPanel.attackLowestHelp:setEnabled(false)
-        combatAttackWindow.settings.attackPanel.highHealth:setEnabled(false)
-        combatAttackWindow.settings.attackPanel.attackHighestHelp:setEnabled(false)
-        combatAttackWindow.settings.attackPanel.smartArrow:setEnabled(false)
-        combatAttackWindow.settings.attackPanel.attackSmartArrowHelp:setEnabled(false)
-    end
+    local enabled = widget:isChecked()
+
+    -- Botao master ON/OFF: reflete o estado no proprio texto do botao.
+    widget:setText(enabled and 'ON' or 'OFF')
+
+    -- As opcoes de alvo (e o modificador melee-only) so fazem sentido com o
+    -- auto-attack ligado: ficam sempre visiveis, habilitadas apenas quando ON.
+    combatAttackWindow.settings.attackPanel.meleeAttack:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.meleeAttackHelp:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.closest:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.attackClosestHelp:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.health:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.attackLowestHelp:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.highHealth:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.attackHighestHelp:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.smartArrow:setEnabled(enabled)
+    combatAttackWindow.settings.attackPanel.attackSmartArrowHelp:setEnabled(enabled)
 
     if widget.ignoreCallback then
         modules.game_console.focusChat()

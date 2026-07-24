@@ -24,6 +24,7 @@ gameLeftLockPanel = nil
 backgroundPanel = nil
 voipOverlay = nil
 miniBotPanel = nil
+miniBotPanelGrip = nil
 miniBotPresetPanel = nil
 miniBotTimerPanel = nil
 pendingHorizontalLeftHeight = 0
@@ -85,6 +86,7 @@ function init()
   gameLeftActionPanel = gameRootPanel:getChildById('gameLeftActionPanel')
   voipOverlay = gameRootPanel:recursiveGetChildById('voipOverlay')
   miniBotPanel = gameRootPanel:recursiveGetChildById('miniBotPanel')
+  miniBotPanelGrip = gameRootPanel:recursiveGetChildById('miniBotPanelGrip')
   miniBotPresetPanel = gameRootPanel:recursiveGetChildById('miniBotPreset')
   miniBotTimerPanel = gameRootPanel:recursiveGetChildById('miniBotTimerPanel')
 
@@ -1644,6 +1646,10 @@ end
 
 function getMiniBotPanel()
   return miniBotPanel
+end
+
+function getMiniBotPanelGrip()
+  return miniBotPanelGrip
 end
 
 -- O widget 'miniBotPreset' sempre existiu no gameinterface.otui, mas nunca teve

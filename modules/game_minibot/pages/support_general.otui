@@ -125,7 +125,7 @@ UIWidget
       image-clip: 0 46 22 23
       image-border: 3
       padding: 5
-      height: 75
+      height: 96
 
       QtCheckBox
         id: check
@@ -208,6 +208,30 @@ UIWidget
         image-source: /images/icons/show_gui_help_grey
         size: 12 12
         !tooltip: 'Uses the Mechanical Fishing Rod from your backpack on a Bath Tub on your screen every 2 seconds.'
+
+      # Opcao extra: sem Bath Tub por perto, pesca num rio na tela (id 4601),
+      # com delay de 1 segundo. Ligado em codigo (minibot.autoFishingTick).
+      QtCheckBox
+        id: riverCheck
+        anchors.left: parent.left
+        anchors.top: frameBackground.bottom
+        margin-top: 6
+        text-horizontal-auto-resize: true
+        !text: 'Also fish in rivers when no Bath Tub'
+        text-offset: 15 -2
+        color: #C0C0C0
+        @onCheckChange: |
+          modules.game_minibot.callMethod('onAutoFishingChange', self)
+
+      UIWidget
+        id: riverHelp
+        anchors.right: parent.right
+        anchors.verticalCenter: riverCheck.verticalCenter
+        color: #C0C0C0
+        margin-right: 5
+        image-source: /images/icons/show_gui_help_grey
+        size: 12 12
+        !tooltip: 'If there is no Bath Tub on your screen, uses the rod on a river tile on your screen every 1 second.'
 
     UIWidget
       id: autoTraining

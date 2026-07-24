@@ -330,6 +330,9 @@ function Options.createOrUpdatePreset(actionBar, slot, equipmentPreset, icon)
 end
 
 function Options.getAutoSwtichPreset()
+	if not Options.array or not Options.array["hotkeyOptions"] then
+		return false
+	end
 	return Options.array["hotkeyOptions"]["autoSwitchHotkeyPreset"]
 end
 

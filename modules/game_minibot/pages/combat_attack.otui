@@ -45,7 +45,7 @@ UIWidget
 
     UIWidget
       id: attackPanel
-      height: 120
+      height: 134
       anchors.top: parent.top
       anchors.left: parent.left
       anchors.right: parent.right
@@ -56,14 +56,38 @@ UIWidget
       image-clip: 0 46 22 23
       image-border: 3
 
-      QtCheckBox
-        id: meleeAttack
+      # Master enable/disable button (ON/OFF). Replaces the old "autoAttack"
+      # checkbox. The 4 target options below stay visible but are only enabled
+      # while this button is ON.
+      UIWidget
+        id: autoAttackLabel
         anchors.left: parent.left
-        anchors.top: parent.top
+        anchors.verticalCenter: autoAttack.verticalCenter
         !text: 'Auto Attack nearby creatures'
         text-horizontal-auto-resize: true
         color: #C0C0C0
-        margin-top: 5
+        margin-left: 6
+        phantom: true
+
+      ButtonBox
+        id: autoAttack
+        anchors.right: parent.right
+        anchors.top: parent.top
+        margin-top: 4
+        margin-right: 6
+        size: 54 20
+        !text: 'OFF'
+        @onCheckChange: |
+          modules.game_minibot.callMethod('onAutoAttackCheckChange', self)
+
+      QtCheckBox
+        id: meleeAttack
+        anchors.left: parent.left
+        anchors.top: autoAttack.bottom
+        !text: 'Auto Attack nearby creatures'
+        text-horizontal-auto-resize: true
+        color: #C0C0C0
+        margin-top: 8
         margin-left: 5
         text-offset: 16 -2
         @onCheckChange: |
@@ -85,23 +109,10 @@ UIWidget
           opacity: 0.5
           phantom: true
 
-      QtCheckBox
-        id: autoAttack
-        anchors.left: parent.left
-        anchors.top: meleeAttack.bottom
-        !text: 'Auto Attack nearby creatures'
-        text-horizontal-auto-resize: true
-        color: #C0C0C0
-        margin-top: 5
-        margin-left: 5
-        text-offset: 16 -2
-        @onCheckChange: |
-          modules.game_minibot.callMethod('onAutoAttackCheckChange', self)
-
       UIWidget
         id: autoAttackHelp
         anchors.verticalCenter: autoAttack.verticalCenter
-        anchors.right: parent.right
+        anchors.right: autoAttack.left
         margin-right: 8
         color: #C0C0C0
         image-source: /images/icons/show_gui_help_grey
@@ -181,7 +192,7 @@ UIWidget
       QtCheckBox
         id: closest
         anchors.left: parent.left
-        anchors.top: autoAttack.bottom
+        anchors.top: meleeAttack.bottom
         !text: 'Prioritize closest position'
         text-horizontal-auto-resize: true
         color: #C0C0C0

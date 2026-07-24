@@ -149,7 +149,14 @@ function online()
 	if not g_resources.directoryExists("/characterdata/".. player:getId() .."/") then
 		g_resources.makeDir("/characterdata/".. player:getId() .."/")
 	end
-	Options.applyCharacterHotkeyProfile(player)
+	-- O "Auto-Switch Hotkey Preset" (Options > Custom Hotkeys, no modulo
+	-- client_settings) troca o preset para aquele cujo nome e igual ao do
+	-- personagem. Aplicar aqui, incondicionalmente, um perfil "Nome - Vocacao"
+	-- sobrescrevia essa troca e fazia a opcao "nao funcionar". So aplicamos o
+	-- perfil por personagem quando o auto-switch por nome esta DESLIGADO.
+	if not Options.getAutoSwtichPreset() then
+		Options.applyCharacterHotkeyProfile(player)
+	end
 	consoleln("Options loaded in " .. (g_clock.millis() - benchmark) / 1000 .. " seconds.")
 end
 
