@@ -2,6 +2,12 @@ deathWindow = nil
 
 RequestOpenStore = false
 
+-- Auto-resume ("Ok") na tela de morte quando o Auto Reconnect esta ligado, para o
+-- personagem voltar ao jogo (renascer no templo) sem intervencao. Na morte o char
+-- continua ONLINE, entao o watchdog de reconexao nao age; aqui so acionamos o Ok.
+-- Mesmo gate do watchdog: o setting global 'autoReconnect' escrito pelo Support.
+local AUTO_RESUME_DELAY = 1500
+
 local deathTexts = {
   regular = {text = 'Alas! Brave adventurer, you have met a sad fate.\nBut do not despair, for the gods will bring you back\ninto this world in exchange for a small sacrifice\n\nSimply click on Ok to resume your journeys!', height = 140, width = 0},
   unfair = {text = 'Alas! Brave adventurer, you have met a sad fate.\nBut do not despair, for the gods will bring you back\ninto this world in exchange for a small sacrifice\n\nThis death penalty has been reduced by %i%%\nbecause it was an unfair fight.\n\nSimply click on Ok to resume your journeys!', height = 185, width = 0},
@@ -46,9 +52,24 @@ function reset()
   end
 end
 
+function scheduleAutoResume()
+  if not g_settings.getBoolean('autoReconnect', false) then
+    return
+  end
+  scheduleEvent(function()
+    if deathWindow and g_game.isOnline() then
+      local okButton = deathWindow:getChildById('buttonOk')
+      if okButton and okButton.onClick then
+        okButton.onClick()
+      end
+    end
+  end, AUTO_RESUME_DELAY)
+end
+
 function display(deathType, penalty)
   displayDeadMessage()
   openWindow(deathType, penalty)
+  scheduleAutoResume()
 end
 
 function displayDeadMessage()

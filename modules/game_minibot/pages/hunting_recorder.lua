@@ -12,6 +12,20 @@ local function getDistanceBetween(p1, p2)
     return math.max(math.abs(p1.x - p2.x), math.abs(p1.y - p2.y))
 end
 
+-- Velocidade padrao usada entre os nodes quando o node nao tem velocidade custom.
+local DEFAULT_NODE_SPEED = 5
+
+-- Velocidade efetiva de um node: so aplica o valor custom do slider quando o
+-- checkbox "Velocidade entre os nodes" (waypoint.lure) esta marcado; caso
+-- contrario usa DEFAULT_NODE_SPEED. O motor usa esse valor como alcance do
+-- findPath entre um waypoint e outro.
+local function resolveNodeSpeed(waypoint)
+    if waypoint['lure'] then
+        return waypoint['speed'] or DEFAULT_NODE_SPEED
+    end
+    return DEFAULT_NODE_SPEED
+end
+
 local function enableWaypointDragBehavior(widget)
     if widget == nil then
         return
@@ -493,12 +507,12 @@ function hunting_recorderModule.reloadLanguage(language)
         huntingWaypointsWindow.settings.main.selected.resumeAtLabel:setText('Voltar a andar se:')
         huntingWaypointsWindow.settings.main.selected.stopHelp:setTooltip('Configurar um valor para que quando o personagem estiver nesse waypoint, ele podera parar o movimento caso encontre X monstros no seu alcance de visao.')
         huntingWaypointsWindow.settings.main.selected.resumeHelp:setTooltip('Configurar um valor para que quando o personagem estiver parado nesse waypoint pela configuracao anterior, ele podera retomar o movimento caso a quanntidade de monstros no seu alcance de visao seja menor ou igual a esse valor. Deixar o valor 0 fara ele respeitar apenas o valor de parada acima.')
-        huntingWaypointsWindow.settings.main.selected.lure:setText('Lurar')
+        huntingWaypointsWindow.settings.main.selected.lure:setText('Velocidade entre os nodes')
         huntingWaypointsWindow.settings.main.selected.titleLabel:setText('Editando waypoint:')
         huntingWaypointsWindow.settings.main.selected.overwriteToAll:setText('Alterar para todos')
         huntingWaypointsWindow.warningText = 'Aviso!\n\nVoce esta prestes a substituir TODAS as opcoes de waypoints de registro dessa sessao pela configuracao do waypoint #%d.\n\nContinuar mesmo assim?'
-        huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:setText('Velocidade de lure:')
-        huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:setTooltip('A forca de Lure ira determinar a velocidade e o tempo que o personagem ficara parado entre movimentos quando estiver com a opcao de lure ativado. Quanto MAIOR a velocidade, mais RAPIDO sera a movimentacao do personagem. Quanto MENOR o valor, mais LENTO o personagem ira se movimentar.')
+        huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:setText('Velocidade:')
+        huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:setTooltip('A velocidade determina a rapidez e o tempo que o personagem fica parado entre um node e outro. Quanto MAIOR a velocidade, mais RAPIDO ele se movimenta entre os waypoints. Quanto MENOR o valor, mais LENTO o personagem ira andar.')
 
     elseif language == 'enus' then
         huntingWaypointsWindow.map.title:setText('Map preview')
@@ -510,12 +524,12 @@ function hunting_recorderModule.reloadLanguage(language)
         huntingWaypointsWindow.settings.main.selected.resumeAtLabel:setText('Walk again if:')
         huntingWaypointsWindow.settings.main.selected.stopHelp:setTooltip('Set a value so that when the character is at this waypoint, he can stop movement if he finds X monsters in his line of sight.')
         huntingWaypointsWindow.settings.main.selected.resumeHelp:setTooltip('Set a value so that when the character is stopped at this waypoint according to the previous configuration, they can resume movement if the number of monsters in their line of sight is less than or equal to this value. Leaving the value at 0 will make it respect only the above stopping value.')
-        huntingWaypointsWindow.settings.main.selected.lure:setText('Lure')
+        huntingWaypointsWindow.settings.main.selected.lure:setText('Speed between nodes')
         huntingWaypointsWindow.settings.main.selected.titleLabel:setText('Editing waypoint:')
         huntingWaypointsWindow.settings.main.selected.overwriteToAll:setText('Overwrite to all')
         huntingWaypointsWindow.warningText = 'Warning!\n\nYou are about to overwrite ALL of your record waypoints options with the waypoint #%d config.\n\nContinue?'
-        huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:setText('Lure speed:')
-        huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:setTooltip('Lure strength determines the character\'s speed and the amount of time they will remain waiting between movements when the lure option is activated. The HIGHER the speed, the FASTER the character will move. The LOWER the value, the SLOWER the character will move.')
+        huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:setText('Speed:')
+        huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:setTooltip('The speed determines how fast the character moves and how long they wait between one node and the next. The HIGHER the speed, the FASTER the character moves between waypoints. The LOWER the value, the SLOWER the character moves.')
 
     end
 end
@@ -672,7 +686,7 @@ function hunting_recorderModule.reloadInternalModule()
             lure = waypoint['lure'],
             index = waypoint['index'],
             teleport = waypoint['teleport'],
-            speed = waypoint['speed'] or 5
+            speed = resolveNodeSpeed(waypoint)
         }
 
         g_minibot.registerWalkWaypoint(point)
@@ -1252,24 +1266,14 @@ function hunting_recorderModule.internalSelectWaypoint(widget, index, ignoreList
             huntingWaypointsWindow.settings.main.selected.lure:setChecked(false)
             huntingWaypointsWindow.settings.main.selected.lure:setChecked(waypoint['lure'])
             huntingWaypointsWindow.settings.main.selected.lure.onCheckChange = function()
+                -- So mostra/esconde o slider de velocidade; os campos de
+                -- parar/voltar sao independentes e ficam sempre visiveis.
                 if huntingWaypointsWindow.settings.main.selected.lure:isChecked() then
-                    huntingWaypointsWindow.settings.main.selected.stopAtLabel:hide()
-                    huntingWaypointsWindow.settings.main.selected.stopAt:hide()
-                    huntingWaypointsWindow.settings.main.selected.stopHelp:hide()
-                    huntingWaypointsWindow.settings.main.selected.resumeAtLabel:hide()
-                    huntingWaypointsWindow.settings.main.selected.resumeAt:hide()
-                    huntingWaypointsWindow.settings.main.selected.resumeHelp:hide()
                     huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:show()
                     huntingWaypointsWindow.settings.main.selected.lureSpeedScroll:show()
                     huntingWaypointsWindow.settings.main.selected.lureSpeed:show()
                     huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:show()
                 else
-                    huntingWaypointsWindow.settings.main.selected.stopAtLabel:show()
-                    huntingWaypointsWindow.settings.main.selected.stopAt:show()
-                    huntingWaypointsWindow.settings.main.selected.stopHelp:show()
-                    huntingWaypointsWindow.settings.main.selected.resumeAtLabel:show()
-                    huntingWaypointsWindow.settings.main.selected.resumeAt:show()
-                    huntingWaypointsWindow.settings.main.selected.resumeHelp:show()
                     huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:hide()
                     huntingWaypointsWindow.settings.main.selected.lureSpeedScroll:hide()
                     huntingWaypointsWindow.settings.main.selected.lureSpeed:hide()
@@ -1298,23 +1302,11 @@ function hunting_recorderModule.internalSelectWaypoint(widget, index, ignoreList
                 end
             end
             if waypoint['lure'] then
-                huntingWaypointsWindow.settings.main.selected.stopAtLabel:hide()
-                huntingWaypointsWindow.settings.main.selected.stopAt:hide()
-                huntingWaypointsWindow.settings.main.selected.stopHelp:hide()
-                huntingWaypointsWindow.settings.main.selected.resumeAtLabel:hide()
-                huntingWaypointsWindow.settings.main.selected.resumeAt:hide()
-                huntingWaypointsWindow.settings.main.selected.resumeHelp:hide()
                 huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:show()
                 huntingWaypointsWindow.settings.main.selected.lureSpeedScroll:show()
                 huntingWaypointsWindow.settings.main.selected.lureSpeed:show()
                 huntingWaypointsWindow.settings.main.selected.lureSpeedHelp:show()
             else
-                huntingWaypointsWindow.settings.main.selected.stopAtLabel:show()
-                huntingWaypointsWindow.settings.main.selected.stopAt:show()
-                huntingWaypointsWindow.settings.main.selected.stopHelp:show()
-                huntingWaypointsWindow.settings.main.selected.resumeAtLabel:show()
-                huntingWaypointsWindow.settings.main.selected.resumeAt:show()
-                huntingWaypointsWindow.settings.main.selected.resumeHelp:show()
                 huntingWaypointsWindow.settings.main.selected.lureSpeedLabel:hide()
                 huntingWaypointsWindow.settings.main.selected.lureSpeedScroll:hide()
                 huntingWaypointsWindow.settings.main.selected.lureSpeed:hide()
@@ -1479,7 +1471,7 @@ function hunting_recorderModule.insertWaypointOnPos(waypointPosition, isTeleport
         creatures = waypoint['creatures'],
         resume = waypoint['resume'],
         lure = waypoint['lure'],
-        speed = waypoint['speed'],
+        speed = resolveNodeSpeed(waypoint),
         index = waypoint['index'],
         teleport = waypoint['teleport']
     }

@@ -578,8 +578,9 @@ UIWidget
           step: 1
           pixels-scroll: true
           anchors.left: lureSpeedLabel.left
-          anchors.right: lureSpeedHelp.right
+          anchors.right: overwriteToAll.left
           anchors.top: lureSpeed.bottom
+          margin-right: 8
           margin-top: 5
           minimum: 1
           maximum: 20
@@ -592,15 +593,15 @@ UIWidget
 
         UIWidget
           id: lureSpeed
-          anchors.right: parent.right
-          anchors.top: hSeparator.bottom
-          margin-right: 17
-          margin-top: 5
+          anchors.left: lureSpeedLabel.right
+          anchors.top: lure.bottom
+          margin-left: 6
+          margin-top: 8
           width: 40
           !text: '5'
           color: #C0C0C0
           visible: false
-          text-align: right
+          text-align: left
 
           $disabled:
             color: #C0C0C0
@@ -618,7 +619,7 @@ UIWidget
         UIWidget
           id: lureSpeedLabel
           font: verdana-11px-antialised
-          !text: 'Lure speed:'
+          !text: 'Speed:'
           text-align: left
           phantom: true
           anchors.verticalCenter: lureSpeed.verticalCenter
@@ -692,8 +693,10 @@ UIWidget
         QtCheckBox
           id: lure
           anchors.left: parent.left
-          anchors.verticalCenter: overwriteToAll.verticalCenter
-          !text: 'Lure only'
+          anchors.top: resumeAtLabel.bottom
+          margin-top: 12
+          margin-left: 5
+          !text: 'Speed between nodes'
           text-horizontal-auto-resize: true
           color: #C0C0C0
           text-offset: 16 -2

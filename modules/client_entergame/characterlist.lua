@@ -25,6 +25,80 @@ local autoReconnectEvent
 local lastWidget
 local lastLogout = 0
 
+-- ============================================================================
+-- Auto Reconnect persistente (watchdog). Substitui os disparos-unicos frageis:
+-- enquanto estiver offline, com a opcao ligada e sem logout manual, tenta
+-- relogar a cada RECONNECT_INTERVAL ate voltar online. Cobre queda de rede,
+-- kick por idle, fim de sessao limpo e morte; NAO age em logout manual.
+-- ============================================================================
+local RECONNECT_INTERVAL = 5000
+local reconnectWatchdogEvent = nil
+local manualLogout = false
+
+-- Chamado pelos pontos de logout manual (game_interface) para nao reconectar.
+function flagManualLogout()
+  manualLogout = true
+end
+
+local function reconnectEnabledForCurrent()
+  local selected = characterList and characterList:getFocusedChild()
+  local name = selected and selected.characterName
+  if name and getAutoReconnect(name) then
+    return true
+  end
+  return g_settings.getBoolean('autoReconnect', false)
+end
+
+function stopReconnectWatchdog()
+  if reconnectWatchdogEvent then
+    removeEvent(reconnectWatchdogEvent)
+    reconnectWatchdogEvent = nil
+  end
+end
+
+local function reconnectWatchdogTick()
+  reconnectWatchdogEvent = nil
+
+  if g_game.isOnline() then
+    return                       -- voltou online: encerra
+  end
+  if manualLogout then
+    return                       -- jogador saiu de proposito
+  end
+  if not reconnectEnabledForCurrent() then
+    return                       -- opcao desligada
+  end
+
+  -- Nao interfere na fila do servidor (waiting list cuida do proprio fluxo).
+  if not CharacterList.waiting and not g_game.isLogging() then
+    LoginEvent.loginTries = 0    -- neutraliza o teto de 10 so no caminho do reconnect
+    if errorBox then
+      errorBox:destroy()
+      errorBox = nil
+    end
+    CharacterList.doLogin()
+  end
+
+  -- Reprograma sempre enquanto offline: e o "tenta varias vezes" indefinido.
+  reconnectWatchdogEvent = scheduleEvent(reconnectWatchdogTick, RECONNECT_INTERVAL)
+end
+
+function ensureReconnectWatchdog()
+  if reconnectWatchdogEvent then
+    return
+  end
+  if manualLogout or not reconnectEnabledForCurrent() then
+    return
+  end
+  reconnectWatchdogEvent = scheduleEvent(reconnectWatchdogTick, RECONNECT_INTERVAL)
+end
+
+-- Reset ao entrar no jogo com sucesso.
+local function onReconnectGameStart()
+  manualLogout = false
+  stopReconnectWatchdog()
+end
+
 CharacterList.camRecordCheck = nil
 
 local function updateWait(timeStart, timeEnd)
@@ -228,6 +302,7 @@ function onGameSessionEnd(messageId)
     errorBox = nil
     CharacterList.showAgain()
   end
+  ensureReconnectWatchdog()
 end
 
 function onGameLoginToken(unknown)
@@ -359,6 +434,7 @@ end
 
 function onGameEnd()
   CharacterList.showAgain()
+  ensureReconnectWatchdog()
 end
 
 function onLogout()
@@ -370,10 +446,8 @@ function onLogout()
 end
 
 function scheduleAutoReconnect()
-  if autoReconnectEvent then
-    removeEvent(autoReconnectEvent)
-  end
-  autoReconnectEvent = scheduleEvent(executeAutoReconnect, 2500)
+  -- Antigo disparo-unico agora delega ao watchdog persistente.
+  ensureReconnectWatchdog()
 end
 
 function executeAutoReconnect()
@@ -410,6 +484,7 @@ function CharacterList.init()
   connect(g_game, { onGameEnd = onGameEnd })
   connect(g_game, { onLogout = onLogout })
   connect(g_game, { onSessionEnd = onGameSessionEnd })
+  connect(g_game, { onGameStart = onReconnectGameStart })
 
   if G.characters then
     CharacterList.create(G.characters, G.characterAccount)
@@ -427,6 +502,8 @@ function CharacterList.terminate()
   disconnect(g_game, { onGameEnd = onGameEnd })
   disconnect(g_game, { onLogout = onLogout })
   disconnect(g_game, { onSessionEnd = onGameSessionEnd })
+  disconnect(g_game, { onGameStart = onReconnectGameStart })
+  stopReconnectWatchdog()
 
   if charactersWindow then
     characterList = nil

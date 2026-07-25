@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.32",
-    "generated":  "2026-07-24T15:28:22-03:00",
+    "version":  "15.24.33",
+    "generated":  "2026-07-25T01:20:42-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -105025,8 +105025,8 @@
                   },
                   {
                       "path":  "modules/client_entergame/characterlist.lua",
-                      "sha256":  "975c5e67b2f0e50471f089f44d5f61c6975d6821874e14cd0c664fbe0c975bdc",
-                      "size":  30968
+                      "sha256":  "f45cc5a7846f3a880cf4d2b5910a6e29037e2176d0ded64e78b93328e2156e79",
+                      "size":  33501
                   },
                   {
                       "path":  "modules/client_entergame/characterlist.otui",
@@ -105820,8 +105820,8 @@
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.lua",
-                      "sha256":  "847903dbbce52ebc77f758eaed587d993616c307072a014c60d4379268caa57d",
-                      "size":  92064
+                      "sha256":  "f9dd416d03d50645dcbdd492651c2b82a5f53ede9f402eca4728037567e28448",
+                      "size":  92586
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.otui",
@@ -106005,13 +106005,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_explorer.lua",
-                      "sha256":  "808d2b43c2520cafe0f888f6eb3f8b9019dbe6a8622fb45335b2e9a35b2920b0",
-                      "size":  14271
+                      "sha256":  "bf5e4588e36c5f6b72249fa5391bcb014b0bc75a7bd2d137c204aedfecfa99dd",
+                      "size":  9215
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_explorer.otui",
-                      "sha256":  "e66d8badf29b91f600cc9bd8f49160c60cb2a15ebdd3a2c9fad537e100e5c5a7",
-                      "size":  7396
+                      "sha256":  "2a70106bbf23533ab5a86e3e7f383e41a4ceb8ae371e41f634ad5d1d82a58c7a",
+                      "size":  4288
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_groupFollow.lua",
@@ -106025,13 +106025,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "96311348b87ec3e986417d51a7df8e0c01f11d9577ff279c454a8e0bae166f64",
-                      "size":  66861
+                      "sha256":  "a5283476df254327be3df7a022e4fed9fea0da1e78c5e9e32d13d85840a4e91d",
+                      "size":  65551
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "cf78dad419c603edd066e9e40992c434e1319c138a08053a96a0e297ebc34128",
-                      "size":  19223
+                      "sha256":  "546521ad4f20d519e50b163020233fa8ea39c8f34f7471ba57042154d7856231",
+                      "size":  19282
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_defense.lua",
@@ -106415,8 +106415,8 @@
                   },
                   {
                       "path":  "modules/game_playerdeath/playerdeath.lua",
-                      "sha256":  "71eb240006d2352be3473e64ba5d1e1b316f8124fd4970da6bb794bf6dd5485f",
-                      "size":  6252
+                      "sha256":  "9a0cc59090d14025b02d37bc6655a7ad14a0b1e1d105a2b3fe1e6aae5a9fad67",
+                      "size":  6998
                   },
                   {
                       "path":  "modules/game_playerdeath/playerdeath.otmod",
@@ -106995,7 +106995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "44ecf0a14124e16adb4028b9aedadcd4d6bb9e3a99490941f2b132f289f8a927",
+                      "sha256":  "fe6d898f5c8af6e20681d499581dc4cee8148bad0e5c5c50eede15f0f073619a",
                       "size":  9
                   }
               ]

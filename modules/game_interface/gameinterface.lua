@@ -292,7 +292,7 @@ function tryExit()
   end
 
   local exitFunc = function() g_client.setInputLockWidget(nil) scheduleEvent(onProcessExit, 10) end
-  local logoutFunc = function() g_client.setInputLockWidget(nil) g_game.safeLogout() exitWindow:destroy() exitWindow = nil end
+  local logoutFunc = function() g_client.setInputLockWidget(nil) if modules.client_entergame and modules.client_entergame.flagManualLogout then modules.client_entergame.flagManualLogout() end g_game.safeLogout() exitWindow:destroy() exitWindow = nil end
   local cancelFunc = function() g_client.setInputLockWidget(nil) exitWindow:destroy() exitWindow = nil end
 
   exitWindow = displayGeneralBox(tr('Exit'), tr("If you shut down the program, your character might stay in the game.\nClick on 'Logout' to ensure that you character leaves the game properly.\nClick on 'Exit' if you want to exit the program without logging out your character."),
@@ -310,6 +310,7 @@ function tryExit()
 end
 
 function onProcessExit()
+  if modules.client_entergame and modules.client_entergame.flagManualLogout then modules.client_entergame.flagManualLogout() end
   if g_game.isOnline() then
     g_game.invokeOnLogout()
   end
@@ -338,6 +339,7 @@ function tryLogout(prompt)
     msg = 'Your connection is failing, if you logout now your character will be still online, do you want to force logout?'
 
     yesCallback = function()
+      if modules.client_entergame and modules.client_entergame.flagManualLogout then modules.client_entergame.flagManualLogout() end
       g_game.forceLogout()
       if logoutWindow then
         logoutWindow:destroy()
@@ -348,6 +350,7 @@ function tryLogout(prompt)
     msg = 'Are you sure you want to leave Valdraken?'
 
     yesCallback = function()
+      if modules.client_entergame and modules.client_entergame.flagManualLogout then modules.client_entergame.flagManualLogout() end
       g_game.safeLogout()
       if logoutWindow then
         logoutWindow:destroy()

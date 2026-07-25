@@ -20,25 +20,23 @@ function hunting_explorerModule.reloadInternalModule()
     local sShortcut = settings['shortcuts'] or {}
     local enabled = sShortcut['huntingExplorer_enabled'] or false
 
+    -- O Explorer opera apenas em "Correr e parar" (o modo Lure foi removido).
+    -- Com "stop" desligado, findCreatures = 0 e o personagem apenas vagueia pela area.
     local findCreatures = 0
     local resumeCreatures = 0
-    local lureCreatures = false
 
     if sList['stop'] then
         findCreatures = tonumber(sList['stop_until'] or '') or 0
         resumeCreatures = tonumber(sList['stop_resume'] or '') or 0
-    else
-        findCreatures = tonumber(sList['lure_until'] or '') or 0
-        resumeCreatures = tonumber(sList['lure_resume'] or '') or 0
-        lureCreatures = true
     end
 
     -- The C++ explorer reads its configuration from the module entry:
     --   hits = stop-when-X-creatures, max = resume-when-X-creatures, use = lure mode.
+    --   O modo Lure nao e mais oferecido, entao use permanece sempre false.
     g_minibot.resetModule(21) -- Hunting Explorer Module type
     g_minibot.addModule(21, {
         enabled = true,
-        use = lureCreatures,
+        use = false,
         hits = findCreatures,
         max = resumeCreatures,
         min = 0,
@@ -60,12 +58,6 @@ end
 function hunting_explorerModule.reloadLanguage(language)
     if language == 'ptbr' then
         huntingExplorer.panel.title:setText('Explorador Automatico')
-        huntingExplorer.panel.lureTab.lure:setText('Lurar')
-        huntingExplorer.panel.lureTab.lureHelp:setTooltip('Ativando a opcao de Lurar, o personagem andara poucos SQMs por vez, levando no seu movimento os monstros pelo caminho e matando distancia. Caso nenhuma criatura se encontre na visao do jogador, o movimento sera feito com mais rapidez.')
-        huntingExplorer.panel.lureTab.untilLabel:setText('Parar se encontrar X monstros:')
-        huntingExplorer.panel.lureTab.untilHelp:setTooltip('Configurar quantidade de monstros minimo para o Assistente parar o movimento e atacar os monstros. Valor 0 desativa parada, fazendo o Lure ser continuo.')
-        huntingExplorer.panel.lureTab.resumeLabel:setText('Apos parada, andar se X monstros:')
-        huntingExplorer.panel.lureTab.resumeHelp:setTooltip('Apos ter parado pela configuracao de parada, pode configurar quantidade de monstros maxima para o Assistente continuar atacando os monstros. Valor 0 faz com que ele respeite o valor acima de parada.')
         huntingExplorer.panel.stopFightTab.stop:setText('Correr e parar')
         huntingExplorer.panel.stopFightTab.stopHelp:setTooltip('Ativando a opcao de Correr e parar, o personagem continuara andando na velocidade normal ate encontrar a quantidade de monstros configurada abaixo. Nao configurar valores abaixo fara com que o personagem ande sem rumo e objetivo pela area.')
         huntingExplorer.panel.stopFightTab.untilLabel:setText('Parar se encontrar X monstros:')
@@ -75,18 +67,12 @@ function hunting_explorerModule.reloadLanguage(language)
 
     elseif language == 'enus' then
         huntingExplorer.panel.title:setText('Auto Explorer')
-        huntingExplorer.panel.lureTab.lure:setText('Lure')
-        huntingExplorer.panel.lureTab.lureHelp:setTooltip('By activating the Lure option, the character will move a few SQMs at a time, taking monsters along the way and killing them from distance. If no creatures are in the player\'s line of sight, the movement will be faster.')
-        huntingExplorer.panel.lureTab.untilLabel:setText('Stop if find X monsters:')
-        huntingExplorer.panel.lureTab.untilHelp:setTooltip('Set the minimum number of monsters for the Assistant to stop movement and attack the monsters. A value of 0 disables stopping, making the Lure continuous.')
-        huntingExplorer.panel.lureTab.resumeLabel:setText('After stop, walk if X monsters:')
-        huntingExplorer.panel.lureTab.resumeHelp:setTooltip('After stopping using the stop setting, you can set the maximum number of monsters for the Assistant to continue attacking. A value of 0 causes it to respect the above stop value.')
         huntingExplorer.panel.stopFightTab.stop:setText('Run and stop')
-        huntingExplorer.panel.lureTab.lureHelp:setTooltip('By enabling the Run and Stop option, the character will continue walking at normal speed until encountering the number of monsters set below. Not setting the values below will cause the character to wander aimlessly through the area.')
-        huntingExplorer.panel.lureTab.untilLabel:setText('Stop if find X monsters:')
-        huntingExplorer.panel.lureTab.untilHelp:setTooltip('Set the minimum number of monsters for the Assistant to stop movement and attack the monsters. A value of 0 disables stopping, causing the character to run aimlessly through the area.')
-        huntingExplorer.panel.lureTab.resumeLabel:setText('After stop, walk if X monsters:')
-        huntingExplorer.panel.lureTab.resumeHelp:setTooltip('After stopping using the stop setting, you can set the maximum number of monsters for the Assistant to continue attacking. A value of 0 causes it to respect the above stop value.')
+        huntingExplorer.panel.stopFightTab.stopHelp:setTooltip('By enabling the Run and Stop option, the character will continue walking at normal speed until encountering the number of monsters set below. Not setting the values below will cause the character to wander aimlessly through the area.')
+        huntingExplorer.panel.stopFightTab.untilLabel:setText('Stop if find X monsters:')
+        huntingExplorer.panel.stopFightTab.untilHelp:setTooltip('Set the minimum number of monsters for the Assistant to stop movement and attack the monsters. A value of 0 disables stopping, causing the character to run aimlessly through the area.')
+        huntingExplorer.panel.stopFightTab.resumeLabel:setText('After stop, walk if X monsters:')
+        huntingExplorer.panel.stopFightTab.resumeHelp:setTooltip('After stopping using the stop setting, you can set the maximum number of monsters for the Assistant to continue attacking. A value of 0 causes it to respect the above stop value.')
 
     end
 end
@@ -137,48 +123,25 @@ function hunting_explorerModule.loadSettings()
         g_minibot.setModuleToggle(21, huntingExplorer.panel.enabled:isChecked()) -- Hunting Explorer
     end
 
-    huntingExplorer.panel.lureTab.lure.ignoreCallback = true
-    huntingExplorer.panel.lureTab.untilBox.ignoreCallback = true
-    huntingExplorer.panel.lureTab.resume.ignoreCallback = true
     huntingExplorer.panel.stopFightTab.stop.ignoreCallback = true
     huntingExplorer.panel.stopFightTab.untilBox.ignoreCallback = true
     huntingExplorer.panel.stopFightTab.resume.ignoreCallback = true
 
-    huntingExplorer.panel.lureTab.lure:setChecked(sList['lure'] or false)
     huntingExplorer.panel.stopFightTab.stop:setChecked(sList['stop'] or false)
-    huntingExplorer.panel.lureTab.untilBox:setText(sList['lure_until'] or '')
-    huntingExplorer.panel.lureTab.resume:setText(sList['lure_resume'] or '')
     huntingExplorer.panel.stopFightTab.untilBox:setText(sList['stop_until'] or '')
     huntingExplorer.panel.stopFightTab.resume:setText(sList['stop_resume'] or '')
 
-    huntingExplorer.panel.lureTab.lure.ignoreCallback = nil
-    huntingExplorer.panel.lureTab.untilBox.ignoreCallback = nil
-    huntingExplorer.panel.lureTab.resume.ignoreCallback = nil
     huntingExplorer.panel.stopFightTab.stop.ignoreCallback = nil
     huntingExplorer.panel.stopFightTab.untilBox.ignoreCallback = nil
     huntingExplorer.panel.stopFightTab.resume.ignoreCallback = nil
 
-    if huntingExplorer.panel.lureTab.lure:isChecked() then
-        huntingExplorer.panel.stopFightTab.untilLabel:setEnabled(false)
-        huntingExplorer.panel.stopFightTab.untilBox:setEnabled(false)
-        huntingExplorer.panel.stopFightTab.resumeLabel:setEnabled(false)
-        huntingExplorer.panel.stopFightTab.resume:setEnabled(false)
-        huntingExplorer.panel.lureTab.untilLabel:setEnabled(true)
-        huntingExplorer.panel.lureTab.untilBox:setEnabled(true)
-        huntingExplorer.panel.lureTab.resumeLabel:setEnabled(true)
-        huntingExplorer.panel.lureTab.resume:setEnabled(true)
-    elseif huntingExplorer.panel.stopFightTab.stop:isChecked() then
-        huntingExplorer.panel.stopFightTab.untilLabel:setEnabled(false)
-        huntingExplorer.panel.stopFightTab.untilBox:setEnabled(false)
-        huntingExplorer.panel.stopFightTab.resumeLabel:setEnabled(false)
-        huntingExplorer.panel.stopFightTab.resume:setEnabled(false)
-        huntingExplorer.panel.stopFightTab.untilLabel:setEnabled(true)
-        huntingExplorer.panel.stopFightTab.untilBox:setEnabled(true)
-        huntingExplorer.panel.stopFightTab.resumeLabel:setEnabled(true)
-        huntingExplorer.panel.stopFightTab.resume:setEnabled(true)
-    else
-        huntingExplorer.panel.lureTab.lure:setChecked(true)
-    end
+    -- "Correr e parar" ligado habilita os campos de parar/retomar; desligado o
+    -- personagem apenas vagueia pela area sem parar para lutar.
+    local stopEnabled = huntingExplorer.panel.stopFightTab.stop:isChecked()
+    huntingExplorer.panel.stopFightTab.untilLabel:setEnabled(stopEnabled)
+    huntingExplorer.panel.stopFightTab.untilBox:setEnabled(stopEnabled)
+    huntingExplorer.panel.stopFightTab.resumeLabel:setEnabled(stopEnabled)
+    huntingExplorer.panel.stopFightTab.resume:setEnabled(stopEnabled)
 end
 
 function hunting_explorerModule.saveSettings()
@@ -192,10 +155,7 @@ function hunting_explorerModule.saveSettings()
 
     settings['shortcuts']['huntingExplorer_enabled'] = huntingExplorer.panel.enabled:isChecked()
 
-    values['lure'] = huntingExplorer.panel.lureTab.lure:isChecked()
     values['stop'] = huntingExplorer.panel.stopFightTab.stop:isChecked()
-    values['lure_until'] = tostring(huntingExplorer.panel.lureTab.untilBox:getText())
-    values['lure_resume'] = tostring(huntingExplorer.panel.lureTab.resume:getText())
     values['stop_until'] = tostring(huntingExplorer.panel.stopFightTab.untilBox:getText())
     values['stop_resume'] = tostring(huntingExplorer.panel.stopFightTab.resume:getText())
 
@@ -227,53 +187,13 @@ function hunting_explorerModule.onStopChange(widget)
         return
     end
 
-    if not(widget:isChecked()) then
-        widget.ignoreCallback = true
-        widget:setChecked(true)
-        widget.ignoreCallback = nil
-        return
-    end
-
-    huntingExplorer.panel.lureTab.lure.ignoreCallback = true
-    huntingExplorer.panel.lureTab.lure:setChecked(false)
-    huntingExplorer.panel.lureTab.lure.ignoreCallback = nil
-    huntingExplorer.panel.lureTab.untilLabel:setEnabled(false)
-    huntingExplorer.panel.lureTab.untilBox:setEnabled(false)
-    huntingExplorer.panel.lureTab.resumeLabel:setEnabled(false)
-    huntingExplorer.panel.lureTab.resume:setEnabled(false)
-
-    huntingExplorer.panel.stopFightTab.untilLabel:setEnabled(true)
-    huntingExplorer.panel.stopFightTab.untilBox:setEnabled(true)
-    huntingExplorer.panel.stopFightTab.resumeLabel:setEnabled(true)
-    huntingExplorer.panel.stopFightTab.resume:setEnabled(true)
-
-    hunting_explorerModule.saveSettings()
-end
-
-function hunting_explorerModule.onLureChange(widget)
-    if widget.ignoreCallback then
-        return
-    end
-
-    if not(widget:isChecked()) then
-        widget.ignoreCallback = true
-        widget:setChecked(true)
-        widget.ignoreCallback = nil
-        return
-    end
-
-    huntingExplorer.panel.stopFightTab.stop.ignoreCallback = true
-    huntingExplorer.panel.stopFightTab.stop:setChecked(false)
-    huntingExplorer.panel.stopFightTab.stop.ignoreCallback = nil
-    huntingExplorer.panel.stopFightTab.untilLabel:setEnabled(false)
-    huntingExplorer.panel.stopFightTab.untilBox:setEnabled(false)
-    huntingExplorer.panel.stopFightTab.resumeLabel:setEnabled(false)
-    huntingExplorer.panel.stopFightTab.resume:setEnabled(false)
-
-    huntingExplorer.panel.lureTab.untilLabel:setEnabled(true)
-    huntingExplorer.panel.lureTab.untilBox:setEnabled(true)
-    huntingExplorer.panel.lureTab.resumeLabel:setEnabled(true)
-    huntingExplorer.panel.lureTab.resume:setEnabled(true)
+    -- Unico modo do Explorer: "Correr e parar". Ligado habilita os campos de
+    -- parar/retomar; desligado o personagem apenas vagueia pela area.
+    local stopEnabled = widget:isChecked()
+    huntingExplorer.panel.stopFightTab.untilLabel:setEnabled(stopEnabled)
+    huntingExplorer.panel.stopFightTab.untilBox:setEnabled(stopEnabled)
+    huntingExplorer.panel.stopFightTab.resumeLabel:setEnabled(stopEnabled)
+    huntingExplorer.panel.stopFightTab.resume:setEnabled(stopEnabled)
 
     hunting_explorerModule.saveSettings()
 end
