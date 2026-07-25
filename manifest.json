@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.33",
-    "generated":  "2026-07-25T01:20:42-03:00",
+    "version":  "15.24.34",
+    "generated":  "2026-07-25T02:11:26-03:00",
     "count":  21399,
     "files":  [
                   {
@@ -106030,8 +106030,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "546521ad4f20d519e50b163020233fa8ea39c8f34f7471ba57042154d7856231",
-                      "size":  19282
+                      "sha256":  "7b2942e4c82116187ed056584d2cd7390d75f191ef045916c5ee0658972c07a4",
+                      "size":  19287
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_defense.lua",
@@ -106995,7 +106995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "fe6d898f5c8af6e20681d499581dc4cee8148bad0e5c5c50eede15f0f073619a",
+                      "sha256":  "8d40d7349bdb4711b55a5a4ae8911cf9d0fc3a3bca7d92baea33f1549ce425e9",
                       "size":  9
                   }
               ]

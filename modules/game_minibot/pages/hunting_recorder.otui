@@ -594,9 +594,8 @@ UIWidget
         UIWidget
           id: lureSpeed
           anchors.left: lureSpeedLabel.right
-          anchors.top: lure.bottom
+          anchors.verticalCenter: lureSpeedLabel.verticalCenter
           margin-left: 6
-          margin-top: 8
           width: 40
           !text: '5'
           color: #C0C0C0
@@ -622,8 +621,9 @@ UIWidget
           !text: 'Speed:'
           text-align: left
           phantom: true
-          anchors.verticalCenter: lureSpeed.verticalCenter
+          anchors.top: lure.bottom
           anchors.left: parent.left
+          margin-top: 8
           margin-left: 5
           text-horizontal-auto-resize: true
           color: #C0C0C0
