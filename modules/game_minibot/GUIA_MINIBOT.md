@@ -261,8 +261,10 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
 - **Config do waypoint selecionado**:
   - **Stop if / Parar se**: para o movimento se encontrar X monstros no campo de visão.
   - **Walk again if / Voltar a andar se**: retoma se o nº de monstros for ≤ valor (0 = respeita só o "Stop if").
-  - **Lure / Lurar**: anda em passos curtos arrastando monstros e matando à distância.
-  - **Lure speed / Velocidade de lure**: quanto maior, mais rápido anda entre passos.
+  - **Velocidade entre os nodes** (`waypoint.lure`): liga/desliga a velocidade custom do node.
+    Marcado usa o valor do slider; desmarcado usa a velocidade padrão (5).
+  - **Velocidade** (`waypoint.speed`): valor 1–20 usado como alcance do `findPath` entre os
+    nodes (maior = alcança nodes mais distantes por passo).
 
 > **Estas quatro configs são do motor (C++), não do Lua.** O Lua só as envia em
 > `g_minibot.registerWalkWaypoint(point)`; quem decide é o `processCaveBot` em
@@ -274,10 +276,10 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
 >   `processExplorer`: segura o passo quando `nearbyHostileCount(localPlayer, 7) >= creatures` e só
 >   solta quando cai para `<= resume` (`resume = 0` → solta assim que ficar abaixo de `creatures`).
 >   O teste fica **depois** da checagem de chegada, para que parar em cima de um nó ainda avance a rota.
-> - **`waypoint.lure` continua morto**: é lido em `registerWalkWaypointFromLua` e não é consultado em
->   lugar nenhum. O `lure` que o motor usa é o do **Explorer** (`cfg.use`), que é outra coisa. Ou seja,
->   o Lure **por waypoint** do Recorder não tem efeito. Só `waypoint.speed` é usado, e apenas como
->   alcance do `findPath`.
+> - **`waypoint.lure` agora é o toggle de velocidade custom** (rótulo "Velocidade entre os nodes").
+>   O motor continua sem ler `lure`; a decisão fica no Lua: `resolveNodeSpeed` envia `waypoint.speed`
+>   quando `lure` está marcado, senão envia a velocidade padrão (`DEFAULT_NODE_SPEED = 5`). O
+>   `findPath` usa esse valor como alcance. (O `lure` do **Explorer** — `cfg.use` — é outra coisa.)
   - **Overwrite to all / Alterar para todos**: aplica a config deste waypoint a todos.
 - **Renovar 1 hora**: compra 1h de tempo de cave bot (`g_game.afkPause(4)`).
 - **Import/Export**: rota exportável por código (versão via `getExportCodeVersion()`).
@@ -293,10 +295,10 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
 > com data/hora (o mapa fica bloqueado). Ver linhas ~241/607 de [hunting_recorder.lua](pages/hunting_recorder.lua).
 
 ### 7.2 Explorer ([hunting_explorer.lua](pages/hunting_explorer.lua)) — módulo **21**
-Config em `settings['explorer']`. Caça **sem rota gravada** (anda pela área). Dois modos:
-- **Lure**: anda alguns SQMs por vez, arrastando e matando à distância; sem criaturas na
-  linha de visão, anda mais rápido.
+Config em `settings['explorer']`. Caça **sem rota gravada** (anda pela área). O modo **Lure** foi
+removido — só existe **Correr e parar**:
 - **Run and stop / Correr e parar**: anda em velocidade normal até encontrar N monstros.
+  Enviado ao motor sempre com `use = false`. Desligado, o personagem apenas vagueia.
 - **Stop if find X monsters**: nº mínimo de monstros para parar e atacar (0 = não para).
 - **After stop, walk if X monsters**: nº máximo para voltar a andar (0 = respeita o "Stop if").
 
@@ -342,20 +344,22 @@ Config em `settings['support_main']`. Utilidades automáticas:
   acompanhando escadas, buracos, teleports, escadas de mão e bueiros.
 - **Auto Reconnect** (`auto_reconnect`): se a conexão cair, refaz o login do personagem.
 
-> **O Auto Reconnect não é implementado aqui.** Quem reconecta é o `client_entergame`
-> (`scheduleAutoReconnect` → `executeAutoReconnect` → `CharacterList.doLogin`, disparado pelos
-> erros de conexão 10054/16654 em `characterlist.lua`). O MiniBot só **liga a chave** — que até
-> jul/2026 nenhuma tela escrevia, e por isso todo esse código nunca tinha rodado.
+> **O Auto Reconnect não é implementado aqui.** Quem reconecta é o `client_entergame`. O MiniBot
+> só **liga a chave** (setting global `autoReconnect` + flag por personagem via `saveAutoReconnect`).
 >
-> `reloadSupportRuntime` grava **os dois** stores, e ambos são necessários: o
-> `executeAutoReconnect` lê o flag **por personagem** (`saveAutoReconnect`), mas o `onLogout` do
-> `characterlist.lua` **sobrescreve** esse flag a partir do setting **global** `autoReconnect`.
-> Gravar só um dos dois é desfeito silenciosamente.
+> `reloadSupportRuntime` grava **os dois** stores, e ambos são necessários: o reconnect lê o flag
+> **por personagem**, mas o `onLogout` do `characterlist.lua` **sobrescreve** esse flag a partir do
+> setting **global** `autoReconnect`. Gravar só um dos dois é desfeito silenciosamente.
 >
-> Ao ligar, o teto de tentativas em `classes/login.lua` passou a valer também para o
-> Auto Reconnect (antes o `autoReconnect == false` pulava o freio, o que era inofensivo só
-> porque a opção nunca ligava). Sem o teto, uma queda do servidor viraria N clients tentando
-> login em looping.
+> **Reconexão persistente (jul/2026):** os disparos-únicos antigos (`scheduleAutoReconnect` →
+> `executeAutoReconnect`) foram substituídos por um **watchdog** em `characterlist.lua`: enquanto
+> offline, com a opção ligada e sem logout manual, ele tenta `CharacterList.doLogin` **a cada 5s
+> até voltar online**. É acionado por `onGameEnd`, então cobre queda de rede, **kick por idle**,
+> fim de sessão limpo. **A morte** é tratada à parte em `game_playerdeath` (auto-clica "Ok",
+> pois o char segue online e o watchdog não age). O **logout manual** é a única exceção — os pontos de saída em
+> `game_interface/gameinterface.lua` chamam `flagManualLogout()` antes do `safeLogout`/`forceLogout`.
+> O teto de 10 tentativas do `classes/login.lua` é neutralizado só nesse caminho (o watchdog zera
+> `LoginEvent.loginTries` a cada ciclo); o login manual normal continua com o teto.
 >
 > Só religa em **queda de conexão**, não em logout manual, e só com o client aberto — a senha
 > (`G.password`) vive em memória, some ao fechar.

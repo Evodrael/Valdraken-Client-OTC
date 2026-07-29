@@ -7,7 +7,7 @@ local itemList = {
 	64039, -- gold bank
 	23683, -- trader
 	64086, -- exp boost 100
-	64085, -- exp boost 50	
+	64085, -- exp boost 50
 }
 
 local regularUseItems = {
