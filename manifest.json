@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.37",
-    "generated":  "2026-07-30T23:18:36-03:00",
-    "count":  13444,
+    "version":  "15.24.38",
+    "generated":  "2026-07-31T01:58:48-03:00",
+    "count":  13443,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -22875,7 +22875,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "0414bbb4dcd4ae8e1f58fffdc19eb5bd5f45fc3adfed68c5fcac31dda7c65632",
+                      "sha256":  "45073872275da328666814738f96f28d9301436923d87ed896a85963649a8360",
                       "size":  1501067
                   },
                   {
@@ -61584,14 +61584,9 @@
                       "size":  2114
                   },
                   {
-                      "path":  "data/things/1524/staticdata-4b95f7290ba52e5dbac1fb32121988c5f3727ab32c40bc5de2d4a04389ab1a18.dat",
-                      "sha256":  "4b95f7290ba52e5dbac1fb32121988c5f3727ab32c40bc5de2d4a04389ab1a18",
-                      "size":  175832
-                  },
-                  {
-                      "path":  "data/things/1524/staticdata-f8a71d6d829daf8113863741026905f39c335e60fc09d2dfd6dc0b9ede162a6e.dat",
-                      "sha256":  "f8a71d6d829daf8113863741026905f39c335e60fc09d2dfd6dc0b9ede162a6e",
-                      "size":  176220
+                      "path":  "data/things/1524/staticdata-0ec416afc6b80648c1e3524a9c8b30c96d4cb5cdc6a630a53f7a1500be963771.dat",
+                      "sha256":  "0ec416afc6b80648c1e3524a9c8b30c96d4cb5cdc6a630a53f7a1500be963771",
+                      "size":  176268
                   },
                   {
                       "path":  "data/things/1524/staticmapdata-0967af2eacdd8f2a608e738b9042362676167d6c6455e60d08db7ae16cf7ea53.dat",
@@ -67220,8 +67215,8 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "050eac3dcc80a96a32d1a70c32cf9a5f303ff0f79668a2dc3d47b72c29cdce0b",
-                      "size":  9
+                      "sha256":  "c87f6e59ad4d5be88fd8228a506210a69fd0095c40600a2c5836c65969c9fb8d",
+                      "size":  8
                   }
               ]
 }
