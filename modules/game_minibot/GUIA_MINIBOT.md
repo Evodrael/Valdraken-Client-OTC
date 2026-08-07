@@ -127,12 +127,21 @@ Extraída dos `setModuleToggle(...)` de cada página. Útil ao mexer no liga/des
 | 21 | Cave Bot Explorer | hunting_explorer |
 | 23 | Ammo Refill (recarga de munição) | combat_attack |
 
-> **Auto Attack** é especial: o *modo* de alvo (closest/lowest/highest/smart) vem de
-> `g_minibot.setAutoAttack(type)` (type: 1=closest, 2=lowest, 3=highest, 200=smart; +100 = só
-> melee), e o *liga/desliga* é o **módulo 9** (`ModuleAutoAttack`). O motor
-> (`processAutoAttack`) exige **as duas coisas**: `m_autoAttack > 0` **E** módulo 9 ligado.
-> Por isso `combat_attack.reloadInternalModule` sincroniza os dois juntos — se separá-los,
-> o auto-attack passa a funcionar só "às vezes".
+> **Auto Attack não usa mais o motor C++.** A escolha de alvo vive em Lua, no tick
+> `autoAttackTick` de [minibot.lua](minibot.lua), ligado por
+> `modules.game_minibot.setAutoAttackMode(mode)`. O caminho antigo
+> (`g_minibot.setAutoAttack(type)` + módulo 9 = `ModuleAutoAttack`) fica **desligado nas duas
+> pontas**, senão `MiniBotManager::processAutoAttack()` escolheria alvo em paralelo e brigaria
+> com o Lua pelo mesmo personagem. Consequência prática: `g_minibot.getAutoAttack()` e
+> `g_minibot.isModuleToggle(9)` são sempre 0/false — não use nenhum dos dois para saber se o
+> Auto Attack está ligado; leia `settings['shortcuts']['autoAttack_enabled']`.
+>
+> O motivo da migração foram quatro defeitos do `getBestTarget` em C++: o modo só era aplicado
+> quando não havia alvo nenhum (então trocar de modo não mudava nada em combate); não havia
+> checagem de linha de visão (alvo atrás de parede); a distância usava `manhattanDistance`,
+> que trata diagonal como 2 e não casa com o alcance real do jogo; e o encoding `200` (smart
+> arrow) colidia com o `+100` de melee-only, fazendo o modo à distância cair silenciosamente
+> em "mais próximo + melee".
 
 ### Gancho de login (`onPlayerInfo`)
 
@@ -184,16 +193,49 @@ Sub-abas: **Attack**, **Timers**, **Shooter**, **PvP**.
 
 ### 5.1 Attack ([combat_attack.lua](pages/combat_attack.lua)) — módulo **23**
 Config em `settings['combat_attack']`.
-- **Atacar apenas corpo a corpo** (`meleeAttack`): só ataca criatura em alcance melee.
-- **Ataque automático em criaturas próximas** (`autoAttack`): detecta o melhor alvo pela
-  regra escolhida abaixo:
-  - **Priorizar a posição mais próxima** (`closest`) — em empate, escolhe a de menor vida.
-  - **Priorizar a vida mais baixa** (`health`).
-  - **Priorizar a vida mais alta** (`highHealth`).
-  - **Diamond arrow inteligente** (`smartArrow`) — melhor área de impacto da Diamond Arrow,
-    priorizando menor vida.
+
+- **Auto Attack** (botão master `autoAttack`, ON/OFF): liga a seleção automática de alvo.
+  Persistido em `settings['shortcuts']['autoAttack_enabled']`, compartilhado com a hotkey e com
+  o atalho `combat_gamewindow` da janela de jogo.
+- **Modo de alvo**: um único campo `settings['combat_attack']['autoAttack_mode']`, com os
+  valores `closest` | `lowest` | `highest` | `ranged`. Os quatro `CircularCheckBox` da página
+  têm o **id igual ao valor salvo**, então interface e motor não saem de sincronia.
+  - **Criatura mais próxima** (`closest`) — distância Chebyshev (diagonal = 1 SQM).
+  - **Criatura com HP mais baixa** (`lowest`).
+  - **Criatura com HP mais alta** (`highest`).
+  - **Ataque a distância** (`ranged`) — escolhe o alvo em que a flecha de área acerta mais
+    criaturas; empate resolve pela vida mais baixa. Sem flecha de área equipada, cai para
+    `closest`.
 - **Recarga de munição** (`ammoRefill`): se a munição selecionada existir no inventário,
   o sistema tenta movê-la periodicamente para a mão.
+
+Ajustes que valem para todos os modos:
+
+- **Priorizar quem está me atacando** (`autoAttack_preferAttacker`): atua **antes** do critério do
+  modo, sem substituí-lo — entre dois atacantes, o modo decide normalmente. O protocolo do Tibia
+  **não informa** quem tem você como alvo (não existe nada disso em `creature.h`), então é uma
+  heurística com dois sinais: criatura adjacente (Chebyshev ≤ 1), e quem disparou um míssil que
+  caiu no seu SQM nos últimos 3 s. O id do atirador é resolvido no `onMissileTo`, não no tick,
+  porque a criatura anda e a posição de origem deixaria de apontá-la.
+- **Distância máxima** (`autoAttack_maxDistance`, 1–10, default 10): filtro em `isAttackable`.
+  10 cobre a tela inteira, então equivale a "sem limite".
+- **Mín. de alvos para área** (`autoAttack_minAoeTargets`, 1–9, default 1): só no modo `ranged`.
+  Se o melhor ponto de mira acertaria menos criaturas que isso, cai para `lowest` em vez de mirar
+  um aglomerado distante. 1 desliga a checagem.
+
+Regras válidas para os quatro modos: mesmo andar, criatura viva, visível (`canBeSeen()`, o que
+descarta invisível) e **linha de visão livre** (`g_map.isSightClear`). O alvo é reavaliado a
+cada 250 ms e a troca é imediata, mas o pacote de ataque só é enviado quando o alvo realmente
+muda. O desempate final é o id da criatura: sem esse critério estável, dois alvos empatados
+fariam o tick alternar entre eles a cada 250 ms e inundar o servidor de pacotes.
+
+> A área da flecha e a lista de atacantes são pré-calculadas **uma vez por candidato** antes da
+> escolha. Calculá-las dentro do comparador deixaria a seleção O(n³) por tick.
+
+> Presets antigos (com os booleanos `autoAttack_health` / `_highhealth` / `_closest` /
+> `_smartArrow` e o `attackMelee_enabled`) são convertidos na primeira leitura por `readMode()`
+> e as chaves antigas são apagadas no primeiro save. A opção "atacar apenas corpo a corpo"
+> deixou de existir.
 
 ### 5.2 Timers ([combat_timers.lua](pages/combat_timers.lua)) — módulo **3**
 Config em `settings['combat_timers']`. É uma **Lista de Prioridade** (Source / Action /
@@ -281,18 +323,31 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
 >   quando `lure` está marcado, senão envia a velocidade padrão (`DEFAULT_NODE_SPEED = 5`). O
 >   `findPath` usa esse valor como alcance. (O `lure` do **Explorer** — `cfg.use` — é outra coisa.)
   - **Overwrite to all / Alterar para todos**: aplica a config deste waypoint a todos.
-- **Renovar 1 hora**: compra 1h de tempo de cave bot (`g_game.afkPause(4)`).
 - **Import/Export**: rota exportável por código (versão via `getExportCodeVersion()`).
 
-> **O "AFK Pause (5 min)" foi removido** do painel. `g_game.afkPause(action)` continua sendo o
-> canal de várias ações do cave bot (ver `Game::afkPause`): **0**=limpa pausa AFK, **1**=pausa
-> 5min, **2**=task on, **3**=task off, **4**=renova. Só o **1** deixou de ser usado — o **4** é o
-> botão de renovar e o **0** segue no `init` da página, porque o servidor responde com o estado
-> novo do cave bot e é assim que o timer se atualiza ao abrir a aba. Para pedir o estado sem
-> efeito colateral existe `g_game.requestCaveBot()` (action **6**), usado no login.
-
-> Restrição de servidor: se o jogador for banido do cavebot, aparece a mensagem de proibição
-> com data/hora (o mapa fica bloqueado). Ver linhas ~241/607 de [hunting_recorder.lua](pages/hunting_recorder.lua).
+> **O tempo pago do Cave Bot foi removido por completo.** O cave bot é livre e ilimitado. Saíram
+> do client: o `titlePanel` do `hunting_recorder.otui` (contador "Tempo restante", botão "Renovar
+> 1 hora" e o ícone de ajuda), a função `onMinibotCavebotTimer` com o `connect`/`disconnect` dela,
+> o `g_game.afkPause(0)` do `init` da página (existia só para pedir o estado que alimentava o
+> contador) e — o mais importante — as **três guardas** de `main_settings.lua` que recusavam ligar
+> o `huntingRecorder_gamewindow` quando `getCaveBotTimeLeft() <= 60`. Eram elas que impunham o
+> limite: o servidor **só contabiliza e informa**, nunca bloqueia (ver `parseCaveBot` /
+> `sendCaveBotState` no protocolgame, e `src/game/cavebot/cavebot.cpp`).
+>
+> **O que continua valendo é o BANIMENTO** do cave bot (`getCaveBotTimestamp`), que é punição por
+> violar regras — coisa diferente do tempo pago. Ver ~linha 250 de
+> [hunting_recorder.lua](pages/hunting_recorder.lua): mostra a mensagem de proibição com data/hora
+> e bloqueia o mapa.
+>
+> Resíduo conhecido: `MiniBotManager::processCaveBotTimers` (C++ do client) ainda reporta 1s/s de
+> consumo via `g_game.caveBotConsume(1)` enquanto o bot anda, então o storage 920300 do servidor
+> segue decrementando até 0 — **inofensivo**, porque nada mais lê esse valor, e o próprio C++ para
+> de reportar quando chega a zero. Tirar isso de vez exigiria recompilar o client.
+>
+> `g_game.afkPause(action)` segue sendo o canal de várias ações do cave bot (ver `Game::afkPause`):
+> **0**=limpa pausa AFK, **1**=pausa 5min, **2**=task on, **3**=task off, **4**=renova. Hoje
+> **nenhuma** delas é usada pelo painel (o **4** saiu com o botão de renovar). Para pedir o estado
+> sem efeito colateral existe `g_game.requestCaveBot()` (action **6**), usado no login.
 
 ### 7.2 Explorer ([hunting_explorer.lua](pages/hunting_explorer.lua)) — módulo **21**
 Config em `settings['explorer']`. Caça **sem rota gravada** (anda pela área). O modo **Lure** foi
@@ -379,10 +434,36 @@ Config em `settings['support_main']`. Utilidades automáticas:
 > `modules.game_textmessage.displayFailureMessage`, **uma vez por motivo** (`autoFishingWarning`):
 > sem esse controle o aviso repetiria a cada 2 s.
 
-> **Auto Haste (módulo 4) e Auto Eat (módulo 8) foram removidos** do painel em jul/2026. O código
-> C++ dos dois módulos continua no motor; o `reloadInternalModule` da página agora só chama
-> `resetModule` + `setModuleToggle(false)` para os dois, porque os toggles são estado de sessão e
-> presets antigos ainda carregam as chaves `haste` / `auto_eat` no `support_main`.
+> **Auto Haste voltou** (ago/2026), reusando o **módulo 4** que já existia no motor — sem
+> recompilar nada. Config em `support_main.auto_haste` (`enabled` + `spell`, o **id** da spell).
+> O jogador escolhe entre as quatro spells de haste do servidor num `ComboBox`:
+>
+> | Spell | Palavras | id | Mana |
+> |---|---|---|---|
+> | Haste | utani hur | 6 | 60 |
+> | Strong Haste | utani gran hur | 39 | 100 |
+> | Charge | utani tempo hur | 131 | 100 |
+> | Swift Foot | utamo tempo san | 134 | 400 |
+>
+> A lista vem de `data/scripts/spells/support/` do servidor. **As quatro aplicam
+> `CONDITION_HASTE`**, e isso não é detalhe: é essa condição que acende o `Otc::IconHaste`, e o
+> `processSupportEntry` do motor usa exatamente esse ícone para decidir se precisa recastar. Uma
+> spell de velocidade que usasse outra condição seria recastada em loop infinito.
+>
+> Duas armadilhas na hora de registrar a entrada:
+> - a chave de mana lida pelo motor é **`reqmana`** minúsculo (`readInt(..., "reqmana")` em
+>   minibotmanager.cpp). Escrever `reqMana` é ignorado em silêncio, viraria 0, e o motor tentaria
+>   falar a palavra mágica sem mana;
+> - `ignorePz = true` é o que evita o recast dentro do depot.
+>
+> O `supportHaste_gamewindow` / `supportHaste_enabled` (atalho na janela de jogo) é **resíduo
+> morto** da versão antiga: o botão até é criado, mas `onMiniBotGameWindowChangeFromPanel` não tem
+> branch para esse id, então clicar nele cai no `else return` e não faz nada. O Auto Haste de hoje
+> é só do painel, igual a Auto Bless / Auto Follow / Auto Mount / Auto Fishing.
+
+> **Auto Eat (módulo 8) continua removido** do painel. O `reloadInternalModule` da página chama
+> `resetModule` + `setModuleToggle(false)` para ele, porque os toggles são estado de sessão e
+> presets antigos ainda carregam a chave `auto_eat` no `support_main`.
 >
 #### Auto Follow: como funciona (reescrito em jul/2026)
 

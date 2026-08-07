@@ -1,4 +1,4 @@
-hunting_recorderModule = {}
+﻿hunting_recorderModule = {}
 
 local huntingWaypointsWindow = nil
 local virtualFloor = 7
@@ -205,9 +205,6 @@ function hunting_recorderModule.init(widget)
         end
     end
 
-    connect(g_game, {
-        onMinibotCavebotTimer = hunting_recorderModule.onMinibotCavebotTimer
-    })
     connect(LocalPlayer, {
         onPositionChange = hunting_recorderModule.onPositionChange
     })
@@ -244,12 +241,13 @@ function hunting_recorderModule.init(widget)
 
     hunting_recorderModule.loadSettings()
     huntingWaypointsWindow.ignoreReloadInformation = nil
-    -- Action 0 = clear the AFK pause (see Game::afkPause). The 5-min pause UI is
-    -- gone, but the server still answers with the fresh cave bot state, which the
-    -- timer below reads, so this stays as the on-open refresh.
-    g_game.afkPause(0)
+    -- O g_game.afkPause(0) que ficava aqui existia para pedir ao servidor o estado
+    -- fresco do tempo de cave bot, que alimentava o contador. Sem contador, nao ha
+    -- o que atualizar.
 
     if localPlayer ~= nil then
+        -- Continua valendo o BANIMENTO do cave bot (getCaveBotTimestamp), que e uma
+        -- punicao por violar regras -- coisa diferente do tempo pago, que saiu.
         local language = modules.game_minibot.getSettingsValue(false, 'language', 'ptbr')
         local timestamp = localPlayer:getCaveBotTimestamp()
         if timestamp >= os.time() then
@@ -261,17 +259,12 @@ function hunting_recorderModule.init(widget)
         else
             huntingWaypointsWindow.map.accept:setVisible(not(huntingWaypointsWindow.map.minimap:isExplicitlyVisible()))
         end
-
-        hunting_recorderModule.onMinibotCavebotTimer(localPlayer:getCaveBotTimeLeft(), localPlayer:getCaveBotTotalTimeLeft(), localPlayer:isCaveBotTask(), localPlayer:getCaveBotRenewPrice())
     else
         huntingWaypointsWindow.map.accept:setVisible(true)
     end
 end
 
 function hunting_recorderModule.terminate()
-    disconnect(g_game, {
-        onMinibotCavebotTimer = hunting_recorderModule.onMinibotCavebotTimer
-    })
     disconnect(LocalPlayer, {
         onPositionChange = hunting_recorderModule.onPositionChange
     })
@@ -300,133 +293,6 @@ function hunting_recorderModule.onWalkToNextNode(index)
             end
         end
     end
-end
-
-function hunting_recorderModule.onMinibotCavebotTimer(timeleft, total, task, renewPrice)
-    if huntingWaypointsWindow == nil then
-        return
-    end
-
-    local language = modules.game_minibot.getSettingsValue(false, 'language', 'ptbr')
-    -- Modo Task removido da interface do Cave Bot (texto e botao retirados a pedido).
-    -- O parametro 'task' nao e mais usado aqui.
-
-    if modules.game_minibot.getCacheResourceBalance() >= renewPrice and (total - timeleft) >= 900 then
-        addEvent(function()
-            if huntingWaypointsWindow ~= nil then
-                huntingWaypointsWindow.map.titlePanel.renewButton:setButtonColor('yellow')
-            end
-        end)
-        huntingWaypointsWindow.map.titlePanel.renewButton.mark:show()
-        huntingWaypointsWindow.map.titlePanel.renewButton:setText("Renovar 1 hora")
-        huntingWaypointsWindow.map.titlePanel.renewButton:setColor('#dddddd')
-        huntingWaypointsWindow.map.titlePanel.renewButton:setEnabled(true)
-        huntingWaypointsWindow.map.titlePanel.renewButton.onLeftClick = function()
-            local message = ""
-            if language == 'ptbr' then
-                message = "Você tem certeza que deseja renovar 1 hora do Cavebot?\nO valor de " .. comma_value(renewPrice) .. " gold coins será cobrado do seu personagem, e 1 hora será adicionada ao tempo disponível do Cavebot.\n\nCaso opte pela renovação sem ter gasto 1 hora do tempo disponível, o tempo extra não será adicionado ao seu personagem,\nmas o valor será cobrado normalmente."
-            elseif language == 'enus' then
-                message = "Are you sure you want to renew 1 hour of the Cavebot?\nThe amount of " .. comma_value(renewPrice) .. " gold coins will be charged from your character, and 1 hour will be added to the available time of the Cavebot.\n\nIf you choose to renew without having used 1 hour of available time, the extra time will not be added to your character,\nbut the amount will be charged normally."
-            end
-            modules.game_minibot.openConfirmationWindow("Deusot Cavebot Timer", message, function()
-                g_game.afkPause(4)
-            end, function()
-            
-            end)
-        end
-        if language == 'ptbr' then
-            huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip("Ao utilizar ao menos 15 minutos do Cavebot você poderá renovar 1 hora do tempo disponível.\nO preço para renovar 1 hora do Cavebot é de " .. comma_value(renewPrice) .. " gold coins, aumentando a cada renovação.\n\nCaso opte pela renovação sem ter gasto 1 hora do tempo disponível, o tempo extra não será adicionado ao seu personagem, mas o valor será cobrado normalmente.")
-        elseif language == 'enus' then
-            huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip("By using the Cavebot for at least 15 minutes you can renew 1 hour of available time.\nThe price to renew 1 hour of the Cavebot is " .. comma_value(renewPrice) .. " gold coins, increasing with each renewal.\n\nIf you choose to renew without having used 1 hour of available time, the extra time will not be added to your character, but the amount will be charged normally.")
-        end
-    else
-        local renewUnavailableMessage = ""
-        if modules.game_minibot.getCacheResourceBalance() < renewPrice then
-            if language == 'ptbr' then
-                huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip("Você não possui recursos suficientes para renovar o cavebot. Você precisa de " .. comma_value(renewPrice) .. " gold coins para renovar 1 hora.")
-            elseif language == 'enus' then
-                huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip("You do not have enough resources to renew the cavebot. You need " .. comma_value(renewPrice) .. " gold coins to renew 1 hour.")
-            end
-            if language == 'ptbr' then
-                renewUnavailableMessage = "Voce nao possui recursos suficientes para renovar o cavebot. Voce precisa de " .. comma_value(renewPrice) .. " gold coins para renovar 1 hora."
-            elseif language == 'enus' then
-                renewUnavailableMessage = "You do not have enough resources to renew the cavebot. You need " .. comma_value(renewPrice) .. " gold coins to renew 1 hour."
-            end
-            huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip(renewUnavailableMessage)
-        end
-        if (total - timeleft) < 900 then
-            if language == 'ptbr' then
-                huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip("Você precisa utilizar o cavebot por pelo menos 15 minutos antes de poder renovar o tempo disponível.")
-            elseif language == 'enus' then
-                huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip("You need to use the cavebot for at least 15 minutes before you can renew the available time.")
-            end
-            if language == 'ptbr' then
-                renewUnavailableMessage = "Voce precisa utilizar o cavebot por pelo menos 15 minutos antes de poder renovar o tempo disponivel."
-            elseif language == 'enus' then
-                renewUnavailableMessage = "You need to use the cavebot for at least 15 minutes before you can renew the available time."
-            end
-            huntingWaypointsWindow.map.titlePanel.helpRenew:setTooltip(renewUnavailableMessage)
-        end
-        addEvent(function()
-            if huntingWaypointsWindow ~= nil then
-                huntingWaypointsWindow.map.titlePanel.renewButton:setButtonColor('red')
-            end
-        end)
-        huntingWaypointsWindow.map.titlePanel.renewButton.mark:hide()
-        huntingWaypointsWindow.map.titlePanel.renewButton:setText("Indisponivel")
-        huntingWaypointsWindow.map.titlePanel.renewButton:setColor('#C0C0C0')
-        huntingWaypointsWindow.map.titlePanel.renewButton:setEnabled(true)
-        huntingWaypointsWindow.map.titlePanel.renewButton.onLeftClick = function()
-            displayErrorBox("Deusot Cavebot Timer", renewUnavailableMessage ~= "" and renewUnavailableMessage or "Unavailable")
-        end
-    end
-
-    local progress = math.max(0, math.min(100, math.ceil((timeleft * 100) / math.max(1, total))))
-    local hours = math.floor(timeleft / 3600)
-    local minutes = math.floor((timeleft % 3600) / 60)
-    local timerKey = hours * 60 + minutes
-    local timerText = string.format("%d:%02d", hours, minutes)
-
-    local lines = {}
-    if language == 'ptbr' then
-        table.insert(lines, "Tempo restante: ")
-        table.insert(lines, "#C0C0C0")
-        table.insert(lines, timerText .. " horas\n")
-        if progress > 75 then
-            table.insert(lines, "#6bdd6d")
-        elseif progress > 25 then
-            table.insert(lines, "#ddd46b")
-        else
-            table.insert(lines, "#dd6b6b")
-        end
-        table.insert(lines, "Renovar (1h): ")
-        table.insert(lines, "#C0C0C0")
-        table.insert(lines, comma_value(renewPrice))
-        table.insert(lines, "#c5a52d")
-        table.insert(lines, " gold!")
-        table.insert(lines, "#C0C0C0")
-    elseif language == 'enus' then
-        table.insert(lines, "Time left: ")
-        table.insert(lines, "#C0C0C0")
-        table.insert(lines, timerText .. " hours\n")
-        if progress > 75 then
-            table.insert(lines, "#6bdd6d")
-        elseif progress > 25 then
-            table.insert(lines, "#ddd46b")
-        else
-            table.insert(lines, "#dd6b6b")
-        end
-        table.insert(lines, "Renew (1h): ")
-        table.insert(lines, "#C0C0C0")
-        table.insert(lines, comma_value(renewPrice))
-        table.insert(lines, "#c5a52d")
-        table.insert(lines, " gold!")
-        table.insert(lines, "#C0C0C0")
-    end
-    -- OTCV8's UIWidget:setColoredText takes a STRING ("{text, color}{...}"),
-    -- not the flat {text, color, ...} array DeusOT passed. Convert it so the
-    -- renew label next to the button renders again.
-    huntingWaypointsWindow.map.titlePanel.renewTitle:setColoredText(string.fromColoredTable(lines))
 end
 
 function hunting_recorderModule.setPreWalk(position)
@@ -538,7 +404,6 @@ function hunting_recorderModule.onAcceptRules(widget)
     huntingWaypointsWindow.map.enabled:show()
     huntingWaypointsWindow.map.minimap:show()
     huntingWaypointsWindow.map.layersPanel:show()
-    huntingWaypointsWindow.map.titlePanel:show()
     huntingWaypointsWindow.map.accept:hide()
 end
 

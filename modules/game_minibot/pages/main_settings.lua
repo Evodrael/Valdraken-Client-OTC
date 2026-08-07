@@ -499,7 +499,12 @@ function main_settingsModule.reloadInternalModule()
     g_minibot.setModuleToggle(2, healingManaEnabled) -- Healing Mana
     g_minibot.setModuleToggle(3, combatTimersEnabled) -- Combat Timers
     g_minibot.setModuleToggle(6, healingGroupEnabled) -- Healing Group
-    g_minibot.setModuleToggle(9, autoAttackEnabled) -- Auto-attack
+    -- O Auto Attack nao usa mais o modulo 9 (motor C++): a escolha de alvo agora e
+    -- feita pelo tick em Lua do minibot. Deixar o modulo 9 ligado aqui faria
+    -- MiniBotManager::processAutoAttack() escolher alvo em paralelo e brigar com o
+    -- Lua pelo mesmo personagem. Quem liga/desliga o Auto Attack e o
+    -- combat_attackModule.reloadInternalModule(), a partir de autoAttack_enabled.
+    g_minibot.setModuleToggle(9, false) -- Auto-attack (desativado no motor)
     g_minibot.setModuleToggle(10, equipmentAmuletEnabled) -- Equipment Amulet
     g_minibot.setModuleToggle(11, equipmentRingEnabled) -- Equipment Ring
     --g_minibot.setModuleToggle(16, tankModeEnabled) -- Tank Mode
@@ -889,7 +894,10 @@ end
 function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
     local localPlayer = g_game.getLocalPlayer()
     if type(widget) == 'string' then
-        if forceChecked and widget == 'huntingRecorder_gamewindow' and localPlayer ~= nil and (localPlayer:getCaveBotTimestamp() >= os.time() or localPlayer:getCaveBotTimeLeft() <= 60) then
+        -- Antes esta guarda tambem recusava quando getCaveBotTimeLeft() <= 60: era a
+        -- imposicao client-side do tempo pago do cave bot, que foi removido. Sobra o
+        -- BANIMENTO por violar regras (getCaveBotTimestamp), que continua valendo.
+        if forceChecked and widget == 'huntingRecorder_gamewindow' and localPlayer ~= nil and localPlayer:getCaveBotTimestamp() >= os.time() then
             return
         end
 
@@ -908,7 +916,6 @@ function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
     end
 
     local settings2 = modules.game_minibot.getPressetSettings()
-    local mSettings = settings2['combat_attack'] or {}
     if settings2['shortcuts'] == nil then
         settings2['shortcuts'] = {}
     end
@@ -918,7 +925,7 @@ function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
     if type(widget) == 'userdata' then
         widgetId = widget:getId()
         widgetChecked = widget:isChecked()
-        if widget:getId() == 'huntingRecorder_gamewindow' and localPlayer ~= nil and (localPlayer:getCaveBotTimestamp() >= os.time() or localPlayer:getCaveBotTimeLeft() <= 60) then
+        if widget:getId() == 'huntingRecorder_gamewindow' and localPlayer ~= nil and localPlayer:getCaveBotTimestamp() >= os.time() then
             widgetChecked = false
         end
 
@@ -971,7 +978,7 @@ function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
             widgetChecked = forceChecked
         end
 
-        if widgetId == 'huntingRecorder_gamewindow' and localPlayer ~= nil and (localPlayer:getCaveBotTimestamp() >= os.time() or localPlayer:getCaveBotTimeLeft() <= 60) then
+        if widgetId == 'huntingRecorder_gamewindow' and localPlayer ~= nil and localPlayer:getCaveBotTimestamp() >= os.time() then
             widgetChecked = false
         end
     end
@@ -1047,24 +1054,21 @@ function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
     modules.game_console.focusChat()
 
     if messageToggle > -1 then
-        local autoAttack = settings2['shortcuts']['autoAttack_enabled']
-        local health = mSettings['autoAttack_health']
-        local closest = mSettings['autoAttack_closest']
-        local smartArrow = mSettings['autoAttack_smartArrow']
-
         --if widgetId == 'tankMode_gamewindow' then
         --    combat_pvpModule.reloadInternalModule()
         --elseif widgetId == 'combat_gamewindow' then
         if widgetId == 'combat_gamewindow' then
-            -- Usa a logica canonica da pagina Combat > Attack (respeita o checkbox
-            -- "Atacar apenas corpo a corpo" e o modo highHealth). Antes este atalho forcava
-            -- melee (+100) para knight/monk pela vocacao e ignorava o highHealth, fazendo o
-            -- auto-attack so mirar alvos adjacentes (dist <= 1) -> "nao ativava sempre".
+            -- Usa a logica canonica da pagina Combat > Attack, que le o modo salvo
+            -- e (re)inicia o tick de selecao de alvo.
             modules.game_minibot.combat_attackModule.reloadInternalModule()
         end
 
         if widgetId == 'combat_gamewindow' then
-            messageToggle = g_minibot.getAutoAttack() > 0
+            -- O Auto Attack nao vive mais no motor, entao getAutoAttack() e sempre 0
+            -- e isModuleToggle(9) sempre falso: ler qualquer um dos dois faria a
+            -- mensagem na tela dizer "disabled" mesmo ao ligar. O estado agora e o
+            -- proprio atalho.
+            messageToggle = widgetChecked
         else
             messageToggle = g_minibot.isModuleToggle(messageToggle)
         end

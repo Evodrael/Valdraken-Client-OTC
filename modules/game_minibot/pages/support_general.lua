@@ -7,6 +7,34 @@ local supportGeneralWindow = nil
 local FISHING_ROD_ID = 9306    -- Mechanical Fishing Rod
 local FISHING_SPOT_ID = 26077  -- Bath Tub
 
+-- Auto Haste: as spells de haste DESTE servidor.
+--
+-- Fonte (nao inventar): data/scripts/spells/support/{haste,strong_haste,charge,
+-- swift_foot}.lua. As quatro aplicam CONDITION_HASTE, que e o que acende o
+-- Otc::IconHaste -- e esse icone e justamente o que o modulo 4 do motor consulta
+-- para saber se ainda precisa recastar. Uma spell de velocidade que nao usasse
+-- CONDITION_HASTE ficaria sendo recastada em loop.
+--
+-- 'mana' vai para entry.reqMana, entao o motor nem tenta falar a palavra magica
+-- sem mana suficiente. A vocacao fica de fora de proposito: quem nao tem a spell
+-- simplesmente nao a vera funcionar, e gatear por vocacao aqui duplicaria uma
+-- regra que e do servidor (e quebraria com qualquer mudanca de vocacao).
+local hasteSpells = {
+    { id = 6,   words = "utani hur",       name = "Haste",        mana = 60 },
+    { id = 39,  words = "utani gran hur",  name = "Strong Haste", mana = 100 },
+    { id = 131, words = "utani tempo hur", name = "Charge",       mana = 100 },
+    { id = 134, words = "utamo tempo san", name = "Swift Foot",   mana = 400 },
+}
+
+local function findHasteSpell(id)
+    for _, spell in ipairs(hasteSpells) do
+        if spell.id == id then
+            return spell
+        end
+    end
+    return nil
+end
+
 -- Armas de treino e dummies do Valdraken.
 --
 -- Fonte (nao inventar ids): o servidor so aceita como exercise weapon os ids de
@@ -167,7 +195,8 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoFollow.help:setTooltip('O Assistente andara atras do jogador com este nome, acompanhando escadas, buracos, teleports e escadas de mao.\nSe voce andar com as setas ou WASD, o follow pausa por um instante para nao brigar pelo controle.')
         supportGeneralWindow.panel.autoReconnect.check:setText('Reconexao automatica')
         supportGeneralWindow.panel.autoReconnect.help:setTooltip('Se a conexao com o servidor cair, o client refaz o login deste personagem automaticamente. So funciona com o client aberto, e nao age em logout manual.')
-
+        supportGeneralWindow.panel.autoHaste.check:setText('Haste automatico')
+        supportGeneralWindow.panel.autoHaste.help:setTooltip('Relanca a spell de haste escolhida assim que o efeito acaba. O Assistente olha o icone de haste do personagem, entao nunca gasta mana enquanto o efeito ainda esta ativo, e nao relanca dentro de Protection Zone.\nSe faltar mana para a spell, ele espera. Escolha uma spell que seu personagem realmente tenha.')
 
     elseif language == 'enus' then
         supportGeneralWindow.panel.title:setText('General')
@@ -189,6 +218,8 @@ function support_generalModule.reloadLanguage(language)
         supportGeneralWindow.panel.autoFollow.help:setTooltip('The Assistant walks after the player with this name, keeping up through stairs, holes, teleports and ladders.\nIf you walk with the arrows or WASD, the follow pauses for a moment so it does not fight you for control.')
         supportGeneralWindow.panel.autoReconnect.check:setText('Auto reconnect')
         supportGeneralWindow.panel.autoReconnect.help:setTooltip('If the connection to the game server drops, the client logs this character back in automatically. Only works while the client stays open, and it does not act on a manual logout.')
+        supportGeneralWindow.panel.autoHaste.check:setText('Auto haste')
+        supportGeneralWindow.panel.autoHaste.help:setTooltip('Recasts the chosen haste spell as soon as it wears off. The Assistant checks the character haste icon, so it never wastes mana while the buff is still up, and it does not recast inside a Protection Zone.\nIf you are short on mana for the spell, it waits. Pick a spell your character actually has.')
 
     end
 end
@@ -238,6 +269,13 @@ function support_generalModule.saveSettings()
     local autoReconnectSettings = {}
     autoReconnectSettings['enabled'] = supportGeneralWindow.panel.autoReconnect.check:isChecked()
     sList['auto_reconnect'] = autoReconnectSettings
+
+    -- Auto Haste
+    local autoHasteSettings = {}
+    autoHasteSettings['enabled'] = supportGeneralWindow.panel.autoHaste.check:isChecked()
+    local currentSpell = supportGeneralWindow.panel.autoHaste.spell:getCurrentOption()
+    autoHasteSettings['spell'] = currentSpell ~= nil and currentSpell.data or hasteSpells[1].id
+    sList['auto_haste'] = autoHasteSettings
 
     settings['support_main'] = sList
     modules.game_minibot.setPressetSettings(settings)
@@ -327,6 +365,28 @@ function support_generalModule.loadSettings()
     supportGeneralWindow.panel.autoReconnect.check.ignoreCallback = true
     supportGeneralWindow.panel.autoReconnect.check:setChecked(autoReconnectSettings['enabled'] or false)
     supportGeneralWindow.panel.autoReconnect.check.ignoreCallback = nil
+
+    -- Auto Haste
+    local autoHasteSettings = sList['auto_haste'] or {}
+    local hasteBox = supportGeneralWindow.panel.autoHaste.spell
+    hasteBox.ignoreCallback = true
+    hasteBox:clearOptions()
+    for _, spell in ipairs(hasteSpells) do
+        -- dontSignal: addOption auto-seleciona a primeira opcao, e sem isso o
+        -- onOptionChange dispararia um saveSettings no meio do load.
+        hasteBox:addOption(spell.name .. ' (' .. spell.words .. ')', spell.id, true)
+    end
+    -- setCurrentOptionByData nao faz nada se o id salvo nao existir mais na lista,
+    -- e nesse caso a primeira opcao (ja selecionada pelo addOption) e o fallback.
+    if findHasteSpell(autoHasteSettings['spell']) ~= nil then
+        hasteBox:setCurrentOptionByData(autoHasteSettings['spell'], true)
+    end
+    hasteBox.ignoreCallback = nil
+
+    supportGeneralWindow.panel.autoHaste.check.ignoreCallback = true
+    supportGeneralWindow.panel.autoHaste.check:setChecked(autoHasteSettings['enabled'] or false)
+    support_generalModule.onAutoHasteChange(supportGeneralWindow.panel.autoHaste.check)
+    supportGeneralWindow.panel.autoHaste.check.ignoreCallback = nil
 end
 
 function support_generalModule.onChangeGoldChange(widget)
@@ -380,6 +440,27 @@ function support_generalModule.onAutoReconnectChange(widget)
 
     support_generalModule.saveSettings()
     support_generalModule.reloadInternalModule()
+end
+
+function support_generalModule.onAutoHasteChange(widget)
+    -- O seletor de spell so faz sentido com o recurso ligado.
+    local hasteBox = supportGeneralWindow.panel.autoHaste.spell
+    hasteBox:setEnabled(widget:isChecked())
+    hasteBox:setOpacity(widget:isChecked() and 1 or 0.3)
+
+    if widget.ignoreCallback then
+        return
+    end
+
+    support_generalModule.saveSettings()
+end
+
+function support_generalModule.onAutoHasteSpellChange(widget)
+    if widget.ignoreCallback then
+        return
+    end
+
+    support_generalModule.saveSettings()
 end
 
 function support_generalModule.onAutoFollowNameChange(widget)
@@ -440,12 +521,49 @@ function support_generalModule.reloadInternalModule()
     local sList = settings['support_main'] or {}
     local sShortcut = settings['shortcuts'] or {}
 
-    -- Auto Haste (modulo 4) e Auto Eat (modulo 8) foram removidos do painel. Os
-    -- toggles do motor sao estado de sessao: presets antigos ainda guardam as
-    -- chaves 'haste'/'auto_eat', e sem desligar explicitamente aqui um preset que
-    -- os tinha ligados continuaria rodando no motor ate o proximo login.
+    -- Auto Haste (modulo 4 do motor). O C++ (processSupportEntry) sai cedo enquanto
+    -- o Otc::IconHaste estiver aceso, entao ele recasta exatamente quando o buff
+    -- cai -- e nao a cada ciclo -- e nunca gasta mana a mais. Com ignorePz ele
+    -- tambem nao fica recastando dentro do depot.
     g_minibot.resetModule(4)
-    g_minibot.setModuleToggle(4, false)
+    local sAutoHaste = sList['auto_haste']
+    local hasteEnabled = false
+    if sAutoHaste ~= nil then
+        local spell = findHasteSpell(sAutoHaste['spell'])
+        if spell ~= nil then
+            hasteEnabled = sAutoHaste['enabled'] and true or false
+            g_minibot.addModule(4, {
+                enabled = true,
+                spell = spell.words,
+                -- 'reqmana' minusculo de proposito: o motor le exatamente essa chave
+                -- (readInt(..., "reqmana") em minibotmanager.cpp). Escrever 'reqMana'
+                -- e silenciosamente ignorado e viraria 0, deixando o motor tentar
+                -- falar a palavra magica sem mana.
+                reqmana = spell.mana,
+                ignorePz = true,
+
+                item = 0,
+                use = false,
+                min = 0,
+                max = 0,
+                spellGroup = {},
+                spellId = {},
+                area = "",
+                target = "",
+                health = 0,
+                mana = 0,
+                hits = 0,
+                harmony = 0,
+                itemGroup = {},
+            })
+        end
+    end
+    g_minibot.setModuleToggle(4, hasteEnabled)
+
+    -- Auto Eat (modulo 8) continua removido do painel. O toggle do motor e estado
+    -- de sessao: presets antigos ainda guardam a chave 'auto_eat', e sem desligar
+    -- explicitamente aqui um preset que a tinha ligada continuaria rodando no motor
+    -- ate o proximo login.
     g_minibot.resetModule(8)
     g_minibot.setModuleToggle(8, false)
 

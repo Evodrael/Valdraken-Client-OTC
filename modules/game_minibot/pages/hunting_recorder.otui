@@ -122,7 +122,7 @@ UIWidget
       anchors.fill: parent
       margin-left: 5
       margin-right: 5
-      margin-bottom: 54
+      margin-bottom: 5
       margin-top: 20
       min-zoom: 0
       visible: false
@@ -181,55 +181,10 @@ UIWidget
         @onClick: |
           modules.game_minibot.callMethod('onDownMapFloor', self)
 
-    UIWidget
-      id: titlePanel
-      anchors.left: minimap.left
-      anchors.right: minimap.right
-      anchors.bottom: parent.bottom
-      height: 46
-      margin-bottom: 5
-      visible: false
-
-      UIWidget
-        id: renewTitle
-        anchors.top: renewButton.top
-        anchors.bottom: renewButton.bottom
-        anchors.left: parent.left
-        anchors.right: renewButton.left
-        !text: 'Tempo restante: 02:32 horas\nRenovar (1h): 5,000,000 gold'
-        text-align: left
-        color: #C0C0C0
-        margin-right: 5
-        phantom: true
-
-      MiniBotStoreButton
-        id: renewButton
-        !buttoncolor: 'yellow'
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        margin-right: 22
-        margin-bottom: 5
-        width: 140
-        height: 36
-        color: #dddddd
-        !text: 'Renovar 1 hora'
-        font: verdana-11px-rounded
-
-        UIWidget
-          id: mark
-          image-source: /resources/icon_shortcut_highlight
-          image-border: 4
-          anchors.fill: parent
-          margin: 1
-          phantom: true
-
-      UIWidget
-        id: helpRenew
-        anchors.right: parent.right
-        anchors.verticalCenter: renewButton.verticalCenter
-        color: #C0C0C0
-        image-source: /images/icons/show_gui_help_grey
-        size: 12 12
+    # O 'titlePanel' (tempo restante + botao "Renovar 1 hora" + icone de ajuda) foi
+    # removido: o Cave Bot nao tem mais limite de tempo nem cobranca. O minimapa
+    # acima reclamou os 54px de margin-bottom que existiam so para reservar o
+    # espaco dele.
 
   UIWidget
     id: sessions

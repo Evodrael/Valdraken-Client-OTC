@@ -37,6 +37,59 @@ local autoFollowEvent = nil
 local autoFishingEvent = nil
 local autoFishingWarning = nil
 
+-- Auto Attack (Combat > Attack). Antes a escolha de alvo era feita no C++
+-- (MiniBotManager::getBestTarget) e tinha quatro defeitos que a deixavam
+-- praticamente inutil:
+--   1. processAutoAttack() saia cedo enquanto houvesse um alvo vivo, entao o modo
+--      escolhido so valia no instante em que voce estava sem alvo nenhum;
+--   2. nao havia checagem de linha de visao, ou seja, alvo atras de parede;
+--   3. a distancia usava manhattanDistance, que trata diagonal como 2 e portanto
+--      nao casa com o alcance real do jogo (Chebyshev);
+--   4. o encoding do modo (200 = smart arrow) colidia com o +100 de melee-only,
+--      fazendo "smart arrow" cair silenciosamente em "mais proximo + melee".
+-- Trazer isso para o Lua tambem tira a necessidade de recompilar o client a cada
+-- ajuste de comportamento. O modo do motor fica em 0 e o modulo 9 desligado.
+local autoAttackEvent = nil
+local autoAttackMode = nil -- nil = desligado; 'closest'|'lowest'|'highest'|'ranged'
+local autoAttackMaxDistance = 10
+local autoAttackMinAoeTargets = 1
+local autoAttackPreferAttacker = false
+
+-- 250ms acompanha o ritmo do Auto Follow e e bem mais rapido que o intervalo de
+-- ataque do servidor, entao nenhuma troca de alvo util e perdida.
+local AUTO_ATTACK_TICK = 250
+
+-- "Quem esta me atacando" e uma HEURISTICA, nao um dado do servidor: o protocolo
+-- do Tibia nao informa quem tem voce como alvo (nao existe nada disso em
+-- creature.h). Dois sinais sao combinados:
+--   1. corpo a corpo -- criatura adjacente (Chebyshev <= 1) esta batendo em voce;
+--   2. distancia/magia -- missil que caiu no SEU SQM: a criatura que estava na
+--      posicao de origem no momento do disparo fica marcada por alguns segundos.
+-- O id e resolvido na hora do missil, nao no tick, porque a criatura anda e a
+-- posicao de origem deixaria de aponta-la em seguida.
+local ATTACKER_MISSILE_MEMORY = 3000
+local autoAttackAttackers = {} -- [creatureId] = millis ate quando conta como atacante
+
+-- Area real das flechas de area do servidor: 5x5 sem os quatro cantos, 21 SQMs.
+-- Conferido em data/scripts/weapons/scripts/distance/{diamond,burst,grenade}_arrow.lua,
+-- que usam todas o mesmo createCombatArea. O codigo antigo em C++ contava uma
+-- caixa 3x3 (9 SQMs), subestimando a area e escolhendo o alvo errado.
+local AOE_ARROW_RADIUS = 2
+local AOE_ARROW_AMMO = {
+  [3449] = true,  -- burst arrow
+  [35901] = true, -- diamond arrow
+  [60958] = true, -- grenade arrow
+}
+
+local function stopAutoAttack()
+  if autoAttackEvent ~= nil then
+    removeEvent(autoAttackEvent)
+    autoAttackEvent = nil
+  end
+  autoAttackMode = nil
+  autoAttackAttackers = {}
+end
+
 -- Estado do Auto Follow. O follow do servidor (g_game.follow) nao serve para
 -- acompanhar troca de andar: ele e cancelado assim que o alvo sai da tela ou
 -- muda de piso. Entao o rastro do alvo e a caminhada sao feitos aqui.
@@ -591,6 +644,7 @@ end
 function terminate()
   stopAutoFollow()
   stopAutoFishing()
+  stopAutoAttack()
 
   if unbindMinibotHotkeys then
     unbindMinibotHotkeys()
@@ -677,6 +731,8 @@ function internalToggle(toggle)
 end
 
 function onMissileTo(...)
+  registerAutoAttackMissile(...)
+
   if support_generalModule ~= nil then
     support_generalModule.onMissileTo(...)
   end
@@ -1587,6 +1643,283 @@ function reloadSupportRuntime()
   autoFollowEvent = scheduleEvent(autoFollowTick, 1)
 end
 
+-- Combat > Attack: escolha de alvo do Auto Attack.
+--
+-- Um alvo so entra na disputa se o servidor de fato deixaria acertar ele: mesmo
+-- andar, vivo, visivel e com linha de visao livre. A linha de visao vale para os
+-- quatro modos porque bater em criatura atras de parede nunca funciona no jogo --
+-- e era justamente o que o codigo antigo fazia, por nao checar nada disso.
+-- Distancia do jogo: diagonal conta como 1 SQM (Chebyshev), nao como 2.
+local function tileDistance(a, b)
+  return math.max(math.abs(a.x - b.x), math.abs(a.y - b.y))
+end
+
+local function isAttackable(creature, player, playerPos)
+  if creature == nil or creature == player then
+    return false
+  end
+  if not(creature:isMonster()) then
+    return false
+  end
+  if creature:isRemoved() or creature:getHealthPercent() <= 0 then
+    return false
+  end
+  -- canBeSeen() e falso para criatura invisivel: sem isso o alvo escolhido podia
+  -- ser algo que o jogador nem enxerga.
+  if not(creature:canBeSeen()) then
+    return false
+  end
+
+  local pos = creature:getPosition()
+  if pos == nil or pos.z ~= playerPos.z then
+    return false
+  end
+
+  if tileDistance(playerPos, pos) > autoAttackMaxDistance then
+    return false
+  end
+
+  return g_map.isSightClear(playerPos, pos)
+end
+
+-- Ver o comentario de ATTACKER_MISSILE_MEMORY: heuristica, nao dado do servidor.
+local function isAttackingMe(creature, playerPos, now)
+  if tileDistance(playerPos, creature:getPosition()) <= 1 then
+    return true
+  end
+
+  local expiry = autoAttackAttackers[creature:getId()]
+  return expiry ~= nil and expiry > now
+end
+
+-- Chamado pelo dispatcher de onMissileTo. Marca quem acabou de acertar voce a
+-- distancia, resolvendo a criatura na origem do missil enquanto ela ainda esta la.
+function registerAutoAttackMissile(_, from, to)
+  if autoAttackMode == nil or not(autoAttackPreferAttacker) or from == nil or to == nil then
+    return
+  end
+
+  local player = g_game.getLocalPlayer()
+  if player == nil then
+    return
+  end
+
+  local pos = player:getPosition()
+  if pos == nil or pos.x ~= to.x or pos.y ~= to.y or pos.z ~= to.z then
+    return
+  end
+
+  local tile = g_map.getTile(from)
+  if tile == nil then
+    return
+  end
+
+  local shooter = tile:getTopCreature()
+  if shooter == nil or shooter:isLocalPlayer() then
+    return
+  end
+
+  autoAttackAttackers[shooter:getId()] = g_clock.millis() + ATTACKER_MISSILE_MEMORY
+end
+
+local function usingAoeArrow(player)
+  local ammo = player:getInventoryItem(InventorySlotAmmo)
+  return ammo ~= nil and AOE_ARROW_AMMO[ammo:getId()] == true
+end
+
+-- Quantos alvos validos a flecha pegaria se explodisse em cima de 'creature'.
+local function aoeArrowHits(creature, candidates)
+  local center = creature:getPosition()
+  local hits = 0
+  for _, other in ipairs(candidates) do
+    local pos = other:getPosition()
+    local dx = math.abs(pos.x - center.x)
+    local dy = math.abs(pos.y - center.y)
+    -- 5x5 sem os cantos: dentro do raio, exceto quando as duas distancias sao 2.
+    if dx <= AOE_ARROW_RADIUS and dy <= AOE_ARROW_RADIUS
+       and not(dx == AOE_ARROW_RADIUS and dy == AOE_ARROW_RADIUS) then
+      hits = hits + 1
+    end
+  end
+  return hits
+end
+
+-- Devolve true se 'a' e um alvo melhor que 'b' para o modo atual. 'hits' e a
+-- tabela de area pre-calculada (so usada no modo a distancia) e 'attackers' a de
+-- quem esta me atacando, ambas indexadas pelo id da criatura -- calcular qualquer
+-- uma das duas aqui dentro deixaria a escolha O(n^3) por tick.
+--
+-- O ultimo criterio e sempre o id da criatura. Isso importa: com "trocar sempre",
+-- dois alvos empatados sem desempate estavel fariam o tick alternar entre eles a
+-- cada 250ms, inundando o servidor de pacotes de ataque.
+local function isBetterTarget(mode, a, b, playerPos, hits, attackers)
+  if b == nil then
+    return true
+  end
+
+  -- Modificador: quem esta me atacando vem antes do criterio do modo, nunca no
+  -- lugar dele. Entre dois atacantes (ou dois nao-atacantes) o modo decide normal.
+  if attackers ~= nil then
+    local aa, ab = attackers[a:getId()] or false, attackers[b:getId()] or false
+    if aa ~= ab then
+      return aa
+    end
+  end
+
+  if mode == 'ranged' then
+    local ha, hb = hits[a:getId()], hits[b:getId()]
+    if ha ~= hb then
+      return ha > hb
+    end
+    -- Empate de area: prioriza a vida mais baixa, como a interface sempre prometeu.
+    local pa, pb = a:getHealthPercent(), b:getHealthPercent()
+    if pa ~= pb then
+      return pa < pb
+    end
+  elseif mode == 'lowest' then
+    local pa, pb = a:getHealthPercent(), b:getHealthPercent()
+    if pa ~= pb then
+      return pa < pb
+    end
+  elseif mode == 'highest' then
+    local pa, pb = a:getHealthPercent(), b:getHealthPercent()
+    if pa ~= pb then
+      return pa > pb
+    end
+  end
+
+  local da = tileDistance(playerPos, a:getPosition())
+  local db = tileDistance(playerPos, b:getPosition())
+  if da ~= db then
+    return da < db
+  end
+
+  return a:getId() < b:getId()
+end
+
+local function autoAttackTick()
+  autoAttackEvent = nil
+
+  if autoAttackMode == nil or not(g_game.isOnline()) then
+    return
+  end
+
+  autoAttackEvent = scheduleEvent(autoAttackTick, AUTO_ATTACK_TICK)
+
+  local player = g_game.getLocalPlayer()
+  if player == nil or player:isDead() then
+    return
+  end
+
+  local mode = autoAttackMode
+  -- Sem flecha de area equipada o modo a distancia nao tem o que otimizar, entao
+  -- ele se comporta como "mais proximo" em vez de ficar escolhendo ao acaso.
+  if mode == 'ranged' and not(usingAoeArrow(player)) then
+    mode = 'closest'
+  end
+
+  local playerPos = player:getPosition()
+  if playerPos == nil then
+    return
+  end
+
+  -- Poda os atacantes vencidos: sem isso a tabela cresceria por toda a sessao,
+  -- guardando o id de cada criatura que ja atirou em voce.
+  if autoAttackPreferAttacker then
+    local cutoff = g_clock.millis()
+    for id, expiry in pairs(autoAttackAttackers) do
+      if expiry <= cutoff then
+        autoAttackAttackers[id] = nil
+      end
+    end
+  end
+
+  local candidates = {}
+  for _, creature in ipairs(g_map.getSpectators(playerPos, false)) do
+    if isAttackable(creature, player, playerPos) then
+      table.insert(candidates, creature)
+    end
+  end
+
+  if #candidates == 0 then
+    return
+  end
+
+  local now = g_clock.millis()
+
+  -- Area e atacantes calculados uma vez por candidato, nao a cada comparacao.
+  local hits = {}
+  if mode == 'ranged' then
+    for _, creature in ipairs(candidates) do
+      hits[creature:getId()] = aoeArrowHits(creature, candidates)
+    end
+  end
+
+  local attackers = nil
+  if autoAttackPreferAttacker then
+    attackers = {}
+    for _, creature in ipairs(candidates) do
+      attackers[creature:getId()] = isAttackingMe(creature, playerPos, now)
+    end
+  end
+
+  local function pickBest(withMode)
+    local best = nil
+    for _, creature in ipairs(candidates) do
+      if isBetterTarget(withMode, creature, best, playerPos, hits, attackers) then
+        best = creature
+      end
+    end
+    return best
+  end
+
+  local best = pickBest(mode)
+  if best == nil then
+    return
+  end
+
+  -- Minimo de alvos da area: com poucas criaturas juntas nao ha aglomerado que
+  -- justifique mirar longe, entao vale mais terminar um abate.
+  if mode == 'ranged' and hits[best:getId()] < autoAttackMinAoeTargets then
+    best = pickBest('lowest')
+    if best == nil then
+      return
+    end
+  end
+
+  -- Reavalia todo tick e troca na hora, mas so manda pacote quando o alvo muda
+  -- de verdade. Se nao houver alvo valido o ataque atual e mantido: uma parede
+  -- passando na frente por um instante nao deve cancelar a luta.
+  local current = g_game.getAttackingCreature()
+  if current ~= nil and current:getId() == best:getId() then
+    return
+  end
+
+  g_game.attack(best)
+end
+
+-- Chamado pelo combat_attackModule.reloadInternalModule(). 'mode' nil ou false
+-- desliga. Ligar sempre reinicia o tick, para o modo novo valer imediatamente.
+--
+-- 'options' aceita maxDistance, minAoeTargets e preferAttacker. Os defaults valem
+-- para preset antigo, que nao tem nenhuma das tres chaves: maxDistance 10 cobre
+-- toda a tela (a aware range do client e menor que isso, entao equivale a "sem
+-- limite") e minAoeTargets 1 faz o modo a distancia se comportar como antes.
+function setAutoAttackMode(mode, options)
+  stopAutoAttack()
+
+  if mode == nil or mode == false or mode == '' or not(g_game.isOnline()) then
+    return
+  end
+
+  options = options or {}
+  autoAttackMode = mode
+  autoAttackMaxDistance = math.max(1, math.min(10, tonumber(options.maxDistance) or 10))
+  autoAttackMinAoeTargets = math.max(1, math.min(9, tonumber(options.minAoeTargets) or 1))
+  autoAttackPreferAttacker = options.preferAttacker and true or false
+  autoAttackEvent = scheduleEvent(autoAttackTick, 1)
+end
+
 function onPlayerDeath()
   local sAutoBless = getSupportGeneralSettings()['auto_bless']
   if sAutoBless == nil or not(sAutoBless['enabled']) then
@@ -1624,6 +1957,7 @@ end
 function onGameEnd()
   stopAutoFollow()
   stopAutoFishing()
+  stopAutoAttack()
 
   if MiniBotEditPresetMiniWindow ~= nil then
     MiniBotEditPresetMiniWindow:destroy()
