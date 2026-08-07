@@ -247,14 +247,20 @@ UIWidget
           opacity: 0.5
           phantom: true
 
+      # O rotulo posiciona a linha (ancora no parent + na linha de cima) e o campo
+      # se pendura NELE. A dependencia tem que ser de uma unica direcao: rotulo
+      # ancorado em maxDistance.verticalCenter com maxDistance ancorado em
+      # maxDistanceLabel.right e um CICLO -- o UIAnchorLayout detecta, recusa o
+      # layout e cospe "recursively anchored to itself" a cada reavaliacao.
       UIWidget
         id: maxDistanceLabel
         anchors.left: parent.left
-        anchors.verticalCenter: maxDistance.verticalCenter
+        anchors.top: preferAttacker.bottom
         !text: 'Max distance (SQM):'
         text-horizontal-auto-resize: true
         color: #C0C0C0
         margin-left: 12
+        margin-top: 9
         phantom: true
 
         $disabled:
@@ -263,9 +269,8 @@ UIWidget
       TextEdit
         id: maxDistance
         anchors.left: maxDistanceLabel.right
-        anchors.top: preferAttacker.bottom
+        anchors.verticalCenter: maxDistanceLabel.verticalCenter
         margin-left: 6
-        margin-top: 6
         width: 32
         text-only-number: true
         !placeholder: '10'
@@ -289,14 +294,16 @@ UIWidget
           opacity: 0.5
           phantom: true
 
+      # Mesma regra do par acima: rotulo posiciona, campo se pendura nele.
       UIWidget
         id: minAoeLabel
         anchors.left: parent.left
-        anchors.verticalCenter: minAoeTargets.verticalCenter
+        anchors.top: maxDistance.bottom
         !text: 'Min. targets for area:'
         text-horizontal-auto-resize: true
         color: #C0C0C0
         margin-left: 12
+        margin-top: 7
         phantom: true
 
         $disabled:
@@ -305,9 +312,8 @@ UIWidget
       TextEdit
         id: minAoeTargets
         anchors.left: minAoeLabel.right
-        anchors.top: maxDistance.bottom
+        anchors.verticalCenter: minAoeLabel.verticalCenter
         margin-left: 6
-        margin-top: 4
         width: 32
         text-only-number: true
         !placeholder: '1'

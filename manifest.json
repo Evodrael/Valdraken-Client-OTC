@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.44",
-    "generated":  "2026-08-07T12:30:47-03:00",
+    "version":  "15.24.45",
+    "generated":  "2026-08-07T13:49:28-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -66275,8 +66275,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.otui",
-                      "sha256":  "524af7222d5bba41896fa78c07c6025af401f36b924202774e0393338e32782b",
-                      "size":  13006
+                      "sha256":  "a9ba362e8531efe2f54abe399d61349206e05b37d501f850299f2a56159de0cd",
+                      "size":  13478
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_pvp.lua",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "1e823a1f3f702ea4538b11c9cc969580698d1e9cf3085754a3535fdde6fd85a7",
+                      "sha256":  "0ad28e88fcf365230703d5aec2514cf2ccfe4af559f14fd430c787454f0641af",
                       "size":  8
                   }
               ]
