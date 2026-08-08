@@ -889,12 +889,16 @@ function onCloseNpcTrade()
 end
 
 function onPlayerGoods(money, items)
+  -- `items` comes from Game::processPlayerGoods as an array of
+  -- { ItemPtr, amount } tuples -- NOT as an [itemId] = amount map. Iterating it
+  -- as a map filled playerItems with array indexes as keys, so getSellQuantity()
+  -- never found anything and the Sell list (and Quick Sell) always came up empty.
   playerItems = {}
-  for id, amount in pairs(items) do
-    if not playerItems[id] then
-      playerItems[id] = amount
-    else
-      playerItems[id] = playerItems[id] + amount
+  for _, good in pairs(items) do
+    local item = good[1]
+    if item then
+      local id = item:getId()
+      playerItems[id] = (playerItems[id] or 0) + (good[2] or 0)
     end
   end
 
