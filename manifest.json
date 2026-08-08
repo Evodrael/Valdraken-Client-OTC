@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.47",
-    "generated":  "2026-08-08T11:04:35-03:00",
+    "version":  "15.24.48",
+    "generated":  "2026-08-08T11:34:53-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -66695,8 +66695,8 @@
                   },
                   {
                       "path":  "modules/game_npctrade/npctrade.lua",
-                      "sha256":  "8529f5d87ac22b8c33487a92d47a334ba57b9d77018da36be5eed4296722fa53",
-                      "size":  40125
+                      "sha256":  "1679d8283c8d466d7e8b9cad03aedeae67505a8e9d8376671e1c4370a754d448",
+                      "size":  43471
                   },
                   {
                       "path":  "modules/game_npctrade/npctrade.otmod",
@@ -67350,17 +67350,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "40ba9123d7ebc0a585fcc85d6b3dcf5209be8e3321ff1d8eb314b4d844ad8da6",
+                      "sha256":  "399646cb9208b4b8998187de49b5a7810ca502232ceb29a8368e96c80652c56c",
                       "size":  36998656
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "ad04812dc052c378faa41e0e3723a42fc3b75de9dae37bd1caabe1b4909ab540",
-                      "size":  29137408
+                      "sha256":  "6a59fd70c04db5f607b25429526952aa67fdf026b077565b1f55104213b9e7c5",
+                      "size":  29137920
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "da4f4e747f9047abb0a192320a9ebe2c63e2798a079732221d00bcaed15ef9a0",
+                      "sha256":  "cc7815ef893334f0362afa0850d32ba3fbe42400a39c767293d43438b6b8ce6a",
                       "size":  8
                   }
               ]

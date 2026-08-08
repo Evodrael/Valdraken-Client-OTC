@@ -55,6 +55,10 @@ lootmongerSellButton = nil
 cancelNextRelease = nil
 sellAllWithDelayEvent = nil
 
+-- Forward declaration: assigned next to the batched item-list refresh further
+-- down. hide() needs it to abort an in-flight build.
+local cancelItemsRefresh
+
 function saveData()
   if not LoadedPlayer:isLoaded() then return end
 
@@ -186,6 +190,9 @@ end
 
 function terminate()
   initialized = false
+  -- Must run before the window is destroyed: a pending batch would otherwise
+  -- fire against a dead itemsPanel (matters for live module reloads).
+  cancelItemsRefresh()
   npcWindow:destroy()
 
   sellAllWhitelist = {}
@@ -347,6 +354,10 @@ function hide()
 
   toggleNPCFocus(false)
   modules.game_console.getConsole():focus()
+
+  -- Abort any in-flight batched build so it stops feeding boxes into the panel
+  -- we are about to clear, and leave the layout counter balanced.
+  cancelItemsRefresh()
 
   local layout = itemsPanel:getLayout()
   layout:disableUpdates()
@@ -665,6 +676,43 @@ local refreshToken = nil
 local refreshScheduledEvent = nil
 local refreshThrottleEvent = nil
 
+-- UILayout::disableUpdates() is a COUNTER, not a flag, so every disable needs a
+-- matching enable or the layout stays frozen forever and the item boxes are
+-- never positioned (the list renders empty even though the widgets exist).
+-- The batched build used to leak one disable every time a new refresh
+-- superseded an in-flight one, which is why big shops (Luc the Rich, 1400+
+-- items = ~48 frames of batching) always came up blank while small shops that
+-- finish in a single frame worked. These helpers make disable/enable idempotent
+-- so the count can only ever be 0 or 1.
+local itemsLayoutDisabled = false
+
+local function disableItemsLayout()
+  if itemsLayoutDisabled then return end
+  itemsLayoutDisabled = true
+  itemsPanel:getLayout():disableUpdates()
+end
+
+local function enableItemsLayout()
+  if not itemsLayoutDisabled then return end
+  itemsLayoutDisabled = false
+  local layout = itemsPanel:getLayout()
+  layout:enableUpdates()
+  layout:update()
+end
+
+cancelItemsRefresh = function()
+  if refreshScheduledEvent then
+    removeEvent(refreshScheduledEvent)
+    refreshScheduledEvent = nil
+  end
+  if refreshThrottleEvent then
+    removeEvent(refreshThrottleEvent)
+    refreshThrottleEvent = nil
+  end
+  refreshToken = nil -- invalidates any batch closure still holding a token
+  enableItemsLayout()
+end
+
 local function buildItemBox(item)
   local itemBox = g_ui.createWidget('NPCItemBox', itemsPanel)
   itemBox:setId("itemBox_" .. item.name)
@@ -708,8 +756,7 @@ local function refreshTradeItemsAsync()
   local token = {}
   refreshToken = token
 
-  local layout = itemsPanel:getLayout()
-  layout:disableUpdates()
+  disableItemsLayout()
 
   clearSelectedItem()
   searchText:clearText()
@@ -734,9 +781,12 @@ local function refreshTradeItemsAsync()
     end
     index = stop + 1
     if index > total then
-      layout:enableUpdates()
-      layout:update()
       refreshScheduledEvent = nil
+      -- The boxes are only sorted/greyed/filtered by refreshPlayerGoods, and the
+      -- one scheduled by onOpenNpcTrade runs long before this batched build ends.
+      -- Do it while the layout is still frozen, then release it once.
+      refreshPlayerGoods()
+      enableItemsLayout()
       return
     end
     refreshScheduledEvent = scheduleEvent(processBatch, 0) -- next frame
@@ -1154,6 +1204,38 @@ function checkItemToSell(self)
   end
 end
 
+-- Quick Sell used to call g_game.sellAllItems(), which does not exist -- only
+-- Game::sellItem is bound to Lua (luafunctions.cpp), so every click raised
+-- "attempt to call field 'sellAllItems' (a nil value)" and nothing was sold
+-- (it also left the input lock on, since the call aborted before the cleanup).
+-- We now queue plain sell requests instead.
+--
+-- The queue is drained in bursts because the server closes the connection when
+-- a client exceeds maxPacketsPerSecond (75 in config.lua) -- dumping 300 sell
+-- packets in a single frame would disconnect the player.
+local SELL_PACKETS_PER_BURST = 20
+local SELL_BURST_INTERVAL = 1000
+local sellQueue = {}
+local sellQueueEvent = nil
+
+local function drainSellQueue()
+  sellQueueEvent = nil
+  if not g_game.isOnline() then
+    sellQueue = {}
+    return
+  end
+
+  for _ = 1, SELL_PACKETS_PER_BURST do
+    local entry = table.remove(sellQueue, 1)
+    if not entry then break end
+    g_game.sellItem(entry[1], entry[2], entry[3])
+  end
+
+  if #sellQueue > 0 then
+    sellQueueEvent = scheduleEvent(drainSellQueue, SELL_BURST_INTERVAL)
+  end
+end
+
 function SellItemList(items, window)
   if not g_game.isOnline() then
     return
@@ -1162,29 +1244,36 @@ function SellItemList(items, window)
   window:hide()
 
   local total = 0
-
-  local itemsToSend = {}
+  local soldTypes = 0
   local maxItems = math.min(#items, 300)
 
   for i = 1, maxItems do
     local widget = items[i]
     if widget and widget.sellCheckbox:isChecked() and widget.item.ptr and widget.item.ptr:getId() > 0 then
       local quantity = getSellQuantity(widget.item.ptr)
-      total = total + (quantity * widget.item.price)
+      if quantity > 0 then
+        total = total + (quantity * widget.item.price)
+        soldTypes = soldTypes + 1
 
-      table.insert(itemsToSend, {
-        itemId = widget.item.ptr:getId(),
-        count = widget.item.ptr:getCountOrSubType(),
-        amount = quantity,
-        ignoreEquipped = ignoreEquipped
-      })
+        -- One request per getMaxAmount() chunk, same as sellAll() does.
+        while quantity > 0 do
+          local amount = math.min(quantity, getMaxAmount())
+          table.insert(sellQueue, { widget.item.ptr, amount, ignoreEquipped })
+          quantity = quantity - amount
+        end
+      end
     end
   end
 
-  g_game.sellAllItems(itemsToSend)
+  if sellQueueEvent then
+    removeEvent(sellQueueEvent)
+    sellQueueEvent = nil
+  end
+  drainSellQueue()
+
   g_client.setInputLockWidget(nil)
   window:destroy()
-  displayInfoBox("Quick Sell", string.format("You have sold %d items for %d gold.", #items, total))
+  displayInfoBox("Quick Sell", string.format("You have sold %d items for %d gold.", soldTypes, total))
 end
 
 local function updateBlacklist(window)
