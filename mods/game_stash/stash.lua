@@ -17,6 +17,34 @@ local imbuementSources = {
   22728, 22730, 23507, 23508, 25694, 25702, 28567, 40529, 
 }
 
+-- The stash packet only carries {itemId, amount} (ProtocolGame::parseSupplyStash),
+-- so the category has to come from the appearances market data -- and there it is
+-- a numeric ITEM_CATEGORY, never a name. Printing it raw is what produced the
+-- useless "Show 1" / "Show 7" filter. MarketCategoryNames (modules/gamelib/market.lua)
+-- maps the id to the very same label the Market window uses.
+local IMBUEMENT_CATEGORY = -1
+
+local function categoryLabel(category)
+  return MarketCategoryNames[category] or string.format("Category %d", category)
+end
+
+local function resolveCategory(category)
+  category = tonumber(category) or 0
+  if category >= MarketCategory.First and category <= MarketCategory.Last and MarketCategoryNames[category] then
+    return category
+  end
+  -- Category 0 means the item simply has no market data in the .dat; it goes to
+  -- the same bucket the client uses for everything it cannot classify.
+  return MarketCategory.Others
+end
+
+-- Same grouping the Market window builds for its "Weapons: All" entry, see
+-- configureList() in mods/game_tibia_market/t_market.lua.
+local function isWeaponCategory(category)
+  return (category >= MarketCategory.Ammunition and category <= MarketCategory.WandsRods)
+    or category == MarketCategory.FistWeapons
+end
+
 local function normalizeStashItemData(data)
   data = data or {}
   data.itemId = tonumber(data.itemId or data.id or data[1] or 0) or 0
@@ -34,7 +62,8 @@ local function normalizeStashItemData(data)
   end
 
   data.marketData.name = tostring(data.marketData.name or g_things.getCyclopediaItemName(data.itemId) or string.format("Item %d", data.itemId))
-  data.marketData.categoryName = tostring(data.marketData.categoryName or data.marketData.category or "Other")
+  data.marketData.category = resolveCategory(data.marketData.category)
+  data.marketData.categoryName = categoryLabel(data.marketData.category)
   return data
 end
 
@@ -113,29 +142,41 @@ function showStash(items, maxSlots)
 
 	countWithdraw = nil
   listItems = items or {}
-  for _, data in pairs(listItems) do
-    normalizeStashItemData(data)
-  end
 
   local currentOption = stashOption:getCurrentOption() and stashOption:getCurrentOption().text or nil
   local currentSeller = sellerOption:getCurrentOption() and sellerOption:getCurrentOption().text or nil
   local currentOhter = otherOption:getCurrentOption() and otherOption:getCurrentOption().text or nil
 
   stashOption:clearOptions()
-  stashOption:addOption("Show All")
+  stashOption:addOption("Show All", MarketCategory.All)
 
+  -- Only the categories the player actually has in the stash are listed, like
+  -- the global client does. Each option carries its category id as the combobox
+  -- data so refreshStashItems() can compare ids instead of matching label text.
   local currentList = {}
-  for key, data in pairs(listItems) do
+  local seenCategory = {}
+  local hasWeapons = false
+  for _, data in pairs(listItems) do
     normalizeStashItemData(data)
-    if not table.contains(currentList, data.marketData.categoryName) then
-      table.insert(currentList, data.marketData.categoryName)
+    local category = data.marketData.category
+    if not seenCategory[category] then
+      seenCategory[category] = true
+      table.insert(currentList, { category = category, name = data.marketData.categoryName })
     end
+    hasWeapons = hasWeapons or isWeaponCategory(category)
   end
 
-  table.insert(currentList, "Imbuement Items")
-  table.sort(currentList, function(a, b) return a < b end)
+  if hasWeapons then
+    table.insert(currentList, {
+      category = MarketCategory.WeaponsAll,
+      name = categoryLabel(MarketCategory.WeaponsAll)
+    })
+  end
+
+  table.insert(currentList, { category = IMBUEMENT_CATEGORY, name = "Imbuement Items" })
+  table.sort(currentList, function(a, b) return a.name < b.name end)
   for _, v in pairs(currentList) do
-    stashOption:addOption("Show " .. v)
+    stashOption:addOption("Show " .. v.name, v.category)
   end
 
   otherOption:clearOptions()
@@ -198,6 +239,12 @@ function refreshStashItems(searchText)
     table.sort(listItems, additionalSort.func)
   end
 
+  -- Filter by the category id stored on the option, never by its label: the old
+  -- string.find() over the visible text matched any category whose name happened
+  -- to be a substring of another one.
+  local selectedOption = stashOption:getCurrentOption()
+  local selectedCategory = selectedOption and selectedOption.data or MarketCategory.All
+
   for key, itemData in pairs(listItems) do
     normalizeStashItemData(itemData)
     local stashItem = Item.create(itemData.itemId, itemData.itemCount)
@@ -219,15 +266,17 @@ function refreshStashItems(searchText)
       end
     end
 
-    if stashOption.currentIndex ~= 1 then
-      if stashOption:getCurrentOption().text == "Show Imbuement Items" then
+    if selectedCategory ~= MarketCategory.All then
+      if selectedCategory == IMBUEMENT_CATEGORY then
         if not table.contains(imbuementSources, itemData.itemId) then
           goto continue
         end
-      else
-        if not string.find(stashOption:getCurrentOption().text:lower(), itemData.marketData.categoryName:lower()) then
+      elseif selectedCategory == MarketCategory.WeaponsAll then
+        if not isWeaponCategory(itemData.marketData.category) then
           goto continue
         end
+      elseif itemData.marketData.category ~= selectedCategory then
+        goto continue
       end
     end
 
@@ -237,7 +286,11 @@ function refreshStashItems(searchText)
     local itemWidget = itemBox:getChildById('item')
     itemWidget:setItem(stashItem)
     itemWidget:setTooltip(itemData.marketData.name)
-    itemWidget:setActionId(itemData.itemCount)
+    -- setActionId is uint16 on the C++ side (Item::setActionId), so it cannot
+    -- carry the stash count: entries go well above 65535. Clamped here only to
+    -- avoid handing an out-of-range value to the binding. The real quantity is
+    -- read from itemBox.item.itemCount -- see withdrawItem().
+    itemWidget:setActionId(math.min(itemData.itemCount, 65535))
 
     -- Always render the count via setVirtualCount because the engine's
     -- auto-count path only fires for stackable/chargeable items (see
@@ -342,12 +395,18 @@ end
 
 function withdrawItem(widget)
   -- The StashItemBox @onClick handler passes the outer UIButton, but the
-  -- itemId / actionId (used to carry the stash count) are stored on the
-  -- inner UIItem. The right-click popup already passes the UIItem directly,
-  -- so accept either by falling back to the 'item' child when present.
+  -- itemId is stored on the inner UIItem. The right-click popup already passes
+  -- the UIItem directly, so accept either by falling back to the 'item' child.
   local itemWidget = widget:getChildById('item') or widget
-  local itemCount = itemWidget:getActionId()
   local itemId = itemWidget:getItemId()
+
+  -- The quantity comes from the data table attached to the StashItemBox, never
+  -- from the actionId: that field is uint16 in C++ and silently truncated every
+  -- entry above 65535 (115871 became 50335), so the withdraw dialog offered the
+  -- wrong amount. getParent() lands on the StashItemBox in both call paths.
+  local itemBox = itemWidget:getParent()
+  local data = (itemBox and itemBox.item) or widget.item
+  local itemCount = tonumber(data and data.itemCount) or itemWidget:getActionId()
   if itemCount == 1 then
     retrieveItem(itemId, itemCount)
     return
@@ -357,7 +416,10 @@ function withdrawItem(widget)
 
   countWithdraw = g_ui.createWidget('CountWithdraw', rootWidget)
   countWithdraw.contentPanel.item:setItemId(itemId)
-  countWithdraw.contentPanel.item:setItemCount(itemCount)
+  -- setItemCount feeds m_countOrSubType, also uint16, and it drives the stackable
+  -- sprite pattern. Clamp to a full stack: anything above that would wrap around
+  -- and paint a wrong number next to the correct virtual count below.
+  countWithdraw.contentPanel.item:setItemCount(math.min(itemCount, 100))
   -- Non-stackable items ignore setItemCount visually (the engine only paints
   -- the count badge for stackable/chargeable thing types). The widget has
   -- virtual-count: true so setVirtualCount always renders the number.

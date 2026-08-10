@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.53",
-    "generated":  "2026-08-10T02:55:07-03:00",
+    "version":  "15.24.54",
+    "generated":  "2026-08-10T03:17:12-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -65025,8 +65025,8 @@
                   },
                   {
                       "path":  "mods/game_stash/stash.lua",
-                      "sha256":  "87293255988ef286db2876b45012bf6a4e67dee80fe5a1b21cb828f490cfca78",
-                      "size":  19805
+                      "sha256":  "76f761b3ca05e60b58684435288d99d1a4afaff6337eebaac81c6b0b5b6f558c",
+                      "size":  23107
                   },
                   {
                       "path":  "mods/game_stash/stash.otmod",
@@ -65035,8 +65035,8 @@
                   },
                   {
                       "path":  "mods/game_stash/stash.otui",
-                      "sha256":  "cc99ddf32095923517d762eac491646f304d08e300d2ba21b43054a2ecb2a4ad",
-                      "size":  5391
+                      "sha256":  "e43c3ba269ddee955f8fa665e88890902efeaec3a4291301cb4d5638d806505a",
+                      "size":  5458
                   },
                   {
                       "path":  "mods/game_stash/stow-container.otui",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "12c1d2aa4e526a0e58bc9ea27b966f7d5715d7916bd7277295127fcbf36cad9c",
+                      "sha256":  "18433ce2d1c0ac79477fcc4b3b54f327814362e03f71a229b6036c58b04ea668",
                       "size":  8
                   }
               ]

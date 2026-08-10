@@ -54,7 +54,8 @@ NewMainWindow
     anchors.left: prev.right
     margin-top: 12
     margin-left: 6
-    max-text-length: 20
+    // fits the longest category label, "Show Weapons: Wands/Rods"
+    max-text-length: 24
     color: $var-text-cip-color
     font: $var-cip-font
     @onOptionChange: modules.game_stash.refreshStashItems()
