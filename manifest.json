@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.52",
-    "generated":  "2026-08-09T12:52:00-03:00",
+    "version":  "15.24.53",
+    "generated":  "2026-08-10T02:55:07-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -67260,7 +67260,7 @@
                   },
                   {
                       "path":  "modules/gamelib/spells.lua",
-                      "sha256":  "fd0e43c2467a573c8450e4ea2123810a56a5d7117b5b102f5fb9c00974e8c777",
+                      "sha256":  "6c120a9f7204d562f02cffd229a554c59c301678e00627e798294a8e78542b99",
                       "size":  86617
                   },
                   {
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "697b6e242e5e43c64dc2e44b5cc8d4f93841df0faa9e828a7cddb8338a54faa1",
+                      "sha256":  "12c1d2aa4e526a0e58bc9ea27b966f7d5715d7916bd7277295127fcbf36cad9c",
                       "size":  8
                   }
               ]
