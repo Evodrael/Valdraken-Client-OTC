@@ -107,6 +107,35 @@ local function applyAntialiasingMode(value)
     return true
 end
 
+-- Keyboard Delay: o delay PRECISA ser aplicado no rootWidget, nao so no gameRootPanel.
+-- As teclas de movimento e os hotkeys sao ligados por KeyBinds:setupAndReset
+-- (modules/corelib/keybinds.lua) chamando g_keyboard.bindKeyPress(hotkey, fn) SEM widget,
+-- e bindKeyPress faz "widget = widget or rootWidget". O gameRootPanel so recebe binds de
+-- keyPress no modo WSAD (game_walking.enableWSAD) e nas teclas de virar. Como
+-- UIWidget::propagateOnKeyPress testa o m_autoRepeatDelay de cada widget contra o SEU
+-- proprio onKeyPress, aplicar so no gameRootPanel deixava a opcao sem efeito nenhum:
+-- o rootWidget continuava com o default de 500 ms do C++ (src/framework/ui/uiwidget.h).
+local function applyKeyboardDelay(value)
+    local delay = math.max(0, tonumber(value) or 0)
+
+    rootWidget:setAutoRepeatDelay(delay)
+
+    local gamePanel = rootWidget:getChildById("gameRootPanel")
+    if gamePanel then
+        gamePanel:setAutoRepeatDelay(delay)
+    end
+end
+
+local function colorizeDelayLabel(delayLabel, value)
+    if value < 50 then
+        delayLabel:setColor("$var-text-cip-store-red")
+    elseif value < 250 then
+        delayLabel:setColor("$var-text-cip-color-orange")
+    else
+        delayLabel:setColor("$var-text-cip-color")
+    end
+end
+
 return {
     layout = {
         value = DEFAULT_LAYOUT,
@@ -469,41 +498,41 @@ return {
 	hotkeyDelay = {
 		value = 120,
         apply = function(value)
-            local delayLabel =  GameOptions:getLoadedWindow('controls'):recursiveGetChildById('delayLabel')
-            if delayLabel then
-              delayLabel:setText(tr('Keyboard Delay: %d ms', value))
-              if value < 50 then
-                delayLabel:setColor("$var-text-cip-store-red")
-              elseif value < 250 then
-                delayLabel:setColor("$var-text-cip-color-orange")
-              else
-                delayLabel:setColor("$var-text-cip-color")
-              end
+            local native = m_settings.getOption('hotkeyDelayNative')
 
-              if not m_settings.getOption('hotkeyDelayNative') then
-                rootWidget:getChildById("gameRootPanel"):setAutoRepeatDelay(math.max(0, tonumber(value)))
-              end
+            -- Aplicar ANTES de mexer na UI: o delay nao pode depender da janela de
+            -- opcoes estar montada (o loadSettings do startup roda com ela escondida).
+            if not native then
+                applyKeyboardDelay(value)
             end
 
-            if m_settings.getOption('hotkeyDelayNative') then
-              delayLabel:setColor("$var-cip-inactive-color")
+            local controls = GameOptions:getLoadedWindow('controls')
+            local delayLabel = controls and controls:recursiveGetChildById('delayLabel')
+            if delayLabel then
+              delayLabel:setText(tr('Keyboard Delay: %d ms', value))
+              if native then
+                delayLabel:setColor("$var-cip-inactive-color")
+              else
+                colorizeDelayLabel(delayLabel, value)
+              end
             end
             return true
         end,
         tempApply = function(value)
-            local delayLabel =  GameOptions:getLoadedWindow('controls'):recursiveGetChildById('delayLabel')
+            local native = m_settings.getOption('hotkeyDelayNative')
+
+            if not native then
+                applyKeyboardDelay(value)
+            end
+
+            local controls = GameOptions:getLoadedWindow('controls')
+            local delayLabel = controls and controls:recursiveGetChildById('delayLabel')
             if delayLabel then
               delayLabel:setText(tr('Keyboard Delay: %d ms', value))
-              if value < 50 then
-                delayLabel:setColor("$var-text-cip-store-red")
-              elseif value < 250 then
-                delayLabel:setColor("$var-text-cip-color-orange")
+              if native then
+                delayLabel:setColor("$var-cip-inactive-color")
               else
-                delayLabel:setColor("$var-text-cip-color")
-              end
-
-              if not m_settings.getOption('hotkeyDelayNative') then
-                rootWidget:getChildById("gameRootPanel"):setAutoRepeatDelay(math.max(0, tonumber(value)))
+                colorizeDelayLabel(delayLabel, value)
               end
             end
             return true
@@ -611,52 +640,52 @@ return {
 	hotkeyDelayNative = {
 		value = true,
         apply = function(value)
+            local delay = getOption('hotkeyDelay')
+
+            -- Fora do "if delayLabel": o delay tem de valer mesmo quando a janela de
+            -- opcoes ainda nao esta montada (antes era o unico ponto que aplicava, e
+            -- so aplicava se a label existisse).
+            applyKeyboardDelay(value and 250 or delay)
+
             local controls = GameOptions:getLoadedWindow('controls')
-            local delayLabel = controls:recursiveGetChildById('hotkeyDelay')
-            if delayLabel then
-              delayLabel:setEnabled(not value)
-              delayLabel:setColor(not value and '$var-text-cip-color' or '$var-cip-inactive-color')
+            if not controls then return true end
+
+            local slider = controls:recursiveGetChildById('hotkeyDelay')
+            if slider then
+              slider:setEnabled(not value)
+              slider:setColor(not value and '$var-text-cip-color' or '$var-cip-inactive-color')
             end
+
             local delayLabel = controls:recursiveGetChildById('delayLabel')
             if delayLabel then
-              delayLabel:setText(tr('Keyboard Delay: %d ms', getOption('hotkeyDelay')))
-              delayLabel:setColor(not value and '$var-text-cip-color' or '$var-cip-inactive-color')
-              if not value then
-                if getOption('hotkeyDelay') < 50 then
-                  delayLabel:setColor("$var-text-cip-store-red")
-                elseif getOption('hotkeyDelay') < 250 then
-                  delayLabel:setColor("$var-text-cip-color-orange")
-                else
-                  delayLabel:setColor("$var-text-cip-color")
-                end
+              delayLabel:setText(tr('Keyboard Delay: %d ms', delay))
+              if value then
+                delayLabel:setColor('$var-cip-inactive-color')
+              else
+                colorizeDelayLabel(delayLabel, delay)
               end
-              rootWidget:getChildById("gameRootPanel"):setAutoRepeatDelay(value and 250 or math.max(0, tonumber(getOption('hotkeyDelay'))))
             end
             return true
         end,
         tempApply = function(value)
             local controls = GameOptions:getLoadedWindow('controls')
             if not controls then return true end
-            local delayLabel = controls:recursiveGetChildById('hotkeyDelay')
-            if delayLabel then
-                delayLabel:setEnabled(not value)
-                delayLabel:setColor(not value and '$var-text-cip-color' or '$var-cip-inactive-color')
+
+            local slider = controls:recursiveGetChildById('hotkeyDelay')
+            if slider then
+                slider:setEnabled(not value)
+                slider:setColor(not value and '$var-text-cip-color' or '$var-cip-inactive-color')
             end
+
             local delayLabel = controls:recursiveGetChildById('delayLabel')
             if delayLabel then
-                local controls = GameOptions:getLoadedWindow('controls')
-                local delay = controls:recursiveGetChildById('hotkeyDelay')
-                delayLabel:setText(tr('Keyboard Delay: %d ms', delay:getValue()))
-                delayLabel:setColor(not value and '$var-text-cip-color' or '$var-cip-inactive-color')
-                if not value then
-                    local hotkeyDelayValue = GameOptions:getOption('hotkeyDelay')
-                    if hotkeyDelayValue < 50 then
-                        delayLabel:setColor("$var-text-cip-store-red")
-                    elseif hotkeyDelayValue < 250 then
-                        delayLabel:setColor("$var-text-cip-color-orange")
-                    else
-                        delayLabel:setColor("$var-text-cip-color")
-                    end
+                -- valor vivo do slider, nao o commitado: o label acompanha o preview
+                local delay = slider and slider:getValue() or getOption('hotkeyDelay')
+                delayLabel:setText(tr('Keyboard Delay: %d ms', delay))
+                if value then
+                    delayLabel:setColor('$var-cip-inactive-color')
+                else
+                    colorizeDelayLabel(delayLabel, delay)
                 end
             end
             return true

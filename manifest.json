@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.56",
-    "generated":  "2026-08-10T19:31:19-03:00",
+    "version":  "15.24.57",
+    "generated":  "2026-08-10T20:16:08-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -62830,8 +62830,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/dataset.lua",
-                      "sha256":  "d8818ec427912545546209921ede3682f7bd5c62ae50b96cf1bf8ee31a615adc",
-                      "size":  70111
+                      "sha256":  "9d34de2586c02c448981e7c9e7307e1fca1c6b7e8168b0903ee2f06ea2dc76a4",
+                      "size":  70688
                   },
                   {
                       "path":  "mods/client_settings/classes/GameOptions.lua",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "acc7e9bea6328ec3778f1baf3082027b5e9281e3f414f2f227989e9de551e4bf",
+                      "sha256":  "dff4b3d7960c20d03b12c64cb23fe49bb9d11166d66883d5819924c103c70f72",
                       "size":  8
                   }
               ]
