@@ -143,6 +143,14 @@ function showStash(items, maxSlots)
 	countWithdraw = nil
   listItems = items or {}
 
+  -- Normalize before touching any combobox. addOption() signals onOptionChange,
+  -- which re-enters refreshStashItems() and sorts listItems -- and the entries
+  -- arrive from the server as raw {itemId, amount} arrays, with no itemCount or
+  -- marketData for the comparator to read.
+  for _, data in pairs(listItems) do
+    normalizeStashItemData(data)
+  end
+
   local currentOption = stashOption:getCurrentOption() and stashOption:getCurrentOption().text or nil
   local currentSeller = sellerOption:getCurrentOption() and sellerOption:getCurrentOption().text or nil
   local currentOhter = otherOption:getCurrentOption() and otherOption:getCurrentOption().text or nil
@@ -157,7 +165,6 @@ function showStash(items, maxSlots)
   local seenCategory = {}
   local hasWeapons = false
   for _, data in pairs(listItems) do
-    normalizeStashItemData(data)
     local category = data.marketData.category
     if not seenCategory[category] then
       seenCategory[category] = true
@@ -225,14 +232,15 @@ function openQuick()
   modules.game_quickloot.showQuickLoot()
 end
 
-function refreshStashItems(searchText)
-  if not itemsPanel then
-    return true
-  end
-
-  local layout = itemsPanel:getLayout()
-  layout:disableUpdates()
+local function buildStashItems(searchText)
   itemsPanel:destroyChildren()
+
+  -- Normalize everything up front: the sort comparators below read itemCount and
+  -- marketData.name, and this function is also reached from onOptionChange while
+  -- showStash() is still filling the comboboxes.
+  for _, itemData in pairs(listItems) do
+    normalizeStashItemData(itemData)
+  end
 
   local additionalSort = otherOptions[otherOption.currentIndex]
   if additionalSort then
@@ -246,7 +254,6 @@ function refreshStashItems(searchText)
   local selectedCategory = selectedOption and selectedOption.data or MarketCategory.All
 
   for key, itemData in pairs(listItems) do
-    normalizeStashItemData(itemData)
     local stashItem = Item.create(itemData.itemId, itemData.itemCount)
     if searchText and #searchText > 0 and not matchText(searchText, itemData.marketData.name) then
       goto continue
@@ -348,9 +355,29 @@ function refreshStashItems(searchText)
 
     :: continue ::
   end
+end
+
+function refreshStashItems(searchText)
+  if not itemsPanel then
+    return true
+  end
+
+  local layout = itemsPanel:getLayout()
+  layout:disableUpdates()
+
+  -- UILayout::disableUpdates() is a counter, not a flag (framework/ui/uilayout.h):
+  -- an error escaping from here would leave it unbalanced and the grid frozen for
+  -- the rest of the session -- item widgets still get created, but nothing is ever
+  -- positioned, so the stash just looks empty. Keep the pair balanced whatever
+  -- happens and report the failure instead of swallowing it.
+  local ok, err = pcall(buildStashItems, searchText)
 
   layout:enableUpdates()
   layout:update()
+
+  if not ok then
+    g_logger.error("game_stash: failed to refresh stash items: " .. tostring(err))
+  end
 end
 
 function onPlayerPositionChange(creature, newPos, oldPos)

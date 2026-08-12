@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.57",
-    "generated":  "2026-08-10T20:16:08-03:00",
+    "version":  "15.24.55",
+    "generated":  "2026-08-12T01:55:30-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -65025,8 +65025,8 @@
                   },
                   {
                       "path":  "mods/game_stash/stash.lua",
-                      "sha256":  "76f761b3ca05e60b58684435288d99d1a4afaff6337eebaac81c6b0b5b6f558c",
-                      "size":  23107
+                      "sha256":  "a21341bdb0a65f662f624dec4e11203bf9a16880bd951f1162d6bc1481a62eda",
+                      "size":  24301
                   },
                   {
                       "path":  "mods/game_stash/stash.otmod",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "dff4b3d7960c20d03b12c64cb23fe49bb9d11166d66883d5819924c103c70f72",
+                      "sha256":  "5f6db3815f54fc1af6926d1e03e0ab17f22faadbb236157c19c6f903fb49d5d2",
                       "size":  8
                   }
               ]
