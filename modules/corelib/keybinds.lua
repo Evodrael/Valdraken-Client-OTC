@@ -735,7 +735,7 @@ KeyBinds.Hotkeys = {
       },
       ["Show/hide FPS / Lag indicator"] = {
         jsonName = "ToggleFPSLagIndicator",
-        bindKeyDown = function()if not canPerformAction() then return end modules.game_stats:show() end,
+        bindKeyDown = function()if not canPerformAction() then return end modules.game_stats.toggle() end,
       },
       ["Toggle Fullscreen"] = {
         jsonName = "ToggleFullscreen",

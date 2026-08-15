@@ -1714,7 +1714,19 @@ function onExecuteAction(button, isPress)
 		if (button.item:getItem():isContainer()) then
 			g_game.closeContainerByItemId(button.item:getItemId())
 		else
-			g_game.useInventoryItem(button.item:getItemId())
+			-- useInventoryItem manda a posicao de atalho (0xFFFF,0,0), que o
+			-- servidor nao resolve de forma confiavel para varios itens simples
+			-- (mesma armadilha documentada em MiniBotManager::useTimerItem).
+			-- Quando o item esta num container aberto usamos g_game.use() com o
+			-- item real, exatamente como o menu de clique direito faz.
+			-- subType -1 = qualquer (findItemById trata -1 como coringa).
+			local tier = button.item:getItem() and button.item:getItem():getTier() or 0
+			local realItem = g_game.findItemInContainers(button.item:getItemId(), -1, tier)
+			if realItem then
+				g_game.use(realItem)
+			else
+				g_game.useInventoryItem(button.item:getItemId())
+			end
 		end
 	end
 
@@ -2142,7 +2154,13 @@ function assignItem(button, itemId, itemTier, dragEvent)
 			end
 		end
 
-		if i == 7 and item:isUsable() and not item:isMultiUse() then
+		-- "Use": antes exigia a flag 'usable' do appearances.dat. Varios itens do
+		-- servidor (ex.: raid teleport scroll 60304) sao Actions simples que nao
+		-- carregam essa flag, entao a opcao ficava cinza, nenhuma opcao sobrava e
+		-- o fallback selecionava "Use on yourself" (desabilitado) -> o botao nao
+		-- fazia nada. O menu de clique direito so exige "nao multiuse e nao
+		-- static" para oferecer "Use"; alinhamos a barra de acao com ele.
+		if i == 7 and not item:isMultiUse() and not item:isStatic() then
 			child:setEnabled(true)
 			if not radio:getSelectedWidget() then
 				if fromSelect or button.cache.actionType == 0 or button.cache.actionType == i - 1 or (button.cache.actionType and button.cache.actionType == 6) then
@@ -2173,7 +2191,19 @@ function assignItem(button, itemId, itemTier, dragEvent)
 	end
 
 	if not radio:getSelectedWidget() then
-		radio:selectWidget(window.contentPanel.checks:getFirstChild())
+		-- Prefere a primeira opcao HABILITADA. O fallback antigo pegava sempre o
+		-- primeiro filho ("Use on yourself"), que para itens de uso simples esta
+		-- desabilitado: a janela abria com uma opcao invalida marcada e o botao
+		-- salvava uma acao que nao funcionava. O indice 6 e o checkbox "Smart
+		-- mode", que nao faz parte do radio group.
+		local fallback = nil
+		for i, child in ipairs(window.contentPanel.checks:getChildren()) do
+			if i ~= 6 and child:isEnabled() then
+				fallback = child
+				break
+			end
+		end
+		radio:selectWidget(fallback or window.contentPanel.checks:getFirstChild())
 	end
 
 	local okFunc = function(destroy)

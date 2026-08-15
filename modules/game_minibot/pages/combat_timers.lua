@@ -2,6 +2,29 @@ combat_timersModule = {}
 
 local combatTimersWindow = nil
 
+-- Loot bags do servidor (data-otservbr-global/scripts/custom/bags_dungeon).
+-- Sao Actions de uso simples (nao-multiuse), entao o motor cai no caminho
+-- g_game.use(item real do container) do MiniBotManager::useTimerItem.
+-- Os partner scrolls e o conversor de roulette daquela pasta NAO entram aqui:
+-- nao sao loot bags.
+local lootBagItems = {
+	2853,  -- small loot bag      (bag level 8)
+	2857,  -- common loot bag     (bag level 50)
+	2861,  -- uncommon loot bag   (bag level 100)
+	2863,  -- great loot bag      (bag level 180)
+	2859,  -- rare loot bag       (bag level 300)
+	7343,  -- very rare loot bag  (bag level 500)
+	5950,  -- epic loot bag       (bag level 750)
+	8861,  -- legendary loot bag  (bag level 1000)
+	34109, -- bag you desire      (bag level 1500)
+	43860, -- bag you covet       (bag level 1750)
+	43898, -- bag you covet       (2o id registrado no mesmo script)
+	60782, -- bag you want        (bag level 2500)
+	60266, -- amulet box
+	60265, -- ring box
+	64323, -- tower bag
+}
+
 local itemList = {
 	44434, -- milk
 	64039, -- gold bank
@@ -15,8 +38,13 @@ local regularUseItems = {
 	64039, -- gold bank
 	23683, -- trader
 	64086, -- exp boost 100
-	64085, -- exp boost 50	
+	64085, -- exp boost 50
 }
+
+for _, id in ipairs(lootBagItems) do
+	table.insert(itemList, id)
+	table.insert(regularUseItems, id)
+end
 
 local spellsSelfPlayerParam = {
     

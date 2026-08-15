@@ -105,12 +105,15 @@ function update()
   ui.ping:setText(text)
 end
 
+-- O indicador (lag / nome do mundo / fps) comeca ESCONDIDO por padrao
+-- (stats.otui: visible: false). Quem quiser ve-lo usa o atalho
+-- "Show/hide FPS / Lag indicator" (Alt+F8 no default-options.json).
+function toggle()
+  ui:setVisible(ui:isHidden())
+end
+
 function show()
-  if ui:isHidden() then
-    ui:setVisible(true)
-  else
-    ui:setVisible(false)
-  end
+  ui:setVisible(true)
 end
 
 function hide()

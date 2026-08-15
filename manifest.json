@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.58",
-    "generated":  "2026-08-12T01:56:57-03:00",
+    "version":  "15.24.59",
+    "generated":  "2026-08-15T04:24:16-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -65605,8 +65605,8 @@
                   },
                   {
                       "path":  "modules/client_topmenu/topmenu.lua",
-                      "sha256":  "74b8e239e5292f98a44b3f50620919e9b2be5f229139a131ed6eff9c4e0ed434",
-                      "size":  9561
+                      "sha256":  "36fda9be33b7a5da11f20b8dfc733bb35cb96edae3647d2b2c4ebef3d900b6ca",
+                      "size":  9757
                   },
                   {
                       "path":  "modules/client_topmenu/topmenu.otmod",
@@ -65675,8 +65675,8 @@
                   },
                   {
                       "path":  "modules/corelib/keybinds.lua",
-                      "sha256":  "328c0887fdaf245585a5cd3d2ac49ea4e49f06e94acefe1ff09c62c806c163e6",
-                      "size":  47723
+                      "sha256":  "9c918c5a738e95f05d65e37aa3ff796930e82d13aeb7540b5c6430950cc7af00",
+                      "size":  47725
                   },
                   {
                       "path":  "modules/corelib/keyboard.lua",
@@ -65920,8 +65920,8 @@
                   },
                   {
                       "path":  "modules/game_actionbar/actionbar.lua",
-                      "sha256":  "0388a8d2286eba7a1a7cec2647f591e3c95df94b8b84086566221a329886bd84",
-                      "size":  107193
+                      "sha256":  "836300d5cdcb3b85d7a44692764ec4aeb8292b724eb1ec5e9f63761dd1c5f354",
+                      "size":  108812
                   },
                   {
                       "path":  "modules/game_actionbar/actionbar.otmod",
@@ -66300,8 +66300,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
-                      "sha256":  "cf09c887a6eecadf3eb7897c03244260ffea0e551a45f424cfeb942120abbb6d",
-                      "size":  49005
+                      "sha256":  "5cc3e6017ed3373eda4db174a8b95870b5f8c77cf8aeff0a465756cbd2463692",
+                      "size":  50134
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.otui",
@@ -66310,8 +66310,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.lua",
-                      "sha256":  "7a63a80897adb4d977b7e310e5719815ff022a03678446827feaf68b45c3e01a",
-                      "size":  36981
+                      "sha256":  "8a5de9c8318e6ba4e4ce95c766b59021b5a67b12275ff577d5fe793d044be74c",
+                      "size":  38455
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.otui",
@@ -66320,8 +66320,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_rings.lua",
-                      "sha256":  "3f9ae4389774386a10026a198b1c399067754725a04d951657acc8bc067bb0a5",
-                      "size":  36507
+                      "sha256":  "b940bf6149eba675430b2b96ceece30c65d391bd6ae12713f1449c3fa10af78c",
+                      "size":  37785
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_rings.otui",
@@ -66950,8 +66950,8 @@
                   },
                   {
                       "path":  "modules/game_stats/stats.lua",
-                      "sha256":  "963083597f078e3fcc3abcf2a6ca335e9ee0a61b55f92444ae64583451969517",
-                      "size":  3493
+                      "sha256":  "4b88a2eff0c0aa41624943441d5f60e2de9bf609bd684fa5a596755325646204",
+                      "size":  3687
                   },
                   {
                       "path":  "modules/game_stats/stats.otmod",
@@ -66985,8 +66985,8 @@
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_otcv8_bridge.lua",
-                      "sha256":  "1a4fcb5a931badf6714128383474e7851268306d614255449eda860894cd229e",
-                      "size":  28321
+                      "sha256":  "8989682c56a5268f4293865f84c94b1985531e4f3eedc512189cb43f246a41fb",
+                      "size":  30861
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_preferred.lua",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "df68d3f1ccebe93d95e60c725da78865f9df93955a48c125d934f5d9019c3d18",
+                      "sha256":  "4dc16c599eb2953abba1d30b3bcdc7152f408d7f48c06a98c8dbbfc556d65869",
                       "size":  8
                   }
               ]

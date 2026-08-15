@@ -2,45 +2,70 @@ equipment_ringsModule = {}
 
 local equipmentRingsWindow = nil
 
+-- Lista montada a partir dos itens com slot="ring" no items.xml do servidor
+-- (/home/valdraken/valdraken/data/items/items.xml). Os Elemental Rings
+-- (41132-41142) foram removidos: nao existem no Valdraken, entao aquelas
+-- entradas nunca funcionaram. Blister Ring e Enchanted Blister Ring estao
+-- liberados (existem no servidor).
+-- Ids que o appearances.dat do client nao conhecer sao ignorados sozinhos em
+-- openCatcher() (o `if itemType then` do createItemEntry).
 local itemList = {
-    -- Falta o blister ring
-
+    39182, -- Alicorn Ring
     39188, -- Arboreal Ring
+    64047, -- Arcane Ring
     39185, -- Arcanomancer Sigil
     3092, -- Axe Ring
-    39182, -- Alicorn Ring
-    --31621, -- Blister Ring
+    64347, -- Balerion Ring
+    31621, -- Blister Ring
+    64066, -- Bloodrage Ring
+    60676, -- Burst Ring
     25698, -- Butterfly Ring
+    60752, -- Celestial Ring
     39180, -- Charged Alicorn Ring
+    50147, -- Charged Ethereal Ring
     3093, -- Club Ring
+    6093, -- Crystal Ring
     6299, -- Death Ring
+    60368, -- Death Valkir Ring
     3097, -- Dwarven Ring
-    --31557, -- Enchanted Blister Ring
+    60362, -- Earth Valkir Ring
+    31557, -- Enchanted Blister Ring
     32621, -- Enchanted Ring of Souls
     3051, -- Energy Ring
+    60366, -- Energy Valkir Ring
     50149, -- Ethereal Ring
-    50147, -- Charged Ethereal Ring
+    60689, -- Executioner Ring
+    60363, -- Fire Valkir Ring
+    60283, -- Genesis Ring
+    3063, -- Gold Ring
+    60753, -- Grenade Ring
+    60365, -- Holy Valkir Ring
+    60364, -- Ice Valkir Ring
     3052, -- Life Ring
+    34080, -- Lion Ring
     --3048, -- Might Ring
-    3050, -- power ring
+    64082, -- Mystic Ring
+    3050, -- Power Ring
     16114, -- Prismatic Ring
     23529, -- Ring of Blue Plasma
     23531, -- Ring of Green Plasma
     3098, -- Ring of Healing
     50150, -- Ring of Orange Plasma
     23533, -- Ring of Red Plasma
+    31263, -- Ring of Secret Thoughts
+    32636, -- Ring of Souls
     45642, -- Ring of Temptation
+    3006, -- Ring of the Sky
+    64054, -- Sacred Ring
     39177, -- Spiritthorn Ring
     12669, -- Star Ring
     3049, -- Stealth Ring
+    60710, -- Strike Ring
+    60756, -- Sunburst Ring
     3091, -- Sword Ring
     3053, -- Time Ring
-    41136, -- Elemental Energy Ring
-    41134, -- Elemental Earth Ring
-    41132, -- Elemental Death Ring
-    41142, -- Elemental Ice Ring
-    41140, -- Elemental Holy Ring
-    41138, -- Elemental Fire Ring
+    20209, -- Unstable Ring of Ending
+    64063, -- anel EK 2500 (sem nome no items.xml, faixa 64063-64065)
 }
 
 local ignoreAppendItemsList = {
@@ -49,15 +74,20 @@ local ignoreAppendItemsList = {
 
 local similaritems = {
     [39177] = { 39177, 39178, 39179 },
+    [39179] = { 39177, 39178, 39179 },
     [39180] = { 39180, 39181, 39182 },
+    [39182] = { 39180, 39181, 39182 },
     [39185] = { 39183, 39184, 39185 },
     [39188] = { 39186, 39187, 39188 },
     [3092] = { 3092, 3095 },
-    [50149] = { 50147, 50149 },
+    [50147] = { 50147, 50148 },
+    [50149] = { 50147, 50148, 50149 },
     [3093] = { 3093, 3096 },
     [6299] = { 6299, 6300 },
     [3097] = { 3097, 3099 },
+    [31557] = { 31557, 31616 },
     [32621] = { 32621, 32636 },
+    [32636] = { 32621, 32636 },
     [3051] = { 3051, 3088 },
     [3052] = { 3052, 3089 },
     [3050] = { 3050, 3087 },
@@ -71,12 +101,10 @@ local similaritems = {
     [3049] = { 3049, 3086 },
     [3091] = { 3091, 3094 },
     [3053] = { 3053, 3090 },
-    [41136] = { 41136, 41104 },
-    [41134] = { 41134, 41102 },
-    [41132] = { 41132, 41100 },
-    [41142] = { 41142, 41110 },
-    [41140] = { 41140, 41108 },
-    [41138] = { 41138, 41106 },
+    -- O crafting cria "Bloodrage Ring" com id 64066, mas os atributos de ring
+    -- nivel 2500 do EK estao na faixa 64063-64065 do items.xml.
+    [64066] = { 64066, 64063, 64064, 64065 },
+    [64063] = { 64066, 64063, 64064, 64065 },
 }
 
 function equipment_ringsModule.init(widget)

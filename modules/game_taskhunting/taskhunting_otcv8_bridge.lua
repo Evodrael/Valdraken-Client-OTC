@@ -203,6 +203,49 @@ end
 -- every update so kill counts / monsters refresh cleanly.
 local dynamicWeeklySlots = {}
 
+-- Estado do auto-ajuste de altura do prey tracker.
+-- onWeeklyTaskData chega a CADA kill; o setContentHeight incondicional que
+-- existia aqui refazia a altura cheia toda vez e desfazia o tamanho que o
+-- jogador tinha escolhido arrastando a borda da mini-janela.
+--   lastAutoSizedRows    -> quantas linhas semanais o ultimo auto-ajuste cobriu
+--   playerResizedTracker -> o jogador arrastou a borda de baixo (ou deu duplo
+--                           clique nela); a partir dai o tamanho e dele e nao
+--                           mexemos mais, nem quando o numero de tarefas muda.
+local lastAutoSizedRows = nil
+local playerResizedTracker = false
+
+local function resetPreyTrackerAutoSize()
+    lastAutoSizedRows = nil
+end
+
+-- Marca playerResizedTracker quando o jogador redimensiona a mini-janela.
+-- Encadeamos os handlers da borda em vez de substitui-los, para o
+-- comportamento normal de arrasto do UIResizeBorder continuar valendo.
+local function hookPreyTrackerResize(tracker)
+    if not tracker or tracker.taskboardResizeHooked then return end
+    local border = tracker:getChildById('bottomResizeBorder')
+    if not border then return end
+    tracker.taskboardResizeHooked = true
+
+    local baseMouseMove = border.onMouseMove
+    border.onMouseMove = function(self, mousePos, mouseMoved)
+        if self:isPressed() then
+            playerResizedTracker = true
+        end
+        if baseMouseMove then
+            return baseMouseMove(self, mousePos, mouseMoved)
+        end
+    end
+
+    local baseDoubleClick = border.onDoubleClick
+    border.onDoubleClick = function(self, mousePos)
+        playerResizedTracker = true
+        if baseDoubleClick then
+            return baseDoubleClick(self, mousePos)
+        end
+    end
+end
+
 local function destroyDynamicWeeklySlots()
     for _, w in ipairs(dynamicWeeklySlots) do
         if w and not w:isDestroyed() then w:destroy() end
@@ -254,6 +297,7 @@ end
 local function updatePreyTrackerWeekly(weeklyData)
     local tracker = getPreyTrackerWidget()
     if not tracker then return end
+    hookPreyTrackerResize(tracker)
     local firstSlot = tracker:recursiveGetChildById('weeklySlot1')
     local label  = tracker:recursiveGetChildById('weeklyTaskLabel')
     local sepa   = tracker:recursiveGetChildById('weeklyTaskSeparator')
@@ -309,17 +353,29 @@ local function updatePreyTrackerWeekly(weeklyData)
     local desired = extraSections + weeklyHeight + 20 -- safety margin
 
     -- Raise the maximum so the user can drag the window bigger if needed.
-    -- Keep a low minimum so they can still shrink it. setContentHeight then
-    -- sets the actual current size so all weekly rows are visible right away.
+    -- Keep a low minimum so they can still shrink it. Os limites podem ser
+    -- reaplicados sempre: eles so mudam a faixa de arrasto, nao o tamanho.
     if tracker.setContentMaximumHeight then
         tracker:setContentMaximumHeight(math.max(600, desired))
     end
     if tracker.setContentMinimumHeight then
         tracker:setContentMinimumHeight(47)
     end
-    if tracker.setContentHeight then
+
+    -- Ja o tamanho em si so e ajustado quando o conteudo realmente mudou
+    -- (numero de tarefas semanais) E o jogador ainda nao redimensionou a
+    -- janela na mao. Sem estas guardas, cada kill (que dispara um novo
+    -- onWeeklyTaskData) restaurava a altura cheia.
+    local rows = #activeMonsters
+    local shouldAutoSize = tracker.setContentHeight
+        and not tracker.minimized
+        and not playerResizedTracker
+        and rows ~= lastAutoSizedRows
+
+    if shouldAutoSize then
         tracker:setContentHeight(math.max(169, desired))
     end
+    lastAutoSizedRows = rows
 end
 
 local function onBountyTaskData(header, monsters, talismans)
@@ -609,6 +665,9 @@ connect(g_game, {
     onSoulsealsData           = onSoulsealsDataForward,
     onUse                     = onUse,
     onUseWith                 = onUseWith,
+    -- Zera o estado do auto-ajuste do prey tracker: no proximo login a janela
+    -- pode se ajustar uma vez ao conteudo de novo.
+    onGameEnd                 = resetPreyTrackerAutoSize,
 })
 
 -- Expose disconnect for the module's terminate(). Stored as a sandbox-global
@@ -623,7 +682,9 @@ function disconnectOTCV8Bridge()
         onSoulsealsData           = onSoulsealsDataForward,
         onUse                     = onUse,
         onUseWith                 = onUseWith,
+        onGameEnd                 = resetPreyTrackerAutoSize,
     })
+    resetPreyTrackerAutoSize()
     cachedBountyHeader    = nil
     cachedBountyMonsters  = nil
     cachedBountyTalismans = nil

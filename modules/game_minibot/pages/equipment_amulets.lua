@@ -2,56 +2,89 @@ equipment_amuletsModule = {}
 
 local equipmentAmuletsWindow = nil
 
+-- Lista montada a partir dos itens com slot="necklace" no items.xml do
+-- servidor (/home/valdraken/valdraken/data/items/items.xml). Itens que nao
+-- existem no Valdraken foram removidos (Foxtail Amulet 27565, The Cobra Amulet
+-- 31631 e os Elemental Amulets 41131-41141 nao estao no items.xml, entao as
+-- entradas antigas nunca funcionaram).
+-- Ids que o appearances.dat do client nao conhecer sao ignorados sozinhos em
+-- openCatcher() (o `if itemType then` do createItemEntry).
 local itemList = {
     35609, -- Amethyst Necklace
     3057, -- Amulet of Loss
     30401, -- Amulet of Theurgy
-    9301, -- Bornfire Amulet
+    64053, -- Arcane Amulet
+    64346, -- Balerion Necklace
+    64074, -- Bloodrage Amulet
+    9301, -- Bonfire Amulet
     3056, -- Bronze Amulet
+    60670, -- Burst Amulet
     45641, -- Candy Necklace
+    60758, -- Celestial Amulet
     23542, -- Collar of Blue Plasma
     23543, -- Collar of Green Plasma
     50152, -- Collar of Orange Plasma
     23544, -- Collar of Red Plasma
+    60353, -- Death Valkir Amulet
+    35607, -- Diamond Necklace
     3085, -- Dragon Necklace
+    60349, -- Earth Valkir Amulet
     3082, -- Elven Amulet
-    50154, -- Enchanted Merudri Brooch,
+    35605, -- Emerald Necklace
+    50154, -- Enchanted Merudri Brooch
     30344, -- Enchanted Pendulet
     30342, -- Enchanted Sleep Shawl
     39233, -- Enchanted Turtle Amulet
+    22061, -- Enchanted Werewolf Amulet
+    60350, -- Energy Valkir Amulet
+    60680, -- Executioner Amulet
     35523, -- Exotic Amulet
-    27565, -- Foxtail Amulet
+    60352, -- Fire Valkir Amulet
     3083, -- Garlic Necklace
+    35606, -- Garnet Necklace
     21170, -- Gearwheel Chain
+    60282, -- Genesis Amulet
     16108, -- Gill Necklace
     815, -- Glacier Amulet
     21183, -- Glooth Amulet
+    51275, -- Greater Garlic Necklace
+    60759, -- Grenade Amulet
     50195, -- Harmony Amulet
+    60351, -- Holy Valkir Amulet
+    60348, -- Ice Valkir Amulet
     7532, -- Koshei's Ancient Amulet
     9303, -- Leviathan's Amulet
     816, -- Lightning Pendant
     34158, -- Lion Amulet
-    817, -- Magma AMulet
+    817, -- Magma Amulet
     50156, -- Merudri Brooch
+    64077, -- Mystic Amulet
     13990, -- Necklace of the Deep
     22195, -- Onyx Pendant
+    29429, -- Pendulet
     3055, -- Platinum Amulet
     16113, -- Prismatic Necklace
     3084, -- Protection Amulet
+    31556, -- Rainbow Amulet
     30323, -- Rainbow Necklace
-    9302, -- Sacred Tree Amulet,
+    35608, -- Rhodolith Necklace
+    64062, -- Sacred Amulet
+    9302, -- Sacred Tree Amulet
+    35604, -- Sapphire Necklace
     9304, -- Shockwave Amulet
+    19357, -- Shrunken Head Necklace
     3054, -- Silver Amulet
+    29428, -- Sleep Shawl
     --3081, -- Stone Skin Amulet
     3045, -- Strange Talisman
+    60703, -- Strike Amulet
+    60762, -- Sunburst Amulet
     814, -- Terra Amulet
-    31631, -- The Cobra Amulet
-    41131, -- Elemental Death Amulet
-    41141, -- Elemental Ice Amulet
-    41139, -- Elemental Holy Amulet
-    41137, -- Elemental Fire Amulet
-    41135, -- Elemental Energy Amulet
-    41133, -- Elemental Earth Amulet
+    64324, -- Tower Amulet
+    39235, -- Turtle Amulet
+    22060, -- Werewolf Amulet
+    3012, -- Wolf Tooth Chain
+    64072, -- amuleto EK 2500 (sem nome no items.xml, faixa 64072-64073)
 }
 
 local ignoreAppendItemsList = {
@@ -67,12 +100,13 @@ local similaritems = {
     [30344] = { 30344, 30345 },
     [30342] = { 30342, 30343 },
     [39233] = { 39233, 39234 },
-    [41131] = { 41131, 41114 },
-    [41141] = { 41141, 41124 },
-    [41139] = { 41139, 41122 },
-    [41137] = { 41137, 41120 },
-    [41135] = { 41135, 41118 },
-    [41133] = { 41133, 41116 },
+    [22061] = { 22061, 22134 },
+    [50154] = { 50154, 50155 },
+    -- O crafting cria "Bloodrage Amulet" com id 64074, mas os atributos de
+    -- necklace nivel 2500 do EK estao na faixa 64072-64073 do items.xml.
+    -- Tratamos os tres como o mesmo amuleto.
+    [64074] = { 64074, 64072, 64073 },
+    [64072] = { 64074, 64072, 64073 },
 }
 
 function equipment_amuletsModule.init(widget)

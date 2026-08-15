@@ -272,9 +272,10 @@ function hide()
   if not topMenu.hideIngame then
     m_interface.getRootPanel():addAnchor(AnchorTop, 'parent', AnchorTop)
   end
-  if modules.game_stats then
-    modules.game_stats.show()
-  end
+  -- NAO liga o indicador de lag/fps aqui. Como o TopMenu tem hideIngame,
+  -- esta funcao roda a cada login e era ela que fazia o HUD aparecer sozinho.
+  -- O padrao agora e escondido; o jogador liga com o atalho
+  -- "Show/hide FPS / Lag indicator" (Alt+F8).
 end
 
 function show()
