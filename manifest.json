@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.59",
-    "generated":  "2026-08-15T04:24:16-03:00",
+    "version":  "15.24.60",
+    "generated":  "2026-08-15T12:08:53-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -64620,8 +64620,8 @@
                   },
                   {
                       "path":  "mods/game_guide/guide.lua",
-                      "sha256":  "610f51979095c62f7257e2659263ccfc52ab6f1726addbec4ae2ed6f2eea73d4",
-                      "size":  7581
+                      "sha256":  "142b0670f03370d4f71e402df15e84ee1817edb1f90538d0a4e3998b98f55104",
+                      "size":  7701
                   },
                   {
                       "path":  "mods/game_guide/guide.otmod",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "4dc16c599eb2953abba1d30b3bcdc7152f408d7f48c06a98c8dbbfc556d65869",
+                      "sha256":  "6398cb1f0d97a1652791a72c70c8d36a8fc766267dfcedf58bc8746e6b63bb51",
                       "size":  8
                   }
               ]

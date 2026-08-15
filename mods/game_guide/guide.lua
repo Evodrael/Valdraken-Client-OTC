@@ -317,19 +317,12 @@ function toggle()
 end
 
 function onLevelChange(localPlayer, level, levelPercent, oldLevel, oldLevelPercent)
-  if not isOnline then
-    lastLevel = level
-    return
-  end
-
-  oldLevel = oldLevel or lastLevel
+  -- Apenas acompanha o nivel atual (o show() usa lastLevel como fallback).
+  -- A janela NAO abre mais sozinha ao upar: antes cada level up agendava
+  -- openForLevel(level, true) e o Player Guide pulava na frente do jogador.
+  -- Quem quiser ver abre pelo botao lateral "Player Guide", que chama
+  -- modules.game_guide:toggle() (game_sidebuttons/sidebuttons.lua).
   lastLevel = level
-
-  if oldLevel and oldLevel > 0 and level and level > oldLevel then
-    scheduleEvent(function()
-      openForLevel(level, true)
-    end, 100)
-  end
 end
 
 function openCompendium(title)
