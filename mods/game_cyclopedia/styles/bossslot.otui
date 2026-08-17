@@ -580,16 +580,12 @@ BossslotGroupPanel < Panel
 
     Label
       id: slot1Text
-      !text: tr("Unknow")
+      # text is set by BosstiarySlot, which knows the actual slot state
       font: $var-cip-font
       text-auto-resize: true
       color: $var-text-cip-color
       anchors.centerIn: parent
       visible: false
-      @onSetup: |
-        local firstLine =  "  Unlocks if you reach the"
-        local secondLine = "Prowess level for any boss"
-        self:setText(firstLine .. "\n" .. secondLine)
 
     SelectBossPanel
       id: selectedBossPanel
@@ -627,7 +623,7 @@ BossslotGroupPanel < Panel
     phantom: true
     Label
       id: slot1Text
-      !text: tr("Unlocks at 1500 Boss Points")
+      # text is set by BosstiarySlot, which receives the requirement from the server
       font: $var-cip-font
       text-auto-resize: true
       color: $var-text-cip-color

@@ -18,6 +18,10 @@ local filterText = {}
 local slotData = {}
 local availableBosses = {}
 
+local receivedData = false
+local requestTimeoutEvent = nil
+local defaultSlotTwoPoints = 1500
+
 local function normalizeSlotData(data)
 	data = data or {}
 	return {
@@ -47,6 +51,57 @@ local function normalizeUnlockedCreatures(data)
 	return normalized
 end
 
+local function isSlotPanelValid(panel)
+	panel = panel or slotPanel
+	if not panel or panel:isDestroyed() then
+		return false
+	end
+	return panel.informationProgress ~= nil and panel.slot1 ~= nil and panel.slot2 ~= nil
+end
+
+-- Every branch that renders a slot must set its title: the .otui default reads
+-- "Slot X: Locked", so bailing out early would claim the slot is locked when it isn't.
+local function setSlotMessage(slotWidget, title, message)
+	slotWidget:setText(title)
+	slotWidget.selectedBossPanel:setVisible(false)
+	slotWidget.selectBoss:setVisible(false)
+	if message then
+		slotWidget.slot1Text:setText(message)
+	end
+	slotWidget.slot1Text:setVisible(true)
+end
+
+-- When a slot is locked the server reuses the boss id field to send the requirement,
+-- so slot 2 can show the real number instead of a hardcoded one.
+local function setSlotLocked(slotWidget, index, unlockRequirement)
+	local message
+	if index == 2 then
+		local points = unlockRequirement > 0 and unlockRequirement or defaultSlotTwoPoints
+		message = tr("Unlocks at %s Boss Points", comma_value(points))
+	else
+		message = tr("  Unlocks if you reach the\nProwess level for any boss")
+	end
+
+	setSlotMessage(slotWidget, tr("Slot %s: Locked", index), message)
+end
+
+local function setSlotUnavailable(slotWidget, index, raceId)
+	setSlotMessage(slotWidget, tr("Slot %s: Unknown Boss", index),
+		tr("The boss in this slot (id %s) is not\nrecognized by this client.", raceId))
+end
+
+local function onRequestTimeout()
+	requestTimeoutEvent = nil
+	if receivedData or not isSlotPanelValid() then
+		return
+	end
+
+	local message = tr("Could not load your boss slots.\nPlease reopen this window.")
+	setSlotMessage(slotPanel.slot1, tr("Slot %s: Unavailable", 1), message)
+	setSlotMessage(slotPanel.slot2, tr("Slot %s: Unavailable", 2), message)
+	slotPanel.slot3:setText(tr("Boosted Boss: Unavailable"))
+end
+
 function BosstiarySlot.onSideButtonRedirect()
 	Cyclopedia.open()
 	onOptionChange(cyclopediaOptionsPanel:recursiveGetChildById('8'))
@@ -56,12 +111,25 @@ function BosstiarySlot.requestData()
 	filterText[1] = ''
 	filterText[2] = ''
 
+	slotPanel = VisibleCyclopediaPanel
+	receivedData = false
+	if requestTimeoutEvent then
+		removeEvent(requestTimeoutEvent)
+	end
+	requestTimeoutEvent = scheduleEvent(onRequestTimeout, 3000)
+
     g_game.requestResource(ResourceBank)
     g_game.requestResource(ResourceInventary)
 	g_game.openBosstiarySlots()
 end
 
 function BosstiarySlot.onBosstiarySlotsData(pointsBalance, pointsNext, bonusLoot, bonusNext, slots, unlockedCreatures)
+	receivedData = true
+	if requestTimeoutEvent then
+		removeEvent(requestTimeoutEvent)
+		requestTimeoutEvent = nil
+	end
+
 	bossBalance = pointsBalance
 	requiredPoints = pointsNext
 	lootBonus = bonusLoot
@@ -73,13 +141,19 @@ function BosstiarySlot.onBosstiarySlotsData(pointsBalance, pointsNext, bonusLoot
 		normalizeSlotData(slots and slots[3])
 	}
 	availableBosses = normalizeUnlockedCreatures(unlockedCreatures)
+
+	-- Don't adopt whatever panel is visible now: the player may have switched tabs
+	-- while the reply was in flight. Reopening the tab re-requests the data anyway.
+	if not isSlotPanelValid(VisibleCyclopediaPanel) then
+		return
+	end
 	slotPanel = VisibleCyclopediaPanel
 
 	BosstiarySlot.configureWindow()
 end
 
 function BosstiarySlot.configureWindow()
-	if not slotPanel or not slotPanel.informationProgress then
+	if not isSlotPanelValid() then
 		return
 	end
 
@@ -145,11 +219,17 @@ function BosstiarySlot.showFirstSlot(data, sortText)
 			slotPanel.slot1.selectBoss:setVisible(true)
 
 			local monster = monsterList[data.raceID]
-			if not monster then return end
+			if not monster then
+				setSlotUnavailable(slotPanel.slot1, 1, data.raceID)
+				return
+			end
 			local name = string.capitalize(monster[1])
 			local baseKill = baseKillData[data.category + 1]
 			local baseReward = baseRewardData[data.category + 1]
-			if not baseKill or not baseReward then return end
+			if not baseKill or not baseReward then
+				setSlotUnavailable(slotPanel.slot1, 1, data.raceID)
+				return
+			end
 
 			slotPanel.slot1:setText(tr("Slot 1: %s", short_text(name, 20)))
 			slotPanel.slot1.selectBoss.selectedBoss.outfit:setOutfit({type = monster[2], auxType = monster[3], head = monster[4], body = monster[5], legs = monster[6], feet = monster[7], addons = monster[8]})
@@ -220,8 +300,7 @@ function BosstiarySlot.showFirstSlot(data, sortText)
 			end
 		end
 	else
-		-- locked
-		slotPanel.slot1.slot1Text:setVisible(true)
+		setSlotLocked(slotPanel.slot1, 1, data.raceID)
 	end
 end
 
@@ -271,11 +350,17 @@ function BosstiarySlot.showSecondSlot(data, sortText)
 			slotPanel.slot2.selectBoss:setVisible(true)
 
 			local monster = monsterList[data.raceID]
-			if not monster then return end
+			if not monster then
+				setSlotUnavailable(slotPanel.slot2, 2, data.raceID)
+				return
+			end
 			local name = string.capitalize(monster[1])
 			local baseKill = baseKillData[data.category + 1]
 			local baseReward = baseRewardData[data.category + 1]
-			if not baseKill or not baseReward then return end
+			if not baseKill or not baseReward then
+				setSlotUnavailable(slotPanel.slot2, 2, data.raceID)
+				return
+			end
 
 			slotPanel.slot2:setText(tr("Slot 2: %s", short_text(name, 20)))
 			slotPanel.slot2.selectBoss.selectedBoss.outfit:setOutfit({type = monster[2], auxType = monster[3], head = monster[4], body = monster[5], legs = monster[6], feet = monster[7], addons = monster[8]})
@@ -339,15 +424,14 @@ function BosstiarySlot.showSecondSlot(data, sortText)
 
 			if bankMoney + characterMoney < removeGold then
 				slotPanel.slot2.selectBoss.removeButton:disable()
-				slotPanel.slot2.selectBoss.gold:setColor("#d33c3c")
+				slotPanel.slot2.selectBoss.gold.text:setColor("#d33c3c")
 			else
 				slotPanel.slot2.selectBoss.removeButton:enable()
-				slotPanel.slot2.selectBoss.gold:setColor("#c0c0c0")
+				slotPanel.slot2.selectBoss.gold.text:setColor("#c0c0c0")
 			end
 		end
 	else
-		-- locked
-		slotPanel.slot2.slot1Text:setVisible(true)
+		setSlotLocked(slotPanel.slot2, 2, data.raceID)
 	end
 end
 
@@ -367,10 +451,16 @@ end
 function BosstiarySlot.showBoostedSlot(data)
 	data = normalizeSlotData(data)
 	local monster = g_things.getMonsterList()[data.raceID]
-	if not monster then return end
+	if not monster then
+		slotPanel.slot3:setText(tr("Boosted Boss: Unavailable"))
+		return
+	end
 	local baseKill = baseKillData[data.category + 1]
 	local baseReward = baseRewardData[data.category + 1]
-	if not baseKill or not baseReward then return end
+	if not baseKill or not baseReward then
+		slotPanel.slot3:setText(tr("Boosted Boss: Unavailable"))
+		return
+	end
 
 	updateMonsterName(monster[1])
 	slotPanel.slot3.monster.outfit:setOutfit({type = monster[2], auxType = monster[3], head = monster[4], body = monster[5], legs = monster[6], feet = monster[7], addons = monster[8]})

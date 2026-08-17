@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.60",
-    "generated":  "2026-08-15T12:08:53-03:00",
+    "version":  "15.24.61",
+    "generated":  "2026-08-17T11:24:57-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -63285,8 +63285,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/boss_slots.lua",
-                      "sha256":  "df031cc9ce58d4f445b169dbae23229f71b81c5f0ac9f1f0d6d336dda3f86cdf",
-                      "size":  20436
+                      "sha256":  "dc4fcedd8c728d07e91b374e1dda4add48deab169842bb76b4c4e93517eeeac2",
+                      "size":  23360
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/bosstiary.lua",
@@ -64410,8 +64410,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/styles/bossslot.otui",
-                      "sha256":  "f3097451c19cc6cd6f137929c79581ebe71b9d0bec7c8dee15c8020ac82168e0",
-                      "size":  22730
+                      "sha256":  "45d6b71ba63bde2e8cfe54dfce1a236e14d027adbcd36e09e2857598e492202b",
+                      "size":  22626
                   },
                   {
                       "path":  "mods/game_cyclopedia/styles/bosstiary.otui",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "6398cb1f0d97a1652791a72c70c8d36a8fc766267dfcedf58bc8746e6b63bb51",
+                      "sha256":  "b085fabe301419bbbdfa9b2f9dd7e13a575ff29a6c36e6becaed6da1e99dcd30",
                       "size":  8
                   }
               ]
