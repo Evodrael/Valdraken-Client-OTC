@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.65",
-    "generated":  "2026-08-31T16:38:53-03:00",
+    "version":  "15.24.66",
+    "generated":  "2026-08-31T23:35:11-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -66290,8 +66290,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
-                      "sha256":  "e01218129f42a1ef90a359a8049a6fb3fd33816cd3cbe2a8a2168d465e477613",
-                      "size":  62903
+                      "sha256":  "d0e67ac8c4060af4cd021bbe9ab1b2841695f4b44d017b60e8baf1c2d7ae21d9",
+                      "size":  65496
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.otui",
@@ -66300,8 +66300,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
-                      "sha256":  "5cc3e6017ed3373eda4db174a8b95870b5f8c77cf8aeff0a465756cbd2463692",
-                      "size":  50134
+                      "sha256":  "091a81fce587ce53df1e6d8c29613d69b2f3d11cc64fbef74cd8af8a871bd308",
+                      "size":  50135
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.otui",
@@ -67350,17 +67350,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "4022c607f5fb4f99fc0b13096dcde3714e85ff972e18d69e2ccb3c3304309ce3",
-                      "size":  37004800
+                      "sha256":  "52ae31171c16932c226292ed0beffea1436548f3753e27f6f614524176c19b62",
+                      "size":  37005824
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "8d1be97e0ece00bfc54d35be80c3a132147cb9b0c746fca7e7d76ae607da80a9",
-                      "size":  29144064
+                      "sha256":  "ca17aff4f0100e5fea7f13a94177ced66ac5801207a55d3466d2dc4d022304bb",
+                      "size":  29145600
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "1519bbdcb5a02d7e7441d9e81bd33b1d16ce6e5a70fdd90870e27d4cf58c073d",
+                      "sha256":  "894ee79f67eb0967ff6905f429bbdbf23a1b825800794f427a2c0eef2f0fa75c",
                       "size":  8
                   }
               ]

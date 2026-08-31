@@ -32,8 +32,26 @@ local itemList = {
     40943, -- Thunderstorm Rune (Rune Station)
 }
 
+-- Spells de SUPORTE liberadas no Shooter.
+--
+-- O bloco de cima so lista g_spells.getSpellsByGroup(SpellGroup.Attack), e estas
+-- sao do grupo Support (3) -- por isso nunca apareciam no dropdown. Elas cabem
+-- aqui porque o motor, para uma entrada de spell, apenas fala as palavras
+-- magicas (MiniBotManager::executeEntry -> g_game.talk): o buff sai com as
+-- mesmas condicoes de um ataque (alvo vivo, mana, criaturas na tela), que e
+-- exatamente o gatilho que se quer para Avatar e Divine Empowerment.
+--
+-- Ids, palavras e vocacoes conferidos em data/scripts/spells/support/*.lua do
+-- servidor (avatar_of_*.lua, divine_empowerment.lua, monk/avatar_of_balance.lua).
+-- Sem area: o motor nao precisa dela para falar a spell, e o preview da pagina
+-- fica desligado (spellAreas nao tem entrada para estes ids).
 local spellsAppend = {
-
+    { id = 264, words = "uteta res eq",   name = "Avatar of Steel" },
+    { id = 265, words = "uteta res sac",  name = "Avatar of Light" },
+    { id = 266, words = "uteta res ven",  name = "Avatar of Storm" },
+    { id = 267, words = "uteta res dru",  name = "Avatar of Nature" },
+    { id = 283, words = "uteta res tio",  name = "Avatar of Balance" },
+    { id = 268, words = "utevo grav san", name = "Divine Empowerment" },
 }
 
 -- Attack spells registered by the server (data/scripts/spells/attack). The client
@@ -112,6 +130,32 @@ local spellList = {
 
 local function isServerSpell(id)
     return id ~= nil and table.find(spellList, id) ~= nil
+end
+
+local function isAppendSpell(id)
+    if id == nil then
+        return false
+    end
+    for _, spell in ipairs(spellsAppend) do
+        if spell.id == id then
+            return true
+        end
+    end
+    return false
+end
+
+-- Quem pode virar entrada do Shooter: uma spell de ataque registrada no servidor,
+-- ou uma das de suporte liberadas em spellsAppend. Sem o segundo caso, arrastar
+-- o Avatar da spell list para a pagina era ignorado em silencio, mesmo com a
+-- spell ja aparecendo no dropdown.
+local function isAllowedSpell(spell)
+    if spell == nil then
+        return false
+    end
+    if isAppendSpell(spell.id) then
+        return true
+    end
+    return table.find(spell.groups, SpellGroup.Attack) ~= nil and isServerSpell(spell.id)
 end
 
 local itemAreas = {
@@ -858,11 +902,16 @@ function combat_shooterModule.openCatcher(isItem)
         end
         for _, spell in ipairs(spellsAppend) do
             local foundSpell = g_spells.getSpellInfoById(spell.id)
-            if spellsAppend ~= nil then
+            -- A guarda era "if spellsAppend ~= nil", que e sempre verdadeira: um id
+            -- fora do SpellInfo passava e estourava logo abaixo em foundSpell.id.
+            -- E o canSpellCast recebia a entrada CRUA da tabela local (sem campo
+            -- vocations), entao devolvia true para todo mundo e nenhuma spell
+            -- aparecia bloqueada por vocacao.
+            if foundSpell ~= nil then
                 local spellWidget = g_ui.createWidget('MiniBotCombatShooterSpellDropDownEntry', combatShooterWindow.dropDownMenu)
                 spellWidget:constructEnviorementVariables()
 
-                if not(modules.game_actionbar.canSpellCast(spell)) then
+                if not(modules.game_actionbar.canSpellCast(foundSpell)) then
                     spellWidget.block:show()
                     spellWidget.icon:setOpacity(0.3)
                 end
@@ -876,6 +925,9 @@ function combat_shooterModule.openCatcher(isItem)
 
                     combatShooterWindow.config.panel.spell:setImageClip(g_spells.getSpellRegularImageClipById(foundSpell.id))
                     combatShooterWindow.config.panel.frameBackground:setTooltip(foundSpell.name .. '\n\'' .. foundSpell.words .. '\'')
+                    -- Estas spells nao tem area em spellAreas: o nil limpa o preview
+                    -- que tivesse sobrado da spell escolhida antes.
+                    combat_shooterModule.configurePreview(spellAreas[foundSpell.id])
                     combat_shooterModule.closeCatcher()
 
                     if foundSpell.needDirection then
@@ -1238,7 +1290,7 @@ function combat_shooterModule.onClickEntry(widget)
 
         if droppedWidget.spellEntry and droppedWidget.spellId ~= nil and droppedWidget.spellId > 0 then
             local spell = g_spells.getSpellInfoById(droppedWidget.spellId)
-            if spell == nil or not(table.find(spell.groups, SpellGroup.Attack)) or not(isServerSpell(spell.id)) then
+            if not(isAllowedSpell(spell)) then
                 return
             end
 
