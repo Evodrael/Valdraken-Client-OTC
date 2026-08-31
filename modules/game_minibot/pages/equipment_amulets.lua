@@ -109,19 +109,37 @@ local similaritems = {
     [64072] = { 64074, 64072, 64073 },
 }
 
-function equipment_amuletsModule.init(widget)
-    equipmentAmuletsWindow = widget
-
-    equipmentAmuletsWindow.fromText = 'From'
-    equipmentAmuletsWindow.toText = 'To'
-    local language = modules.game_minibot.getSettingsValue(false, 'language', 'ptbr')
+-- 'De'/'From' e 'Ate'/'To' sao apenas o prefixo dos rotulos de cada linha. Ler o
+-- numero de volta pelo prefixo quebrava quando o idioma mudava com a pagina
+-- aberta (o init() so roda ao abrir a aba, e o reloadLanguage nao atualizava
+-- fromText/toText): o match devolvia nil, a entrada era gravada sem 'min'/'max'
+-- e o loadSettings seguinte estourava em `entry['min'] > 0`. As funcoes abaixo
+-- leem e escrevem os rotulos sem depender do idioma atual.
+local function setRangeLabelPrefixes(language)
     if language == 'ptbr' then
         equipmentAmuletsWindow.fromText = 'De'
         equipmentAmuletsWindow.toText = 'Ate'
-    elseif language == 'enus' then
+    else
         equipmentAmuletsWindow.fromText = 'From'
         equipmentAmuletsWindow.toText = 'To'
     end
+end
+
+local function readPercentLabel(text)
+    return tonumber(text:match('(%d+)%%'))
+end
+
+local function percentLabel(prefix, value)
+    if value == nil or value == '' or value == 0 then
+        return prefix .. ' -%'
+    end
+    return prefix .. ' ' .. value .. '%'
+end
+
+function equipment_amuletsModule.init(widget)
+    equipmentAmuletsWindow = widget
+
+    setRangeLabelPrefixes(modules.game_minibot.getSettingsValue(false, 'language', 'ptbr'))
 
     equipment_amuletsModule.loadSettings()
 end
@@ -139,6 +157,8 @@ function equipment_amuletsModule.terminate()
 end
 
 function equipment_amuletsModule.reloadLanguage(language)
+    setRangeLabelPrefixes(language)
+
     if language == 'ptbr' then
         equipmentAmuletsWindow.priority.priorityLabel:setText('Lista de prioridades')
         equipmentAmuletsWindow.priority.listHeader.sourceLabel.label:setText('Fonte')
@@ -194,6 +214,11 @@ function equipment_amuletsModule.reloadLanguage(language)
                 c.unequip:setTooltip('This item is set to unequip only.')
                 c.iconTooptip:setTooltip('Your entry is invalid, please reconfigure it!')
             end
+
+            c.minHp:setText(percentLabel(equipmentAmuletsWindow.fromText, readPercentLabel(c.minHp:getText())))
+            c.maxHp:setText(percentLabel(equipmentAmuletsWindow.toText, readPercentLabel(c.maxHp:getText())))
+            c.minMp:setText(percentLabel(equipmentAmuletsWindow.fromText, readPercentLabel(c.minMp:getText())))
+            c.maxMp:setText(percentLabel(equipmentAmuletsWindow.toText, readPercentLabel(c.maxMp:getText())))
         end
     end
 end
@@ -333,7 +358,9 @@ function equipment_amuletsModule.openCatcher(isIgnore)
                     ignoreWidget:setItemId(itemType:getId())
                     ignoreWidget:setTooltip(itemType:getName())
 
-                    itemWidget.onMousePress = equipment_amuletsModule.onItemIgnoreDropDownEntryMousePress
+                    -- O handler de remover vai no item recem-criado da lista de
+                    -- ignorados, nao na entrada do dropdown que foi clicada.
+                    ignoreWidget.onMousePress = equipment_amuletsModule.onItemIgnoreDropDownEntryMousePress
 
                     local ignoreButton = equipmentAmuletsWindow.config.panel.ignore.list:getChildById('ignoreAdd')
                     if ignoreButton ~= nil then
@@ -381,15 +408,13 @@ function equipment_amuletsModule.loadSettings()
             local newWidget = g_ui.createWidget('MiniBotEquipmentAmuletEntry')
             newWidget:constructEnviorementVariables()
 
-            newWidget.minHp:setText(equipmentAmuletsWindow.fromText .. ' -%')
-            newWidget.minMp:setText(equipmentAmuletsWindow.fromText .. ' -%')
-            newWidget.maxHp:setText(equipmentAmuletsWindow.toText .. ' -%')
-            newWidget.maxMp:setText(equipmentAmuletsWindow.toText .. ' -%')
-
             equipmentAmuletsWindow.priority.list:insertChild(equipmentAmuletsWindow.priority.list:getChildIndex(newEntryButton), newWidget)
             equipmentAmuletsWindow.priority.list:ensureChildVisible(newWidget)
 
-            local isPhantom = entry['item'] == 0 or entry['max'] == 0
+            -- Uma entrada so precisa de um item para ser valida. Vida e mana sao
+            -- filtros opcionais (o motor trata max 0 como 100), e exigir
+            -- entry['max'] > 0 invalidava toda entrada configurada so por mana.
+            local isPhantom = tonumber(entry['item']) == nil or tonumber(entry['item']) == 0
             if isPhantom then
                 newWidget.icon:setPhantom(true)
                 newWidget.icon:setImageClip(torect('50 0 25 25'))
@@ -397,27 +422,16 @@ function equipment_amuletsModule.loadSettings()
                 newWidget.icon:setChecked(entry['enabled'])
             end
 
-            if entry['item'] > 0 then
+            if not(isPhantom) then
                 newWidget.item:show()
                 newWidget.item:setItemId(entry['item'])
                 newWidget.frameBackground:setTooltip(newWidget.item:getItem():getName())
             end
 
-            if entry['min'] > 0 then
-                newWidget.minHp:setText(equipmentAmuletsWindow.fromText .. ' ' .. entry['min'] .. '%')
-            end
-
-            if entry['max'] > 0 then
-                newWidget.maxHp:setText(equipmentAmuletsWindow.toText .. ' ' .. entry['max'] .. '%')
-            end
-
-            if entry['manaMin'] > 0 then
-                newWidget.minMp:setText(equipmentAmuletsWindow.fromText .. ' ' .. entry['manaMin'] .. '%')
-            end
-
-            if entry['manaMax'] > 0 then
-                newWidget.maxMp:setText(equipmentAmuletsWindow.toText .. ' ' .. entry['manaMax'] .. '%')
-            end
+            newWidget.minHp:setText(percentLabel(equipmentAmuletsWindow.fromText, tonumber(entry['min'])))
+            newWidget.maxHp:setText(percentLabel(equipmentAmuletsWindow.toText, tonumber(entry['max'])))
+            newWidget.minMp:setText(percentLabel(equipmentAmuletsWindow.fromText, tonumber(entry['manaMin'])))
+            newWidget.maxMp:setText(percentLabel(equipmentAmuletsWindow.toText, tonumber(entry['manaMax'])))
 
             if entry['unequip'] then
                 newWidget.unequip:show()
@@ -511,29 +525,10 @@ function equipment_amuletsModule.saveSettings()
             value['ignore_enabled'] = c.ignoreChecked
             value['ignore'] = c.ignoreList or {}
 
-            if c.minHp:getText() ~= equipmentAmuletsWindow.fromText .. ' -%' then
-                local text = c.minHp:getText()
-                local numberStr = text:match(equipmentAmuletsWindow.fromText .. "%s+(%d+)%%")
-                value['min'] = tonumber(numberStr)
-            end
-
-            if c.maxHp:getText() ~= equipmentAmuletsWindow.toText .. ' -%' then
-                local text = c.maxHp:getText()
-                local numberStr = text:match(equipmentAmuletsWindow.toText .. "%s+(%d+)%%")
-                value['max'] = tonumber(numberStr)
-            end
-
-            if c.minMp:getText() ~= equipmentAmuletsWindow.fromText .. ' -%' then
-                local text = c.minMp:getText()
-                local numberStr = text:match(equipmentAmuletsWindow.fromText .. "%s+(%d+)%%")
-                value['manaMin'] = tonumber(numberStr)
-            end
-
-            if c.maxMp:getText() ~= equipmentAmuletsWindow.toText .. ' -%' then
-                local text = c.maxMp:getText()
-                local numberStr = text:match(equipmentAmuletsWindow.toText .. "%s+(%d+)%%")
-                value['manaMax'] = tonumber(numberStr)
-            end
+            value['min'] = readPercentLabel(c.minHp:getText()) or 0
+            value['max'] = readPercentLabel(c.maxHp:getText()) or 0
+            value['manaMin'] = readPercentLabel(c.minMp:getText()) or 0
+            value['manaMax'] = readPercentLabel(c.maxMp:getText()) or 0
 
             if c.item:isVisible() then
                 value['item'] = c.item:getItemId()
@@ -637,37 +632,10 @@ function equipment_amuletsModule.onClickEntry(widget)
         equipment_amuletsModule.openCatcher(true)
     end
 
-    local max = ''
-    if widget.maxHp:getText() ~= (equipmentAmuletsWindow.toText .. ' -%') then
-        local text = widget.maxHp:getText()
-        local numberStr = text:match(equipmentAmuletsWindow.toText .. "%s+(%d+)%%")
-        max = numberStr
-    end
-    equipmentAmuletsWindow.config.panel.maxHp:setText(max)
-
-    max = ''
-    if widget.maxMp:getText() ~= (equipmentAmuletsWindow.toText .. ' -%') then
-        local text = widget.maxMp:getText()
-        local numberStr = text:match(equipmentAmuletsWindow.toText .. "%s+(%d+)%%")
-        max = numberStr
-    end
-    equipmentAmuletsWindow.config.panel.maxMp:setText(max)
-
-    local min = ''
-    if widget.minHp:getText() ~= (equipmentAmuletsWindow.fromText .. ' -%') then
-        local text = widget.minHp:getText() 
-        local numberStr = text:match(equipmentAmuletsWindow.fromText .. "%s+(%d+)%%")
-        min = numberStr
-    end
-    equipmentAmuletsWindow.config.panel.minHp:setText(min)
-
-    min = ''
-    if widget.minMp:getText() ~= (equipmentAmuletsWindow.fromText .. ' -%') then
-        local text = widget.minMp:getText()
-        local numberStr = text:match(equipmentAmuletsWindow.fromText .. "%s+(%d+)%%")
-        min = numberStr
-    end
-    equipmentAmuletsWindow.config.panel.minMp:setText(min)
+    equipmentAmuletsWindow.config.panel.maxHp:setText(tostring(readPercentLabel(widget.maxHp:getText()) or ''))
+    equipmentAmuletsWindow.config.panel.maxMp:setText(tostring(readPercentLabel(widget.maxMp:getText()) or ''))
+    equipmentAmuletsWindow.config.panel.minHp:setText(tostring(readPercentLabel(widget.minHp:getText()) or ''))
+    equipmentAmuletsWindow.config.panel.minMp:setText(tostring(readPercentLabel(widget.minMp:getText()) or ''))
 
     local function onNameTextChange()
         if equipmentAmuletsWindow.config.panel.name:getText() == '' then
@@ -767,35 +735,18 @@ function equipment_amuletsModule.onClickEntry(widget)
         selectedWidget.item:setItemId(equipmentAmuletsWindow.config.panel.item:getItemId())
         selectedWidget.frameBackground:setTooltip(equipmentAmuletsWindow.config.panel.item:getItem():getName())
 
-        local min = equipmentAmuletsWindow.config.panel.minHp:getText()
-        local minValue = tonumber(min) or 0
-        if min == '' then
-            min = '-'
-        end
-        selectedWidget.minHp:setText(equipmentAmuletsWindow.fromText .. ' ' .. min .. '%')
+        selectedWidget.minHp:setText(percentLabel(equipmentAmuletsWindow.fromText, tonumber(equipmentAmuletsWindow.config.panel.minHp:getText())))
+        selectedWidget.maxHp:setText(percentLabel(equipmentAmuletsWindow.toText, tonumber(equipmentAmuletsWindow.config.panel.maxHp:getText())))
+        selectedWidget.minMp:setText(percentLabel(equipmentAmuletsWindow.fromText, tonumber(equipmentAmuletsWindow.config.panel.minMp:getText())))
+        selectedWidget.maxMp:setText(percentLabel(equipmentAmuletsWindow.toText, tonumber(equipmentAmuletsWindow.config.panel.maxMp:getText())))
 
-        local max = equipmentAmuletsWindow.config.panel.maxHp:getText()
-        local maxValue = tonumber(max) or 0
-        if max == '' then
-            max = '-'
-        end
-        selectedWidget.maxHp:setText(equipmentAmuletsWindow.toText .. ' ' .. max .. '%')
-
-        min = equipmentAmuletsWindow.config.panel.minMp:getText()
-        minValue = tonumber(min) or 0
-        if min == '' then
-            min = '-'
-        end
-        selectedWidget.minMp:setText(equipmentAmuletsWindow.fromText .. ' ' .. min .. '%')
-
-        max = equipmentAmuletsWindow.config.panel.maxMp:getText()
-        maxValue = tonumber(max) or 0
-        if max == '' then
-            max = '-'
-        end
-        selectedWidget.maxMp:setText(equipmentAmuletsWindow.toText .. ' ' .. max .. '%')
-
-        if maxValue > 0 and (selectedWidget.item:isVisible() and selectedWidget.item:getItem()) then
+        -- A entrada e valida assim que tem um item: vida e mana sao filtros
+        -- opcionais. O teste antigo era `maxValue > 0`, e `maxValue` tinha sido
+        -- reatribuido logo acima com o max de MANA -- entao quem configurasse so
+        -- por vida (o caso normal) ficava com a entrada marcada como invalida,
+        -- gravada com enabled = false e sem poder ligar o polegar, que fica
+        -- phantom. Era por isso que o auto amulet/ring nao equipava nada.
+        if selectedWidget.item:isVisible() and selectedWidget.item:getItem() then
             if selectedWidget.icon:isPhantom() then
                 selectedWidget.icon:setPhantom(false)
                 selectedWidget.icon:setImageClip(torect('25 0 25 25'))

@@ -107,19 +107,37 @@ local similaritems = {
     [64063] = { 64066, 64063, 64064, 64065 },
 }
 
-function equipment_ringsModule.init(widget)
-    equipmentRingsWindow = widget
-
-    equipmentRingsWindow.fromText = 'From'
-    equipmentRingsWindow.toText = 'To'
-    local language = modules.game_minibot.getSettingsValue(false, 'language', 'ptbr')
+-- 'De'/'From' e 'Ate'/'To' sao apenas o prefixo dos rotulos de cada linha. Ler o
+-- numero de volta pelo prefixo quebrava quando o idioma mudava com a pagina
+-- aberta (o init() so roda ao abrir a aba, e o reloadLanguage nao atualizava
+-- fromText/toText): o match devolvia nil, a entrada era gravada sem 'min'/'max'
+-- e o loadSettings seguinte estourava em `entry['min'] > 0`. As funcoes abaixo
+-- leem e escrevem os rotulos sem depender do idioma atual.
+local function setRangeLabelPrefixes(language)
     if language == 'ptbr' then
         equipmentRingsWindow.fromText = 'De'
         equipmentRingsWindow.toText = 'Ate'
-    elseif language == 'enus' then
+    else
         equipmentRingsWindow.fromText = 'From'
         equipmentRingsWindow.toText = 'To'
     end
+end
+
+local function readPercentLabel(text)
+    return tonumber(text:match('(%d+)%%'))
+end
+
+local function percentLabel(prefix, value)
+    if value == nil or value == '' or value == 0 then
+        return prefix .. ' -%'
+    end
+    return prefix .. ' ' .. value .. '%'
+end
+
+function equipment_ringsModule.init(widget)
+    equipmentRingsWindow = widget
+
+    setRangeLabelPrefixes(modules.game_minibot.getSettingsValue(false, 'language', 'ptbr'))
 
     equipment_ringsModule.loadSettings()
 end
@@ -271,7 +289,9 @@ function equipment_ringsModule.openCatcher(isIgnore)
                     ignoreWidget:setItemId(itemType:getId())
                     ignoreWidget:setTooltip(itemType:getName())
 
-                    itemWidget.onMousePress = equipment_ringsModule.onItemIgnoreDropDownEntryMousePress
+                    -- O handler de remover vai no item recem-criado da lista de
+                    -- ignorados, nao na entrada do dropdown que foi clicada.
+                    ignoreWidget.onMousePress = equipment_ringsModule.onItemIgnoreDropDownEntryMousePress
 
                     local ignoreButton = equipmentRingsWindow.config.panel.ignore.list:getChildById('ignoreAdd')
                     if ignoreButton ~= nil then
@@ -319,15 +339,13 @@ function equipment_ringsModule.loadSettings()
             local newWidget = g_ui.createWidget('MiniBotEquipmentRingEntry')
             newWidget:constructEnviorementVariables()
 
-            newWidget.minHp:setText(equipmentRingsWindow.fromText .. ' -%')
-            newWidget.minMp:setText(equipmentRingsWindow.fromText .. ' -%')
-            newWidget.maxHp:setText(equipmentRingsWindow.toText .. ' -%')
-            newWidget.maxMp:setText(equipmentRingsWindow.toText .. ' -%')
-
             equipmentRingsWindow.priority.list:insertChild(equipmentRingsWindow.priority.list:getChildIndex(newEntryButton), newWidget)
             equipmentRingsWindow.priority.list:ensureChildVisible(newWidget)
 
-            local isPhantom = entry['item'] == 0 or entry['max'] == 0
+            -- Uma entrada so precisa de um item para ser valida. Vida e mana sao
+            -- filtros opcionais (o motor trata max 0 como 100), e exigir
+            -- entry['max'] > 0 invalidava toda entrada configurada so por mana.
+            local isPhantom = tonumber(entry['item']) == nil or tonumber(entry['item']) == 0
             if isPhantom then
                 newWidget.icon:setPhantom(true)
                 newWidget.icon:setImageClip(torect('50 0 25 25'))
@@ -335,27 +353,16 @@ function equipment_ringsModule.loadSettings()
                 newWidget.icon:setChecked(entry['enabled'])
             end
 
-            if entry['item'] > 0 then
+            if not(isPhantom) then
                 newWidget.item:show()
                 newWidget.item:setItemId(entry['item'])
                 newWidget.frameBackground:setTooltip(newWidget.item:getItem():getName())
             end
 
-            if entry['min'] > 0 then
-                newWidget.minHp:setText(equipmentRingsWindow.fromText .. ' ' .. entry['min'] .. '%')
-            end
-
-            if entry['max'] > 0 then
-                newWidget.maxHp:setText(equipmentRingsWindow.toText .. ' ' .. entry['max'] .. '%')
-            end
-
-            if entry['manaMin'] > 0 then
-                newWidget.minMp:setText(equipmentRingsWindow.fromText .. ' ' .. entry['manaMin'] .. '%')
-            end
-
-            if entry['manaMax'] > 0 then
-                newWidget.maxMp:setText(equipmentRingsWindow.toText .. ' ' .. entry['manaMax'] .. '%')
-            end
+            newWidget.minHp:setText(percentLabel(equipmentRingsWindow.fromText, tonumber(entry['min'])))
+            newWidget.maxHp:setText(percentLabel(equipmentRingsWindow.toText, tonumber(entry['max'])))
+            newWidget.minMp:setText(percentLabel(equipmentRingsWindow.fromText, tonumber(entry['manaMin'])))
+            newWidget.maxMp:setText(percentLabel(equipmentRingsWindow.toText, tonumber(entry['manaMax'])))
 
             if entry['unequip'] then
                 newWidget.unequip:show()
@@ -419,6 +426,8 @@ function equipment_ringsModule.loadSettings()
 end
 
 function equipment_ringsModule.reloadLanguage(language)
+    setRangeLabelPrefixes(language)
+
     if language == 'ptbr' then
         equipmentRingsWindow.priority.priorityLabel:setText('Lista de prioridades')
         equipmentRingsWindow.priority.listHeader.sourceLabel.label:setText('Fonte')
@@ -474,6 +483,11 @@ function equipment_ringsModule.reloadLanguage(language)
                 c.unequip:setTooltip('This item is set to unequip only.')
                 c.iconTooptip:setTooltip('Your entry is invalid, please reconfigure it!')
             end
+
+            c.minHp:setText(percentLabel(equipmentRingsWindow.fromText, readPercentLabel(c.minHp:getText())))
+            c.maxHp:setText(percentLabel(equipmentRingsWindow.toText, readPercentLabel(c.maxHp:getText())))
+            c.minMp:setText(percentLabel(equipmentRingsWindow.fromText, readPercentLabel(c.minMp:getText())))
+            c.maxMp:setText(percentLabel(equipmentRingsWindow.toText, readPercentLabel(c.maxMp:getText())))
         end
     end
 end
@@ -509,29 +523,10 @@ function equipment_ringsModule.saveSettings()
             value['ignore_enabled'] = c.ignoreChecked
             value['ignore'] = c.ignoreList or {}
 
-            if c.minHp:getText() ~= equipmentRingsWindow.fromText .. ' -%' then
-                local text = c.minHp:getText()
-                local numberStr = text:match(equipmentRingsWindow.fromText .. "%s+(%d+)%%")
-                value['min'] = tonumber(numberStr)
-            end
-
-            if c.maxHp:getText() ~= equipmentRingsWindow.toText .. ' -%' then
-                local text = c.maxHp:getText()
-                local numberStr = text:match(equipmentRingsWindow.toText .. "%s+(%d+)%%")
-                value['max'] = tonumber(numberStr)
-            end
-
-            if c.minMp:getText() ~= equipmentRingsWindow.fromText .. ' -%' then
-                local text = c.minMp:getText()
-                local numberStr = text:match(equipmentRingsWindow.fromText .. "%s+(%d+)%%")
-                value['manaMin'] = tonumber(numberStr)
-            end
-
-            if c.maxMp:getText() ~= equipmentRingsWindow.toText .. ' -%' then
-                local text = c.maxMp:getText()
-                local numberStr = text:match(equipmentRingsWindow.toText .. "%s+(%d+)%%")
-                value['manaMax'] = tonumber(numberStr)
-            end
+            value['min'] = readPercentLabel(c.minHp:getText()) or 0
+            value['max'] = readPercentLabel(c.maxHp:getText()) or 0
+            value['manaMin'] = readPercentLabel(c.minMp:getText()) or 0
+            value['manaMax'] = readPercentLabel(c.maxMp:getText()) or 0
 
             if c.item:isVisible() then
                 value['item'] = c.item:getItemId()
@@ -635,37 +630,10 @@ function equipment_ringsModule.onClickEntry(widget)
         equipment_ringsModule.openCatcher(true)
     end
 
-    local max = ''
-    if widget.maxHp:getText() ~= equipmentRingsWindow.toText .. ' -%' then
-        local text = widget.maxHp:getText()
-        local numberStr = text:match(equipmentRingsWindow.toText .. "%s+(%d+)%%")
-        max = numberStr
-    end
-    equipmentRingsWindow.config.panel.maxHp:setText(max)
-
-    max = ''
-    if widget.maxMp:getText() ~= equipmentRingsWindow.toText .. ' -%' then
-        local text = widget.maxMp:getText()
-        local numberStr = text:match(equipmentRingsWindow.toText .. "%s+(%d+)%%")
-        max = numberStr
-    end
-    equipmentRingsWindow.config.panel.maxMp:setText(max)
-
-    local min = ''
-    if widget.minHp:getText() ~= equipmentRingsWindow.fromText .. ' -%' then
-        local text = widget.minHp:getText()
-        local numberStr = text:match(equipmentRingsWindow.fromText .. "%s+(%d+)%%")
-        min = numberStr
-    end
-    equipmentRingsWindow.config.panel.minHp:setText(min)
-
-    min = ''
-    if widget.minMp:getText() ~= equipmentRingsWindow.fromText .. ' -%' then
-        local text = widget.minMp:getText()
-        local numberStr = text:match(equipmentRingsWindow.fromText .. "%s+(%d+)%%")
-        min = numberStr
-    end
-    equipmentRingsWindow.config.panel.minMp:setText(min)
+    equipmentRingsWindow.config.panel.maxHp:setText(tostring(readPercentLabel(widget.maxHp:getText()) or ''))
+    equipmentRingsWindow.config.panel.maxMp:setText(tostring(readPercentLabel(widget.maxMp:getText()) or ''))
+    equipmentRingsWindow.config.panel.minHp:setText(tostring(readPercentLabel(widget.minHp:getText()) or ''))
+    equipmentRingsWindow.config.panel.minMp:setText(tostring(readPercentLabel(widget.minMp:getText()) or ''))
 
     local function onNameTextChange()
         if equipmentRingsWindow.config.panel.name:getText() == '' then
@@ -765,35 +733,18 @@ function equipment_ringsModule.onClickEntry(widget)
         selectedWidget.item:setItemId(equipmentRingsWindow.config.panel.item:getItemId())
         selectedWidget.frameBackground:setTooltip(equipmentRingsWindow.config.panel.item:getItem():getName())
 
-        local min = equipmentRingsWindow.config.panel.minHp:getText()
-        local minValue = tonumber(min) or 0
-        if min == '' then
-            min = '-'
-        end
-        selectedWidget.minHp:setText(equipmentRingsWindow.fromText .. ' ' .. min .. '%')
+        selectedWidget.minHp:setText(percentLabel(equipmentRingsWindow.fromText, tonumber(equipmentRingsWindow.config.panel.minHp:getText())))
+        selectedWidget.maxHp:setText(percentLabel(equipmentRingsWindow.toText, tonumber(equipmentRingsWindow.config.panel.maxHp:getText())))
+        selectedWidget.minMp:setText(percentLabel(equipmentRingsWindow.fromText, tonumber(equipmentRingsWindow.config.panel.minMp:getText())))
+        selectedWidget.maxMp:setText(percentLabel(equipmentRingsWindow.toText, tonumber(equipmentRingsWindow.config.panel.maxMp:getText())))
 
-        local max = equipmentRingsWindow.config.panel.maxHp:getText()
-        local maxValue = tonumber(max) or 0
-        if max == '' then
-            max = '-'
-        end
-        selectedWidget.maxHp:setText(equipmentRingsWindow.toText .. ' ' .. max .. '%')
-
-        min = equipmentRingsWindow.config.panel.minMp:getText()
-        minValue = tonumber(min) or 0
-        if min == '' then
-            min = '-'
-        end
-        selectedWidget.minMp:setText(equipmentRingsWindow.fromText .. ' ' .. min .. '%')
-
-        max = equipmentRingsWindow.config.panel.maxMp:getText()
-        maxValue = tonumber(max) or 0
-        if max == '' then
-            max = '-'
-        end
-        selectedWidget.maxMp:setText(equipmentRingsWindow.toText .. ' ' .. max .. '%')
-
-        if maxValue > 0 and (selectedWidget.item:isVisible() and selectedWidget.item:getItem()) then
+        -- A entrada e valida assim que tem um item: vida e mana sao filtros
+        -- opcionais. O teste antigo era `maxValue > 0`, e `maxValue` tinha sido
+        -- reatribuido logo acima com o max de MANA -- entao quem configurasse so
+        -- por vida (o caso normal) ficava com a entrada marcada como invalida,
+        -- gravada com enabled = false e sem poder ligar o polegar, que fica
+        -- phantom. Era por isso que o auto amulet/ring nao equipava nada.
+        if selectedWidget.item:isVisible() and selectedWidget.item:getItem() then
             if selectedWidget.icon:isPhantom() then
                 selectedWidget.icon:setPhantom(false)
                 selectedWidget.icon:setImageClip(torect('25 0 25 25'))
