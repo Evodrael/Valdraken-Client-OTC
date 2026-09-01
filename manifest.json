@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.66",
-    "generated":  "2026-08-31T23:35:11-03:00",
+    "version":  "15.24.67",
+    "generated":  "2026-09-01T12:23:36-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -63225,8 +63225,8 @@
                   },
                   {
                       "path":  "mods/game_battlepass/battlepass.otui",
-                      "sha256":  "dec9a8eb53a2dfb5efea0401cca8bb53858de9f2616aa09b621ae4b880e8e8c0",
-                      "size":  30923
+                      "sha256":  "2311a6f7d9a32bcc0571e2039a862618fe98692d6a9dcd2cf5d0365b1f11c4b7",
+                      "size":  31067
                   },
                   {
                       "path":  "mods/game_battlepass/classes/rewards.lua",
@@ -63235,8 +63235,8 @@
                   },
                   {
                       "path":  "mods/game_battlepass/const.lua",
-                      "sha256":  "9c1bb2610a4a9531b063f9ccb2590518667588e8eb26bb21bd28d5faa3a6a1ac",
-                      "size":  8267
+                      "sha256":  "4462e49387d8c996e7f91b7b1864424c43171e104714db52d7dae84f60606793",
+                      "size":  8884
                   },
                   {
                       "path":  "mods/game_blessing/blessing.lua",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "894ee79f67eb0967ff6905f429bbdbf23a1b825800794f427a2c0eef2f0fa75c",
+                      "sha256":  "2a2425e3872959ef52c135f33d01bfc01bb9cd9fd76d72cefd65fd57bd7aa8a1",
                       "size":  8
                   }
               ]

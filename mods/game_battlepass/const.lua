@@ -1,17 +1,25 @@
+-- Layout das missoes da season no grid 2x17 do battlepass.otui (34 celulas).
+-- MissionsDisplacement[i] = celula do grid que recebe a i-esima missao da ordem
+-- abaixo; MissionTypesOrder[i] = tier dessa posicao. Linha 1 = celulas 1..17,
+-- linha 2 = celulas 18..34. Os totais por tier (13 bronze / 14 silver / 7 gold)
+-- TEM que bater com o seasonMissions + releaseSchedule do data/battlepass.lua
+-- do servidor, senao sobra celula "Locked ? / ?".
 MissionsDisplacement = {
-    1, 2, 14, 15, -- First week [2 de 100 pontos e 2 de 200 pontos]
-    3, 4, 16, 17, -- Second week [2 de 100 pontos e 2 de 200 pontos]
-    5, 6, 7, 18, 19, 20, -- Third week [3 de 100 pontos, 2 de 200 pontos e 1 de 300 pontos]
-    8, 9, 10, 21, 22, 23, -- Fourth week [2 de 100 pontos, 3 de 200 pontos e 1 de 300 pontos]
-    11, 12, 13, 24, 25, 26 -- Fifth week [2 de 100 pontos, 2 de 200 pontos e 2 de 300 pontos]
+    1, 2, 18, 19, -- Semana 1 [2 de 100 pontos e 2 de 200 pontos]
+    3, 4, 20, 21, -- Semana 2 [2 de 100 pontos e 2 de 200 pontos]
+    5, 6, 7, 22, 23, 24, -- Semana 3 [3 de 100 pontos, 2 de 200 pontos e 1 de 300 pontos]
+    8, 9, 10, 25, 26, 27, -- Semana 4 [2 de 100 pontos, 3 de 200 pontos e 1 de 300 pontos]
+    11, 12, 13, 28, 29, 30, -- Semana 5 [2 de 100 pontos, 2 de 200 pontos e 2 de 300 pontos]
+    14, 15, 16, 17, 31, 32, 33, 34 -- Semana 6 [2 de 100 pontos, 3 de 200 pontos e 3 de 300 pontos]
 }
 
 MissionTypesOrder = {
-    "bronze", "bronze", "silver", "silver", -- First week
-    "bronze", "bronze", "silver", "silver", -- Second week
-    "bronze", "bronze", "bronze", "silver", "silver", "gold", -- Third week
-    "bronze", "bronze", "silver", "silver", "silver", "gold", -- Fourth week
-    "bronze", "bronze", "silver", "silver", "gold", "gold" -- Fifth week
+    "bronze", "bronze", "silver", "silver", -- Semana 1
+    "bronze", "bronze", "silver", "silver", -- Semana 2
+    "bronze", "bronze", "bronze", "silver", "silver", "gold", -- Semana 3
+    "bronze", "bronze", "silver", "silver", "silver", "gold", -- Semana 4
+    "bronze", "bronze", "silver", "silver", "gold", "gold", -- Semana 5
+    "bronze", "bronze", "silver", "silver", "silver", "gold", "gold", "gold" -- Semana 6
 }
 
 MissionRankIcons = {

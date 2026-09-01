@@ -823,7 +823,15 @@ MissionPanel < Panel
       cell-size: 104 154
       cell-spacing: 3
       num-lines: 2
-      num-columns: 13
+      num-columns: 17
+    MissionWidget
+    MissionWidget
+    MissionWidget
+    MissionWidget
+    MissionWidget
+    MissionWidget
+    MissionWidget
+    MissionWidget
     MissionWidget
     MissionWidget
     MissionWidget
