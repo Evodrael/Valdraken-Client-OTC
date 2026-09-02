@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.68",
-    "generated":  "2026-09-02T00:11:21-03:00",
+    "version":  "15.24.69",
+    "generated":  "2026-09-02T13:07:02-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -14255,8 +14255,8 @@
                   },
                   {
                       "path":  "data/json/proficiencies.json",
-                      "sha256":  "c3f2f72bd95761679b18e54006dfccd8e359f0ad26372dd09c7b2f73dde458ee",
-                      "size":  474713
+                      "sha256":  "9353f03a1a462524a185558be731092fb741102220ea872c8c717ec8cc5945a6",
+                      "size":  480953
                   },
                   {
                       "path":  "data/json/report-bot.json",
@@ -22864,9 +22864,9 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-fc2cc4c0da61dcf53ec695d708b8d0a9ad8dcb13960f16515b5908fbe6b04dd6.dat",
-                      "sha256":  "fc2cc4c0da61dcf53ec695d708b8d0a9ad8dcb13960f16515b5908fbe6b04dd6",
-                      "size":  5524307
+                      "path":  "data/things/1524/appearances-5d5744f993130492f3a3bbedd2d1ac6fc2f664d046e00dce40bbf595367f1aef.dat",
+                      "sha256":  "5d5744f993130492f3a3bbedd2d1ac6fc2f664d046e00dce40bbf595367f1aef",
+                      "size":  5524310
                   },
                   {
                       "path":  "data/things/1524/backdrop_map-c92739d7eaacf08338f2af80ea3b54829897a77f82f5630b1dcd4368807c4639.jpg",
@@ -22875,7 +22875,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "eaec06be7e85721bf3d16fd1f5c91668b8163e71907406fcde0594489337200c",
+                      "sha256":  "80f1796086ca7f43b45f4786c7a1c1fdb727a24c14aadbe885f0169dff62b61b",
                       "size":  1507448
                   },
                   {
@@ -23859,9 +23859,9 @@
                       "size":  378
                   },
                   {
-                      "path":  "data/things/1524/proficiencies-2a7ca8b11b98ab5bf3fd7b15667f62528ab4b86c55ab74a46c6bbf2ca1033cbb.json",
-                      "sha256":  "2a7ca8b11b98ab5bf3fd7b15667f62528ab4b86c55ab74a46c6bbf2ca1033cbb",
-                      "size":  462780
+                      "path":  "data/things/1524/proficiencies-5b0036324ff7d3ecde43d76b587b5529153bf057026e4c22295d488d98363044.json",
+                      "sha256":  "5b0036324ff7d3ecde43d76b587b5529153bf057026e4c22295d488d98363044",
+                      "size":  468684
                   },
                   {
                       "path":  "data/things/1524/satellite-16-0996-0968-00-afe4828ec88515bac295a5fcfef12a6566b6430777f70ed257387d6185294f2f.bmp.lzma",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "ce637e174f98adbdee181fccd4a33568eae86b26d3bc1b7b7269aadbbce204c1",
+                      "sha256":  "536aeb889a12207886498307ac34d625ea8794af1af5c1d1213724d120061b3a",
                       "size":  8
                   }
               ]
