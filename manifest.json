@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.69",
-    "generated":  "2026-09-02T13:07:02-03:00",
+    "version":  "15.24.70",
+    "generated":  "2026-09-02T19:29:09-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -22875,7 +22875,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "80f1796086ca7f43b45f4786c7a1c1fdb727a24c14aadbe885f0169dff62b61b",
+                      "sha256":  "baa639c7ae6fd9887f99212f43431e14a77be2ae31df03e75ec4256348591074",
                       "size":  1507448
                   },
                   {
@@ -61729,9 +61729,9 @@
                       "size":  2114
                   },
                   {
-                      "path":  "data/things/1524/staticdata-0ec416afc6b80648c1e3524a9c8b30c96d4cb5cdc6a630a53f7a1500be963771.dat",
-                      "sha256":  "0ec416afc6b80648c1e3524a9c8b30c96d4cb5cdc6a630a53f7a1500be963771",
-                      "size":  176268
+                      "path":  "data/things/1524/staticdata-e6d4ba9dae47549a940bdfec84b7f73765f7cfaa491f16ef9f12e0a007ee9e30.dat",
+                      "sha256":  "e6d4ba9dae47549a940bdfec84b7f73765f7cfaa491f16ef9f12e0a007ee9e30",
+                      "size":  176323
                   },
                   {
                       "path":  "data/things/1524/staticmapdata-0967af2eacdd8f2a608e738b9042362676167d6c6455e60d08db7ae16cf7ea53.dat",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "536aeb889a12207886498307ac34d625ea8794af1af5c1d1213724d120061b3a",
+                      "sha256":  "5aa3fc45a799f592e516de19c61887f7765cb5bc1fb467b4db947fd2fba89fcb",
                       "size":  8
                   }
               ]
