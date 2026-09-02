@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.67",
-    "generated":  "2026-09-01T12:23:36-03:00",
+    "version":  "15.24.68",
+    "generated":  "2026-09-02T00:11:21-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -63215,8 +63215,8 @@
                   },
                   {
                       "path":  "mods/game_battlepass/battlepass.lua",
-                      "sha256":  "7ec126afd77acb127d9837ee2c760bd3d54547dd21245813a52f9aaa6026bff8",
-                      "size":  37408
+                      "sha256":  "6436c5f546398c7bf6af7e334eb088af3466a04712a03d7d08b340803586511d",
+                      "size":  37696
                   },
                   {
                       "path":  "mods/game_battlepass/battlepass.otmod",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "2a2425e3872959ef52c135f33d01bfc01bb9cd9fd76d72cefd65fd57bd7aa8a1",
+                      "sha256":  "ce637e174f98adbdee181fccd4a33568eae86b26d3bc1b7b7269aadbbce204c1",
                       "size":  8
                   }
               ]

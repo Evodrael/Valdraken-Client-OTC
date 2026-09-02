@@ -310,7 +310,11 @@ function online()
     -- Reset mission panel
     local missionsPanel = BattlePass.window:recursiveGetChildById('missionsBackground')
     missionsPanel:destroyChildren()
-    for i = 1, 26 do
+    -- Uma celula por entrada do MissionsDisplacement (const.lua). NAO usar numero
+    -- fixo aqui: se ficar menor que o mapa de slots, o getChildByIndex do
+    -- configureMissionsPanel devolve nil e o 'break' derruba todas as missoes
+    -- seguintes para "Locked".
+    for i = 1, #MissionsDisplacement do
         g_ui.createWidget('MissionWidget', missionsPanel)
     end
 
