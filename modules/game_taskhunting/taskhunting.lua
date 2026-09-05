@@ -18,6 +18,13 @@ cachedPreferredLists = nil
 cachedWeeklyData     = nil
 cachedShopData       = nil
 
+-- Segundos que faltam para o proximo Claim Daily. O pacote 0x5B nao tem campo para isto
+-- (o layout e' fixo pelo client retail), entao o servidor manda "<segundos>|<modo>" por
+-- extended opcode. Um client sem este handler ignora o opcode e fica sem countdown.
+dailyTokenRemaining = 0
+local EXTENDED_OPCODE_BOUNTY_TIMER = 210
+local countdownEvent = nil
+
 -- Client→server option bytes (used in this file)
 local OPT_OPEN_BOUNTY              = 0
 local OPT_OPEN_WEEKLY              = 1
@@ -31,6 +38,49 @@ local OPT_OPEN_SHOP                = 10
 -- ─────────────────────────────────────────────────────────────────────────────
 -- C++ → Lua callbacks (connected in init, disconnected in terminate)
 -- ─────────────────────────────────────────────────────────────────────────────
+
+function stopCountdown()
+    if countdownEvent then
+        removeEvent(countdownEvent)
+        countdownEvent = nil
+    end
+end
+
+-- So conta enquanto o board esta aberto: fechado, ninguem ve o numero, e o servidor
+-- reenvia o tempo em cada abertura do board (playerOpenBountyTask -> sendBountyTaskData).
+local function tickCountdown()
+    countdownEvent = nil
+    if dailyTokenRemaining <= 0 then return end
+
+    dailyTokenRemaining = dailyTokenRemaining - 1
+    updateRerollUI()
+    ensureCountdown()
+end
+
+-- Chamado tambem pelo updateRerollUI: o opcode pode chegar antes de a janela aparecer,
+-- e nesse caso o tick so arranca quando o board fica visivel.
+function ensureCountdown()
+    if countdownEvent then return end
+    if dailyTokenRemaining <= 0 then return end
+    if not (taskBoardWindow and taskBoardWindow:isVisible()) then return end
+
+    countdownEvent = scheduleEvent(tickCountdown, 1000)
+end
+
+-- Payload: "<segundos restantes>|<modo>", com modo 0=claimavel 1=em espera 2=teto atingido.
+-- O modo vem repetido aqui porque o parser C++ do OTC colapsa os tres estados num unico
+-- flag, e o bridge acabava mostrando "Limit Reached" para quem so estava em cooldown.
+function onBountyTimerOpcode(protocol, opcode, buffer)
+    local seconds, mode = tostring(buffer):match('^(%d+)|(%d+)$')
+    if not seconds then return end
+
+    dailyTokenRemaining = tonumber(seconds) or 0
+    rerollMode = tonumber(mode) or rerollMode
+
+    stopCountdown()
+    updateRerollUI()
+    ensureCountdown()
+end
 
 local function onResourcesBalanceChange(value, oldValue, type)
     if type == ResourceHuntingTask or type == ResourceBountyPoints or type == ResourceSoulseals then
@@ -363,6 +413,12 @@ function init()
         onResourcesBalanceChange = onResourcesBalanceChange,
     })
 
+    -- register e unregister dao error() em vez de devolver falso (opcode ja tomado / nao
+    -- registado). Um /reload que nao passou pelo terminate mataria o init inteiro e com ele
+    -- o Task Board todo, por causa de um countdown - por isso os pcall.
+    pcall(ProtocolGame.unregisterExtendedOpcode, EXTENDED_OPCODE_BOUNTY_TIMER)
+    pcall(ProtocolGame.registerExtendedOpcode, EXTENDED_OPCODE_BOUNTY_TIMER, onBountyTimerOpcode)
+
     if g_game.isOnline() then
         online()
     end
@@ -379,6 +435,9 @@ function terminate()
         onTaskBoardShop          = onTaskBoardShop,
         onResourcesBalanceChange = onResourcesBalanceChange,
     })
+
+    pcall(ProtocolGame.unregisterExtendedOpcode, EXTENDED_OPCODE_BOUNTY_TIMER)
+    stopCountdown()
 
     if taskBoardWindow then
         taskBoardWindow:destroy()

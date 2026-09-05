@@ -291,6 +291,17 @@ function updatePlayerPoints()
     end
 end
 
+-- O botao e' estreito: "7h 59m" cabe, "07:59:12" nao.
+local function formatCountdown(seconds)
+    if not seconds or seconds <= 0 then return 'Claimed' end
+
+    local h = math.floor(seconds / 3600)
+    local m = math.floor((seconds % 3600) / 60)
+    if h > 0 then return string.format('%dh %02dm', h, m) end
+    if m > 0 then return string.format('%dm %02ds', m, seconds % 60) end
+    return string.format('%ds', seconds)
+end
+
 function updateRerollUI()
     if not taskBoardWindow then return end
 
@@ -302,12 +313,18 @@ function updateRerollUI()
         if rerollMode == 0 then
             claimBtn:setEnabled(true)
             claimBtn:setText('Claim Daily')
+        elseif rerollMode == 2 then
+            claimBtn:setEnabled(false)
+            claimBtn:setText('Limit Reached')
         else
             claimBtn:setEnabled(false)
-            claimBtn:setText(rerollMode == 2 and 'Limit Reached' or 'Claimed')
+            claimBtn:setText(formatCountdown(dailyTokenRemaining))
         end
     end
 
     local rerollBtn = taskBoardWindow:recursiveGetChildById('rerollTasksBtn')
     if rerollBtn then rerollBtn:setEnabled(rerollCoins > 0) end
+
+    -- O opcode com o tempo pode chegar antes de a janela existir; o tick so arranca aqui.
+    if ensureCountdown then ensureCountdown() end
 end

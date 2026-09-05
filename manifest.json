@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.73",
-    "generated":  "2026-09-03T01:24:54-03:00",
+    "version":  "15.24.74",
+    "generated":  "2026-09-05T10:33:57-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -66965,8 +66965,8 @@
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting.lua",
-                      "sha256":  "0b7c76ebdd04b18b8365ff39569b3be7a318a2ffe23ca863381d4f459fc23c1d",
-                      "size":  21068
+                      "sha256":  "f4912de15a7f42cbfb9c17fa5392d5d1ca5b88edc384fd19a09742b258295e05",
+                      "size":  23460
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting.otmod",
@@ -66975,13 +66975,13 @@
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting.otui",
-                      "sha256":  "18f86ca1d248e356165e88efc6c70fedbdce8d1436c767a4e897d58770494377",
-                      "size":  80911
+                      "sha256":  "95e37b8218829062d87a0f5a91075266bed68eea37d456949e8db143fecde027",
+                      "size":  81083
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_bounty.lua",
-                      "sha256":  "0c8040239af2623114585fb623efb6342f2cd153fa1386e50f5a822972bec051",
-                      "size":  13229
+                      "sha256":  "4cc95a913177a6df857afd527f3292249d84db1fc48a6aeda3a485f3afc9d7ff",
+                      "size":  13907
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_otcv8_bridge.lua",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "84caa3da87af3b3104d31d874bb02fa57b7fae3451ed951406e42854f0024498",
+                      "sha256":  "b97b56377532ee2c03fae01846a91001779799ca5e9e77a2fba7e72e2dd8c406",
                       "size":  8
                   }
               ]
