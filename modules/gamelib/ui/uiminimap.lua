@@ -68,30 +68,57 @@ function UIMinimap:disableAutoWalk()
 end
 
 function UIMinimap:load()
+  -- Marcado antes de qualquer return: sem isto um primeiro arranque (sem no
+  -- 'Minimap' no config.otml) deixaria o save() bloqueado para sempre.
+  self.flagsLoaded = true
+
   local settings = g_settings.getNode('Minimap')
-  if settings then
-    if settings.flags then
-      self.flags = settings.flags
-      for _,widget in pairs(settings.flags) do
-        self:addWidget(widget.imagePath, widget.imageSize, widget.position, widget.description)
+  if not settings then return end
+
+  if settings.flags then
+    -- A chave de self.flags TEM de ser o id devolvido pelo addWidget. Antes
+    -- ficavam os indices do array gravado (1..n) e a primeira marca criada na
+    -- sessao reutilizava um indice ja ocupado, apagando a marca antiga.
+    self.flags = {}
+    for _,flag in pairs(settings.flags) do
+      if type(flag) == 'table' and flag.position and flag.imagePath then
+        local imageSize = flag.imageSize or {width = 11, height = 11}
+        local description = flag.description or ''
+        local id = self:addWidget(flag.imagePath, imageSize, flag.position, description)
+        self.flags[id] = {
+          imagePath = flag.imagePath,
+          imageSize = imageSize,
+          position = flag.position,
+          description = description,
+        }
       end
     end
+  end
+
+  if settings.zoom then
     self:setZoom(settings.zoom)
   end
 end
 
 function UIMinimap:save()
+  -- Nunca sobrescrever o no gravado com uma tabela vazia de um widget que
+  -- ainda nao carregou (ex.: fechar o client na tela de login).
+  if not self.flagsLoaded then return end
+
   local settings = { flags={} }
   for _,widget in pairs(self.flags) do
-    table.insert(settings.flags, {
-      position = widget.position,
-      imagePath = widget.imagePath,
-      imageSize = widget.imageSize,
-      description = widget.description,
-    })
+    if widget and widget.position and widget.imagePath then
+      table.insert(settings.flags, {
+        position = widget.position,
+        imagePath = widget.imagePath,
+        imageSize = widget.imageSize or {width = 11, height = 11},
+        description = widget.description or '',
+      })
+    end
   end
   settings.zoom = self:getZoom()
   g_settings.setNode('Minimap', settings)
+  g_settings.save()
 end
 
 function UIMinimap:setCrossPosition(pos)
@@ -328,10 +355,11 @@ function UIMinimap:onMouseRelease(pos, button)
 
         local pos = widgetInfo.pos
         for i,widget in pairs(self.flags) do
-          if widget.position.x == pos.x and widget.position.y == pos.y and widget.position.z == pos.z then
+          if widget.position and widget.position.x == pos.x and widget.position.y == pos.y and widget.position.z == pos.z then
             self.flags[i] = nil
           end
         end
+        self:save()
       end)
       menu:display(pos)
       return true
@@ -407,8 +435,13 @@ function UIMinimap:createFlagWindow(pos)
   flagRadioGroup:selectWidget(flagRadioGroup:getFirstWidget())
 
   local successFunc = function()
-    local widgetId = self:addWidget("data/images/game/minimap/flag"..flagRadioGroup:getSelectedWidget().icon..".png", {width = 11, height = 11}, pos, description:getText())
-    self.flags[widgetId] = {imagePath = "data/images/game/minimap/flag"..flagRadioGroup:getSelectedWidget().icon..".png", imageSize = {width = 11, height = 11}, position = pos, description = description:getText()}
+    local imagePath = "data/images/game/minimap/flag"..flagRadioGroup:getSelectedWidget().icon..".png"
+    local imageSize = {width = 11, height = 11}
+    local widgetId = self:addWidget(imagePath, imageSize, pos, description:getText())
+    self.flags[widgetId] = {imagePath = imagePath, imageSize = imageSize, position = pos, description = description:getText()}
+    -- Grava ja: o client fechado pelo X nao dispara onGameEnd, entao esperar
+    -- pelo logout para persistir era o que fazia as marcas sumirem no restart.
+    self:save()
     self:destroyFlagWindow()
   end
 

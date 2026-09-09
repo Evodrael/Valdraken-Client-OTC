@@ -567,6 +567,13 @@ function terminate()
   otmmLoadEvent = nil
   cancelStaticMarksLoading()
 
+  -- Sair pelo X / botao "Exit" nunca dispara onGameEnd (g_game.invokeOnGameEnd
+  -- e um stub vazio no C++), entao offline() so corria no logout manual: as
+  -- marcas e o mapa explorado da sessao morriam com o processo.
+  if g_game.isOnline() then
+    offline()
+  end
+
   disconnect(g_game, {
     onGameStart = online,
     onGameEnd = offline,
