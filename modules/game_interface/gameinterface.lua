@@ -1530,8 +1530,53 @@ function processItemMenuAction(menuPosition, item)
   return true
 end
 
+-- Teto de itens por pilha. O servidor usa o mesmo valor (ItemType::stackSize = 100),
+-- mas pilhas acima dele chegaram ao jogo por devolucoes feitas direto no banco e o
+-- count de um item cabe num unico byte: somar em cima de uma dessas pilhas passa de
+-- 255 e o excedente e apagado em silencio. Enquanto elas existirem, nao deixamos
+-- empilhar em cima delas -- uma pilha cheia em 100 continua permitida, porque nesse
+-- caso o servidor apenas abre um slot novo, sem perder nada.
+MAX_STACK_COUNT = 100
+
+-- Item que ocupa hoje o destino de um arraste, seja slot de container, slot do
+-- inventario ou o topo de um tile do mapa. A codificacao de toPos e a mesma do
+-- Container::getSlotPosition: x = 0xffff, y = id do container | 0x40, z = slot.
+local function getStackAtDestination(toPos)
+  if not toPos then
+    return nil
+  end
+
+  local thing
+  if toPos.x ~= 65535 then
+    local tile = g_map.getTile(toPos)
+    thing = tile and tile:getTopThing()
+  elseif toPos.y < 64 then
+    local player = g_game.getLocalPlayer()
+    thing = player and player:getInventoryItem(toPos.y)
+  else
+    local container = g_game.getContainers()[toPos.y - 64]
+    thing = container and container:getItem(toPos.z)
+  end
+
+  if thing and thing:isItem() then
+    return thing
+  end
+  return nil
+end
+
 function moveStackableItem(item, toPos)
   if countWindow then
+    return
+  end
+
+  local destItem = getStackAtDestination(toPos)
+  if destItem and destItem:isStackable() and destItem:getId() == item:getId()
+      and destItem:getCount() > MAX_STACK_COUNT then
+    if modules.game_textmessage then
+      modules.game_textmessage.displayFailureMessage(
+        tr('This stack has %d items, above the limit of %d. Move it to an empty slot before stacking on it.',
+          destItem:getCount(), MAX_STACK_COUNT))
+    end
     return
   end
 
