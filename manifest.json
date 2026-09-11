@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.76",
-    "generated":  "2026-09-09T19:48:49-03:00",
+    "version":  "15.24.77",
+    "generated":  "2026-09-11T19:30:46-03:00",
     "count":  13472,
     "files":  [
                   {
@@ -2475,8 +2475,8 @@
                   },
                   {
                       "path":  "data/images/game/battlepass/battlePass-anim.png",
-                      "sha256":  "df02039a7115db89104caff0a42950edf0ee2cf380a58f8b4c2fa75dfc4b0931",
-                      "size":  7627064
+                      "sha256":  "89c8f37cda87757f44f1774d554c6b34fca8b508ce55bc3ef1c21b02d68f2e5e",
+                      "size":  624822
                   },
                   {
                       "path":  "data/images/game/battlepass/battlepass-hourglass.png",
@@ -22864,9 +22864,9 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-5d5744f993130492f3a3bbedd2d1ac6fc2f664d046e00dce40bbf595367f1aef.dat",
-                      "sha256":  "5d5744f993130492f3a3bbedd2d1ac6fc2f664d046e00dce40bbf595367f1aef",
-                      "size":  5524310
+                      "path":  "data/things/1524/appearances-da12b1bfa2f8e9df7ee7bf79be2b1879a4057b48160954377400efef3606ebd0.dat",
+                      "sha256":  "da12b1bfa2f8e9df7ee7bf79be2b1879a4057b48160954377400efef3606ebd0",
+                      "size":  5524315
                   },
                   {
                       "path":  "data/things/1524/backdrop_map-c92739d7eaacf08338f2af80ea3b54829897a77f82f5630b1dcd4368807c4639.jpg",
@@ -22875,7 +22875,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "819e4e054612e9400d053951c2fb5bf1e57360340b9ca32605e3c7d45373aa1d",
+                      "sha256":  "7156fb5d394227c0708c7be3d894651da950673c5615f70276555ebacf0ed9fb",
                       "size":  1507448
                   },
                   {
@@ -63235,8 +63235,8 @@
                   },
                   {
                       "path":  "mods/game_battlepass/const.lua",
-                      "sha256":  "4462e49387d8c996e7f91b7b1864424c43171e104714db52d7dae84f60606793",
-                      "size":  8884
+                      "sha256":  "08fb85998fdf958c8efe40714c76a6b9a9d282c4018362da1b79958e61d22f3b",
+                      "size":  8883
                   },
                   {
                       "path":  "mods/game_blessing/blessing.lua",
@@ -67360,7 +67360,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "3a992886086c869ff9f79fdc738ca6934fc9986d5e8a2f494c7e4f9aae32e658",
+                      "sha256":  "9b3f4f9627cc925242e676cab36f39020e80b3d980035bff1343fae9559d768d",
                       "size":  8
                   }
               ]
