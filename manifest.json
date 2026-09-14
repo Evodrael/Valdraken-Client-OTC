@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.86",
-    "generated":  "2026-09-14T16:07:20-03:00",
+    "version":  "15.24.87",
+    "generated":  "2026-09-14T22:36:14-03:00",
     "count":  13486,
     "files":  [
                   {
@@ -22875,7 +22875,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "4af1436c0969628ab474bc206ee63488c154e5345b6dc9073c5d5b839620bf7f",
+                      "sha256":  "77e2ad732a9f1803fbbda9d09dec6f9d84d93d150fa3a6eecf62ae404bece10c",
                       "size":  1509953
                   },
                   {
@@ -39952,6 +39952,11 @@
                       "path":  "data/things/1524/sprites-5f8950c90a392b474caa0401199b612919b620b37efe22c9941c6946eae0bf86.bmp.lzma",
                       "sha256":  "0d3773b07cac68f349bf790a89aecce89bdb1f92ee4e75454fcddd500f14aee2",
                       "size":  10313
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-5f8f92ea49971cb1f81aa1aae16b24c4382ce855523153f20eba714e7b3e9a3b.bmp.lzma",
+                      "sha256":  "b525b7694887009cf7b2d6f6532308f94af7b8846124ecdec704e65167bfee02",
+                      "size":  41917
                   },
                   {
                       "path":  "data/things/1524/sprites-5f98c9f3b97a5d33e0ce059502b296bf955b1beb6e96b7ac80ee9bf5e61674b9.bmp.lzma",
@@ -60889,11 +60894,6 @@
                       "size":  13883
                   },
                   {
-                      "path":  "data/things/1524/sprites-f9a7f7cfcaed8f0ac8365ef1144d826b23cf085262f709a5e70cda4611cad197.bmp.lzma",
-                      "sha256":  "a8aa27bc0a5667c6693c998a3c73031a0d68b0c412d4adf4a13282cfe50adfb5",
-                      "size":  29158
-                  },
-                  {
                       "path":  "data/things/1524/sprites-f9afb15c930330ab0d34993bcbb76ea0d61441eba5771581a9c6bf32b299ecad.bmp.lzma",
                       "sha256":  "c9882556c89061ff29ed1b5de107d8a3278f6519a6de96799423b7a1d6502f50",
                       "size":  6742
@@ -67430,7 +67430,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "30f026d19688fbf1be49ec36e246e825fd3890ffe139a3fc22c2f7a7eee6ec9a",
+                      "sha256":  "a82bcd0b1b930107b96c0971bf0fb2f2f9727dd911b71fea045aa254685a91a1",
                       "size":  8
                   }
               ]
