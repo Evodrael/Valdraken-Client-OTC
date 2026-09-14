@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.79",
-    "generated":  "2026-09-14T01:29:29-03:00",
+    "version":  "15.24.80",
+    "generated":  "2026-09-14T01:39:13-03:00",
     "count":  13473,
     "files":  [
                   {
@@ -14255,8 +14255,8 @@
                   },
                   {
                       "path":  "data/json/proficiencies.json",
-                      "sha256":  "9353f03a1a462524a185558be731092fb741102220ea872c8c717ec8cc5945a6",
-                      "size":  480953
+                      "sha256":  "a4c6fff56b2ab9f6493ac03f1d26188b1462ddac4d0a7ade1cf2eeb99451446a",
+                      "size":  482992
                   },
                   {
                       "path":  "data/json/report-bot.json",
@@ -22864,8 +22864,8 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-1db2f3ae76b7252508127f6cdf11f158e76043d01f1ebdffbdb2eb5439483ad7.dat",
-                      "sha256":  "1db2f3ae76b7252508127f6cdf11f158e76043d01f1ebdffbdb2eb5439483ad7",
+                      "path":  "data/things/1524/appearances-d528fa9ce5686984762eeae5dd279a885059a011e9dc541579d1756b48e809a2.dat",
+                      "sha256":  "d528fa9ce5686984762eeae5dd279a885059a011e9dc541579d1756b48e809a2",
                       "size":  5511600
                   },
                   {
@@ -22875,7 +22875,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "4b0689f465bd319577b2fa4053c7f295deedd01f7367c862345a52fc996f4ad8",
+                      "sha256":  "ebbe14180ad52b614d6bef0e7e9bc121bfd657d8c6d1e9db5f0ca51a0e3a6090",
                       "size":  1507626
                   },
                   {
@@ -23859,9 +23859,9 @@
                       "size":  378
                   },
                   {
-                      "path":  "data/things/1524/proficiencies-5b0036324ff7d3ecde43d76b587b5529153bf057026e4c22295d488d98363044.json",
-                      "sha256":  "5b0036324ff7d3ecde43d76b587b5529153bf057026e4c22295d488d98363044",
-                      "size":  468684
+                      "path":  "data/things/1524/proficiencies-f8fb05dcab45ab30b00b55628a59314353edb502e77b6691f12ddcfff94a6f60.json",
+                      "sha256":  "f8fb05dcab45ab30b00b55628a59314353edb502e77b6691f12ddcfff94a6f60",
+                      "size":  470614
                   },
                   {
                       "path":  "data/things/1524/satellite-16-0996-0968-00-afe4828ec88515bac295a5fcfef12a6566b6430777f70ed257387d6185294f2f.bmp.lzma",
@@ -67365,7 +67365,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "a3e94a0af91bda8bb535e6cb0143261a581980da290848e3feeed50f99c5698e",
+                      "sha256":  "3647e0e8c3f9f479e4805ce40e80b300cbb790ccce07883b1246666bec03a97e",
                       "size":  8
                   }
               ]
