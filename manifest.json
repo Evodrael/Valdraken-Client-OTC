@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.87",
-    "generated":  "2026-09-14T22:36:14-03:00",
+    "version":  "15.24.88",
+    "generated":  "2026-09-16T15:15:47-03:00",
     "count":  13486,
     "files":  [
                   {
@@ -14255,8 +14255,8 @@
                   },
                   {
                       "path":  "data/json/proficiencies.json",
-                      "sha256":  "a4c6fff56b2ab9f6493ac03f1d26188b1462ddac4d0a7ade1cf2eeb99451446a",
-                      "size":  482992
+                      "sha256":  "c67d8def6b4a14015088b83f864bb43e2b2b6e7eb1bce4a38ead83b909d6d4c3",
+                      "size":  485027
                   },
                   {
                       "path":  "data/json/report-bot.json",
@@ -22864,9 +22864,9 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-17a18fa1d63929ceb8832b01786fc4a27f63f569b893e0fc43d9662cbf49d9fd.dat",
-                      "sha256":  "17a18fa1d63929ceb8832b01786fc4a27f63f569b893e0fc43d9662cbf49d9fd",
-                      "size":  5516921
+                      "path":  "data/things/1524/appearances-ae23ec42060a44cd4abaacf30c05399992008fcc57afa63622c463cf5b91bf1d.dat",
+                      "sha256":  "ae23ec42060a44cd4abaacf30c05399992008fcc57afa63622c463cf5b91bf1d",
+                      "size":  5516922
                   },
                   {
                       "path":  "data/things/1524/backdrop_map-c92739d7eaacf08338f2af80ea3b54829897a77f82f5630b1dcd4368807c4639.jpg",
@@ -22875,7 +22875,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "77e2ad732a9f1803fbbda9d09dec6f9d84d93d150fa3a6eecf62ae404bece10c",
+                      "sha256":  "efce4d315215e926f68568d2b987cb678e38695e14381159d5c9464addde36cb",
                       "size":  1509953
                   },
                   {
@@ -23859,9 +23859,9 @@
                       "size":  378
                   },
                   {
-                      "path":  "data/things/1524/proficiencies-f8fb05dcab45ab30b00b55628a59314353edb502e77b6691f12ddcfff94a6f60.json",
-                      "sha256":  "f8fb05dcab45ab30b00b55628a59314353edb502e77b6691f12ddcfff94a6f60",
-                      "size":  470614
+                      "path":  "data/things/1524/proficiencies-9226ad4858a5273b6b0a5824b96717bd5cd7238cf47fc19da42e0fdd5aaa1966.json",
+                      "sha256":  "9226ad4858a5273b6b0a5824b96717bd5cd7238cf47fc19da42e0fdd5aaa1966",
+                      "size":  472540
                   },
                   {
                       "path":  "data/things/1524/satellite-16-0996-0968-00-afe4828ec88515bac295a5fcfef12a6566b6430777f70ed257387d6185294f2f.bmp.lzma",
@@ -67430,7 +67430,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "a82bcd0b1b930107b96c0971bf0fb2f2f9727dd911b71fea045aa254685a91a1",
+                      "sha256":  "31d5af295061027419a23ce9189b7587734f0bc1acb7079b3d0b1fb15f346590",
                       "size":  8
                   }
               ]
