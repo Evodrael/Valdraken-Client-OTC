@@ -1,7 +1,7 @@
 [
   {
     "type": "appearances",
-    "file": "appearances-61df82802ef9d990636a605894e2cf64ee2659b353f6871fd95ca2ec65a673d8.dat"
+    "file": "appearances-c77e27a9e54703041dd4280f42380d0d2c898f7e6693f134b0dd36132eac1567.dat"
   },
   {
     "type": "staticdata",
@@ -2545,7 +2545,7 @@
   },
   {
     "type": "sprite",
-    "file": "sprites-9edcd1335cfc019e7964bb9d763d2f24fcde700ecc9d8c635add1c577eb76b2c.bmp.lzma",
+    "file": "sprites-ccc4d17dbd845ac26ea91d7775b3b2eb7122a29a6dde70cb5c7ea24a42fdabcb.bmp.lzma",
     "spritetype": 0,
     "firstspriteid": 232329,
     "lastspriteid": 232472,
@@ -2553,7 +2553,7 @@
   },
   {
     "type": "sprite",
-    "file": "sprites-e7ad516ef1295466f4f554d09acde04999c75b4e4c4721487860dd2b861872dc.bmp.lzma",
+    "file": "sprites-5b12d7a3e72f2a8106361b749549cc9bd79040d0db652259ed91918a11a6fd55.bmp.lzma",
     "spritetype": 0,
     "firstspriteid": 232473,
     "lastspriteid": 232616,
