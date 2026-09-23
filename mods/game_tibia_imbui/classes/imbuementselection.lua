@@ -51,23 +51,10 @@ function ImbuementSelection.onChooseItemMouseRelease(widget, mousePosition, mous
     end
   end
 
-  -- Reject items that are currently equipped on the character. The server
-  -- expects the item to be in a container/floor and the imbuement flow needs
-  -- to read its real position; equipped slots use x=0xFFFF and the server
-  -- can't apply imbuements while the slot is in use. The player must
-  -- unequip first.
-  local function isEquippedSlot(it)
-    if not it or not it.getPosition then return false end
-    local pos = it:getPosition()
-    if not pos then return false end
-    if pos.x ~= 0xFFFF then return false end
-    local slot = pos.y or 0
-    return slot >= 1 and slot <= 10 -- Head .. Ammo
-  end
-
-  if item and isEquippedSlot(item) then
-    modules.game_textmessage.displayFailureMessage(tr('Unequip the item before imbuing it.'))
-  elseif item and item:isPickupable() then
+  -- Equipped items are allowed: the server resolves inventory positions
+  -- (x=0xFFFF, y=slot) and adds/removes the imbuement stats on the fly,
+  -- same as the Global client.
+  if item and item:isPickupable() then
     g_game.selectImbuementItem(item:getId(), item:getPosition(), item:getStackPos())
   else
     modules.game_textmessage.displayFailureMessage(tr('Sorry, not possible.'))
