@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.95",
-    "generated":  "2026-09-23T14:14:32-03:00",
+    "version":  "15.24.96",
+    "generated":  "2026-09-27T02:41:00-03:00",
     "count":  13495,
     "files":  [
                   {
@@ -65505,8 +65505,8 @@
                   },
                   {
                       "path":  "modules/client_entergame/characterlist.lua",
-                      "sha256":  "f45cc5a7846f3a880cf4d2b5910a6e29037e2176d0ded64e78b93328e2156e79",
-                      "size":  33501
+                      "sha256":  "2146ce2a8b15cbe8469d88eb49910af2c770f34b3b98486fb0d5d8d106a891cc",
+                      "size":  34606
                   },
                   {
                       "path":  "modules/client_entergame/characterlist.otui",
@@ -66300,8 +66300,8 @@
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.lua",
-                      "sha256":  "5117e7c4060bd82851dfec72fc0280158520dbe88831293b14301293fbf235da",
-                      "size":  94322
+                      "sha256":  "a623867c8f16a55256d26f6975703bf476add2a6c386940d9c9cd920c1612c8d",
+                      "size":  94839
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.otui",
@@ -67465,17 +67465,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "b224b4e66c8045349ec1d511dc8daedc8718287c4998dd58410c50026976ec88",
+                      "sha256":  "b9b29ea9047fbe2d6d0b6dd07a9df3445d2665d32c3b51c352ec8a350cd9aa3b",
                       "size":  37006848
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "3278ac59469d463b333916f5b20a1eacf6607b90feec124d0c5f94e9753be70a",
+                      "sha256":  "3a9a5a271998ee1dde4bb8246f8a3daae093a19fab3abfbb95759e5b594d4e55",
                       "size":  29146112
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "c769f3cd7e17d3de7001f45cd349451aff0483d2ee27636ac1ef9645e5a3ec53",
+                      "sha256":  "385f567d369c93605025333ca09ccc9828de26773909b6ec8abf5500534013e0",
                       "size":  8
                   }
               ]

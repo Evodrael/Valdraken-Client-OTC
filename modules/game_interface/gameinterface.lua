@@ -2675,7 +2675,18 @@ function _moveChildren(panel, x, k)
     return
   end
 
-  panel:moveChildToIndex(widget, math.min(k, panel:getChildCount()))
+  -- getChildIndex devolve o mesmo indice em cache (m_childIndex) que o
+  -- moveChildToIndex usa em C++ para reindexar os irmaos. Depois de varias
+  -- tentativas de login seguidas (restart do servidor as 18h) esse cache pode
+  -- ficar fora de [1, childCount] e a reindexacao saia dos limites -> crash.
+  -- Nesse caso desiste do reordenamento em vez de derrubar o client.
+  local count = panel:getChildCount()
+  local current = panel:getChildIndex(widget)
+  if not current or current < 1 or current > count then
+    return
+  end
+
+  panel:moveChildToIndex(widget, math.min(k, count))
 end
 
 function getSidePanelsCount()

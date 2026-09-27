@@ -31,9 +31,24 @@ local lastLogout = 0
 -- relogar a cada RECONNECT_INTERVAL ate voltar online. Cobre queda de rede,
 -- kick por idle, fim de sessao limpo e morte; NAO age em logout manual.
 -- ============================================================================
+-- O intervalo cresce a cada tentativa falhada (5s -> 10s -> 20s -> 40s -> 60s) e so
+-- volta ao inicio quando o jogador entra no jogo ou pede para tentar agora. Sem isso,
+-- no restart das 18h cada client refazia a cadeia de login ~13 vezes em 50 segundos, o
+-- que martelava o servidor no boot e dessincronizava as sidebars do proprio client.
 local RECONNECT_INTERVAL = 5000
+local RECONNECT_INTERVAL_MAX = 60000
+local reconnectDelay = RECONNECT_INTERVAL
 local reconnectWatchdogEvent = nil
 local manualLogout = false
+
+-- Volta ao intervalo inicial: entrou no jogo, ou o jogador pediu retry manual.
+function resetReconnectBackoff()
+  reconnectDelay = RECONNECT_INTERVAL
+end
+
+local function growReconnectDelay()
+  reconnectDelay = math.min(reconnectDelay * 2, RECONNECT_INTERVAL_MAX)
+end
 
 -- Chamado pelos pontos de logout manual (game_interface) para nao reconectar.
 function flagManualLogout()
@@ -77,10 +92,11 @@ local function reconnectWatchdogTick()
       errorBox = nil
     end
     CharacterList.doLogin()
+    growReconnectDelay()         -- tentou e falhou: espera mais na proxima
   end
 
   -- Reprograma sempre enquanto offline: e o "tenta varias vezes" indefinido.
-  reconnectWatchdogEvent = scheduleEvent(reconnectWatchdogTick, RECONNECT_INTERVAL)
+  reconnectWatchdogEvent = scheduleEvent(reconnectWatchdogTick, reconnectDelay)
 end
 
 function ensureReconnectWatchdog()
@@ -90,12 +106,13 @@ function ensureReconnectWatchdog()
   if manualLogout or not reconnectEnabledForCurrent() then
     return
   end
-  reconnectWatchdogEvent = scheduleEvent(reconnectWatchdogTick, RECONNECT_INTERVAL)
+  reconnectWatchdogEvent = scheduleEvent(reconnectWatchdogTick, reconnectDelay)
 end
 
 -- Reset ao entrar no jogo com sucesso.
 local function onReconnectGameStart()
   manualLogout = false
+  resetReconnectBackoff()
   stopReconnectWatchdog()
 end
 
@@ -371,15 +388,18 @@ function onGameConnectionError(message, code)
       errorBox.onEnter = function()
         removeEventAndDestroy()
         LoginEvent.loginTries = 0
+        resetReconnectBackoff()    -- pedido explicito do jogador: tenta ja
       end
       errorBox:recursiveGetChildById('buttonCancel').onClick = function()
         removeEventAndDestroy()
         LoginEvent.loginTries = 0
+        resetReconnectBackoff()
       end
 
       local label = errorBox.contentPanel:getChildById('infoLabel')
       label:setText("Failed to establish connection to\nthe game server.\nFailed attempts so far: " .. LoginEvent.loginTries)
-      updateWaitEvent = scheduleEvent(function() updateTryLogin(g_clock.seconds(), g_clock.seconds() + 5) end, 0)
+      local retryIn = reconnectDelay / 1000
+      updateWaitEvent = scheduleEvent(function() updateTryLogin(g_clock.seconds(), g_clock.seconds() + retryIn) end, 0)
       scheduleReconnect()
       return
     end
@@ -420,7 +440,11 @@ function scheduleReconnect()
   if autoReconnectEvent then
     removeEvent(autoReconnectEvent)
   end
-  autoReconnectEvent = scheduleEvent(executeReconnect, CharacterList.scheduleTime * 1000)
+  -- usa o mesmo backoff do watchdog em vez do CharacterList.scheduleTime fixo
+  -- (esse continua a ser do waiting list do servidor)
+  local delay = reconnectDelay
+  growReconnectDelay()
+  autoReconnectEvent = scheduleEvent(executeReconnect, delay)
 end
 
 function onGameUpdateNeeded(signature)
