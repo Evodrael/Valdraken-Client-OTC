@@ -885,6 +885,86 @@ UIWidget
             image-clip: 19 21 19 21
 
       UIWidget
+        id: autoFollow
+        height: 25
+
+        UIWidget
+          id: label
+          !text: 'Auto follow hotkey:'
+          anchors.left: parent.left
+          anchors.verticalCenter: parent.verticalCenter
+          text-horizontal-auto-resize: true
+          margin-left: 8
+          color: #C0C0C0
+
+        TextEdit
+          id: key
+          anchors.left: parent.left
+          anchors.verticalCenter: parent.verticalCenter
+          !placeholder: 'none'
+          placeholder-align: left
+          color: #C0C0C0
+          enabled: false
+          width: 70
+          margin-left: 175
+          text-align: left
+
+          $disabled:
+            opacity: 1
+            color: #C0C0C0
+
+        VerticalSeparator
+          id: separator
+          anchors.top: parent.top
+          anchors.bottom: parent.bottom
+          anchors.left: key.right
+          margin-left: 10
+
+        Button
+          id: edit
+          anchors.left: prev.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-left: 10
+          image-source: /resources/button_shortcut_minibot
+          image-clip: 38 0 19 21
+          !tooltip: 'Set a new hotkey to switch the Auto Follow function.'
+          change-cursor-image: false
+          size: 19 21
+
+          $!pressed:
+            image-clip: 38 0 19 21
+
+          $pressed:
+            image-clip: 38 21 19 21
+
+        ButtonBox
+          id: button
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
+          margin-right: 9
+          size: 19 21
+          text-offset: 0 0
+          text-align: center
+          image-source: /resources/button_shortcut_minibot
+          image-clip: 0 0 19 21
+          !tooltip: 'Show Auto Follow switch button on game window.'
+          change-cursor-image: false
+          @onCheckChange: |
+            modules.game_minibot.callMethod('onGameWindowChange', self)
+
+          $checked !pressed:
+            image-clip: 0 0 19 21
+
+          $checked pressed:
+            image-clip: 0 21 19 21
+
+          $!checked !pressed:
+            image-clip: 19 0 19 21
+
+          $!checked pressed:
+            image-clip: 19 21 19 21
+
+      UIWidget
         id: tankMode
         height: 0
         visible: false

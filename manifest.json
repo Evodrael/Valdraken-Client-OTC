@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.96",
-    "generated":  "2026-09-27T02:41:00-03:00",
+    "version":  "15.24.97",
+    "generated":  "2026-09-28T14:36:35-03:00",
     "count":  13495,
     "files":  [
                   {
@@ -63150,8 +63150,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/analyser.lua",
-                      "sha256":  "5ad870efb32df41451b83c3f53d40a6423ecf6899c5e0ddcfa1dac144f1fddef",
-                      "size":  13787
+                      "sha256":  "59416f57ece61f01d4d035aa01b54b9f4cecdba92de61fa02b5a572283e4d9fe",
+                      "size":  17234
                   },
                   {
                       "path":  "mods/game_analyser/analyser.otmod",
@@ -63185,8 +63185,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/ImpactAnalyser.lua",
-                      "sha256":  "a1173654e9e737d8a72acd27c97a088dc123653a4d7feeeacc10ac6dff20c947",
-                      "size":  19069
+                      "sha256":  "8d1d7baf5754bec4a253ca60575e929f06a83c1d509c5b7b2dda81bff005dffa",
+                      "size":  20689
                   },
                   {
                       "path":  "mods/game_analyser/classes/InputAnalyser.lua",
@@ -63200,8 +63200,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/MiscAnalyzer.lua",
-                      "sha256":  "fe17e0e809cbc3bd39e28bc1a5791b715105da044dcbed2df610594a225977ae",
-                      "size":  12509
+                      "sha256":  "af4c618f2ff4f954fa3bc41b30c08b8f16005f0700be265f30ad64904eb5086a",
+                      "size":  12555
                   },
                   {
                       "path":  "mods/game_analyser/classes/PartyHuntAnalyser.lua",
@@ -63395,8 +63395,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/bestiary.lua",
-                      "sha256":  "9a40a402e1b61298c1fc6f9b85d343ef6fae0942ca339c32369339152eae8a9b",
-                      "size":  38772
+                      "sha256":  "79e32f235eb2952b5f715ea79019abe71af92b7ee2b45a3b48dd0dc3e44c6fef",
+                      "size":  39719
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/boss_slots.lua",
@@ -63405,8 +63405,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/bosstiary.lua",
-                      "sha256":  "b1b144304188ca18d52b490381db0eea490d540e33989190f14f150254997542",
-                      "size":  13321
+                      "sha256":  "4e42b1fda66d983da0e3e2de697bf0606501dce341e951bb59620fb592e111f6",
+                      "size":  13483
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/character.lua",
@@ -63465,8 +63465,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/cyclopedia.lua",
-                      "sha256":  "c7d9a1c746bb150a8fbd24eb9bb341ed45c286fb47767b4f2045dcb864e80c04",
-                      "size":  27216
+                      "sha256":  "38b590f93f6a3d88aa945fbbe68583cc22876d5bc7adfb39fade61d01f1feea7",
+                      "size":  27939
                   },
                   {
                       "path":  "mods/game_cyclopedia/cyclopedia.otmod",
@@ -64760,8 +64760,8 @@
                   },
                   {
                       "path":  "mods/game_highscores/highscores.lua",
-                      "sha256":  "7d9b96e24bdcb6d2d86f0a7d185bd8691dd16ac6eba86d6be3847c3e399a34f4",
-                      "size":  6290
+                      "sha256":  "561acceeed987d7570c64d5769c8212c6438523522c7c1e54b93dc0a3c2f55ff",
+                      "size":  8172
                   },
                   {
                       "path":  "mods/game_highscores/highscores.otmod",
@@ -65340,8 +65340,8 @@
                   },
                   {
                       "path":  "mods/game_trackers/classes/bestiary_tracker.lua",
-                      "sha256":  "552011489d8b02aa4ed5977edb290ef4aeb1f278216bfad15c3b1cb971560a95",
-                      "size":  13220
+                      "sha256":  "16474ced97678e7795a3ee33f35fa6453bf3ff08425945e78cc5cb1ab5eaa13f",
+                      "size":  13490
                   },
                   {
                       "path":  "mods/game_trackers/classes/boss_tracker.lua",
@@ -66320,8 +66320,8 @@
                   },
                   {
                       "path":  "modules/game_interface/widgets/uigamemap.lua",
-                      "sha256":  "72c78b139883178e27106481b5c969ac78ecd4bb8f76711f099a2730665a39c5",
-                      "size":  11952
+                      "sha256":  "5e7c3ac96dd007deecfeb7c3b47fed9cf4b16898279568049f422e95144e6eda",
+                      "size":  13634
                   },
                   {
                       "path":  "modules/game_inventory/inventory.lua",
@@ -66535,18 +66535,18 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_settings.lua",
-                      "sha256":  "97f03791307be0a2843e9d04477caf6cdb7ed42d0f208801eb7360e8abfd46f8",
-                      "size":  59743
+                      "sha256":  "0a43b719fdfcf6d54881ecf9c1204d2129270d120fc8d3b1446d97263c6b9829",
+                      "size":  65436
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_settings.otui",
-                      "sha256":  "fcbfe7f6a58f39273bb6e2868a20c69d9be102d6f3eacb16efa11b4eb3c82720",
-                      "size":  32839
+                      "sha256":  "c36084e3eb235706dcfbbac5f16cb6a0550a91d29aa1a9eaae2d790b68b3ce12",
+                      "size":  35021
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "8a18fcce36d4d893377734cba7f99d1ad2b86f016418a4fa9ed516bccd6a13c3",
-                      "size":  37782
+                      "sha256":  "d364c3601a5b79fcb48be95bf12c177a6bb104e9d426d2fa563de6e9f003c54d",
+                      "size":  38059
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
@@ -67465,17 +67465,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "b9b29ea9047fbe2d6d0b6dd07a9df3445d2665d32c3b51c352ec8a350cd9aa3b",
+                      "sha256":  "03cc3e1e57e5eed822760c46e55b55b6d0f2bbe0a94d9fbae504e0126bc85292",
                       "size":  37006848
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "3a9a5a271998ee1dde4bb8246f8a3daae093a19fab3abfbb95759e5b594d4e55",
+                      "sha256":  "6967554381b6a5a0a45eeba06fee993ebc83e0bce81762e912dd84b387fcab06",
                       "size":  29146112
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "385f567d369c93605025333ca09ccc9828de26773909b6ec8abf5500534013e0",
+                      "sha256":  "0dcf8026ade824139798af9829c2a081f6ffe4db52a3ac9e93515ce7267e7464",
                       "size":  8
                   }
               ]

@@ -103,6 +103,16 @@ function main_settingsModule.init(widget)
     end
     onMiniBotGameWindowChangeKeyCombo('equipmentRing', modules.client_options.getGeneralHotkeyCombo('assistantEquipmentRingToggle'))
 
+    gameWindow = modules.game_minibot.getSettingsValue(true, 'autoFollow_gamewindow', false)
+    mainSettingsWindow.settings.keysPanel.autoFollow.button.ignoreCallback = true
+    mainSettingsWindow.settings.keysPanel.autoFollow.button:setChecked(gameWindow)
+    main_settingsModule.onGameWindowChange(mainSettingsWindow.settings.keysPanel.autoFollow.button)
+    mainSettingsWindow.settings.keysPanel.autoFollow.button.ignoreCallback = nil
+    mainSettingsWindow.settings.keysPanel.autoFollow.edit.onLeftClick = function()
+        onSelectMinibotHotkeyOptions('controls', 'general', 'Auto Follow Toggle')
+    end
+    onMiniBotGameWindowChangeKeyCombo('autoFollow', '')
+
     --gameWindow = modules.game_minibot.getSettingsValue(true, 'tankMode_gamewindow', false)
     --mainSettingsWindow.settings.keysPanel.tankMode.button.ignoreCallback = true
     --mainSettingsWindow.settings.keysPanel.tankMode.button:setChecked(gameWindow)
@@ -174,6 +184,10 @@ local minibotHotkeyRows = {
     equipmentAmulet = { setting = 'hotkey_equipmentAmulet', toggle = 'equipmentAmulet_gamewindow' },
     equipmentRing   = { setting = 'hotkey_equipmentRing',   toggle = 'equipmentRing_gamewindow' },
     huntingRecorder = { setting = 'hotkey_huntingRecorder', toggle = 'huntingRecorder_gamewindow' },
+    -- O Auto Follow nao vive em settings['shortcuts'] como os outros: o estado dele e'
+    -- support_main.auto_follow.enabled, escrito pela pagina Support > General. O
+    -- onMiniBotGameWindowChangeFromPanel trata este id a parte.
+    autoFollow      = { setting = 'hotkey_autoFollow',      toggle = 'autoFollow_gamewindow' },
 }
 
 local minibotHotkeyInputToRow = {
@@ -186,6 +200,7 @@ local minibotHotkeyInputToRow = {
     ['Equipment Amulet Toggle'] = 'equipmentAmulet',
     ['Equipment Ring Toggle']   = 'equipmentRing',
     ['Hunting Recorder Toggle'] = 'huntingRecorder',
+    ['Auto Follow Toggle']      = 'autoFollow',
 }
 
 local boundMinibotHotkeys = {}
@@ -306,6 +321,7 @@ function reloadMinibotGameWindowCombos()
     onMiniBotGameWindowChangeKeyCombo('equipmentRing', modules.client_options.getGeneralHotkeyCombo('assistantEquipmentRingToggle'))
     --onMiniBotGameWindowChangeKeyCombo('tankMode', modules.client_options.getGeneralHotkeyCombo('assistantTankModeToggle'))
     onMiniBotGameWindowChangeKeyCombo('huntingRecorder', modules.client_options.getGeneralHotkeyCombo('assistantHuntingRecorderToggle'))
+    onMiniBotGameWindowChangeKeyCombo('autoFollow', '')
     --onMiniBotGameWindowChangeKeyCombo('huntingExplorer', modules.client_options.getGeneralHotkeyCombo('assistantHuntingExplorerToggle'))
 end
 
@@ -351,6 +367,10 @@ function main_settingsModule.reloadLanguage(language)
         --mainSettingsWindow.settings.keysPanel.tankMode.key:setPlaceholder('nenhum')
         --mainSettingsWindow.settings.keysPanel.tankMode.edit:setTooltip('Escolher uma Hotkey para ativar/desativar a funcao do Modo Tanque.')
         --mainSettingsWindow.settings.keysPanel.tankMode.button:setTooltip('Mostrar/Esconder o atalho do Modo Tanque na janela do jogo.')
+        mainSettingsWindow.settings.keysPanel.autoFollow.label:setText('Follow automatico:')
+        mainSettingsWindow.settings.keysPanel.autoFollow.key:setPlaceholder('nenhum')
+        mainSettingsWindow.settings.keysPanel.autoFollow.edit:setTooltip('Escolher uma Hotkey para ativar/desativar o Follow automatico.')
+        mainSettingsWindow.settings.keysPanel.autoFollow.button:setTooltip('Mostrar/Esconder o atalho do Follow automatico na janela do jogo.')
         mainSettingsWindow.settings.keysPanel.huntingRecorder.label:setText('Cave Bot:')
         mainSettingsWindow.settings.keysPanel.huntingRecorder.key:setPlaceholder('nenhum')
         mainSettingsWindow.settings.keysPanel.huntingRecorder.edit:setTooltip('Escolher uma Hotkey para ativar/desativar a funcao do Cave Bot.')
@@ -399,6 +419,10 @@ function main_settingsModule.reloadLanguage(language)
         --mainSettingsWindow.settings.keysPanel.tankMode.key:setPlaceholder('none')
         --mainSettingsWindow.settings.keysPanel.tankMode.edit:setTooltip('Set a new hotkey to switch the Tank Mode funtion.')
         --mainSettingsWindow.settings.keysPanel.tankMode.button:setTooltip('Show Tank Mode switch button on game window.')
+        mainSettingsWindow.settings.keysPanel.autoFollow.label:setText('Auto follow:')
+        mainSettingsWindow.settings.keysPanel.autoFollow.key:setPlaceholder('none')
+        mainSettingsWindow.settings.keysPanel.autoFollow.edit:setTooltip('Set a new hotkey to switch the Auto Follow function.')
+        mainSettingsWindow.settings.keysPanel.autoFollow.button:setTooltip('Show Auto Follow switch button on game window.')
         mainSettingsWindow.settings.keysPanel.huntingRecorder.label:setText('Cave bot:')
         mainSettingsWindow.settings.keysPanel.huntingRecorder.key:setPlaceholder('none')
         mainSettingsWindow.settings.keysPanel.huntingRecorder.edit:setTooltip('Set a new hotkey to switch the Cave Bot funtion.')
@@ -490,6 +514,11 @@ function main_settingsModule.reloadInternalModule()
     --local tankModeEnabled = sSettings['tankMode_enabled']
     local equipmentRingEnabled = sSettings['equipmentRing_enabled']
     local huntingRecorderEnabled = sSettings['huntingRecorder_enabled']
+    -- O Auto Follow guarda o estado em support_main (pagina Support > General), nao em
+    -- shortcuts: o atalho do HUD tem de ler dali para nao mostrar o botao desligado
+    -- enquanto o follow esta' a correr.
+    local sAutoFollow = (settings['support_main'] or {})['auto_follow'] or {}
+    local autoFollowEnabled = sAutoFollow['enabled'] or false
     -- Timer do Cave Bot desativado: nunca exibir o painel de contador no jogo.
     local huntingRecorderTimerEnabled = false
     --local huntingExplorerEnabled = sSettings['huntingExplorer_enabled']
@@ -668,6 +697,25 @@ function main_settingsModule.reloadInternalModule()
                 widget:setTooltip('')
                 widget.ignoreCallback = true
                 widget:setChecked(equipmentRingEnabled)
+                widget.ignoreCallback = nil
+                widget.onMousePress = onMiniBotGameWindowMousePressFromPanel
+            end
+
+            gameWindow = modules.game_minibot.getSettingsValue(true, 'autoFollow_gamewindow', false)
+            if gameWindow then
+                widget = g_ui.createWidget('MiniBotShortcutButton', panel)
+                widget:constructEnviorementVariables()
+                widget:setId('autoFollow_gamewindow')
+                widget:setWidth(19)
+                widget:setHeight(21)
+                -- Clip reservado ao Hunting Auto-Explorer, que esta' desactivado: e' o
+                -- unico icone livre da folha e o que mais se aproxima de "seguir".
+                widget:setIconClip(torect('221 0 9 13'))
+                widget:setIconSize('8 13')
+                widget:setIconOffset('6 4')
+                widget:setTooltip('Auto follow: walks after the player configured in Support > General.')
+                widget.ignoreCallback = true
+                widget:setChecked(autoFollowEnabled)
                 widget.ignoreCallback = nil
                 widget.onMousePress = onMiniBotGameWindowMousePressFromPanel
             end
@@ -870,6 +918,9 @@ function onMiniBotGameWindowMousePressFromPanel(widget, _, button)
     elseif widget:getId() == 'equipmentRing_gamewindow' then
         primary = 'equipment'
         secondary = 'equipment_rings'
+    elseif widget:getId() == 'autoFollow_gamewindow' then
+        primary = 'support'
+        secondary = 'support_general'
     --elseif widget:getId() == 'tankMode_gamewindow' then
     --    primary = 'support'
     --    secondary = 'support_general'
@@ -889,6 +940,48 @@ function onMiniBotGameWindowMousePressFromPanel(widget, _, button)
 
     modules.game_minibot.show()
     modules.game_minibot.selectMinibotPanel(primary, secondary)
+end
+
+-- O Auto Follow e' o unico atalho cujo estado nao vive em settings['shortcuts']: quem
+-- manda e' support_main.auto_follow.enabled, que e' o que minibot.reloadSupportRuntime()
+-- le para ligar/desligar o tick. Esta funcao escreve la', espelha na pagina Support >
+-- General (se estiver aberta) e reinicia o runtime.
+local function applyAutoFollowToggle(settings2, enabled)
+    settings2['support_main'] = settings2['support_main'] or {}
+    local sFollow = settings2['support_main']['auto_follow'] or {}
+    sFollow['enabled'] = enabled
+    sFollow['name'] = sFollow['name'] or ''
+    settings2['support_main']['auto_follow'] = sFollow
+    modules.game_minibot.setPressetSettings(settings2)
+
+    local supportPage = modules.game_minibot.support_generalModule
+    if supportPage ~= nil and supportPage.loadSettings ~= nil
+        and modules.game_minibot.getPageModule() == supportPage then
+        supportPage.loadSettings()
+    end
+
+    modules.game_minibot.reloadSupportRuntime()
+
+    local list = {}
+    table.insert(list, 'Auto Follow module ')
+    table.insert(list, 'white')
+    if enabled then
+        table.insert(list, 'enabled')
+        table.insert(list, '#74FF91')
+    else
+        table.insert(list, 'disabled')
+        table.insert(list, '#FF7777')
+    end
+    table.insert(list, '.')
+    table.insert(list, 'white')
+    modules.game_textmessage.displayGameMessage(list)
+
+    -- Ligar sem nome configurado nao faz nada (reloadSupportRuntime sai cedo): avisar
+    -- em vez de deixar o botao aceso sem efeito nenhum.
+    if enabled and sFollow['name'] == '' then
+        modules.game_textmessage.displayFailureMessage(
+            tr('Set the player name in Support > General before using Auto Follow.'))
+    end
 end
 
 function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
@@ -964,6 +1057,9 @@ function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
             widgetChecked = not(settings2['shortcuts']['equipmentRing_enabled'] or false)
         --elseif widgetId == 'tankMode_gamewindow' then
         --    widgetChecked = not(settings2['shortcuts']['tankMode_enabled'] or false)
+        elseif widgetId == 'autoFollow_gamewindow' then
+            local sFollow = (settings2['support_main'] or {})['auto_follow'] or {}
+            widgetChecked = not(sFollow['enabled'] or false)
         elseif widgetId == 'huntingRecorder_gamewindow' then
             widgetChecked = not(settings2['shortcuts']['huntingRecorder_enabled'] or false)
         elseif widgetId == 'huntingRecorderTimer_gamewindow' then
@@ -981,6 +1077,11 @@ function onMiniBotGameWindowChangeFromPanel(widget, forceChecked)
         if widgetId == 'huntingRecorder_gamewindow' and localPlayer ~= nil and localPlayer:getCaveBotTimestamp() >= os.time() then
             widgetChecked = false
         end
+    end
+
+    if widgetId == 'autoFollow_gamewindow' then
+        applyAutoFollowToggle(settings2, widgetChecked)
+        return
     end
 
     local settings = ''
@@ -1133,6 +1234,9 @@ function main_settingsModule.onGameWindowChange(widget)
         --
     elseif widget:getParent():getId() == 'equipmentRing' then
         settingsName = 'equipmentRing_gamewindow'
+        --
+    elseif widget:getParent():getId() == 'autoFollow' then
+        settingsName = 'autoFollow_gamewindow'
         --
     elseif widget:getParent():getId() == 'tankMode' then
         settingsName = 'tankMode_gamewindow'

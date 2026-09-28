@@ -1,5 +1,40 @@
 UIGameMap = extends(UIMap, "UIGameMap")
 
+-- Tile:getTopCreatureEx() nao devolve so' a criatura DESTE tile: ela tambem sonda os
+-- tiles de baixo/direita e aceita a criatura de la' quando o pixel clicado cai no corpo
+-- dela (o sprite transborda ~8px para cima-esquerda, e ate' um tile inteiro em outfits
+-- 2x2). Como o processMouseAction da' sempre prioridade a criatura sobre o useThing,
+-- bastava um jogador parado ao lado para o clique no bau virar "atacar o jogador".
+--
+-- Um corpo que apenas TRANSBORDA para ca' nao deve roubar o clique de um bau, porta,
+-- alavanca ou qualquer item de force-use que esta' mesmo neste tile. Uma criatura
+-- parada EM CIMA do tile continua a ganhar, como no cliente oficial.
+local function isOverflowCreature(creature, pos)
+  if not creature or not pos then
+    return false
+  end
+
+  local cpos = creature:getPosition()
+  if not cpos then
+    return false
+  end
+
+  return cpos.x ~= pos.x or cpos.y ~= pos.y or cpos.z ~= pos.z
+end
+
+local function tileItemWinsOverCreature(useThing)
+  return useThing ~= nil and (useThing:isContainer() or useThing:isForceUse())
+end
+
+-- Devolve a criatura, ou nil quando ela so' esta' aqui por transbordo de sprite e o
+-- tile tem um alvo de clique proprio.
+local function creatureUnlessOverflow(creature, pos, useThing)
+  if tileItemWinsOverCreature(useThing) and isOverflowCreature(creature, pos) then
+    return nil
+  end
+  return creature
+end
+
 function UIGameMap.create()
   local gameMap = UIGameMap.internalCreate()
   gameMap:setKeepAspectRatio(true)
@@ -146,7 +181,7 @@ function UIGameMap:getContextCursor(mousePosition)
   if tile then
     lookThing = tile:getTopLookThingEx(positionOffset)
     useThing = tile:getTopUseThing()
-    creatureThing = tile:getTopCreatureEx(positionOffset)
+    creatureThing = creatureUnlessOverflow(tile:getTopCreatureEx(positionOffset), tile:getPosition(), useThing)
     if not creatureThing then
       creatureThing = g_map.getCreatureById(tile:getCollisionCreatureId())
     end
@@ -155,7 +190,7 @@ function UIGameMap:getContextCursor(mousePosition)
   local attackCreature
   local autoWalkTile = g_map.getTile(autoWalkPos)
   if autoWalkTile then
-    attackCreature = autoWalkTile:getTopCreatureEx(positionOffset)
+    attackCreature = creatureUnlessOverflow(autoWalkTile:getTopCreatureEx(positionOffset), autoWalkPos, useThing)
   end
 
   local keyboardModifiers = g_keyboard.getModifiers()
@@ -285,12 +320,12 @@ function UIGameMap:updateMarkedCreature()
     if tile then
       lookThing = tile:getTopLookThingEx(positionOffset)
       useThing = tile:getTopUseThing()
-      creatureThing = tile:getTopCreatureEx(positionOffset)
+      creatureThing = creatureUnlessOverflow(tile:getTopCreatureEx(positionOffset), tile:getPosition(), useThing)
     end
 
     local autoWalkTile = g_map.getTile(autoWalkPos)
     if autoWalkTile then
-      attackCreature = autoWalkTile:getTopCreatureEx(positionOffset)
+      attackCreature = creatureUnlessOverflow(autoWalkTile:getTopCreatureEx(positionOffset), autoWalkPos, useThing)
     end
 
     if attackCreature then
@@ -370,7 +405,7 @@ function UIGameMap:onMouseRelease(mousePosition, mouseButton)
   if tile then
     lookThing = tile:getTopLookThingEx(positionOffset)
     useThing = tile:getTopUseThing()
-    creatureThing = tile:getTopCreatureEx(positionOffset)
+    creatureThing = creatureUnlessOverflow(tile:getTopCreatureEx(positionOffset), tile:getPosition(), useThing)
     if not creatureThing then
       creatureThing = g_map.getCreatureById(tile:getCollisionCreatureId())
     end
@@ -378,7 +413,7 @@ function UIGameMap:onMouseRelease(mousePosition, mouseButton)
 
   local autoWalkTile = g_map.getTile(autoWalkPos)
   if autoWalkTile then
-    attackCreature = autoWalkTile:getTopCreatureEx(positionOffset)
+    attackCreature = creatureUnlessOverflow(autoWalkTile:getTopCreatureEx(positionOffset), autoWalkPos, useThing)
   end
 
   local ret = m_interface.processMouseAction(tile, mousePosition, mouseButton, autoWalkPos, lookThing, useThing, creatureThing, attackCreature, self.markingMouseRelease)

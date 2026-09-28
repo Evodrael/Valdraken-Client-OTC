@@ -12,6 +12,9 @@ local selectedCharm = 0
 local BestiaryMonster
 local MonsterId = 0
 local CurrentLevel = 0
+-- Marca que a ficha de criatura que esta' a chegar foi pedida pelo Bestiary Tracker,
+-- para so' entao trocar o botao "voltar" (ver Bestiary.openFromTracker).
+local trackerBackPending = false
 
 function Bestiary.reset()
   overviewPage = 1
@@ -355,6 +358,23 @@ function Bestiary.updateBestiaryMonsterData(monsterId, bestiaryMonster, currentL
 
   BESTIARY_MONSTER_ID = monsterId
   Cyclopedia.bestiaryMonsterData(monsterId, bestiaryMonster, currentLevel, killCounter, first, second, third, difficulty, ocorrence, extraExperience, masteryCount)
+
+  -- A ficha ja' existe: agora sim da' para apontar o "voltar" para a lista do
+  -- bestiario. Antes isto era um scheduleEvent de 300ms disparado pelo tracker, que
+  -- corria as cegas e podia cair no painel errado.
+  if trackerBackPending then
+    trackerBackPending = false
+    Bestiary.setupBackTrackerButton()
+  end
+end
+
+-- Ponto de entrada do Bestiary Tracker: abre a ficha DESTA criatura.
+-- O pedido tem de sair DEPOIS de a aba Bestiary estar montada, senao a resposta do
+-- servidor chega antes da troca de aba e o painel da criatura e' destruido logo a
+-- seguir -- era por isso que o clique no tracker acabava na pagina de busca.
+function Bestiary.openFromTracker(monsterId)
+  trackerBackPending = true
+  g_game.bestiaryMonsterData(monsterId)
 end
 
 function Cyclopedia.bestiaryMonsterData(monsterId, bestiaryMonster, currentLevel, killCounter, first, second, third, difficulty, ocorrence, extraExperience, masteryCount)

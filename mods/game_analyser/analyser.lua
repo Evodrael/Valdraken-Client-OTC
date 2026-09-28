@@ -102,6 +102,8 @@ function init()
     onCharmActivated = onCharmActivated,
     onImbuementActivated = onImbuementActivated,
     onSpecialSkillActivated = onSpecialSkillActivated,
+    -- Unica fonte de dados do Misc Analyzer neste protocolo (ver onMiscTextMessage).
+    onTextMessage = onMiscTextMessage,
   })
 
   connect(LocalPlayer, {
@@ -145,6 +147,7 @@ function terminate()
     onCharmActivated = onCharmActivated,
     onImbuementActivated = onImbuementActivated,
     onSpecialSkillActivated = onSpecialSkillActivated,
+    onTextMessage = onMiscTextMessage,
   })
   disconnect(LocalPlayer, {
     onExperienceChange = onExperienceChange,
@@ -505,4 +508,91 @@ end
 
 function onSpecialSkillActivated(skillId)
   MiscAnalyzer:onSpecialSkillActivated(skillId)
+end
+
+-- ===========================================================================
+-- Alimentacao do Misc Analyzer
+--
+-- O protocolo 15.24 nao tem pacote nenhum de "charm/imbuement/special skill
+-- activated": os tres callbacks acima existem, estao ligados, mas NADA no client
+-- os dispara -- nem C++ nem Lua. Por isso os paineis Charms / Imbuements / Item
+-- Upgrade ficavam eternamente vazios.
+--
+-- O cliente oficial deriva estes contadores das proprias mensagens de combate, que
+-- e' o que fazemos aqui. O que o servidor deste jogo realmente escreve:
+--   * charm      -> damage.exString ganha "(<nome do charm> charm)" quando o charm
+--                   tem messageServerLog (data/scripts/systems/bestiary_charms.lua)
+--   * critical   -> "... due to your critical attack."
+--   * Onslaught  -> "(Onslaught)" / "(Amplified Onslaught)" no fim da mensagem
+--   * Ruse       -> "You dodged an attack."            (MessageModes.Attention)
+--   * Momentum   -> "Momentum was triggered."          (MessageModes.Attention)
+--   * Transcend. -> "Transcendence was triggered."     (MessageModes.Attention)
+--
+-- Life leech e Mana leech NAO tem sinal nenhum: sao curas silenciosas, sem texto e
+-- sem elemento proprio no impact tracker. Contabiliza-los exige um pacote novo do
+-- servidor (ou um extended opcode) -- nao da' para inferir do lado do client.
+-- ===========================================================================
+
+local charmIdByLowerName = nil
+
+local function getCharmIdByName(name)
+  if charmIdByLowerName == nil then
+    charmIdByLowerName = {}
+    local charmMod = modules.game_cyclopedia and modules.game_cyclopedia.Charm
+    if charmMod then
+      -- Os ids vao de 0 a 24 (MajorMenu + MinorMenu em game_cyclopedia/classes/charms.lua).
+      for id = 0, 24 do
+        local charm = charmMod:getCharmById(id)
+        if charm and charm.name then
+          charmIdByLowerName[charm.name:lower()] = charm.id
+        end
+      end
+    end
+  end
+
+  return charmIdByLowerName[name]
+end
+
+function onMiscDamageDealtMessage(mode, text)
+  local lower = text:lower()
+
+  -- "(wound charm)", "(void's call charm)", ...
+  local charmName = lower:match("%(([^()]+) charm%)")
+  if charmName then
+    local charmId = getCharmIdByName(charmName)
+    if charmId then
+      MiscAnalyzer:onCharmActivated(charmId)
+    end
+  end
+
+  if lower:find("critical attack", 1, true) then
+    MiscAnalyzer:onImbuementActivated(1, 1) -- 1 = Critical Hit
+  end
+
+  if lower:find("onslaught)", 1, true) then
+    MiscAnalyzer:onSpecialSkillActivated(0) -- +1 = Onslaught
+  end
+end
+
+function onMiscAttentionMessage(mode, text)
+  local lower = text:lower()
+  if lower:find("you dodged an attack", 1, true) then
+    MiscAnalyzer:onSpecialSkillActivated(1) -- +1 = Ruse
+  elseif lower:find("momentum was triggered", 1, true) then
+    MiscAnalyzer:onSpecialSkillActivated(2) -- +1 = Momentum
+  elseif lower:find("transcendence was triggered", 1, true) then
+    MiscAnalyzer:onSpecialSkillActivated(3) -- +1 = Transcendence
+  end
+end
+
+function onMiscTextMessage(mode, text)
+  if not text or text == '' then
+    return
+  end
+
+  if mode == MessageModes.DamageDealed then
+    onMiscDamageDealtMessage(mode, text)
+  elseif mode == MessageModes.Attention then
+    onMiscAttentionMessage(mode, text)
+  end
 end

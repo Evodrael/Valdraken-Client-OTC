@@ -12,12 +12,24 @@ local pvpTypesById = {
   ["retroHardcorePvpCheck"] = 4,
 }
 
+-- O servidor identifica a categoria pelo id do enum HighscoreCategories_t (Experience=0,
+-- Fist=1, ...) e a vocacao pelo client-id CIP (None=0/Knight=1/Paladin=2/Sorcerer=3/
+-- Druid=4/Monk=5, 0xFFFFFFFF = todas). O callback legado 'onHighscores' entrega apenas
+-- as LISTAS DE NOMES, e a versao anterior deste ficheiro mandava de volta o indice da
+-- lista: pedir a pagina 2 de "Experience Points" virava categoria 1 (Fist Fighting) e a
+-- vocacao ficava presa num id que nao existe. Guardamos aqui os ids verdadeiros, que
+-- chegam no callback 'onProcessHighscores' disparado imediatamente antes.
+local ALL_VOCATIONS = 0xFFFFFFFF
+local categoryIdByName = {}
+local vocationIdByName = {}
+
 function init()
   highscoresWindow = g_ui.displayUI('highscores')
   highscoresWindow:hide()
 
   connect(g_game, {
     onGameEnd = offline,
+    onProcessHighscores = onProcessHighscores,
     onHighscores = onHighscores,
   })
 
@@ -27,6 +39,7 @@ end
 function terminate()
   disconnect(g_game, {
     onGameEnd = offline,
+    onProcessHighscores = onProcessHighscores,
     onHighscores = onHighscores,
   })
 
@@ -97,13 +110,31 @@ local function getTimeinWords(secs)
   return timeStr
 end
 
-local function getIndex(tb, value)
-  for index, name in pairs(tb) do
-    if name == value then
-      return index
+-- Callback "cru" do motor: vocations/categories chegam como { {id, nome}, ... }.
+-- Dispara sempre logo antes de onHighscores (Game::processHighscore).
+function onProcessHighscores(serverName, world, worldType, battlEye, vocations, categories)
+  categoryIdByName = {}
+  for _, entry in pairs(categories or {}) do
+    if entry[2] then
+      categoryIdByName[entry[2]] = entry[1]
     end
   end
-  return 1
+
+  vocationIdByName = {}
+  for _, entry in pairs(vocations or {}) do
+    if entry[2] then
+      vocationIdByName[entry[2]] = entry[1]
+    end
+  end
+end
+
+local function categoryIdOf(name)
+  return categoryIdByName[name] or 0 -- 0 = Experience Points
+end
+
+local function vocationIdOf(name)
+  -- "All Vocations" e' inserido pelo C++ e nao vem na lista do servidor.
+  return vocationIdByName[name] or ALL_VOCATIONS
 end
 
 function onHighscores(worlds, selectedWorld, vocations, selectedVocation, categories, selectedCategory, page, pages, characters, lastUpdate)
@@ -182,20 +213,31 @@ function onHighscores(worlds, selectedWorld, vocations, selectedVocation, catego
     end
   end
 
+  -- Ids reais (nao os indices da lista) da selecao que o servidor acabou de confirmar.
+  -- Sao estes que a paginacao tem de repetir, senao mudar de pagina muda tambem a
+  -- categoria e a vocacao filtrada.
+  local currentCategoryId = categoryIdOf(categories[selectedCategory])
+  local currentVocationId = vocationIdOf(vocations[selectedVocation])
+
+  local function selectedFilters()
+    return categoryIdOf(categorybox:getCurrentOption().text), vocationIdOf(vocationbox:getCurrentOption().text)
+  end
+
   highscoresWindow.showOwnRank.onClick = function()
-    g_game.highscore(1, getIndex(categories, categorybox:getCurrentOption().text), getIndex(vocations, vocationbox:getCurrentOption().text), m_seletecdWorld, 1, 20, stringPvpTypes)
+    local categoryId, vocationId = selectedFilters()
+    g_game.highscore(1, categoryId, vocationId, m_seletecdWorld, 1, 20, stringPvpTypes)
   end
   highscoresWindow.first.onClick = function()
-    g_game.highscore(0, selectedCategory, selectedVocation, m_seletecdWorld, 1, 20, stringPvpTypes)
+    g_game.highscore(0, currentCategoryId, currentVocationId, m_seletecdWorld, 1, 20, stringPvpTypes)
   end
   highscoresWindow.prevButton.onClick = function()
-    g_game.highscore(0, selectedCategory, selectedVocation, m_seletecdWorld, math.max(1, page -1), 20, stringPvpTypes)
+    g_game.highscore(0, currentCategoryId, currentVocationId, m_seletecdWorld, math.max(1, page -1), 20, stringPvpTypes)
   end
   highscoresWindow.nextButton.onClick = function()
-    g_game.highscore(0, selectedCategory, selectedVocation, m_seletecdWorld, math.min(pages, page +1), 20, stringPvpTypes)
+    g_game.highscore(0, currentCategoryId, currentVocationId, m_seletecdWorld, math.min(pages, page +1), 20, stringPvpTypes)
   end
   highscoresWindow.last.onClick = function()
-    g_game.highscore(0, selectedCategory, selectedVocation, m_seletecdWorld, pages, 20, stringPvpTypes)
+    g_game.highscore(0, currentCategoryId, currentVocationId, m_seletecdWorld, pages, 20, stringPvpTypes)
   end
 
 
@@ -204,6 +246,7 @@ function onHighscores(worlds, selectedWorld, vocations, selectedVocation, catego
     if m_seletecdWorld == "All Game Worlds" then
       m_seletecdWorld = ""
     end
-    g_game.highscore(0, getIndex(categories, categorybox:getCurrentOption().text), getIndex(vocations, vocationbox:getCurrentOption().text), m_seletecdWorld, 1, 20, stringPvpTypes)
+    local categoryId, vocationId = selectedFilters()
+    g_game.highscore(0, categoryId, vocationId, m_seletecdWorld, 1, 20, stringPvpTypes)
   end
 end

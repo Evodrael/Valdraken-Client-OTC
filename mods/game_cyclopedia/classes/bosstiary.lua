@@ -78,7 +78,9 @@ function Bosstiary.onSideButtonRedirect(text)
 	end
 
 	Cyclopedia.open()
-	onOptionChange(cyclopediaOptionsPanel:recursiveGetChildById('7'))
+	-- force = true: mesma corrida do Bestiary Tracker -- Cyclopedia.open() cai na aba
+	-- Items e gasta a janela do throttle, adiando esta troca em ~250ms.
+	onOptionChange(cyclopediaOptionsPanel:recursiveGetChildById('7'), true)
 end
 
 local function normalizeBossEntry(data)

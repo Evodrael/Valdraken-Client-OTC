@@ -242,16 +242,19 @@ end
 
 function BestiaryTracker.onRedirect(widget, isMonster)
 	modules.game_cyclopedia.Cyclopedia.open()
-	modules.game_cyclopedia.onOptionChange(modules.game_cyclopedia.cyclopediaOptionsPanel:recursiveGetChildById('2'))
+	-- force = true: Cyclopedia.open() acabou de trocar para a aba Items e gastou a
+	-- janela do throttle, entao sem isto a troca para o Bestiary ficava adiada ~250ms --
+	-- tempo suficiente para a resposta do bestiaryMonsterData chegar primeiro e ser
+	-- destruida logo a seguir pela troca de aba atrasada (caia-se na pagina de busca).
+	modules.game_cyclopedia.onOptionChange(modules.game_cyclopedia.cyclopediaOptionsPanel:recursiveGetChildById('2'), true)
 	if isMonster then
-    g_game.bestiaryMonsterData(tonumber(widget:getId()))
-    scheduleEvent(function() modules.game_cyclopedia.Bestiary.setupBackTrackerButton() end, 300)
+		modules.game_cyclopedia.Bestiary.openFromTracker(tonumber(widget:getId()))
 	end
 end
 
 function BestiaryTracker.onSideButtonRedirect()
 	modules.game_cyclopedia.Cyclopedia.open()
-	modules.game_cyclopedia.onOptionChange(modules.game_cyclopedia.cyclopediaOptionsPanel:recursiveGetChildById('2'))
+	modules.game_cyclopedia.onOptionChange(modules.game_cyclopedia.cyclopediaOptionsPanel:recursiveGetChildById('2'), true)
 end
 
 function BestiaryTracker.showSortOptions()

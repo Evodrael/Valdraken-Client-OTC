@@ -431,6 +431,11 @@ function support_generalModule.onAutoFollowChange(widget)
 
     support_generalModule.saveSettings()
     support_generalModule.reloadInternalModule()
+    -- O atalho do Auto Follow no HUD le este mesmo estado; sem isto ele so' acertava o
+    -- desenho no proximo reload do painel.
+    if modules.game_minibot.main_settingsModule ~= nil then
+        modules.game_minibot.main_settingsModule.reloadInternalModule()
+    end
 end
 
 function support_generalModule.onAutoReconnectChange(widget)

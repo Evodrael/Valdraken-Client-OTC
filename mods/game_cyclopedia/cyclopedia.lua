@@ -381,7 +381,13 @@ local function refreshHeaderBalances(requestServerData, withCharmBalances)
   end, 30)
 end
 
-function onOptionChange(widget)
+-- 'force' = troca de aba feita por codigo, nao por clique do jogador (atalhos como
+-- "abrir o bestiario nesta criatura"). O throttle abaixo existe contra spam-click e
+-- nao deve valer nesses casos: Cyclopedia:open() ja' gasta a janela de 250ms ao cair
+-- na aba Items, entao a troca seguinte era SEMPRE adiada. Quem chamava em seguida um
+-- g_game.bestiaryMonsterData() via a resposta chegar primeiro e depois a troca de aba
+-- atrasada destruir o painel da criatura e mostrar a busca do bestiario.
+function onOptionChange(widget, force)
   if not widget then return end
 
   -- Throttle rapid tab switches: prevents server-side flood/disconnect when
@@ -389,7 +395,13 @@ function onOptionChange(widget)
   -- requestCyclopediaData / openCyclopedia packets).
   local currentTime = g_clock.millis()
   local widgetId = widget:getId()
-  if selectedOption and selectedOption == widgetId then
+  if force then
+    -- Uma troca pendente do throttle chegaria depois desta e a sobrescreveria.
+    if pendingTabSwitch then
+      removeEvent(pendingTabSwitch)
+      pendingTabSwitch = nil
+    end
+  elseif selectedOption and selectedOption == widgetId then
     -- Same tab re-selected; allow only after the throttle window.
     if currentTime - lastTabClickTime < TAB_CLICK_THROTTLE_MS then
       return

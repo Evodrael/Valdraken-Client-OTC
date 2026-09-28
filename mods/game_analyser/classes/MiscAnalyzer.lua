@@ -63,7 +63,7 @@ function MiscAnalyzer:getPerHourValue(value)
 	local hitsPerSecond = value / sessionDuration
     local hitsPerHour = hitsPerSecond * 3600
 
-    return format_thousand(math.floor(hitsPerHour + 0.5)) -- Arredonda para o número inteiro mais próximo
+    return format_thousand(math.floor(hitsPerHour + 0.5)) -- Arredonda para o nï¿½mero inteiro mais prï¿½ximo
 end
 
 function MiscAnalyzer:updateWindow(updateScroll, ignoreVisible)
@@ -124,8 +124,8 @@ function MiscAnalyzer:updateCharms(contentsPanel)
 
 			widget.effects:setImageSource(string.format("/images/game/analyzer/charm_runes/charm_%d", effect))
 			widget.name:setText(name)
-			widget.total:setText(count)
-			widget.tooltip:setTooltip(string.format("Charm: %s\nActive: %d", name, count))
+			widget.total:setText(format_thousand(count))
+			widget.tooltip:setTooltip(string.format("Charm: %s\nActivated %d times", name, count))
 			widget.toBeRemoved = false
 			table.insert(widgets, { id = effect, widget = widget })
 		end
@@ -253,7 +253,7 @@ function MiscAnalyzer:updateSpecialSkills(contentsPanel)
 			widget.effects:setImageSource(string.format("/images/game/analyzer/misc/%s", data.name:lower()))
 			widget.name:setText(data.name)
 
-			widget.total:setText(amount)
+			widget.total:setText(format_thousand(amount))
 			widget.tooltip:setTooltip(string.format("Your %s has activated %s times\n\nCurrently activating %s times per hour", data.name:lower(), format_thousand(amount), MiscAnalyzer:getPerHourValue(amount)))
 			
 			widget.tooltip.onClick = function()

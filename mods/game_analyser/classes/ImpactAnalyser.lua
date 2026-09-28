@@ -47,6 +47,9 @@ local effectsFiles = {
 	[12] = 'agony',
 }
 
+local DPS_WINDOW = 10000 -- janela deslizante, em ms
+local DPS_MIN_ELAPSED = 1000 -- divisor minimo, em ms
+
 local valueInSeconds = function(t)
     local d = 0
     local time = 0
@@ -54,7 +57,7 @@ local valueInSeconds = function(t)
     if #t > 0 then
 		local itemsToBeRemoved = 0
         for i, v in ipairs(t) do
-            if now - v.tick <= 10000 then
+            if now - v.tick <= DPS_WINDOW then
                 if time == 0 then
                     time = v.tick
                 end
@@ -70,7 +73,18 @@ local valueInSeconds = function(t)
 			table.remove(t, 1)
 		end
     end
-    return math.ceil(d/((now-time)/1000))
+
+	if d == 0 then
+		return 0
+	end
+
+	-- O divisor era simplesmente (now - tick do golpe mais antigo da janela). Com UM
+	-- unico golpe recente -- tipicamente um charm, que bate sozinho e alto -- isso da'
+	-- zero, e d/0 em Lua e' +inf: o DPS aparecia absurdo e ficava gravado para sempre em
+	-- Max-DPS/All-Time High (por isso o saveConfigJson ja' tinha de filtrar infinitos).
+	-- Um piso de 1s da' o significado esperado: "dano no ultimo segundo".
+	local elapsed = math.min(DPS_WINDOW, math.max(DPS_MIN_ELAPSED, now - time))
+	return math.ceil(d / (elapsed / 1000))
 end
 
 function ImpactAnalyser:create()
@@ -131,7 +145,38 @@ function ImpactAnalyser:reset(allTimeDps, allTimeHps)
 	ImpactAnalyser:updateWindow()
 end
 
+-- Recalcula DPS/HPS da janela deslizante, poda os ticks vencidos e actualiza os
+-- recordes. Corre SEMPRE, mesmo com a janela fechada: Max-DPS e All-Time High nao
+-- podem depender de o jogador ter o painel aberto, e a poda e' o que impede as
+-- tabelas de ticks de crescerem sem limite durante uma cacada com o painel escondido.
+function ImpactAnalyser:refreshRates()
+	local curDPS = valueInSeconds(ImpactAnalyser.damageTicks) or 0
+	local curHPS = valueInSeconds(ImpactAnalyser.healingTicks) or 0
+
+	if curDPS > ImpactAnalyser.maxDPS then
+		ImpactAnalyser.maxDPS = curDPS
+	end
+	-- "All-Time High" e' a mesma grandeza do Max-DPS, so' que persistida entre sessoes.
+	-- Antes era alimentado em addDealDamage com o valor de UM golpe: um charm que tira
+	-- 5% do HP de um boss enchia o campo com um numero que nao era DPS nenhum e nunca
+	-- mais descia.
+	if curDPS > ImpactAnalyser.allTimeHightDps then
+		ImpactAnalyser.allTimeHightDps = curDPS
+	end
+
+	if curHPS > ImpactAnalyser.maxHPS then
+		ImpactAnalyser.maxHPS = curHPS
+	end
+	if curHPS > ImpactAnalyser.allTimeHightHps then
+		ImpactAnalyser.allTimeHightHps = curHPS
+	end
+
+	return curDPS, curHPS
+end
+
 function ImpactAnalyser:updateWindow(ignoreVisible)
+	local curDPS, curHealPS = ImpactAnalyser:refreshRates()
+
 	if not ImpactAnalyser.window:isVisible() and not ignoreVisible then
 		return
 	end
@@ -140,27 +185,23 @@ function ImpactAnalyser:updateWindow(ignoreVisible)
 
 	contentsPanel.dmg:setText(formatMoney(ImpactAnalyser.damageTotal, ","))
 	contentsPanel.allTimeHigh:setText(formatMoney(ImpactAnalyser.allTimeHightDps, ","))
-	local curHPS = valueInSeconds(ImpactAnalyser.damageTicks)
-	if not curHPS then curHPS = 0 end
-	ImpactAnalyser.maxDPS = ImpactAnalyser.maxDPS > curHPS and ImpactAnalyser.maxDPS or curHPS
 
 	contentsPanel.maxDps:setText(formatMoney(ImpactAnalyser.maxDPS, ","))
-	contentsPanel.dps:setText(formatMoney(curHPS, ","))
+	contentsPanel.dps:setText(formatMoney(curDPS, ","))
 
 	contentsPanel.targetDps:setText(formatMoney(ImpactAnalyser.targetDPS, ","))
 	-- movido pro check de 15s
-	contentsPanel.graphDpsPanel:addValue(1, curHPS)
+	contentsPanel.graphDpsPanel:addValue(1, curDPS)
 
-	if ImpactAnalyser.targetDPS == 1 and ImpactAnalyser.curHPS == 0 then
+	if ImpactAnalyser.targetDPS == 1 and curDPS == 0 then
 		ImpactAnalyser.window.contentsPanel.dpsBG.dpsArrow:setMarginLeft(targetMaxMargin / 2)
 	else
 		local target = math.max(1, ImpactAnalyser.targetDPS)
-		local current = curHPS
-		local percent = (current * 71) / target
+		local percent = (curDPS * 71) / target
 		ImpactAnalyser.window.contentsPanel.dpsBG.dpsArrow:setMarginLeft(math.min(targetMaxMargin, math.ceil(percent)))
 	end
 
-	ImpactAnalyser.window.contentsPanel.dpsBG:setTooltip(string.format("Current: %d\nTarget: %d", curHPS, ImpactAnalyser.targetDPS))
+	ImpactAnalyser.window.contentsPanel.dpsBG:setTooltip(string.format("Current: %d\nTarget: %d", curDPS, ImpactAnalyser.targetDPS))
 
 	----------------------- DAMAGE TYPE -----------------------------
 	for _, child in pairs(contentsPanel.dmgTypes:getChildren()) do
@@ -198,29 +239,25 @@ function ImpactAnalyser:updateWindow(ignoreVisible)
 	---------------------------- Healing -------------------------------
 
 	contentsPanel.hpsTotal:setText(formatMoney(ImpactAnalyser.healingTotal, ","))
+
 	contentsPanel.allTimeHighHealing:setText(formatMoney(ImpactAnalyser.allTimeHightHps, ","))
 
-	local curHPS = valueInSeconds(ImpactAnalyser.healingTicks)
-	if not curHPS then curHPS = 0 end
-	ImpactAnalyser.maxHPS = ImpactAnalyser.maxHPS > curHPS and ImpactAnalyser.maxHPS or curHPS
-
 	contentsPanel.maxHps:setText(formatMoney(ImpactAnalyser.maxHPS, ","))
-	contentsPanel.hps:setText(formatMoney(curHPS, ","))
+	contentsPanel.hps:setText(formatMoney(curHealPS, ","))
 
 	contentsPanel.targetHps:setText(formatMoney(ImpactAnalyser.targetHPS, ","))
 	-- movido pro check de 15s
-	contentsPanel.graphHealPanel:addValue(1, curHPS)
+	contentsPanel.graphHealPanel:addValue(1, curHealPS)
 
-	if ImpactAnalyser.targetHPS == 1 and ImpactAnalyser.curHPS == 0 then
+	if ImpactAnalyser.targetHPS == 1 and curHealPS == 0 then
 		ImpactAnalyser.window.contentsPanel.hpsBG.hpsArrow:setMarginLeft(targetMaxMargin / 2)
 	else
 		local target = math.max(1, ImpactAnalyser.targetHPS)
-		local current = curHPS
-		local percent = (current * 71) / target
+		local percent = (curHealPS * 71) / target
 		ImpactAnalyser.window.contentsPanel.hpsBG.hpsArrow:setMarginLeft(math.min(targetMaxMargin, math.ceil(percent)))
 	end
 
-	ImpactAnalyser.window.contentsPanel.hpsBG:setTooltip(string.format("Current: %d\nTarget: %d", curHPS, ImpactAnalyser.targetHPS))
+	ImpactAnalyser.window.contentsPanel.hpsBG:setTooltip(string.format("Current: %d\nTarget: %d", curHealPS, ImpactAnalyser.targetHPS))
 end
 
 function ImpactAnalyser:updateGraphics()
@@ -241,9 +278,6 @@ function ImpactAnalyser:updateGraphics()
 end
 
 function ImpactAnalyser:addDealDamage(amount, effect)
-	if amount > ImpactAnalyser.allTimeHightDps then
-		ImpactAnalyser.allTimeHightDps = amount
-	end
 	ImpactAnalyser.damageTotal = ImpactAnalyser.damageTotal + amount
 	ImpactAnalyser.damageTicks[#ImpactAnalyser.damageTicks + 1] = {amount = amount, tick = g_clock.millis()}
 	if not ImpactAnalyser.damageEffect[effect] then
@@ -254,9 +288,6 @@ function ImpactAnalyser:addDealDamage(amount, effect)
 end
 
 function ImpactAnalyser:addHealing(amount)
-	if amount > ImpactAnalyser.allTimeHightHps then
-		ImpactAnalyser.allTimeHightHps = amount
-	end
 	ImpactAnalyser.healingTotal = ImpactAnalyser.healingTotal + amount
 	ImpactAnalyser.healingTicks[#ImpactAnalyser.healingTicks + 1] = {amount = amount, tick = g_clock.millis()}
 end
@@ -485,10 +516,19 @@ function ImpactAnalyser:loadConfigJson()
 	ImpactAnalyser:setDamageType(config.desiredDamageTypesVisible, false)
 	ImpactAnalyser:setHPSGauge(config.desiredHpsGaugeVisible, false)
 	ImpactAnalyser:setHPSGraph(config.desiredHpsGraphVisible, false)
-	ImpactAnalyser.allTimeHightDps = config.maxDamageImpact
-	ImpactAnalyser.allTimeHightHps = config.maxHealingImpact
-	ImpactAnalyser.targetDPS = config.dpsGaugeTargetValue
-	ImpactAnalyser.targetHPS = config.hpsGaugeTargetValue
+	-- Ficheiros gravados antes da correcao do DPS podem trazer infinito ou o valor de um
+	-- golpe isolado; sanear aqui evita comparar contra nil/inf em todo o updateWindow.
+	local function finiteOr(value, fallback)
+		if type(value) ~= "number" or value ~= value or value == math.huge or value == -math.huge then
+			return fallback
+		end
+		return value
+	end
+
+	ImpactAnalyser.allTimeHightDps = finiteOr(config.maxDamageImpact, 0)
+	ImpactAnalyser.allTimeHightHps = finiteOr(config.maxHealingImpact, 0)
+	ImpactAnalyser.targetDPS = finiteOr(config.dpsGaugeTargetValue, 1)
+	ImpactAnalyser.targetHPS = finiteOr(config.hpsGaugeTargetValue, 1)
 
 	ImpactAnalyser:checkAnchos()
 end
