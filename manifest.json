@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.97",
-    "generated":  "2026-09-28T14:36:35-03:00",
+    "version":  "15.24.98",
+    "generated":  "2026-09-29T13:02:12-03:00",
     "count":  13495,
     "files":  [
                   {
@@ -63185,8 +63185,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/ImpactAnalyser.lua",
-                      "sha256":  "8d1d7baf5754bec4a253ca60575e929f06a83c1d509c5b7b2dda81bff005dffa",
-                      "size":  20689
+                      "sha256":  "af1370fef060ddb4bbed39081742d48184ecfceb00d8bbc81281fdb895f97201",
+                      "size":  21729
                   },
                   {
                       "path":  "mods/game_analyser/classes/InputAnalyser.lua",
@@ -67475,7 +67475,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "0dcf8026ade824139798af9829c2a081f6ffe4db52a3ac9e93515ce7267e7464",
+                      "sha256":  "60484ded614b884f8087ce0c19cfffc050f80c8c86fd39bc160563783ebf4c4d",
                       "size":  8
                   }
               ]

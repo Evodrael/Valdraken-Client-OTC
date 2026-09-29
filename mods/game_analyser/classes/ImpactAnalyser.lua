@@ -47,6 +47,35 @@ local effectsFiles = {
 	[12] = 'agony',
 }
 
+-- Abrevia todos os valores do painel. Por extenso ("306,581,576 (49.0%)") a linha
+-- estoura a largura do painel: nos Damage Types a percentagem fica cortada, e nos
+-- totais o numero cobre o titulo da linha. Ate 2 casas decimais, sem zeros a
+-- direita: 100K, 1M, 1.85M, 1.2B. Trunca em vez de arredondar, para 999.999 nunca
+-- ser exibido como "1000K". Os tooltips das barras continuam com o valor exacto.
+local abbreviationRanges = {
+	{ 1000000000000000000, "Qi" },
+	{ 1000000000000000, "Q" },
+	{ 1000000000000, "T" },
+	{ 1000000000, "B" },
+	{ 1000000, "M" },
+	{ 1000, "K" },
+}
+
+local function abbreviateNumber(value)
+	value = tonumber(value) or 0
+	local abs = math.abs(value)
+	local sign = value < 0 and "-" or ""
+	for _, range in ipairs(abbreviationRanges) do
+		local divisor, suffix = range[1], range[2]
+		if abs >= divisor then
+			local scaled = math.floor(abs / (divisor / 100)) / 100
+			local text = string.format("%.2f", scaled):gsub("%.?0+$", "")
+			return sign .. text .. suffix
+		end
+	end
+	return formatMoney(value, ",")
+end
+
 local DPS_WINDOW = 10000 -- janela deslizante, em ms
 local DPS_MIN_ELAPSED = 1000 -- divisor minimo, em ms
 
@@ -183,13 +212,13 @@ function ImpactAnalyser:updateWindow(ignoreVisible)
 	ImpactAnalyser:checkAnchos()
 	local contentsPanel = ImpactAnalyser.window.contentsPanel
 
-	contentsPanel.dmg:setText(formatMoney(ImpactAnalyser.damageTotal, ","))
-	contentsPanel.allTimeHigh:setText(formatMoney(ImpactAnalyser.allTimeHightDps, ","))
+	contentsPanel.dmg:setText(abbreviateNumber(ImpactAnalyser.damageTotal))
+	contentsPanel.allTimeHigh:setText(abbreviateNumber(ImpactAnalyser.allTimeHightDps))
 
-	contentsPanel.maxDps:setText(formatMoney(ImpactAnalyser.maxDPS, ","))
-	contentsPanel.dps:setText(formatMoney(curDPS, ","))
+	contentsPanel.maxDps:setText(abbreviateNumber(ImpactAnalyser.maxDPS))
+	contentsPanel.dps:setText(abbreviateNumber(curDPS))
 
-	contentsPanel.targetDps:setText(formatMoney(ImpactAnalyser.targetDPS, ","))
+	contentsPanel.targetDps:setText(abbreviateNumber(ImpactAnalyser.targetDPS))
 	-- movido pro check de 15s
 	contentsPanel.graphDpsPanel:addValue(1, curDPS)
 
@@ -225,7 +254,7 @@ function ImpactAnalyser:updateWindow(ignoreVisible)
 			end
 
 			local percent = (damage * 100) / ImpactAnalyser.damageTotal
-			widget.desc:setText(formatMoney(damage, ",") .. " (" .. string.format("%.1f", percent) .. "%)")
+			widget.desc:setText(abbreviateNumber(damage) .. " (" .. string.format("%.1f", percent) .. "%)")
 			widget.toBeRemoved = false
 		end
 	end
@@ -238,14 +267,14 @@ function ImpactAnalyser:updateWindow(ignoreVisible)
 
 	---------------------------- Healing -------------------------------
 
-	contentsPanel.hpsTotal:setText(formatMoney(ImpactAnalyser.healingTotal, ","))
+	contentsPanel.hpsTotal:setText(abbreviateNumber(ImpactAnalyser.healingTotal))
 
-	contentsPanel.allTimeHighHealing:setText(formatMoney(ImpactAnalyser.allTimeHightHps, ","))
+	contentsPanel.allTimeHighHealing:setText(abbreviateNumber(ImpactAnalyser.allTimeHightHps))
 
-	contentsPanel.maxHps:setText(formatMoney(ImpactAnalyser.maxHPS, ","))
-	contentsPanel.hps:setText(formatMoney(curHealPS, ","))
+	contentsPanel.maxHps:setText(abbreviateNumber(ImpactAnalyser.maxHPS))
+	contentsPanel.hps:setText(abbreviateNumber(curHealPS))
 
-	contentsPanel.targetHps:setText(formatMoney(ImpactAnalyser.targetHPS, ","))
+	contentsPanel.targetHps:setText(abbreviateNumber(ImpactAnalyser.targetHPS))
 	-- movido pro check de 15s
 	contentsPanel.graphHealPanel:addValue(1, curHealPS)
 
