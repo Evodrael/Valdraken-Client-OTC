@@ -94,23 +94,6 @@ HudWindow < Panel
         color: $var-cip-inactive-color
 
     SettingsCheckBox
-      id: showOwnName
-      size: 12 12
-      !text: tr('Show Name')
-      font: $var-cip-font
-      text-auto-resize: true
-      color: $var-text-cip-color
-      text-offset: 14 -2
-      anchors.left: parent.left
-      anchors.top: prev.bottom
-      margin-top: 5
-      margin-left: 20
-      image-source: /images/ui/checkbox
-      image-clip: 0 0 12 12
-      $disabled:
-        color: $var-cip-inactive-color
-
-    SettingsCheckBox
       id: showOwnHealth
       size: 12 12
       !text: tr('Show Health')
@@ -121,7 +104,7 @@ HudWindow < Panel
       anchors.left: parent.left
       anchors.top: prev.bottom
       margin-top: 5
-      margin-left: 20
+      margin-left: 38
       image-source: /images/ui/checkbox
       image-clip: 0 0 12 12
       $disabled:
@@ -130,6 +113,23 @@ HudWindow < Panel
       id: showOwnMana
       size: 12 12
       !text: tr('Show Mana')
+      font: $var-cip-font
+      text-auto-resize: true
+      color: $var-text-cip-color
+      text-offset: 14 -2
+      anchors.left: parent.left
+      anchors.top: prev.bottom
+      margin-top: 5
+      margin-left: 38
+      image-source: /images/ui/checkbox
+      image-clip: 0 0 12 12
+      $disabled:
+        color: $var-cip-inactive-color
+
+    SettingsCheckBox
+      id: showOwnName
+      size: 12 12
+      !text: tr('Show Name')
       font: $var-cip-font
       text-auto-resize: true
       color: $var-text-cip-color

@@ -358,6 +358,26 @@ end
 
 local displayState = 0
 
+-- Repoe (ou esconde) o HUD do proprio personagem. Ao voltar a mostrar, repoe EXATAMENTE
+-- o que esta gravado em Options > Interface > HUD: ciclar a exibicao nunca pode religar
+-- uma barra que o jogador desmarcou.
+local function setOwnHudVisible(gameMapPanel, visible)
+  if not visible then
+    gameMapPanel:setDrawOwnHUD(false)
+    gameMapPanel:setShowArcs(false)
+    return
+  end
+
+  gameMapPanel:setDrawOwnHUD(getOption("ownHUDCharacter"))
+  gameMapPanel:setDrawOwnBars(getOption("showOwnBars"))
+  gameMapPanel:setDrawOwnName(getOption("showOwnName"))
+  gameMapPanel:setDrawOwnHealth(getOption("showOwnHealth"))
+  gameMapPanel:setDrawOwnManaBar(getOption("showOwnMana"))
+  gameMapPanel:setDrawOwnManaShieldBar(getOption("showOwnMana"))
+  gameMapPanel:setDrawHarmonyBar(getOption("showHarmony"))
+  gameMapPanel:setShowArcs(getOption("showHealthManaCircle"))
+end
+
 function toggleDisplays()
   local gameMapPanel = m_interface.getMapPanel()
   displayState = (displayState + 1) % 4
@@ -367,59 +387,22 @@ function toggleDisplays()
     gameMapPanel:setDrawNames(true)
     gameMapPanel:setDrawHealthBars(true)
     gameMapPanel:setDrawManaBar(true)
-    gameMapPanel:setDrawOwnName(true)
-    if getOption("showOwnHealth") then
-      gameMapPanel:setDrawOwnHealth(true)
-    end
-    if getOption("showOwnMana") then
-      gameMapPanel:setDrawOwnManaBar(true)
-      gameMapPanel:setDrawOwnManaShieldBar(true)
-    end
-    if getOption("showHarmony") then
-      gameMapPanel:setDrawHarmonyBar(true)
-    end
-    if getOption("showHealthManaCircle") then
-      gameMapPanel:setShowArcs(true)
-    end
+    setOwnHudVisible(gameMapPanel, true)
   elseif displayState == 1 then
     -- Ocultar own
-    gameMapPanel:setDrawOwnName(false)
-    gameMapPanel:setDrawOwnHealth(false)
-    gameMapPanel:setDrawOwnManaBar(false)
-    gameMapPanel:setDrawOwnManaShieldBar(false)
-    gameMapPanel:setShowArcs(false)
+    setOwnHudVisible(gameMapPanel, false)
   elseif displayState == 2 then
     -- Ocultar others e mostrar own
     gameMapPanel:setDrawNames(false)
     gameMapPanel:setDrawHealthBars(false)
     gameMapPanel:setDrawManaBar(false)
-    gameMapPanel:setDrawOwnName(true)
-    if getOption("showOwnHealth") then
-      gameMapPanel:setDrawOwnHealth(true)
-    end
-    if getOption("showOwnMana") then
-      gameMapPanel:setDrawOwnManaBar(true)
-      gameMapPanel:setDrawOwnManaShieldBar(true)
-    end
-    if getOption("showHealthManaCircle") then
-      gameMapPanel:setShowArcs(true)
-    end
+    setOwnHudVisible(gameMapPanel, true)
   elseif displayState == 3 then
     -- Ocultar tudo
     gameMapPanel:setDrawNames(false)
     gameMapPanel:setDrawHealthBars(false)
     gameMapPanel:setDrawManaBar(false)
-    gameMapPanel:setDrawOwnName(false)
-    if getOption("showOwnHealth") then
-      gameMapPanel:setDrawOwnHealth(false)
-    end
-    if getOption("showOwnMana") then
-      gameMapPanel:setDrawOwnManaBar(false)
-      gameMapPanel:setDrawOwnManaShieldBar(false)
-    end
-    if getOption("showHealthManaCircle") then
-      gameMapPanel:setShowArcs(false)
-    end
+    setOwnHudVisible(gameMapPanel, false)
   end
 end
 

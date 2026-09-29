@@ -1,3 +1,35 @@
+-- HUD do proprio personagem: "Show HUD for Own Character" e o pai de todos, e
+-- "Show Bars" e o pai de "Show Health"/"Show Mana". Reaplicado no apply (abrir o
+-- cliente / confirmar) e no tempApply (clicar antes de confirmar), porque o estado
+-- mostrado tem de bater com o que o C++ vai desenhar.
+local OWN_HUD_CHILDREN = { "showOwnBars", "showOwnName", "showOwnHealth", "showOwnMana", "showHarmony" }
+local OWN_BARS_CHILDREN = { "showOwnHealth", "showOwnMana" }
+
+local function setOwnHudChildrenEnabled(ids, enabled)
+    -- selectedWindow so existe com as opcoes abertas; no arranque o painel ainda nao
+    -- foi carregado e nao ha nada para pintar.
+    local window = GameOptions:getLoadedWindow("hud") or selectedWindow
+    if not window then
+        return true
+    end
+
+    for _, id in ipairs(ids) do
+        local widget = window:recursiveGetChildById(id)
+        if widget then
+            widget:setEnabled(enabled)
+        end
+    end
+    return true
+end
+
+local function ownHudMasterEnabled()
+    local tmp = TempOptions:getOption("ownHUDCharacter")
+    if tmp ~= nil then
+        return tmp
+    end
+    return GameOptions:getOption("ownHUDCharacter")
+end
+
 local function callVoip(method, ...)
     if g_voip and g_voip[method] then
         local ok, result = pcall(g_voip[method], ...)
@@ -1323,15 +1355,20 @@ return {
         apply = function(value)
             local gameMapPanel = m_interface.getMapPanel()
             gameMapPanel:setDrawOwnHUD(value)
+            setOwnHudChildrenEnabled(OWN_HUD_CHILDREN, value)
+            if value then
+                setOwnHudChildrenEnabled(OWN_BARS_CHILDREN, GameOptions:getOption("showOwnBars"))
+            end
             return true
         end,
         tempApply = function(value)
-            local huds = {"showOwnBars", "showOwnName", "showOwnHealth", "showOwnMana"}
-            for _, hud in pairs(huds) do
-              local showHud = selectedWindow:recursiveGetChildById(hud)
-              if showHud then
-                showHud:setEnabled(value)
-              end
+            setOwnHudChildrenEnabled(OWN_HUD_CHILDREN, value)
+            if value then
+                local bars = TempOptions:getOption("showOwnBars")
+                if bars == nil then
+                    bars = GameOptions:getOption("showOwnBars")
+                end
+                setOwnHudChildrenEnabled(OWN_BARS_CHILDREN, bars)
             end
             return true
         end,
@@ -1508,7 +1545,11 @@ return {
         apply = function(value)
             local gameMapPanel = m_interface.getMapPanel()
             gameMapPanel:setDrawOwnBars(value)
+            setOwnHudChildrenEnabled(OWN_BARS_CHILDREN, value and GameOptions:getOption("ownHUDCharacter"))
             return true
+        end,
+        tempApply = function(value)
+            return setOwnHudChildrenEnabled(OWN_BARS_CHILDREN, value and ownHudMasterEnabled())
         end,
 	},
 

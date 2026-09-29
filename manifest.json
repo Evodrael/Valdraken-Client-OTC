@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.98",
-    "generated":  "2026-09-29T13:02:12-03:00",
+    "version":  "15.24.99",
+    "generated":  "2026-09-29T20:31:57-03:00",
     "count":  13495,
     "files":  [
                   {
@@ -62945,8 +62945,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/dataset.lua",
-                      "sha256":  "9d34de2586c02c448981e7c9e7307e1fca1c6b7e8168b0903ee2f06ea2dc76a4",
-                      "size":  70688
+                      "sha256":  "e7b8cb21e21feaad316821bfb64b9c8da2641fc208ae052d29a9a5644bb75ca7",
+                      "size":  72363
                   },
                   {
                       "path":  "mods/client_settings/classes/GameOptions.lua",
@@ -63040,7 +63040,7 @@
                   },
                   {
                       "path":  "mods/client_settings/options/hud.otui",
-                      "sha256":  "da75c20c3f75272e827930e3a5a5043c7d7025fb323cb045bd78ca8fb949cbe3",
+                      "sha256":  "1938f17a9b3662ebc25a79ec8228eabef3a9578b7d3c8b83ebc9a68569eeefa2",
                       "size":  18243
                   },
                   {
@@ -63075,8 +63075,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "321f6497ab2ff5177d33f568c24242e9e2dbef85250cfbf8bac9582fa637e378",
-                      "size":  86720
+                      "sha256":  "dff10f8b69d9fa98d675b826252fbdb9e447e0278715a3697b84f6e820d09593",
+                      "size":  86388
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -67465,17 +67465,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "03cc3e1e57e5eed822760c46e55b55b6d0f2bbe0a94d9fbae504e0126bc85292",
-                      "size":  37006848
+                      "sha256":  "0133db0fe6518ff92cd8bdd6aa10d142e4261e834b29d49d765f397ece3b0aff",
+                      "size":  37007360
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "6967554381b6a5a0a45eeba06fee993ebc83e0bce81762e912dd84b387fcab06",
-                      "size":  29146112
+                      "sha256":  "2ff5d58210327cbac0112fe7a7bbea5bd4d44f81c922b1ec6512e849e6eddb86",
+                      "size":  29146624
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "60484ded614b884f8087ce0c19cfffc050f80c8c86fd39bc160563783ebf4c4d",
+                      "sha256":  "4938b1a60734bb4d4aab94c6c231ba90fac3ddefe624ab66e891d8b6c8a3b61b",
                       "size":  8
                   }
               ]
