@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.103",
-    "generated":  "2026-10-01T01:45:49-03:00",
+    "version":  "15.24.104",
+    "generated":  "2026-10-01T12:25:31-03:00",
     "count":  13496,
     "files":  [
                   {
@@ -67470,17 +67470,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "0133db0fe6518ff92cd8bdd6aa10d142e4261e834b29d49d765f397ece3b0aff",
-                      "size":  37007360
+                      "sha256":  "eaf910548c83f2ccb74210255e30cec9656defb718c39e5b5cc79456d0a54dc0",
+                      "size":  37006336
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "2ff5d58210327cbac0112fe7a7bbea5bd4d44f81c922b1ec6512e849e6eddb86",
-                      "size":  29146624
+                      "sha256":  "4624dfb69a12ba2ec3e40323744b745fa3406cb9d84c23e3b648d58274fc5079",
+                      "size":  29146112
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "25f48ea9e19cf1d176cce5d12c1bb88c420b9d09ed09848671cecccb7d08878e",
+                      "sha256":  "d3963f68c95ecee85461bac81a9eceb7ef8f3556858b0cdbfee8eda22e840486",
                       "size":  9
                   }
               ]
