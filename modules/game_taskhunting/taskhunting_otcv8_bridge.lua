@@ -76,15 +76,27 @@ local function fireBounty()
 end
 
 -- OTCV8 only exposes the talisman's *current bonus value* (in hundredths of a
--- %). Luminaris's taskhunting_bounty.lua needs the *level* (an integer 0..N)
--- to compute the next-step bonus. Invert the formula:
---   pathIndex 0..2: bonus = 250 + level*50
---   pathIndex 3   : bonus = 500 + level*100
+-- %). Luminaris's taskhunting_bounty.lua needs the *level* (an integer 0..N).
+-- Invert the server's two-segment curve (IOBountyTasks::getTalismanBonusHundredths):
+--   pathIndex 0..2: L1=250, +50/level ate 1500 (L26), depois +25/level ate 5000
+--   pathIndex 3   : +100/level ate 2000 (L20), depois +50/level ate 10000
+-- A versao antiga assumia uma recta unica com um degrau a mais, por isso todos
+-- os niveis 0..5 do path 3 voltavam como nivel 0 e a UI mostrava sempre 5.00%.
 local function levelFromTalismanValue(currentValue, pathIndex)
+    local value = currentValue or 0
+    if value <= 0 then return 0 end
+
     if pathIndex <= 2 then
-        return math.max(0, math.floor(((currentValue or 250) - 250) / 50))
+        if value <= 1500 then
+            return math.max(0, math.floor((value - 250) / 50) + 1)
+        end
+        return math.floor((value - 1500) / 25) + 26
     end
-    return math.max(0, math.floor(((currentValue or 500) - 500) / 100))
+
+    if value <= 2000 then
+        return math.floor(value / 100)
+    end
+    return math.floor((value - 2000) / 50) + 20
 end
 
 local function aliasTalismanFields(talismans)

@@ -198,15 +198,27 @@ local TALISMAN_NAMES = {
 local TALISMAN_LABELS = { 'damageLabel', 'lifeLeechLabel', 'lootLabel', 'bestiaryLabel' }
 local TALISMAN_BTNS   = { 'talismanBtn1', 'talismanBtn2', 'talismanBtn3', 'talismanBtn4' }
 local TALISMAN_PANELS = { 'talismanInfoPanel1', 'talismanInfoPanel2', 'talismanInfoPanel3', 'talismanInfoPanel4' }
-local TALISMAN_BASE   = { [0]=250, [1]=250, [2]=250, [3]=500 }
-
+-- Espelho exacto de IOBountyTasks::getTalismanBonusHundredths (servidor):
+--   paths 0-2: L1=2.50%, +0.50%/nivel ate 15.00% (L26), +0.25%/nivel ate 50% (L166)
+--   path 3   : +1.00%/nivel ate 20.00% (L20), +0.50%/nivel ate 100% (L180)
+-- Nivel 0 vale 0% - antes do primeiro upgrade nao ha bonus nenhum. A formula
+-- antiga ("base + level * passo") somava um degrau fantasma e era linear, por
+-- isso mentia no comeco da escada e depois do joelho da curva.
 local function getTalismanBonusHundredths(level, pathIndex)
-    local base = TALISMAN_BASE[pathIndex] or 250
+    level = level or 0
+    if level <= 0 then return 0 end
+
     if pathIndex <= 2 then
-        return math.min(base + level * 50, 5000)
-    else
-        return math.min(base + level * 100, 10000)
+        if level <= 26 then
+            return 250 + (level - 1) * 50
+        end
+        return math.min(1500 + (level - 26) * 25, 5000)
     end
+
+    if level <= 20 then
+        return level * 100
+    end
+    return math.min(2000 + (level - 20) * 50, 10000)
 end
 
 local function formatBonus(hundredths)
@@ -223,7 +235,9 @@ function updateTalismanUI()
             local cost    = tier.bountyPointsToUpgrade
             local pathIdx = i - 1
 
-            local currentBonus = getTalismanBonusHundredths(level, pathIdx)
+            -- O parser C++ ja manda o bonus exacto em centesimos de % em
+            -- currentValue/nextValue; a formula local so entra como fallback.
+            local currentBonus = tier.currentValue or getTalismanBonusHundredths(level, pathIdx)
 
             local lbl = taskBoardWindow:recursiveGetChildById(TALISMAN_LABELS[i])
             if lbl then
@@ -236,7 +250,10 @@ function updateTalismanUI()
                     btn:setText('Upgrade (Max)')
                     btn:setEnabled(false)
                 else
-                    local afterBonus = getTalismanBonusHundredths(level + 1, pathIdx)
+                    local afterBonus = tier.nextValue
+                    if not afterBonus or afterBonus == 0 then
+                        afterBonus = getTalismanBonusHundredths(level + 1, pathIdx)
+                    end
                     btn:setText('Upgrade (' .. formatBonus(afterBonus) .. ')')
                     btn:setEnabled(true)
                 end

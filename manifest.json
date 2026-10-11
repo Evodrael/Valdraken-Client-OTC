@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.107",
-    "generated":  "2026-10-07T03:06:21-03:00",
+    "version":  "15.24.108",
+    "generated":  "2026-10-11T20:26:50-03:00",
     "count":  13499,
     "files":  [
                   {
@@ -67110,18 +67110,18 @@
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting.otui",
-                      "sha256":  "95e37b8218829062d87a0f5a91075266bed68eea37d456949e8db143fecde027",
+                      "sha256":  "b3b7acbc995b16dcc0db71cfbbbba7192b0e96d6459e279b9eed36b90c37ae57",
                       "size":  81083
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_bounty.lua",
-                      "sha256":  "4cc95a913177a6df857afd527f3292249d84db1fc48a6aeda3a485f3afc9d7ff",
-                      "size":  13907
+                      "sha256":  "a6e89ccc589ae9358efeee7a558cb4e40d875021cbac2298757eb58c3b4e2ae1",
+                      "size":  14765
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_otcv8_bridge.lua",
-                      "sha256":  "8989682c56a5268f4293865f84c94b1985531e4f3eedc512189cb43f246a41fb",
-                      "size":  30861
+                      "sha256":  "b96ba2c7b48d8ca41f432b63685aaeb5b636b40251f0a4c72d47c2588fbf9e35",
+                      "size":  31329
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_preferred.lua",
@@ -67495,7 +67495,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "6ab54eec34bbdafe3a0f494d8ca0f190e277de3bc9f1e9984f7dc82bde441f4b",
+                      "sha256":  "7995ced19c1eb6fad65912247030ddb084cad3b7ab7cf128449cc4bab68d814f",
                       "size":  9
                   }
               ]

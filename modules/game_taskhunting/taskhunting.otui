@@ -1210,7 +1210,7 @@ NewMainWindow
 
       Label
         id: bestiaryLabel
-        !text: tr('Change for Double\nBestiary Progress\nCurrent:')
+        !text: tr('Chance for Double\nBestiary Progress\nCurrent:')
         font: $var-cip-font
         color: $var-text-cip-color
         anchors.top: bestiaryIcon.top
