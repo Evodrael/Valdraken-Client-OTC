@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.108",
-    "generated":  "2026-10-11T20:26:50-03:00",
+    "version":  "15.24.109",
+    "generated":  "2026-10-12T19:51:16-03:00",
     "count":  13499,
     "files":  [
                   {
@@ -14235,8 +14235,8 @@
                   },
                   {
                       "path":  "data/json/markers.json",
-                      "sha256":  "911cf563fd0d2645c682adce67f0179fbaf33c62c74dd17f84563af951cdebb3",
-                      "size":  590979
+                      "sha256":  "777cea2c46d11973a189d07b8bd175dc7bc04cb29afff6b7cc2d78e7a749a0b3",
+                      "size":  4718
                   },
                   {
                       "path":  "data/json/offsets.json",
@@ -67495,7 +67495,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "7995ced19c1eb6fad65912247030ddb084cad3b7ab7cf128449cc4bab68d814f",
+                      "sha256":  "9f0ee9395241450c552b16b3d81cb0fea460d7eddc3b9b4fd19a104250306674",
                       "size":  9
                   }
               ]
