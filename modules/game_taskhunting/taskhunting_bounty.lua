@@ -198,27 +198,51 @@ local TALISMAN_NAMES = {
 local TALISMAN_LABELS = { 'damageLabel', 'lifeLeechLabel', 'lootLabel', 'bestiaryLabel' }
 local TALISMAN_BTNS   = { 'talismanBtn1', 'talismanBtn2', 'talismanBtn3', 'talismanBtn4' }
 local TALISMAN_PANELS = { 'talismanInfoPanel1', 'talismanInfoPanel2', 'talismanInfoPanel3', 'talismanInfoPanel4' }
--- Espelho exacto de IOBountyTasks::getTalismanBonusHundredths (servidor):
---   paths 0-2: L1=2.50%, +0.50%/nivel ate 15.00% (L26), +0.25%/nivel ate 50% (L166)
---   path 3   : +1.00%/nivel ate 20.00% (L20), +0.50%/nivel ate 100% (L180)
--- Nivel 0 vale 0% - antes do primeiro upgrade nao ha bonus nenhum. A formula
--- antiga ("base + level * passo") somava um degrau fantasma e era linear, por
--- isso mentia no comeco da escada e depois do joelho da curva.
+-- Espelho exacto de IOBountyTasks::getTalismanBonusHundredths (servidor), que por
+-- sua vez espelha a escada do client Global - esse e um binario da CipSoft e nao
+-- se mexe, por isso e ele que manda (ver 2026-10-12: o mesmo talisman de loot
+-- nivel 46 lia 20.00% aqui e 17.75% la):
+--   paths 0-2: base 2.50% ao nivel 0, +0.50%/nivel nos primeiros 15 niveis
+--              (10.00% ao L15), depois +0.25%/nivel ate ao tecto de 50% (L175)
+--   path 3   : base 5.00% ao nivel 0, +1.00%/nivel nos primeiros 15 niveis
+--              (20.00% ao L15), depois +0.50%/nivel ate 100% (L175)
+-- O nivel 0 vale a base, nao zero: um talisman por melhorar ja da 2.5% / 5%.
+local TALISMAN_FIRST_TIER_LEVELS = 15
+-- Nivel onde a escada chega ao tecto (50% / 100%), igual ao getTalismanMaxLevel do
+-- servidor. So e preciso para o talisman ja maxado, onde o custo vem a zero.
+local TALISMAN_MAX_LEVEL = 175
+
 local function getTalismanBonusHundredths(level, pathIndex)
-    level = level or 0
-    if level <= 0 then return 0 end
+    level = math.max(level or 0, 0)
+
+    local firstTierSteps = math.min(level, TALISMAN_FIRST_TIER_LEVELS)
+    local secondTierSteps = math.max(level - TALISMAN_FIRST_TIER_LEVELS, 0)
 
     if pathIndex <= 2 then
-        if level <= 26 then
-            return 250 + (level - 1) * 50
-        end
-        return math.min(1500 + (level - 26) * 25, 5000)
+        return math.min(250 + firstTierSteps * 50 + secondTierSteps * 25, 5000)
+    end
+    return math.min(500 + firstTierSteps * 100 + secondTierSteps * 50, 10000)
+end
+
+-- O nivel verdadeiro sai do CUSTO, que o servidor manda pronto no pacote:
+-- IOBountyTasks::getTalismanUpgradeCost e sempre `5 + nivel * 12`.
+-- Nao usar o currentValue nem o multiplier1 invertido pelo bridge: os dois saem da
+-- escada que estava compilada no C++ DESTE .exe no dia do build, e o binario
+-- publicado ainda tem a escada velha (joelho no L26) - inflaciona 2.25% a meio da
+-- curva e satura qualquer nivel >= 166 no tecto. Pelo custo o rotulo fica certo em
+-- qualquer binario, antes e depois de o client ser recompilado.
+local function getTalismanLevel(tier)
+    local cost = tier.bountyPointsToUpgrade or tier.upgradeCost or 0
+    if cost == 0 or tier.isActivedUpgrade == 0 then
+        return TALISMAN_MAX_LEVEL
     end
 
-    if level <= 20 then
-        return level * 100
+    local level = (cost - 5) / 12
+    if cost >= 5 and level == math.floor(level) then
+        return level
     end
-    return math.min(2000 + (level - 20) * 50, 10000)
+
+    return tier.multiplier1 or 0
 end
 
 local function formatBonus(hundredths)
@@ -231,13 +255,11 @@ function updateTalismanUI()
     for i = 1, 4 do
         local tier = cachedTalismans[i]
         if tier then
-            local level   = tier.multiplier1
+            local level   = getTalismanLevel(tier)
             local cost    = tier.bountyPointsToUpgrade
             local pathIdx = i - 1
 
-            -- O parser C++ ja manda o bonus exacto em centesimos de % em
-            -- currentValue/nextValue; a formula local so entra como fallback.
-            local currentBonus = tier.currentValue or getTalismanBonusHundredths(level, pathIdx)
+            local currentBonus = getTalismanBonusHundredths(level, pathIdx)
 
             local lbl = taskBoardWindow:recursiveGetChildById(TALISMAN_LABELS[i])
             if lbl then
@@ -250,10 +272,7 @@ function updateTalismanUI()
                     btn:setText('Upgrade (Max)')
                     btn:setEnabled(false)
                 else
-                    local afterBonus = tier.nextValue
-                    if not afterBonus or afterBonus == 0 then
-                        afterBonus = getTalismanBonusHundredths(level + 1, pathIdx)
-                    end
+                    local afterBonus = getTalismanBonusHundredths(level + 1, pathIdx)
                     btn:setText('Upgrade (' .. formatBonus(afterBonus) .. ')')
                     btn:setEnabled(true)
                 end
