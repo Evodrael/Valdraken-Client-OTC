@@ -48,7 +48,7 @@ UIWidget
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.right: parent.right
-    height: 280
+    height: 256
     color: #92ff92ff
     text-align: center
     !text: 'AFK Bot use is allowed.\nYou may have up to 4 MCs as long as each one is in a different hunt.'
@@ -627,6 +627,45 @@ UIWidget
           $disabled:
             opacity: 0.5
 
+        TextEdit
+          id: delayAt
+          anchors.right: parent.right
+          anchors.top: resumeAtLabel.bottom
+          margin-right: 17
+          margin-top: 8
+          width: 40
+          !placeholder: '0'
+          placeholder-font: cipsoftFont
+          color: #C0C0C0
+
+          $disabled:
+            color: #C0C0C0
+            opacity: 0.5
+            change-cursor-image: false
+
+        UIWidget
+          id: delayHelp
+          anchors.right: parent.right
+          anchors.verticalCenter: delayAt.verticalCenter
+          color: #C0C0C0
+          image-source: /images/icons/show_gui_help_grey
+          size: 12 12
+
+        UIWidget
+          id: delayAtLabel
+          font: verdana-11px-antialised
+          !text: 'Delay (ms):'
+          text-align: left
+          phantom: true
+          anchors.verticalCenter: delayAt.verticalCenter
+          anchors.left: parent.left
+          margin-left: 5
+          color: #C0C0C0
+          opacity: 1
+
+          $disabled:
+            opacity: 0.5
+
         QtButton
           id: overwriteToAll
           anchors.right: parent.right
@@ -648,7 +687,7 @@ UIWidget
         QtCheckBox
           id: lure
           anchors.left: parent.left
-          anchors.top: resumeAtLabel.bottom
+          anchors.top: delayAtLabel.bottom
           margin-top: 12
           margin-left: 5
           !text: 'Speed between nodes'

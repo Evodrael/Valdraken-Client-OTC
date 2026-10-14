@@ -77,26 +77,28 @@ end
 
 -- OTCV8 only exposes the talisman's *current bonus value* (in hundredths of a
 -- %). Luminaris's taskhunting_bounty.lua needs the *level* (an integer 0..N).
--- Invert the server's two-segment curve (IOBountyTasks::getTalismanBonusHundredths):
---   pathIndex 0..2: L1=250, +50/level ate 1500 (L26), depois +25/level ate 5000
---   pathIndex 3   : +100/level ate 2000 (L20), depois +50/level ate 10000
--- A versao antiga assumia uma recta unica com um degrau a mais, por isso todos
--- os niveis 0..5 do path 3 voltavam como nivel 0 e a UI mostrava sempre 5.00%.
+-- Invert the curve of getTaskBoardTalismanBonusHundredths (protocolgameparse.cpp),
+-- which mirrors IOBountyTasks::getTalismanBonusHundredths on the server:
+--   pathIndex 0..2: base 250 ao L0, +50/nivel ate 1000 (L15), depois +25/nivel
+--   pathIndex 3   : base 500 ao L0, +100/nivel ate 2000 (L15), depois +50/nivel
+-- ESTA FUNCAO TEM DE ACOMPANHAR O .exe, nao o servidor: inverte o que o C++
+-- *deste* client calculou. Mudar a escada obriga a mexer nos dois ao mesmo tempo
+-- e a publicar os binarios no mesmo release.
 local function levelFromTalismanValue(currentValue, pathIndex)
     local value = currentValue or 0
     if value <= 0 then return 0 end
 
     if pathIndex <= 2 then
-        if value <= 1500 then
-            return math.max(0, math.floor((value - 250) / 50) + 1)
+        if value <= 1000 then
+            return math.max(0, math.floor((value - 250) / 50))
         end
-        return math.floor((value - 1500) / 25) + 26
+        return math.floor((value - 1000) / 25) + 15
     end
 
     if value <= 2000 then
-        return math.floor(value / 100)
+        return math.max(0, math.floor((value - 500) / 100))
     end
-    return math.floor((value - 2000) / 50) + 20
+    return math.floor((value - 2000) / 50) + 15
 end
 
 local function aliasTalismanFields(talismans)

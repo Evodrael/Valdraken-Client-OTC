@@ -303,12 +303,15 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
 - **Config do waypoint selecionado**:
   - **Stop if / Parar se**: para o movimento se encontrar X monstros no campo de visão.
   - **Walk again if / Voltar a andar se**: retoma se o nº de monstros for ≤ valor (0 = respeita só o "Stop if").
+  - **Delay (ms)** (`waypoint.delay`): tempo que o personagem fica **parado neste node**
+    depois de chegar nele, antes de andar para o próximo. 0 (ou vazio) = segue direto,
+    que é o comportamento antigo. Máximo 60000 (1 min), com clamp no Lua e no C++.
   - **Velocidade entre os nodes** (`waypoint.lure`): liga/desliga a velocidade custom do node.
     Marcado usa o valor do slider; desmarcado usa a velocidade padrão (5).
   - **Velocidade** (`waypoint.speed`): valor 1–20 usado como alcance do `findPath` entre os
     nodes (maior = alcança nodes mais distantes por passo).
 
-> **Estas quatro configs são do motor (C++), não do Lua.** O Lua só as envia em
+> **Estas cinco configs são do motor (C++), não do Lua.** O Lua só as envia em
 > `g_minibot.registerWalkWaypoint(point)`; quem decide é o `processCaveBot` em
 > `src/client/minibotmanager.cpp`. **Mexer nelas exige recompilar o exe.**
 >
@@ -322,6 +325,16 @@ Grava e reproduz uma rota por **waypoints**. Componentes:
 >   O motor continua sem ler `lure`; a decisão fica no Lua: `resolveNodeSpeed` envia `waypoint.speed`
 >   quando `lure` está marcado, senão envia a velocidade padrão (`DEFAULT_NODE_SPEED = 5`). O
 >   `findPath` usa esse valor como alcance. (O `lure` do **Explorer** — `cfg.use` — é outra coisa.)
+> - **`waypoint.delay` (out/2026) é a espera de verdade entre nodes**, em ms. Não confundir com a
+>   "Velocidade entre os nodes": aquela só mexe no alcance do `findPath` e nunca parou ninguém,
+>   apesar do que o tooltip dela promete. O `processCaveBot` segura o node assim que a chegada é
+>   detectada (`m_waypointHoldIndex` / `m_waypointHoldUntil`) e só então avança o `m_currentWalkIndex`.
+>   A espera é amarrada ao **índice** do node, então `setCurrentWalkIndex` (clique na lista ou no mapa),
+>   `resetRecorderSession` e `reset` a cancelam. A resolução real é o ciclo do minibot (200ms) e a
+>   primeira detecção pode somar o resto do throttle de 700ms do `processCaveBot` — pedir 300ms dá
+>   na prática algo entre 300ms e ~1s.
+> - **O código de exportação continua na versão 1**: `delay` é aditivo e `resolveNodeDelay` trata
+>   `nil` como 0, então rotas exportadas antes do campo existir importam sem aviso de versão.
   - **Overwrite to all / Alterar para todos**: aplica a config deste waypoint a todos.
 - **Import/Export**: rota exportável por código (versão via `getExportCodeVersion()`).
 

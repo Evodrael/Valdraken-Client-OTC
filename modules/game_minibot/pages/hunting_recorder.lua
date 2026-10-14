@@ -26,6 +26,31 @@ local function resolveNodeSpeed(waypoint)
     return DEFAULT_NODE_SPEED
 end
 
+-- Espera (ms) que o personagem fica parado no node depois de chegar nele, antes de
+-- seguir para o proximo. 0 = sem espera. Sessoes antigas (e codigos exportados antes
+-- do campo existir) nao tem 'delay', por isso o nil-safe aqui.
+local MAX_NODE_DELAY = 60000
+
+local function clampNodeDelay(value)
+    local delay = tonumber(value) or 0
+    if delay < 0 then
+        return 0
+    end
+    if delay > MAX_NODE_DELAY then
+        return MAX_NODE_DELAY
+    end
+    return math.floor(delay)
+end
+
+local function resolveNodeDelay(waypoint)
+    return clampNodeDelay(waypoint['delay'])
+end
+
+-- Le o campo de delay do painel do node selecionado (vazio = 0).
+local function readDelayField()
+    return clampNodeDelay(huntingWaypointsWindow.settings.main.selected.delayAt:getText())
+end
+
 local function enableWaypointDragBehavior(widget)
     if widget == nil then
         return
@@ -371,6 +396,8 @@ function hunting_recorderModule.reloadLanguage(language)
         huntingWaypointsWindow.settings.main.noNodeSelected:setText('Voce deve selecionar um waypoint\nno mapa ou lista\npara edita-lo.')
         huntingWaypointsWindow.settings.main.selected.stopAtLabel:setText('Parar se:')
         huntingWaypointsWindow.settings.main.selected.resumeAtLabel:setText('Voltar a andar se:')
+        huntingWaypointsWindow.settings.main.selected.delayAtLabel:setText('Delay (ms):')
+        huntingWaypointsWindow.settings.main.selected.delayHelp:setTooltip('Tempo que o personagem fica parado NESTE waypoint depois de chegar nele, antes de andar para o proximo. O valor e em milissegundos: 1000 = 1 segundo. Deixar 0 (ou vazio) faz ele seguir direto, como antes. Maximo de 60000 (1 minuto).')
         huntingWaypointsWindow.settings.main.selected.stopHelp:setTooltip('Configurar um valor para que quando o personagem estiver nesse waypoint, ele podera parar o movimento caso encontre X monstros no seu alcance de visao.')
         huntingWaypointsWindow.settings.main.selected.resumeHelp:setTooltip('Configurar um valor para que quando o personagem estiver parado nesse waypoint pela configuracao anterior, ele podera retomar o movimento caso a quanntidade de monstros no seu alcance de visao seja menor ou igual a esse valor. Deixar o valor 0 fara ele respeitar apenas o valor de parada acima.')
         huntingWaypointsWindow.settings.main.selected.lure:setText('Velocidade entre os nodes')
@@ -388,6 +415,8 @@ function hunting_recorderModule.reloadLanguage(language)
         huntingWaypointsWindow.settings.main.noNodeSelected:setText('You must select a node\non the map or list\nto edit it.')
         huntingWaypointsWindow.settings.main.selected.stopAtLabel:setText('Stop if:')
         huntingWaypointsWindow.settings.main.selected.resumeAtLabel:setText('Walk again if:')
+        huntingWaypointsWindow.settings.main.selected.delayAtLabel:setText('Delay (ms):')
+        huntingWaypointsWindow.settings.main.selected.delayHelp:setTooltip('How long the character waits on THIS waypoint after reaching it, before walking to the next one. The value is in milliseconds: 1000 = 1 second. Leaving it at 0 (or empty) makes him move on right away, as before. Maximum of 60000 (1 minute).')
         huntingWaypointsWindow.settings.main.selected.stopHelp:setTooltip('Set a value so that when the character is at this waypoint, he can stop movement if he finds X monsters in his line of sight.')
         huntingWaypointsWindow.settings.main.selected.resumeHelp:setTooltip('Set a value so that when the character is stopped at this waypoint according to the previous configuration, they can resume movement if the number of monsters in their line of sight is less than or equal to this value. Leaving the value at 0 will make it respect only the above stopping value.')
         huntingWaypointsWindow.settings.main.selected.lure:setText('Speed between nodes')
@@ -551,7 +580,8 @@ function hunting_recorderModule.reloadInternalModule()
             lure = waypoint['lure'],
             index = waypoint['index'],
             teleport = waypoint['teleport'],
-            speed = resolveNodeSpeed(waypoint)
+            speed = resolveNodeSpeed(waypoint),
+            delay = resolveNodeDelay(waypoint)
         }
 
         g_minibot.registerWalkWaypoint(point)
@@ -1066,6 +1096,32 @@ function hunting_recorderModule.internalSelectWaypoint(widget, index, ignoreList
                 end
             end
 
+            huntingWaypointsWindow.settings.main.selected.delayAt.onTextChange = nil
+            huntingWaypointsWindow.settings.main.selected.delayAt:setText(resolveNodeDelay(waypoint))
+            huntingWaypointsWindow.settings.main.selected.delayAt.onTextChange = function()
+                local cSession2 = hunting_recorderModule.getSessionSettings()
+                if cSession2['waypoints'] == nil then
+                    cSession2['waypoints'] = {}
+                end
+
+                local list = {}
+                local newDelay = readDelayField()
+                for _, waypoint2 in pairs(cSession2['waypoints']) do
+                    if waypoint2['index'] == index then
+                        waypoint2['delay'] = newDelay
+                    end
+                    table.insert(list, waypoint2)
+                end
+
+                cSession2['waypoints'] = list
+                hunting_recorderModule.setSessionSettings(cSession2)
+                local selectedIndex = g_minibot.getCurrentWalkIndex()
+                hunting_recorderModule.reloadInternalModule()
+                if not g_minibot.isModuleToggle(5) then
+                    g_minibot.setCurrentWalkIndex(selectedIndex)
+                end
+            end
+
             huntingWaypointsWindow.settings.main.selected.overwriteToAll.onLeftClick = function()
                 modules.game_minibot.internalToggle(false)
 
@@ -1099,6 +1155,8 @@ function hunting_recorderModule.internalSelectWaypoint(widget, index, ignoreList
                             newValue = tonumber(huntingWaypointsWindow.settings.main.selected.resumeAt:getText()) or 0
                         end
                         waypoint2['resume'] = newValue
+
+                        waypoint2['delay'] = readDelayField()
 
                         waypoint2['lure'] = huntingWaypointsWindow.settings.main.selected.lure:isChecked()
                         waypoint2['speed'] = huntingWaypointsWindow.settings.main.selected.lureSpeedScroll:getValue()
@@ -1324,6 +1382,7 @@ function hunting_recorderModule.insertWaypointOnPos(waypointPosition, isTeleport
     waypoint['resume'] = 0
     waypoint['lure'] = false
     waypoint['speed'] = 5
+    waypoint['delay'] = 0
     waypoint['teleport'] = isTeleport
     waypoint['index'] = newIndex
     table.insert(list, waypoint)
@@ -1337,6 +1396,7 @@ function hunting_recorderModule.insertWaypointOnPos(waypointPosition, isTeleport
         resume = waypoint['resume'],
         lure = waypoint['lure'],
         speed = resolveNodeSpeed(waypoint),
+        delay = resolveNodeDelay(waypoint),
         index = waypoint['index'],
         teleport = waypoint['teleport']
     }
