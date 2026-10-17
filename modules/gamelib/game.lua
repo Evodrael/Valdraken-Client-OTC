@@ -183,6 +183,13 @@ function g_game.requestSelectCharacterTitle(titleId)
     g_game.requestSetCharacterTitle(titleId)
 end
 
+-- ATENCAO: estas tabelas sao indexadas pelo *clientid* da vocacao, que e' o que
+-- o motor envia no pacote 0x9F (protocolgame.cpp, sendBasicData:
+-- msg.addByte(vocation->getClientId())), e NAO pelo id de data/XML/vocations.xml.
+-- No Valdraken o id do servidor e' outro (1 Sorcerer .. 4 Knight, 5-8 as
+-- promocoes, 9/10 Monk/Exalted Monk) e o clientid remapeia para o esquema
+-- classico abaixo. Trocar estes indices pelos ids do servidor quebra tambem
+-- isKnight()/isMonk()/... em gamelib/creature.lua, que usam os mesmos valores.
 local vocationNames = {
     [1] = "Knight",
     [2] = "Paladin",

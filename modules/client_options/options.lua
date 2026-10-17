@@ -154,6 +154,9 @@ function online()
 	-- personagem. Aplicar aqui, incondicionalmente, um perfil "Nome - Vocacao"
 	-- sobrescrevia essa troca e fazia a opcao "nao funcionar". So aplicamos o
 	-- perfil por personagem quando o auto-switch por nome esta DESLIGADO.
+	-- (applyCharacterHotkeyProfile hoje apenas seleciona um preset existente,
+	-- nunca cria -- mas as duas vias casam o nome de forma diferente, por isso
+	-- continua a correr so' uma delas.)
 	if not Options.getAutoSwtichPreset() then
 		Options.applyCharacterHotkeyProfile(player)
 	end
@@ -226,6 +229,9 @@ local function normalizeProfilePart(value, fallback)
 	return value
 end
 
+-- Nome canonico "Nome - Vocacao" de um preset por personagem. NAO e' usado no
+-- login (ver Options.applyCharacterHotkeyProfile); fica para criacao explicita,
+-- pelo jogador, de um preset amarrado a um personagem.
 function Options.getCharacterHotkeyProfileName(player)
 	player = player or g_game.getLocalPlayer()
 	if not player then
@@ -243,6 +249,8 @@ function Options.getCharacterHotkeyProfileName(player)
 	return string.format("%s - %s", name, vocationName)
 end
 
+-- Cria o preset se ele ainda nao existir. So' deve ser chamada a pedido do
+-- jogador: chamar isto no login foi o que encheu a lista de presets alheios.
 function Options.ensureHotkeyProfile(profileName, sourceProfile)
 	if not profileName or not Options.array or not Options.array["hotkeyOptions"] then
 		return false
@@ -281,17 +289,53 @@ function Options.ensureHotkeyProfile(profileName, sourceProfile)
 	return true
 end
 
+-- Procura um preset que ja exista para este personagem. Nunca cria nenhum.
+--
+-- A vocacao fica deliberadamente de fora da busca: no onGameStart o pacote
+-- 0x9F (sendBasicData) ainda nao chegou, player:getVocation() e' 0 e qualquer
+-- nome montado aqui sairia sempre "Nome - None" -- era dai que vinham os
+-- presets terminados em "- None" na lista de General Hotkeys.
+function Options.findCharacterHotkeyProfile(player)
+	player = player or g_game.getLocalPlayer()
+	if not player or not Options.profiles then
+		return nil
+	end
+
+	local name = normalizeProfilePart(player:getName(), ""):lower()
+	if name == "" then
+		return nil
+	end
+
+	local prefix = name .. " - "
+	local prefixed = nil
+	for _, profileName in pairs(Options.profiles) do
+		local candidate = tostring(profileName):lower()
+		if candidate == name then
+			return profileName
+		end
+		if not prefixed and candidate:sub(1, #prefix) == prefix then
+			prefixed = profileName
+		end
+	end
+
+	return prefixed
+end
+
+-- Seleciona o preset de hotkeys do personagem que entrou -- e so' isso.
+--
+-- Antes esta funcao CRIAVA um preset "Nome - Vocacao" (copia das ~119 hotkeys)
+-- a cada login de nome novo. Espectar um live cast passa pelo mesmo caminho (o
+-- espectador entra no jogo como o caster), por isso a lista enchia de
+-- personagens alheios, alguns ate' com o sufixo "[Lvl N - M esp]" que o
+-- login.php poe na lista de casts. Quem nao tiver um preset com o seu nome
+-- fica no preset que ja estava selecionado.
 function Options.applyCharacterHotkeyProfile(player)
 	if not Options.array or not Options.array["hotkeyOptions"] or not Options.array["hotkeyOptions"]["hotkeySets"] then
 		return false
 	end
 
-	local profileName = Options.getCharacterHotkeyProfileName(player)
-	if not profileName then
-		return false
-	end
-
-	if not Options.ensureHotkeyProfile(profileName) then
+	local profileName = Options.findCharacterHotkeyProfile(player)
+	if not profileName or not Options.array["hotkeyOptions"]["hotkeySets"][profileName] then
 		return false
 	end
 

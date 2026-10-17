@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.113",
-    "generated":  "2026-10-14T20:02:21-03:00",
+    "version":  "15.24.114",
+    "generated":  "2026-10-17T01:22:45-03:00",
     "count":  13499,
     "files":  [
                   {
@@ -65660,8 +65660,8 @@
                   },
                   {
                       "path":  "modules/client_options/options.lua",
-                      "sha256":  "b5c1f33af58df7144830d0337cae2c6c96b7e3f6c96e2aa4dacca60e2d0b4b87",
-                      "size":  11300
+                      "sha256":  "4a469b04d8340def94369cc4df8040ce11c439000c36addc654e31f8ebb502cf",
+                      "size":  13314
                   },
                   {
                       "path":  "modules/client_options/options.otmod",
@@ -67345,8 +67345,8 @@
                   },
                   {
                       "path":  "modules/gamelib/game.lua",
-                      "sha256":  "debc7b537edd7324ea6877ef65e191c5256d9a96fd40d191913ae10de5412519",
-                      "size":  6853
+                      "sha256":  "1ca6564b0c75138167765afc50adbd08804abd30beaf502a20fa4cb5d4210b9f",
+                      "size":  7389
                   },
                   {
                       "path":  "modules/gamelib/gamelib.otmod",
@@ -67495,7 +67495,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "dc13deddf889b88e151710e597d161e445dce3e5f13ec8f90609172c39a4d374",
+                      "sha256":  "f9a6ad962c5a8b35d181987d65815efeb9364aadb489116b76dced474cd3beb3",
                       "size":  9
                   }
               ]
