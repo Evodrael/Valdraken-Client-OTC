@@ -41,8 +41,12 @@ whiteModeWidget = nil
 yellowModeWidget = nil
 redModeWidget = nil
 
+-- A Twist of Fate nao e' uma bless de protecao: o servidor so a consome em morte
+-- PvP e o sendBlessStatus a ignora de proposito ao contar. Fica marcada com
+-- pvpOnly para nao contaminar nem o glow do inventario nem o tooltip -- era isso
+-- que fazia o jogador com so a ToF acesa ler "You are protected by".
 local inventoryBlessingTooltipNames = {
-  { mask = bit.lshift(1, 1), name = "Twist of Fate" },
+  { mask = bit.lshift(1, 1), name = "Twist of Fate", pvpOnly = true },
   { mask = bit.lshift(1, 2), name = "The Wisdom of Solitude" },
   { mask = bit.lshift(1, 3), name = "The Spark of the Phoenix" },
   { mask = bit.lshift(1, 4), name = "The Fire of the Suns" },
@@ -51,6 +55,26 @@ local inventoryBlessingTooltipNames = {
   { mask = bit.lshift(1, 7), name = "Heart of the Mountain" },
   { mask = bit.lshift(1, 8), name = "Blood of the Mountain" }
 }
+
+-- Quantas bless de protecao levam a chance de perda a zero, e quantas existem.
+-- Derivado da tabela acima para nao ficar um "7" solto que mente se ela mudar.
+local PROTECTION_FULL_COUNT = 5
+local PROTECTION_TOTAL_COUNT = 0
+for _, blessing in ipairs(inventoryBlessingTooltipNames) do
+  if not blessing.pvpOnly then
+    PROTECTION_TOTAL_COUNT = PROTECTION_TOTAL_COUNT + 1
+  end
+end
+
+-- Chance de a mochila cair, por numero de bless de protecao. Espelha o
+-- Blessings.LossPercent do servidor (data/libs/systems/blessing.lua); cada peca
+-- equipada vale um decimo disso, como o DropLoot aplica.
+local CONTAINER_LOSS_PERCENT = { [0] = 100, [1] = 70, [2] = 45, [3] = 25, [4] = 10, [5] = 0 }
+
+local function formatLossWarning(protectionCount)
+  local container = CONTAINER_LOSS_PERCENT[math.min(protectionCount, PROTECTION_FULL_COUNT)] or 0
+  return string.format('Se morrer agora: a mochila cai com %d%% de chance e cada item equipado com %.1f%%.', container, container / 10)
+end
 
 function init()
   connect(LocalPlayer, {
@@ -233,34 +257,25 @@ function toggleAdventurerStyle(hasBlessing)
   end
 end
 
-local function hasAllMainBlessings(blessings)
+-- Conta so as bless que protegem itens. O conjunto legado { 2, 4, 8, 16, 32 }
+-- que estava aqui incluia o bit 1, que no esquema do bless dialog e' a Twist of
+-- Fate: com 4 bless de protecao mais a ToF o inventario acendia como se nao
+-- houvesse perda nenhuma, e ainda havia 10% na mochila e 1% por peca.
+local function countProtectionBlessings(blessings)
   blessings = blessings or 0
 
-  local function hasAllMasks(masks)
-    for _, mask in ipairs(masks) do
-      if not Bit.hasBit(blessings, mask) then
-        return false
-      end
-    end
-    return true
-  end
-
-  -- The player stats packet still uses the legacy 5-main-blessing mask
-  -- while the Blessings dialog uses the expanded CipSoft-style mask.
-  if hasAllMasks({ 2, 4, 8, 16, 32 }) then
-    return true
-  end
-
-  if hasAllMasks({ 4, 8, 16, 32, 64 }) then
-    return true
-  end
-
-  for i = 2, 6 do
-    if inventoryBlessingTooltipNames[i] and not Bit.hasBit(blessings, inventoryBlessingTooltipNames[i].mask) then
-      return false
+  local count = 0
+  for _, blessing in ipairs(inventoryBlessingTooltipNames) do
+    if not blessing.pvpOnly and Bit.hasBit(blessings, blessing.mask) then
+      count = count + 1
     end
   end
-  return true
+
+  return count
+end
+
+local function hasAllMainBlessings(blessings)
+  return countProtectionBlessings(blessings) >= PROTECTION_FULL_COUNT
 end
 
 function refresh()
@@ -504,25 +519,45 @@ function onBlessingsChange(player, blessings, oldBlessings)
 
   local adventurerMask = Blessings and Blessings.Adventurer or 1
   local hasAdventurerBlessing = Bit.hasBit(blessings, adventurerMask)
+  -- O status vem do servidor, que ja conta sem a Twist of Fate: e' a fonte
+  -- autoritativa enquanto o bless dialog nao chegou (1 = nenhuma protecao,
+  -- 2 = cinco ou mais, 3 = sete).
   local status = player:getBlessingStatus()
-  local hasFullMainBlessingSet = hasAllMainBlessings(blessings) or status > 1
-  toggleAdventurerStyle(hasFullMainBlessingSet)
+  local protectionCount = countProtectionBlessings(blessings)
+  -- O bit Adventurer e' posto pelo parseBlessings quando o proprio servidor manda
+  -- o flag de glow, o que cobre a adventurer's blessing abaixo do level 50.
+  toggleAdventurerStyle(hasAdventurerBlessing or status > 1 or protectionCount >= PROTECTION_FULL_COUNT)
 
-  local tooltip = 'You are protected by the following blessings:'
-  local hasDetailedBlessings = false
+  local protectionNames, pvpNames = {}, {}
   for _, blessing in ipairs(inventoryBlessingTooltipNames) do
     if Bit.hasBit(blessings, blessing.mask) then
-      tooltip = tooltip .. '\n' .. blessing.name
-      hasDetailedBlessings = true
+      table.insert(blessing.pvpOnly and pvpNames or protectionNames, blessing.name)
     end
   end
 
-  if not hasDetailedBlessings then
-    local status = player:getBlessingStatus()
-    if hasAdventurerBlessing or status > 1 then
-      tooltip = tooltip .. '\nBlessing protection is active.\nOpen the Blessings window to refresh the detailed list.'
+  local tooltip
+  if protectionCount > 0 then
+    tooltip = string.format('Blessings de protecao: %d de %d.', protectionCount, PROTECTION_TOTAL_COUNT)
+    for _, name in ipairs(protectionNames) do
+      tooltip = tooltip .. '\n - ' .. name
+    end
+    if protectionCount >= PROTECTION_FULL_COUNT then
+      tooltip = tooltip .. '\nMorrendo para um monstro voce nao perde itens.'
     else
-      tooltip = 'You have no active blessings.'
+      tooltip = tooltip .. '\n' .. formatLossWarning(protectionCount)
+    end
+  elseif hasAdventurerBlessing or status > 1 then
+    -- Protecao ligada pelo servidor sem o bless dialog ter chegado. Aqui o client
+    -- nao sabe quais sao, e inventar a lista e' o que produzia a mentira.
+    tooltip = 'Protecao ativa.\nAbra a janela de blessings para ver a lista.'
+  else
+    tooltip = 'Voce NAO esta protegido.\n' .. formatLossWarning(0) .. '\nDigite !bless para comprar as blessings de protecao.'
+  end
+
+  if #pvpNames > 0 then
+    tooltip = tooltip .. '\n\nSomente PvP, nao protege itens contra monstros:'
+    for _, name in ipairs(pvpNames) do
+      tooltip = tooltip .. '\n - ' .. name
     end
   end
 

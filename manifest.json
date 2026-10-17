@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.114",
-    "generated":  "2026-10-17T01:22:45-03:00",
+    "version":  "15.24.115",
+    "generated":  "2026-10-17T22:45:32-03:00",
     "count":  13499,
     "files":  [
                   {
@@ -66345,8 +66345,8 @@
                   },
                   {
                       "path":  "modules/game_inventory/inventory.lua",
-                      "sha256":  "589a3bb07c28316e99b292206eaa663d46943d0c841df2d61d6e2ff3b346159a",
-                      "size":  26723
+                      "sha256":  "fdb29975f46b31b625e5068de6a733edb6dd59d65a892618f75cbb9b3e57772d",
+                      "size":  29138
                   },
                   {
                       "path":  "modules/game_inventory/inventory.otmod",
@@ -67495,7 +67495,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "f9a6ad962c5a8b35d181987d65815efeb9364aadb489116b76dced474cd3beb3",
+                      "sha256":  "ce8427c1c88c6f4ae906c2d9104f6f73e274df6b1caec22da66cd9b2c36737cc",
                       "size":  9
                   }
               ]
