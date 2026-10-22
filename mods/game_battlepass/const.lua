@@ -1,16 +1,21 @@
--- Layout das missoes da season no grid 2x17 do battlepass.otui (34 celulas).
+-- Layout das missoes da season no grid 2x22 do battlepass.otui (44 celulas).
 -- MissionsDisplacement[i] = celula do grid que recebe a i-esima missao da ordem
--- abaixo; MissionTypesOrder[i] = tier dessa posicao. Linha 1 = celulas 1..17,
--- linha 2 = celulas 18..34. Os totais por tier (9 bronze / 15 silver / 10 gold)
+-- abaixo; MissionTypesOrder[i] = tier dessa posicao. Linha 1 = celulas 1..22,
+-- linha 2 = celulas 23..44. Os totais por tier (9 bronze / 15 silver / 20 gold)
 -- TEM que bater com o seasonMissions + releaseSchedule do data/battlepass.lua
--- do servidor, senao sobra celula "Locked ? / ?".
--- Season 3: cada semana ocupa um bloco de colunas inteiro (3+3+3+4+4 = 17).
+-- do servidor, senao sobra celula "Locked ? / ?". O num-columns do
+-- missionsBackground no .otui tem de ser metade do total de celulas.
+-- Season 3: semanas 1-5 ocupam colunas inteiras (3+3+3+4+4 = 17); o reforco de
+-- 22/10 (semanas 7 e 8, 5 gold cada) ocupa as colunas 18-22, semana 7 em cima e
+-- semana 8 embaixo.
 MissionsDisplacement = {
-    1, 2, 3, 18, 19, 20, -- Semana 1 [3 bronze em cima, 3 silver embaixo]
-    4, 5, 6, 21, 22, 23, -- Semana 2 [2 bronze + 1 silver em cima, 2 silver + 1 gold embaixo]
-    7, 8, 9, 24, 25, 26, -- Semana 3 [2 bronze + 1 silver em cima, 2 silver + 1 gold embaixo]
-    10, 11, 12, 13, 27, 28, 29, 30, -- Semana 4 [1 bronze + 3 silver em cima, 4 gold embaixo]
-    14, 15, 16, 17, 31, 32, 33, 34  -- Semana 5 [1 bronze + 3 silver em cima, 4 gold embaixo]
+    1, 2, 3, 23, 24, 25, -- Semana 1 [3 bronze em cima, 3 silver embaixo]
+    4, 5, 6, 26, 27, 28, -- Semana 2 [2 bronze + 1 silver em cima, 2 silver + 1 gold embaixo]
+    7, 8, 9, 29, 30, 31, -- Semana 3 [2 bronze + 1 silver em cima, 2 silver + 1 gold embaixo]
+    10, 11, 12, 13, 32, 33, 34, 35, -- Semana 4 [1 bronze + 3 silver em cima, 4 gold embaixo]
+    14, 15, 16, 17, 36, 37, 38, 39, -- Semana 5 [1 bronze + 3 silver em cima, 4 gold embaixo]
+    18, 19, 20, 21, 22, -- Semana 7 [5 gold em cima]
+    40, 41, 42, 43, 44  -- Semana 8 [5 gold embaixo]
 }
 
 MissionTypesOrder = {
@@ -18,7 +23,9 @@ MissionTypesOrder = {
     "bronze", "bronze", "silver", "silver", "silver", "gold", -- Semana 2
     "bronze", "bronze", "silver", "silver", "silver", "gold", -- Semana 3
     "bronze", "silver", "silver", "silver", "gold", "gold", "gold", "gold", -- Semana 4
-    "bronze", "silver", "silver", "silver", "gold", "gold", "gold", "gold" -- Semana 5
+    "bronze", "silver", "silver", "silver", "gold", "gold", "gold", "gold", -- Semana 5
+    "gold", "gold", "gold", "gold", "gold", -- Semana 7
+    "gold", "gold", "gold", "gold", "gold" -- Semana 8
 }
 
 MissionRankIcons = {
