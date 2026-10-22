@@ -133,6 +133,7 @@ local trainingDummies = {
     60086, -- chaotic training dummy
     60643, -- lich king training dummy
     61348, -- burn skull training dummy
+    61330, -- dawnbringer training dummy (battle pass)
 }
 
 -- Todos os ids que contam como aquele dummy no chao: cada dummy tem uma variacao
@@ -146,6 +147,7 @@ local dummiesPositions = {
     [60086] = { 60086, 60087 }, -- chaotic training dummy
     [60643] = { 60643, 60644 }, -- lich king training dummy
     [61348] = { 61348, 61349 }, -- burn skull training dummy
+    [61330] = { 61330, 61331 }, -- dawnbringer training dummy (battle pass)
 }
 
 function support_generalModule.init(widget)
