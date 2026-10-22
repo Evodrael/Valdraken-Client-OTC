@@ -202,15 +202,19 @@ local TALISMAN_PANELS = { 'talismanInfoPanel1', 'talismanInfoPanel2', 'talismanI
 -- sua vez espelha a escada do client Global - esse e um binario da CipSoft e nao
 -- se mexe, por isso e ele que manda (ver 2026-10-12: o mesmo talisman de loot
 -- nivel 46 lia 20.00% aqui e 17.75% la):
---   paths 0-2: base 2.50% ao nivel 0, +0.50%/nivel nos primeiros 15 niveis
---              (10.00% ao L15), depois +0.25%/nivel ate ao tecto de 50% (L175)
+--   paths 0-2: base 2.50% ao nivel 0, +0.50%/nivel ate 10% (L15), +0.25%/nivel
+--              ate 20% (L55), depois +0.10%/nivel ate ao tecto de 40% (L255) -
+--              a escada de 3 trechos do Global, adoptada inteira em 22/10/2026
 --   path 3   : base 5.00% ao nivel 0, +1.00%/nivel nos primeiros 15 niveis
 --              (20.00% ao L15), depois +0.50%/nivel ate 100% (L175)
 -- O nivel 0 vale a base, nao zero: um talisman por melhorar ja da 2.5% / 5%.
 local TALISMAN_FIRST_TIER_LEVELS = 15
--- Nivel onde a escada chega ao tecto (50% / 100%), igual ao getTalismanMaxLevel do
+local TALISMAN_SECOND_TIER_END = 55
+-- Nivel onde a escada chega ao tecto (40% / 100%), igual ao getTalismanMaxLevel do
 -- servidor. So e preciso para o talisman ja maxado, onde o custo vem a zero.
-local TALISMAN_MAX_LEVEL = 175
+local function getTalismanMaxLevel(pathIndex)
+    return pathIndex == 3 and 175 or 255
+end
 
 local function getTalismanBonusHundredths(level, pathIndex)
     level = math.max(level or 0, 0)
@@ -219,7 +223,9 @@ local function getTalismanBonusHundredths(level, pathIndex)
     local secondTierSteps = math.max(level - TALISMAN_FIRST_TIER_LEVELS, 0)
 
     if pathIndex <= 2 then
-        return math.min(250 + firstTierSteps * 50 + secondTierSteps * 25, 5000)
+        local middleSteps = math.min(secondTierSteps, TALISMAN_SECOND_TIER_END - TALISMAN_FIRST_TIER_LEVELS)
+        local lastSteps = math.max(level - TALISMAN_SECOND_TIER_END, 0)
+        return math.min(250 + firstTierSteps * 50 + middleSteps * 25 + lastSteps * 10, 4000)
     end
     return math.min(500 + firstTierSteps * 100 + secondTierSteps * 50, 10000)
 end
@@ -231,10 +237,10 @@ end
 -- publicado ainda tem a escada velha (joelho no L26) - inflaciona 2.25% a meio da
 -- curva e satura qualquer nivel >= 166 no tecto. Pelo custo o rotulo fica certo em
 -- qualquer binario, antes e depois de o client ser recompilado.
-local function getTalismanLevel(tier)
+local function getTalismanLevel(tier, pathIndex)
     local cost = tier.bountyPointsToUpgrade or tier.upgradeCost or 0
     if cost == 0 or tier.isActivedUpgrade == 0 then
-        return TALISMAN_MAX_LEVEL
+        return getTalismanMaxLevel(pathIndex)
     end
 
     local level = (cost - 5) / 12
@@ -255,9 +261,9 @@ function updateTalismanUI()
     for i = 1, 4 do
         local tier = cachedTalismans[i]
         if tier then
-            local level   = getTalismanLevel(tier)
-            local cost    = tier.bountyPointsToUpgrade
             local pathIdx = i - 1
+            local level   = getTalismanLevel(tier, pathIdx)
+            local cost    = tier.bountyPointsToUpgrade
 
             local currentBonus = getTalismanBonusHundredths(level, pathIdx)
 
