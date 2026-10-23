@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.120",
-    "generated":  "2026-10-22T23:16:06-03:00",
+    "version":  "15.24.121",
+    "generated":  "2026-10-23T19:11:19-03:00",
     "count":  13499,
     "files":  [
                   {
@@ -67290,8 +67290,8 @@
                   },
                   {
                       "path":  "modules/game_walking/walking.lua",
-                      "sha256":  "87b8ba6cbfec12033724ff460b33b97d128b2a3299abcba7ea9b74b6ef84522c",
-                      "size":  19771
+                      "sha256":  "5da380a225694879d5427fd5d32ef110bf8a60809e2a8915eaefbe04555a5f8a",
+                      "size":  22933
                   },
                   {
                       "path":  "modules/game_walking/walking.otmod",
@@ -67485,17 +67485,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "130874d9b5ccc42f0ef81aa931202e9c34edc2d1d485f9edd2c431864222c365",
-                      "size":  37006336
+                      "sha256":  "c8200233e735d1968dfe371a6a599d1da17f694455f74fa5d30368d80ccc23fb",
+                      "size":  37006848
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "1997e80ee2df0a1d76b846a10fcdb13da42a4499521f5cf14ff629005fb70a09",
+                      "sha256":  "28b5eed8c3f5bbe82949218a249869a2e62430ef73740443af659213f8f9a49a",
                       "size":  29145600
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "d85df5ac27b93e1a4bd2758b5cf62940081576c7714fabb5ac083cd160925abe",
+                      "sha256":  "28189db9a54ae0db1e70c1dd4b9186bdb764f91ad69d5552fee5fe375eaa70f9",
                       "size":  9
                   }
               ]

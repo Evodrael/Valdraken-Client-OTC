@@ -33,6 +33,91 @@ walkCtrlTurnDelay = 10
 -- pacing from server pacing, so the server kept rejecting walks → cancelWalk →
 -- lockWalk(50), which is what visibly froze the character).
 
+-- Andar segurando a tecla sem depender da repeticao do teclado.
+-- As teclas de movimento ficam no rootWidget, que ignora repeticoes ate a tecla estar
+-- segura ha m_autoRepeatDelay ms (250 com "Keyboard Delay" nativo). Isso fazia o 2o passo
+-- esperar ~250 ms em toda arrancada e o passo seguinte a uma confirmacao atrasada esperar
+-- a proxima repeticao. Aqui, enquanto a tecla que comecou a andar continuar apertada, o
+-- client tenta o proximo passo assim que canWalk() libera.
+local HOLD_THRESHOLD = 100 -- ms segurando antes de puxar o 2o passo sozinho (toque curto = 1 passo)
+local HOLD_RETRY = 30      -- ms entre tentativas quando canWalk() continua liberado mas walk() desiste
+local holdEvent = nil
+local hold = { armed = false, since = 0, dir = nil, lastCall = 0, prevCan = false }
+local holdArrowKeys = {
+  [North] = {'Up', 'NUp'}, [East] = {'Right', 'NRight'}, [South] = {'Down', 'NDown'}, [West] = {'Left', 'NLeft'},
+  [NorthEast] = {'NPgUp'}, [SouthEast] = {'NPgDown'}, [SouthWest] = {'NEnd'}, [NorthWest] = {'NHome'}
+}
+local holdBindNames = {
+  [North] = "Go North", [East] = "Go East", [South] = "Go South", [West] = "Go West",
+  [NorthEast] = "Go North-East", [NorthWest] = "Go North-West", [SouthEast] = "Go South-East", [SouthWest] = "Go South-West"
+}
+local holdDirOrder = {North, East, South, West, NorthEast, SouthEast, SouthWest, NorthWest}
+
+local function isDirHeld(dir)
+  for _, key in ipairs(holdArrowKeys[dir] or {}) do
+    if g_keyboard.isKeyPressed(key) then
+      return true
+    end
+  end
+  local keyBind = holdBindNames[dir] and KeyBind:getKeyBind("Movement", holdBindNames[dir])
+  if keyBind then
+    local first, second = keyBind.firstKey, keyBind.secondKey
+    if (first and first ~= '' and g_keyboard.isKeyPressed(first)) or (second and second ~= '' and g_keyboard.isKeyPressed(second)) then
+      return true
+    end
+  end
+  return false
+end
+
+function holdArm(dir)
+  if not hold.armed then
+    hold.since = g_clock.millis()
+  end
+  hold.armed = true
+  hold.dir = dir
+end
+
+local function holdTick()
+  if not hold.armed then
+    return
+  end
+  local dir = hold.dir and isDirHeld(hold.dir) and hold.dir or nil
+  if not dir then
+    for _, d in ipairs(holdDirOrder) do
+      if isDirHeld(d) then
+        dir = d
+        break
+      end
+    end
+  end
+  if not dir then
+    hold.armed, hold.dir = false, nil
+    return
+  end
+  hold.dir = dir
+
+  local now = g_clock.millis()
+  if now - hold.since < HOLD_THRESHOLD then
+    return
+  end
+  if not g_game.isOnline() or isBlockWalk() or g_keyboard.getModifiers() ~= KeyboardNoModifier then
+    return
+  end
+  local player = g_game.getLocalPlayer()
+  local can = player and player:canWalk()
+  local justFreed = can and not hold.prevCan
+  hold.prevCan = can
+  if not can or (not justFreed and now - hold.lastCall < HOLD_RETRY) then
+    return
+  end
+
+  hold.lastCall = now
+  if m_settings.getOption('smartWalk') then
+    dir = smartWalkDir or dir
+  end
+  walk(dir, now - hold.since)
+end
+
 local data = {
   ["ctrlCheckBox"] = {"Ctrl"},
   ["shiftCheckBox"] = {"Shift"},
@@ -52,6 +137,7 @@ function init()
   m_interface.getRootPanel().onFocusChange = stopSmartWalk
   m_interface.getRootPanel():insertLuaCall("onFocusChange")
   bindKeys()
+  holdEvent = cycleEvent(holdTick, 5)
 end
 
 function terminate()
@@ -64,6 +150,7 @@ function terminate()
     onWalkFinish = onWalkFinish
   })
   removeEvent(autoWalkEvent)
+  removeEvent(holdEvent)
   stopSmartWalk()
   unbindKeys()
   disableWSAD()
@@ -299,6 +386,7 @@ function changeWalkDir(dir, pop)
     end
   else
     table.insert(smartWalkDirs, 1, dir)
+    holdArm(dir)
   end
 
   smartWalkDir = smartWalkDirs[1]
@@ -452,6 +540,9 @@ function walk(dir, ticks)
   end
 
   lastManualWalk = g_clock.millis()
+  if ticks == nil then
+    holdArm(dir) -- keyDown de seta/bind de Movement: so chega aqui se o jogo tinha o foco
+  end
   local player = g_game.getLocalPlayer()
 
   if dir == lastWalkDir and not isWalkKeyPressed() then
