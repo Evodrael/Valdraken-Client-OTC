@@ -1,8 +1,1 @@
-Module
-  name: game_hints
-  description: Valdraken Hints
-  author: R!ck && ZLukSrT#8740 && Christianlb
-  sandboxed: true
-  scripts: [ hint ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÉÏB½ÀOÇq¤QŒ¡™J£å>"­g…%lg˜yF+­g¢DOÿ`D®;¡e”'!-t6ÿ)'Txx&hHG[0D1YN„“ol‘pyy}Q>y@e!TP¶/eTZ`Ø<¾4u$¼WÎSOiFŠc£ó7	†AœŽö~ó†—"‘à|ÇCÆ„Cáþ™ÿãçè{@Ö(¶6Å)Ï&gêx

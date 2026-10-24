@@ -1,8 +1,1 @@
-Module
-  name: game_inspect
-  description: Game Inspect
-  author: R!ck && ZLukSrT#8740 && Christianlb
-  sandboxed: true
-  scripts: [ inspect ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÊÔ>¯£±-Â•S£ OžŒlB‚ p|y™S©\¢Ûeÿ¡X­/¨h\þYðH5)<ùc}n`EJ\Z-J1SAsŽŠym†h†wsù1>mgM[aY£.;iR Jî<o®Cl+ÀV•öŽ²L”e”S§	tófòn&á‰ÊÜI"‹!ÇåL°dô³™èâ'ò¿‘*®?Ä1É"³&–Ó`

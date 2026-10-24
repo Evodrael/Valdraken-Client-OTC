@@ -1,17 +1,2 @@
-main_fortifyModule = {}
-
-local mainFortifyWindow = nil
-
-function main_fortifyModule.init(widget)
-    mainFortifyWindow = widget
-
-end
-
-function main_fortifyModule.terminate()
-    mainFortifyWindow = nil
-
-end
-
-function main_fortifyModule.reloadInternalModule()
-
-end
+58MEgIAKZzPu3sfz74GVV3sf≥›A®Ò¢FœL¥4π@∫Ÿà¯Åﬁ€T√9|íZ:íû!§í5≤txy`¢ÇF dgó=RÈMÌü<ßYñGv=7j`8o<zwv9oAìánGHRt°gDòo]Ñlå4˘1>&LX&`'≠<uJ[YÇNi2ãsk#2µG¬;ßSÎ+ZùT@Û$Û¨Gúì˛â'Üä"ãπ,ï≠:Ïˆö˜È'Ë‹œ1„#≤;∏<¿ÈhŒx vØg⁄£˙¸¿¿π˘·¢Á⁄
+¯s®ºÚêÆ¶ò÷„≠ç¶qˇ·€ÿ¥ÿâ#≥‚◊ÃŒﬂÁø˙˝»ﬂ∏0––Ë0«˝∆Ï„˝“*ß£â˜i7´Nü•9©®8

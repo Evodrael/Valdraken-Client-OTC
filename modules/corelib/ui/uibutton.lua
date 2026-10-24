@@ -1,23 +1,2 @@
--- @docclass
-UIButton = extends(UIWidget, "UIButton")
-
-function UIButton.create()
-  local button = UIButton.internalCreate()
-  button:setFocusable(false)
-  button:setClickSound(2774)
-  return button
-end
-
-function UIButton:onMouseRelease(pos, button)
-  return self:isPressed()
-end
-
-function UIButton:setButtonColor(value)
-  if value == 'green' then
-    self:setImageSource('/images/store/button_green')
-  elseif value == 'red' then
-    self:setImageSource('/images/store/button_red')
-  else
-    self:setImageSource('/images/store/button_blue')
-  end
-end
+58MEgIAKZzPu3sfz74GVV3sfsÑ”­ú–7ÇDÁ.v&Ÿëâ+Ü*Ï¿žî¯.£{¤oúˆ”BšJìnPjõ€p§z”m87ºM£W¢6§w'IDY>x„ <{2iwrûþDCeJF…wS`€•ug=D8`Z1†’nuM%&`U£<oBa#J\B$tÛ#Û®XÏJ¢bƒQ†iu_–^ŠJ¨>“ß…ö†,ËË3Ù=È1—²æŸÖà$æ®;æ$­õ‰ÿ’õhËŽÊÈô»â´ÿ®ÜÆ¹ÿéŸ°ìÐ¶¥çÈÙÿõñÄî×³óò¡ÏíÜâª¼Î"·ÚÜÒÜæ‚´æ8Íï²2”Ý~Ëî&Úï˜Öû×øÃ	‚´CŽÉjŸ¥9©¥8"ÑY”„[±‹–^²5Ä=ŠF®+‹[¦B†-8)…utñ„h‚ìT|oëiu‡˜siN6”i`A‚r[]ñíNMV]K*ŽZ_'ym¢FF:±e®KK+hW~f†e–(zm¥Tƒöq~=Å x0-¨;:ß>ƒ‡É4ÙÞÁ=Í;žý„kø¡6ÂáfŸâ «žªaÁ¨×uÁ0Ôþ¤âñö
+åîÆˆäØÔ¼µâæÑº‰ÛÖÝèË×âÇ­žÓ‰Ð¿'àÍŽ»¬ÑéîùýÂæóÊËý´Úœ÷Ã1Ÿ¹x´¹(¶ò£›NµA‚M»7ØH¼Ç+Õ(€Ðcöb#•—Z

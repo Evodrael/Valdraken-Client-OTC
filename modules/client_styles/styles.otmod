@@ -1,9 +1,1 @@
-Module
-  name: client_styles
-  description: Load client fonts and styles
-  author: edubart
-  website: https://github.com/edubart/otclient
-  scripts: [ styles ]
-  sandboxed: true
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÙ Í)ÕşÔBÃ"”ÂQR$”™K©:†m"l`Sn’L©g¢ñ«N®W¬çšd†şzC^6n‰üù).}wuBh.Dˆ]PE…}§+<˜k[pŒpKy’nvR1ì!H§>iVWThı`À3d-ÀÊJ–`²Ci9S\z[¯B¢*YµuÙÙ¢%‚+s-ÆdGÔõã3è•ìå(¾2aè{®/º·ó«ÿ÷îyºO°›ÕºìÁğ´ÏÖ³ëõüÒäÈ¬£

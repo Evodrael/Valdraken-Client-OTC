@@ -1,20 +1,5 @@
--- @docclass
-UICheckBox = extends(UIWidget, "UICheckBox")
-
-function UICheckBox.create()
-  local checkbox = UICheckBox.internalCreate()
-  checkbox:setFocusable(false)
-  checkbox:setTextAlign(AlignLeft)
-  checkbox:insertLuaCall("onEnabledChange")
-  return checkbox
-end
-
-function UICheckBox:onClick()
-  self:setChecked(not self:isChecked())
-end
-
-function UICheckBox:onEnabledChange(checked)
-  if not checked and self:isChecked() then
-    self:setImageClip("0 24 12 12")
-  end
-end
+58MEgIAKZzPu3sfz74GVV3sfsÑ”­ú–7ÇDÁ.v&ŸìÕË&£Ùî‡Ö”ŸRÙ†î‡D™ƒ@xCT?›p‰N†h¦ónéJI®5œj‹Muï:L~W<tw{;6hY…—^.+Sjz‚r€o}n|Q€–CÿL5I£-l#dXYNiBn¹2oş¾H¼J˜rèA’X˜L‚KµJh*„	`(Éœ$¸å‰°GØÒ5³”ë¾7Ó%ÁÊ-Ï¤9âëÂø®ÛjÒúã¸ÿ‘õá	tˆŒÌşé¸Îõş½Öóìøúªúî¦‰Ş³¯×´åÎÑ«Îá½ù¦ìc›c6ĞGÓêáÉâ
+ãà{#È
+I¡ƒ¯A
+°` Ş–!¿Vs“&²iy?½L©é~Ùpó¼µLlA|38"~im.}å†b‘ãyI yC4fWƒˆqf‘u>Vi…é+tdR[6Q_N/:4MU~`-M„FªO89U·K‡G¡Ol„(†al\¡G‚ğÅ*2¼Ò‡8è¦5xŸIÇÙ|Èëæ#·B›/¬ ¯=®<”5†ãfŸâ «ªaÁ¨×uÁ0Ôş¤âñæÿãÜ«Îç£Ğ¤ÛwÚ¸´—u¿ç
+lÎçÁ

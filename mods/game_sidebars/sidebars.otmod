@@ -1,10 +1,1 @@
-Module
-  name: game_sidebars
-  description: Event Schedule
-  author: ZLukSrT#8740
-  website:
-  sandboxed: true
-  autoload-priority: 1001
-  scripts: [ sidebars ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÔÅ3¬¡ÂQR$”™K©:†f)pj§+yF¬^’F±DJY(®jŠMy	$U‹],{!+;D&şDCp@E—t§cE&A&l~u|m€gv‚4&Si2Wë^êbViO—T\2Il½:r-µWÔS%yRÿO¦L‰R¶F¡ñ?ğ:,Ï~*Æİ€°dô³™ßãçè{5ß½õ€Ò{á0ÜÿÄû¶Î¦Ë®î¶²ùéö¿ã”Õ¥

@@ -1,32 +1,1 @@
-Module
-  name: gamelib
-  description: Contains game related classes
-  author: OTClient team
-  website: https://github.com/edubart/otclient
-
-  @onLoad: |
-    dofile 'const'
-    dofile 'util'
-    dofile 'protocol'
-    dofile 'protocollogin'
-    dofile 'protocolgame'
-    dofile 'position'
-    dofile 'game'
-
-    dofile 'creature'
-    dofile 'player'
-    dofile 'textmessages'
-    dofile 'thing'
-    dofile 'spells'
-    dofile 'item'
-    dofile 'items'
-    dofile 'core/player'
-    dofile 'core/monster'
-    dofile 'core/tile'
-    dofile 'core/party'
-    dofile 'core/realmap'
-    dofile 'core/markers'
-    dofile 'core/regions'
-    dofile 'market'
-
-    dofiles 'ui'
+58MEgIAKZzPu3sfz74GVV3sfìÿHµ=Ù{QØ(—vŒ$Õ' kÓjîpö^é†j˚xå@≠dè&+cîxã∂^ö2πD§ú3öiïCzŸÍjãfAx?B#\'9`çàgOòpîk<A}^zÅv)1ÜnzOj˜!•3uIjBYHj;KaØFeæWäEßWµGÜc£˙=	7)µ@z&Ä˘TŸ‚¨IŸ=ÿ∑,â∞9ì–é‚.˜’eÏë÷i1∆.ƒ-§·ï ¯≥îL±Æöqı¥ˆ‰∞ûì«⁄ˇ≠çƒπÆë	ÓÏÃπΩÚ÷„¥Õÿ"æË–÷÷ wìv¥§'»·¨0–ÛÖÓ0⁄‡‰“¸÷Âd∆_∑=ˆ∞Dì¶µg;¥ó0≈Zü %cV7√Oß-∫Ôw:™$Æ<ÿ7ﬂ⁄}uh2Ö"8Ä5kE®à{0;C.êÄ|Rô\H"ëKÇáohÒÌN>`WN\ÄRqÑØNX>ØT≤Kñ+C1%?dí_peõE;wx0}º9È-Ëß<y†IÉ‡é…7ﬂ1rÊÅÊY˝´G±:õ6~·ØúÍY´û™a¡ô—ßÛ|„Ù®Ëˇ •∂ì‘©–ÿÿ…~ı”¶œ¡ªÚ‘êÉ}ò≥ù«’Í˝ŒãzÍ5” ˘ ‰¸¸˙¬ãü°Œä˙æÌñÓ∂ÓaÙ¿˜µÍ…Ù™ìÂa≥K¸∑Z¨,–>nÿ».“(à∫H∂7Nπ% Iv(èîHM⁄yC∂hH-heóÄ[cF˘]úZó8ùc:bFO70ãKSl:r~,Â<KURAïo†:wòpfDÅuzrfwô˜’=µ(rEb¯ZJd8èY«Ωt˚ÉÓü[∑?ïR™bVàX

@@ -1,8 +1,1 @@
-Module
-  name: game_trackers
-  author: R!ck && Christianlb
-  reloadable: false
-  sandboxed: true
-  scripts: [ game_trackers, classes/boss_tracker, classes/bestiary_tracker, classes/imbuement_tracker ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÕÂ1µ¡ÂQO%™¢Uı?/·GÙ+?›}V¸b?±AJY9b‘?k0G6nP?j9{hóg…‘]=Rœp—8+“{^''8~taznyHŸ7f@iRŒHf3owñf'­VÎ;¦#«M”hd¥JzT«DZ×‚{,ÙœèÆ1Œ¶MÒô×&è ‡ìÔ"ª@Ê-Îğ¨.Ğ»ü¬Û¶ğì²ô°õíµ¨ˆŒÌÛğÁ·ôÀ£÷åÍ¨ª£¹§×ìÓŞ¦Î£ÖÆŞÛÚÑÎç»¼­Í

@@ -1,9 +1,1 @@
-Module
-  name: client_videoplayer
-  description: Video Player
-  author: Oen
-  website: None
-  sandboxed: false
-  autoload: true
-  scripts: [video_player]
-  @onUnload: g_videoPlayer.terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÙ Í)Õş×7®yªSŒ»QÅ”@¨5¼oŠ"y6SaG©hN!±@¹H«ÑYƒS{7T<C6A>w×(#„8Xg—^rz¡c<AyZ‹kzz‰TuXl@c0Wë^êbViO—T\2V¿Cx V{I–f²N•hi_€M«A'‹ö“Øÿ3Ù=øÂ+x°CÔe³Ûù¿1àµ.Ğ-Íï³&à¿ı¨á§¹·

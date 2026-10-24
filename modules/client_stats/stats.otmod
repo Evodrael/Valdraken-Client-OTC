@@ -1,9 +1,1 @@
-Module
-  name: client_stats
-  description: Showing and sending debug/stats informations
-  author: otclient@otclient.ovh
-  sandboxed: true
-  scripts: [ stats ]
-  dependencies: [ client_topmenu ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÙ Í)ÕşÔB«*¢±-Â•S£ OŒlN‰"‚e¡rFD²]NDªM¤L§.YZ‡@|6=}wfL)6vi|EcU˜ŒhIV.+S_€‰ukW'‡t[zƒhzf1UM§/oU#O¡Mî<o¬?g»[À:m½P–Z9S\z[¯B¢*YµuÙÙŠ-Ø°ÇCÆ¨9ã™÷Ù)æÀ?«Ö¤íº4Ä&­5ÍÅÿ´Ò°®×[±eĞê—íÍÕ¡¼ÙÓ¯Ä¹ÎàÔïÈıĞ¢òÌá²Ó×ÆŞ‘–r

@@ -1,11 +1,2 @@
-Module
-  name: game_protocol
-  description: Game protocol
-  author: otclientv8
-  website: http://otclient.ovh
-  scripts: [ protocol ]
-  sandboxed: true
-  autoload: false
-  autoload-priority: 500
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÑĞB¹ÂQR$”™K©:†hxaS{˜R¸h‘@±é`š<­^‘PAïT>l‚[>wA~;ók‰…lDW‰ESf‘@(LvŒn}XvŒn4Nm%ü^=dS^PŸX5îw»Cr/»FÊBSQSşAh^—K†a«6h×“pÂI’,Â)’¨“Œÿç Î{-æ*¸9Æ)¿î¯3×Èø»æ|±Ãª›e°»¹ÊÛÿ»sÔ
+ü®¬®¹®±íõñÖúú¼ÛÔ·×Ò$³íÎ•‘­

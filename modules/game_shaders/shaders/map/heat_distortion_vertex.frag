@@ -1,13 +1,3 @@
-attribute vec2 a_TexCoord;
-attribute vec2 a_Vertex;
-
-varying vec2 v_TexCoord;
-
-uniform mat3 u_TextureMatrix;
-uniform mat3 u_TransformMatrix;
-uniform mat3 u_ProjectionMatrix;
-
-void main() {
-    gl_Position = vec4((u_ProjectionMatrix * u_TransformMatrix * vec3(a_Vertex, 1.0)).xy, 1.0, 1.0);
-    v_TexCoord = (u_TextureMatrix * vec3(a_TexCoord, 1.0)).xy;
-}
+58MEgIAKZzPu3sfz74GVV3sf§èE²í¨HÀÄ Ïv
+ÌÍ3¤Ð@®ñ<±n¥`ƒ¦•û«þl\€	pn§pžQ;Û»@²\¢5 ˜Cj@hjWQL<wuqþ1-nILŠz¥k+‰‚z,=|w_vg…“lk,X1dJ¶ëjN”Kj@‰¸2wîlXº*¥U·Q‡d¡]€J‹[¯JiÄ)
+ˆ"Ì›&=%´1VÆ¹3ÃšýÙ÷Ê:¾½?À@–ÎIÎx Åø«¯ò÷èyºeˆŸkžŒÌí²»úì®®ÅõæÍÁáÎÙÞ¯ÏÌ*»è×ºÉßÜÎ´®ãÎÚ—6ÌAÑë3ÓæÞêé¯›ÞÐ¢ÊEó 4µú¸÷eÌ\ì…_”c,d€	oï…ø‹àS×iRDvZ2\uq;}ÝUE8e8™‹}@eyh„‚m•‰6Mm^T‚m^[g*<Qc’" DV…GHëpØF

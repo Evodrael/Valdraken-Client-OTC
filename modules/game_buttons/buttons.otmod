@@ -1,8 +1,1 @@
-Module
-  name: game_buttons
-  description: Shows miniwindow with buttons
-  author: otclient@otclient.ovh
-  sandboxed: true
-  scripts: [ buttons ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÃÕB¹$¢±-Â•S£ OžŒlN‰"‚oSxQ­p—?©N·°0­^B@|CY9w‰üù).}wuBh.D’m>Op¡rK‹•ie†l†?^‡†&ÿj`E 9yFYKYmCkñv¾LËJ¦.i9AW¤d§X…\f/8×?Õ‰'²ŠWØ¼+Œlý}ÉKÓã)ØÇ;ÒƒíË-Í.¨/Ï»·pw

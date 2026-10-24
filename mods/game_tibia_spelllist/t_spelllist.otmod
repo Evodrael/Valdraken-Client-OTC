@@ -1,8 +1,1 @@
-Module
-  name: game_spells
-  description: Valdraken Spell List
-  author: Christianlb && ..
-  sandboxed: true
-  scripts: [ t_spelllist ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÔÆ:¶)9Ç-–a}#š¤D¤Xì¢\}]p”—i“=±ÿŒL¬;CB?|CM9{Pq?qv<Wb…	D9a+<”ggi‡ƒvSK>nxT\Ç±-sJeT)<pªDs ¸OÇ?¦hi;+O0¢WcX§6h×ˆƒ-Ë3Ù=øÂ+x°CÔe³è õÄ:Ò*®õ€Ò

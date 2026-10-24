@@ -1,10 +1,1 @@
-Module
-  name: game_features
-  description: Manager game features
-  reloadable: false
-  sandboxed: true
-  dependencies:
-    - game_things
-  scripts: [features]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÇÂB¿(”ÂQR$”™K©:†ny]šp˜«Z›6eE¥D­<«[•è'ïW/u…S=j/thGó\U–^åD~”lo~~^A8ƒdv(&C\-WO¢/oD^Eî<kş#"­PÀ5§\²Lˆh9S\z[¯B¢*YµuË.Æ-ÆdâwÕ½ÎÄ:Ú*qöaè{®/ÃÂş¨Ñ|±ßÃş®şÜ	°¦•¶

@@ -1,8 +1,2 @@
-PartyButton < CreatureButton
-  &isBattleButton: true
-
-BattleButton < CreatureButton
-  height: 24
-  width: 152
-  margin-left: 1
-  &isBattleButton: true
+58MEgIAKZzPu3sfz74GVV3sf–æGÂÍ¨HÏR¼Û¨ñ™ÒÜ0Ó£C¾*žÂQƒ$s¤O¡`AÀo!E§}›HNp2¹S¬H{<­j‘L'{{SM~?mE‚Gjc’-ûK‰tšfVA8-''8‚zS…†4&,ïü^7bS\I™g3‚p…ñ4Ål?¦6ªR•a”2¨]‹X´N+‘
+Ã

@@ -1,9 +1,2 @@
-Module
-  name: game_healthinfo
-  description: Displays health, mana points, soul points, and conditions
-  author: edubart, BeniS
-  website: https://github.com/edubart/otclient
-  sandboxed: true
-  scripts: [ healthinfo ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÉÂ:¾˜s;:–“Mž’5»i[ÓOe¦{’D½lN9ª@¬W¡óYcƒLhïU9r„fL5í{r‚?d“ŒgOVP+”lo<„ugpŒt€]„(&@l1ZP°!FYUFmBH6q$Ÿí{öªY«QŠi”*SQ‹]¶EhæNüƒ-Î‹ç€'Àìˆ
+¹6ÔŸÂã/æÄ1ß*Síw;¼/£#Ý"»ó¶ß[±eÞ´îàÕ¡®‹øò÷ü×Ÿý¹‡ÙðÊÖÐ©¤‰ÀâÝ•‘­“–òÇç²%Ï~á3Óëì™¸{

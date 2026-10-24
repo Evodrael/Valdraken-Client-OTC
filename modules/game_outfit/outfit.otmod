@@ -1,9 +1,1 @@
-Module
-  name: game_outfit
-  description: Change local player outfit
-  author: Oen44
-  website: https://discord.gg/DUkqbedmgP
-  sandboxed: true
-  scripts: [ outfit ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍĞÕ4³*9Ç-–a}#š¤D¤Xìc‚!raSw•F¥eNA±@¹H«ç¨k–DpCïê)wgMq<z=-"[bXWû›p•qt†@…{Œ{„)@M^oRZ,dEl1h95–V]3€i²!ÛlV¼D—V¸V†Yi§[ŒNPòN*‚ƒ)ÚcÙxØÂ2—­H“5³”ûò§;ÒƒíÀ6Ä5gêxÊvÏ¶Û—ÿúé²õ°ïú½ëÕüõ¸“Å

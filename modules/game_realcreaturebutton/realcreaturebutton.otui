@@ -1,17 +1,2 @@
-MainWindow
-  id: minimapWindow
-  size: 800 600
-  !text: tr('Real Creature Button Test')
-  @onEscape: modules.game_realcreaturebutton.onClose()
-
-  Panel
-    width: 154
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    layout:
-      type: verticalBox
-
-    UIRealCreatureButton
-      id: creatureButton
-      height: 26
+58MEgIAKZzPu3sfz74GVV3sf“ÝA ô¡8ÊZXÛŒ:ºã$Ñ)ÊÂ>¡|;:$š•UãNül1QãS,šH¼mhñ¹Qh
+‹,šbB!y4F>~ˆWùKB|w|AH‰–m.+S>zŠfy\~w}E1\€‚orDjëYB«/`SZA—Hm3}pÀChÁWÏE¡"¸Ldažc˜@óPòN€%pÂIÙ=/¼!—~ô¤Þ_”Û£Î¼:Ô¸?ÊöÃ0±*èÄ¨Ù…öüî¶°ëö½ãÚ ÉéÂÝô÷ÑÖóõ£‡¹¶¢ßÕÒ­ÙÛ)€íØÝ¢ÃÝÔÈùò7‡ï²4uó~Ëœ"ÔüåêŸñà2Î¬Ñ=¢PµÃ¢:¹)fQÃ;X¤t¥HÈ#Háuïpói+ÂV—75Z,oe*…ÿ‡k'Í&T3^Ey|Qm‘rŠ^Ÿ\jp•S|í—>+Hb€V_S~q}Vg?«aUC$Y1m„iŠa{3VTÑ

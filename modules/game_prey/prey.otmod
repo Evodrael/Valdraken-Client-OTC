@@ -1,10 +1,1 @@
-Module
-  name: game_prey
-  description: Preys, sponsored by kivera-global.com, remade by Vithrax#5814
-  author: otclient.ovh & kivera-global.com & Vithrax#5814
-  website: http://otclient.ovh
-  sandboxed: true
-  scripts: [ prey ]
-  dependencies: [ client_topmenu ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÑÆGTÖOr”`ƒ!¥ŸIoËn>±t”ß+o£z”V³k“5eA¹¤0¯[”?46Q9kw^l<u/-E[a…‡^ûE+‰g„“gq@<P<Eù1>[{S_,d^9uDaISoü‹r³ñ)Û·LÑ;¥UvEd‘QŸzX³òT×uþŽ!Ø¡ÜRð„ñ-ÆdKØžüè ½ÎÃ@å&ƒü†7Ï$«*ÓÊ½¶ãª›®šÄò³ôÝÃãÐæ»õÅàË¦ö÷áòÚ£ô‡	ç÷‡ÌOŠ‰·éÎÛÌÛÖ¿ù÷ýyÖc'×<Ãð ÚíÝæ¯ÎÈzÆ‹Þ°?ŽÛaþ®4¹ÃWÆ|q‰A±g¥4¸#^5ºA½<·½KZ÷!

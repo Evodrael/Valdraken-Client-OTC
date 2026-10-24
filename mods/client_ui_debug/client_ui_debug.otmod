@@ -1,9 +1,1 @@
-Module
-  name: client_ui_debug
-  description: Draws tree of widgets on mouse position
-  author: Gesior.pl
-  reloadable: false
-  sandboxed: true
-  scripts: [ client_ui_debug ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÙ Í)ÕşÖ7©”	‚	;:–“M’5»i[ÓOn”‚™¸k“6eN¦°0]‡RzïT8)ƒaN|2(s|F_h’gåDl¨rs‹“@dl‹t€a?fÿ/WM­+eBWL4}h¾6ÛlV¼D—V¸V†Yi§[ŒNPòN*‚ƒ)ÚcÙxØ¶)Œ²HÒ”òØ å#ÂìÎÀií—7É®"ÒävøµÖ¶¹·„q±…ÿéê¹êÛÿ»sßïñó™Î

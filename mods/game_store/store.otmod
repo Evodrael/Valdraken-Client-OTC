@@ -1,8 +1,3 @@
-Module
-  name: game_store
-  description: Valdraken Game Store
-  author: ZLukSrT#8740 && Christianlb and R!ck
-  sandboxed: true
-  scripts: [ store, classes/Store, classes/Categories, classes/Home, classes/Offers, classes/Gift, classes/Bazaar ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÔÐ@¯ÀOÇq¤QŒ¡™J£å>"­g…%lg˜yF*¥f“ñ˜S¯UžÑYƒS{7T<C6L%~8[uaö.+XS	DN›pt•oZ‹sz+r]u>L'BbÇ±+oEWO£J_<p½FhÅlÎ9¥]¹R”/OKS\‹X¸7Z×‚{,Ùœèp,Â/ˆÒd7ß
+žÙ.²ñ¼@Ö¸?À-Îí_$ÚÉ¬àqÙýç¶½eóçö¾ñÑÊÐ¹Ñ²£ïää²àÐÿ
+®žÊÛ¦ÝÜÅ¨«ÎâÎåvñŽãy»²2·B¿¶áÏæ Ô{¯‘þÉ”‰¢BdÁµú²8®	0ÁZ

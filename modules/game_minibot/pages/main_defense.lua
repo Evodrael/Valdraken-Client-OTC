@@ -1,17 +1,2 @@
-main_defenseModule = {}
-
-local mainDefenseWindow = nil
-
-function main_defenseModule.init(widget)
-    mainDefenseWindow = widget
-
-end
-
-function main_defenseModule.terminate()
-    mainDefenseWindow = nil
-
-end
-
-function main_defenseModule.reloadInternalModule()
-
-end
+58MEgIAKZzPu3sfz74GVV3sf³İA¨ï˜:ÀQÁ ¹@ºÙˆøŞÛTÃ9|’Z:’šƒ:¿`xy`¢‚F dg—=RéMíŸ<§Y–Gv=7j`8m2nh{F[A“‡nGHRt¡gD˜o]„lŒ4ù1>&LX&`%£0fOhE‚Ni2‹sk#2µGÂ;§Së+ZT@ó$ó¬Gœ“ş‰'†Š"‹·"‰²GØöš÷é'èÜÏ1ã#²;¸<ÀéhÎxÊv¯gÚ£úü¾¶÷ªşîú¢çÚ
+øs¨¼ò®¦˜Öã­¦qÿğáÛØ´Ø‰#³â×ÌÌÓØÄéÈß¸0ĞĞè0ÇıÆìãıÒ*§£‰÷i7«NŸ¥9©¨8

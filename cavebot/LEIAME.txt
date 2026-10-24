@@ -1,0 +1,10 @@
+Rotas do ZeroBot (.cb) no Cave Bot do client Valdraken
+======================================================
+
+1. Coloque aqui os arquivos .cb do ZeroBot (os de Documentos\ZeroBot).
+2. No jogo: Assistente > Cave Bot > Recorder > Import > "Rota do ZeroBot (.cb)..."
+   e escolha o arquivo. Ele vira uma sessao nova; o arquivo original nao muda.
+3. Selecione a sessao, confira a aba "Rota" (opcoes de lure) e ligue o Cave Bot.
+
+Rotas salvas com "Encrypt CaveBot on Save" nao podem ser importadas.
+Waypoints de script (Script) ainda sao ignorados na importacao.

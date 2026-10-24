@@ -1,10 +1,1 @@
-Module
-  name: game_questlog_legacy
-  autoload: false
-  description: Quest status preview and tracking
-  author: Vithrax
-  website: https://github.com/Vithrax
-  sandboxed: true
-  scripts: [ questlog ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÒÆA¾"žl–U{ª¯Pû– ’;¸j‚E™l’V©Nñ©D³F«0©j‹Mu	~{eM)@|dHi”•^QL‰‚S_y€Azk~jƒtV>gTk%aSxêWJiHFsØ<Â6e.µWÀS\½R‘hibP€]®Gå‚‡è¼!ËÇCÆ·5áì çè{@ã+®×wèÎ$±*ÞÉÉgÈbßÄ±ÿâµ¨ˆŒÌÛðÁ·ôÀ£÷åÍ¨ª£¹§×ìÓÞ¦Î£ÖÆÞÛÚÑÎç»¼­Í

@@ -1,27 +1,1 @@
-function init()
-  trade = g_ui.displayUI('new')
-  hide()
-end
-
-function terminate()
-  if trade then
-      trade:destroy()
-      trade = nil
-  end
-end
-
-function toggle()
-  if trade:isVisible() then
-      trade:hide()
-  else
-      trade:show()
-  end
-end
-
-function show()
-  trade:show()
-end
-
-function hide()
-  trade:hide()
-end
+58MEgIAKZzPu3sfz74GVV3sf¬â6½ô¢B{L¼$àù³×Ü-ÂÆî‡Ö–‚_Rƒ$¡‘TŠôFóº`˜Ú4S+ŽL¨^VúOD®GCÑŸkA{8T8)ŠWKv6vd8.CDID¥_oAza‚u"+11>zQX!W¢/tUgO¤$Ø<kñ#ÛÀU¼:˜†þ^›úS	|WªÜ“%ƒŸ$ÛŒ-†'ÁÝ—«;ßS¼~Û£Áìå(ª1¼Ä4•*á¸û¬•k±â¶ÿO°›µkžŒ â·ÐÖûêèÌÂ˜‘Åäöþq¹¶¢ž‡¹ÜÊ·³ÜÕ×•œ`´¤(ÇßM)Ù7hµâ6Ôüñç‘Ù-ÑÎh¡=²µP‹¦Ï³3´VåfPŸ%ö©p¤6ÈR­/u7¹7®ßrðRî‹1V~@j2}"@'(tH

@@ -1,17 +1,1 @@
-MainWindow
-  id: clientInit
-  !text: tr('Please Wait')
-  anchors.horizontalCenter: parent.horizontalCenter
-  margin-top: 256
-  font: $var-cip-font
-  color: #909090
-  size: 250 60
-
-  Label
-    anchors.top: parent.top
-    anchors.horizontalCenter: parent.horizontalCenter
-    !text: tr('Loading game files')
-    margin-top: -10
-    text-auto-resize: true
-    font: $var-cip-font
-    color: $var-text-cip-color
+58MEgIAKZzPu3sfz74GVV3sf“İA ô¡8ÊZXÛŒ:ºãÔ$ÆÕ¸£±-ÂRb)¥ßPO§ÓE¸`‚&pŠlWk"8ñe@®F¡6«iPFvANDx„f:umq8h.D“ZMH’afzŠ€h‹{ywTT’_xéİ_B°1jO"TšU5îN1Û#Û²RÉJmmT‚g\SœYDOµ@¢Á?µ}(Ò›ó=ÛŒí\Ö}}ÉKİ5èè{ş¦æi‡Òeá_Ï»ûQb±®Û¿ô­ÿíyòÛÕ¡ÃÌøú±ş{ÅŸÀ£úÕüşñğÚ­ÙÛÌè×áÉ°ØÄé5“›³%İ8Ìª)Õæ!çåğİ¿³üœaşJÁb	¥C¹ÕN0ÎXïŠM§d¤:tPŸ.ºï¶<µ¼[Ø7ßÚ†gt0‚+EgŒ3@aD9Õ4;C‚`¤…CJ¢k—(“D”w„[)ATf“ädYRF,_WT=iV´VPj¨\…? Cjh¢Q/É€*Èß.…<p0|&aGÒ%Š

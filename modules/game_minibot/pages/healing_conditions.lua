@@ -1,17 +1,1 @@
-healing_conditionsModule = {}
-
-local healingConditionsWindow = nil
-
-function healing_conditionsModule.init(widget)
-    healingConditionsWindow = widget
-
-end
-
-function healing_conditionsModule.terminate()
-    healingConditionsWindow = nil
-
-end
-
-function healing_conditionsModule.reloadInternalModule()
-
-end
+58MEgIAKZzPu3sfz74GVV3sf®	Õ?²ùš3¾R¼ÕE¿Û*µ*ÅÍ3jóO"Š¯;û$ ‘GUƒ-¸dNk¡oW­hœDœH®G¨>Y3BLp;òÔ XNw0|l|A\‰„eDQ‹j–my€ŠzbŒu‹X€S†Š_4He&f	µ3eHZTTòî<k9h¸LÉ=vc·BŠi˜_¡\nR´6.?Ò:0Ï‘Å]Ê-²8€³8Ú0ñÏ5à$i5¼)Ç*­(ÍÅý«Ö¶úýèÄÞ´ôð°¬àî¼Ùý®¬±£®‘ÅŸèúÓéÁÖÝ©ÓÝÁçÜÄÑÑâÍ´ÁãÇä¯Ñuàhê%s£Š±Þ ßòå'É_ÿ‚ó­G˜ ø¯9©¢%ËY¤ðŠP¸g›ÆNª0¶3™A½»T“:d.Y/…k*ò&Ç%ý‚1jñ>

@@ -1,8 +1,1 @@
-Module
-  name: game_announcement
-  description: Notification
-  author: R!ck && ZLukSrT#8740 && Christianlb
-  sandboxed: true
-  scripts: [ announce ]
-  @onLoad: Announcement.init()
-  @onUnload: Announcement.terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµð=ô{Q¯(ÑvÎ$ÍÂÏ=¿$’zŸb$ÑQ	•N˜‡<Àd!EzšLªb‘2¹H¯QCçYW—Ro>W)h<tí.)--Bivk/\Bg.+BG&<…y~…XrŒfhéÝeB¬.cPmEBŽq°Û#Û¿FÍ?£h¼APOQ¡W†^´5“×|Ÿ:Ù¦—Œ·÷Cç²Bâ™öÙ(èÏúÚ$²Añeá_Ý«ý³Ü£õÈš’ÿ³ÿð®ãÙ	õßïñó™Î‰

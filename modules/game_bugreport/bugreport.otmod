@@ -1,9 +1,2 @@
-Module
-  name: game_bugreport
-  description: Bug report interface (Ctrl+Z)
-  author: edubart
-  website: https://github.com/edubart/otclient
-  scripts: [ bugreport ]
-  sandboxed: true
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÃÈ@¯&¬Q~¤¢D¥‡;º5Aõ€cS}‹S³k¢ñ®M´H«-šY‡ş/Y<uALí(d‚G^c–]@G™m”p&A&p‚i‹t…TK>bzSg0,m1jU]U^=‰+°5x­UÏ¢h¬JŠZd=	7\©D—'“TÙÁÂ‹.„*¸-’¸ôĞ³K³çñ½;é­w<Í6¤ËÊ–şµ¹±òò´qú³ùï½tˆŒÌÛğÁÀ
+ÿççŞ¹Öì	ñúÛş¾«ˆ

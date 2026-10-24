@@ -1,9 +1,1 @@
-Module
-  name: game_highscores
-  description: highscores
-  author: Ryukiimaru
-  website: https://www.instagram.com/systemyart.dev/
-  sandboxed: true
-  scripts: [ highscores ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÉÈ6½r;:–“M’5»i[Ósešs™F³k“DOÿ`D®;¡e”'!^?t[Fj?}-ómY†–bOH^+›rŒ”@(L~‚?X‘ngFi_¡9nhYY`;•]½E1±YŠàS¼?Y‘_«N{#fF ,„Ÿ:ÙÙ›",Æ÷Cd<Ü“×*õÎìÎÀií—7É®"ÒävøµÖ¶¹·„q±…ÿéê¹êÛÿ»sßïñó™Î

@@ -1,12 +1,1 @@
-Module
-  name: updater
-  description: Updates client
-  author: otclient@otclient.ovh
-  website: otclient.ovh
-  reloadable: false
-  scripts: [ updater ]
-  dependencies: [ client_locales, client_styles, client_textedit ]
-  @onUnload: Updater.terminate()
-
-  load-later:
-    - client_background
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvİÉ/Ækîj”pš^ jûŠ‚-À`”Ónhœp”WNN2ºS¨R«Ye–As8J8}VaMl9qh{G$cš‹û›p•qt†@Œ{{wzT’(uU_Ç°/mPVDŒGg3V±2o.±í{ö¦W»G‘i¢*SD7^¶6+„:pÂI‚(¸+‡²7ÜÍ”£Ç5Ö$½,Ã7¾"«&áÖvò³Ö§ÿÙÄ¾üàwÏæÁßûş÷	ı÷åÅÜª£¹§×ìÓŞ¦Î£Ö§éÍÎÜß¡Êùö0Âé¤8Ğû‡µ†á†ìÜØİğå#ÌàI·=²aJ­ş¥9¹ú¿V˜Ša±_@

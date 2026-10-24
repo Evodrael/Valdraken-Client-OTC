@@ -1,10 +1,1 @@
-Module
-  name: game_schedule
-  description: Event Schedule
-  author: ZLukSrT#8740 && Christianlb
-  website:
-  sandboxed: true
-  autoload-priority: 1001
-  scripts: [ schedule ]
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÔÉ3®+›ÂQR$”™K©:†f)pj§+yF¬^’F±DJY(®jŠMy	$U‹],{!+;D&JIK–t¦rt}r[''8‚vQ„‡nkİTŸ8eCdXI5înÀ6ÛlDĞJ¢`¸?…"ŸbœX‰RºKh×PÅJêpÂI,€*¼-—~ôÎÉöÜ ç#Ç1‘SíwÊ/‹0Ï¯°Û«¶£[±eĞê ìØüå‹øóìúÖÍ¨ª

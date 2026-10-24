@@ -44,6 +44,25 @@ $excludeNames = @(
     'ValdrakenLauncher.pdb'
 )
 
+# Criptografia dos modulos (desde 15.24.122). So no release local: o -Check roda na
+# Action, que nao tem o segredo. O exe e compilado com ENABLE_ENCRYPTION 1 e a mesma
+# senha; o script pula o que ja esta criptografado, entao rodar de novo e seguro.
+# A senha fica FORA do repo (D:\Valdraken-Cripto) e nunca pode ser commitada.
+if (-not $Check) {
+    # Sem o terminal o client nao tem como devolver um arquivo decifrado.
+    if (Test-Path (Join-Path $root 'modules/client_terminal')) {
+        throw "modules/client_terminal nao pode ir no release criptografado. Remova a pasta e tire-a do client.otmod."
+    }
+    $cryptoDir = 'D:\Valdraken-Cripto'
+    $cryptoScript = Join-Path $cryptoDir 'encrypt_client.py'
+    $cryptoSecret = Join-Path $cryptoDir 'SEGREDO-NAO-PUBLICAR.txt'
+    if (-not (Test-Path $cryptoScript) -or -not (Test-Path $cryptoSecret)) {
+        throw "Ferramenta de criptografia nao encontrada em $cryptoDir. Sem ela o release sairia legivel."
+    }
+    & py -I $cryptoScript $root $cryptoSecret
+    if ($LASTEXITCODE -ne 0) { throw "encrypt_client.py falhou (codigo $LASTEXITCODE)." }
+}
+
 # Versao legivel lida de version.txt (cai para timestamp se o arquivo nao existir).
 $versionFile = Join-Path $root 'version.txt'
 if (Test-Path $versionFile) {

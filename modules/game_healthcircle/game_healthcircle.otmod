@@ -1,9 +1,2 @@
-Module
-  name: game_healthcircle
-  description: Health and mana arcs over the game map
-  author: OTClient team
-  sandboxed: true
-  scripts: [ statusiconbar, game_healthcircle ]
-
-  @onLoad: init()
-  @onUnload: terminate()
+58MEgIAKZzPu3sfz74GVV3sf“ØHµğ=ô{Q¯(ÑvÎ$ÍÉÂ:¾’S$ÑQ	•N˜‡<Àd!E{p‡O¸aN2³C`Pš5šƒPjB9{dù}5m#t4cYDZKíD+”s„x3=VlN}XvŒn&S\_ë^êtBcDTs3€6kEu0±í{ö¦W»G‘i¢*SD7\º3¢,’ş}(ÔŠ+IØº£<Ø
+—Üì ¾8ÖÖ¦×aè{®/º·ó«ÿ÷îyºO°›ÕºìÁğ´ÏÖ³ëõüÒäÈ¬£

@@ -1,0 +1,13 @@
+Scripts do ZeroBot no client Valdraken
+======================================
+
+1. Coloque aqui os arquivos .lua de ZeroBot.
+2. No jogo, abra o Assistente (botao "Open the assistant") e va na aba "Scripts".
+3. Clique em "Atualizar" e ligue cada script no botao Ligado/Desligado.
+
+Os scripts ligados comecam a rodar quando o personagem entra no jogo e param no
+logout. O que eles guardam na memoria (contadores, alvo do follow etc.) se perde
+a cada relog.
+
+O que nao funciona ainda aparece no log da aba Scripts como "nao suportado".
+Os scripts so conseguem ler e gravar arquivos dentro desta pasta.
