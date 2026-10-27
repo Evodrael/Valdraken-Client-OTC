@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.128",
-    "generated":  "2026-10-27T20:15:09-03:00",
-    "count":  13572,
+    "version":  "15.24.129",
+    "generated":  "2026-10-27T21:03:53-03:00",
+    "count":  13586,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -22869,9 +22869,9 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-ef383aa72bde3688ff2a6658fa6ddf76d33765e573dbf9e4dfda35b02bb4cebc.dat",
-                      "sha256":  "ef383aa72bde3688ff2a6658fa6ddf76d33765e573dbf9e4dfda35b02bb4cebc",
-                      "size":  5500940
+                      "path":  "data/things/1524/appearances-f5e3a7837c24ab28380cc05b1a4329222f4b4387458633868947f5d9e97cf688.dat",
+                      "sha256":  "f5e3a7837c24ab28380cc05b1a4329222f4b4387458633868947f5d9e97cf688",
+                      "size":  5503756
                   },
                   {
                       "path":  "data/things/1524/backdrop_map-c92739d7eaacf08338f2af80ea3b54829897a77f82f5630b1dcd4368807c4639.jpg",
@@ -22880,8 +22880,8 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "2e77b24f6218b6cb5ed77dc93cd7b43e67a5e880a1b2e62c74f4686201aec28b",
-                      "size":  1528460
+                      "sha256":  "cc4fb756911ff160def289f9332836a91c7a78866b32af79ca6c3702a354f941",
+                      "size":  1531100
                   },
                   {
                       "path":  "data/things/1524/map-149b61053e2a4339363323799f63c6741ef7430730e74a9c51698db12a4c1e93.dat",
@@ -28259,6 +28259,11 @@
                       "size":  13383
                   },
                   {
+                      "path":  "data/things/1524/sprites-06502f8005d8e49067c5127c6c1673a6f226e5508e6a61e608e5ddef0ab3ced8.bmp.lzma",
+                      "sha256":  "f810faf2e824c73fce632d7b0ba8a80eb03600cbf19d6a07dc3d7da194499ff0",
+                      "size":  18725
+                  },
+                  {
                       "path":  "data/things/1524/sprites-0654e907546a37c796777cc66d2e7aa33ef111fba5a5b732fd6be277e4e357d9.bmp.lzma",
                       "sha256":  "ddfe58e34bfd4c6f62f65faf30bf3159422100a9c275062ead4ac38fa9150b67",
                       "size":  7285
@@ -28762,6 +28767,11 @@
                       "path":  "data/things/1524/sprites-0a847b28f18aff53fdb404e7dfe5b8992d7e22cde6818b957ff95f671efb4b33.bmp.lzma",
                       "sha256":  "afbcea1912fa2df52a18d2d1476f1762fee7657572064387e25b2c04296ae9dc",
                       "size":  38465
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-0a8a3e3611d31da42cef84aed76714ab7d4ddc4d19087460e2fd5d621712a357.bmp.lzma",
+                      "sha256":  "a22a9e2788b7329fc37c0750f5ebc4876227b597a9dc36250fe8f3ddf60224fc",
+                      "size":  15712
                   },
                   {
                       "path":  "data/things/1524/sprites-0a96b0576c7952c77f6a5b71950daa0dd27601c087f9809d3efd154e25b7f414.bmp.lzma",
@@ -30552,6 +30562,11 @@
                       "path":  "data/things/1524/sprites-19716c386b9141491c42d30c83bd55874a5793d452908aca505389ec8341ff37.bmp.lzma",
                       "sha256":  "8df67cc4b42bdf93775963d39b429bbc99055090bacd55e93390915774af3b7c",
                       "size":  10586
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-197f0875c9f30bb141cd7d49c78549bdaa6b7e46cfe126c3d2f6706354b696f8.bmp.lzma",
+                      "sha256":  "8e89d28ef0d70dbf6636f88643f8ef977a46b243d31a63dfc5a85d5ed62e8c4a",
+                      "size":  13576
                   },
                   {
                       "path":  "data/things/1524/sprites-19898b4e57892b62889e821553367220d22f3f9b58a03c43e21fbbab7e01ed4b.bmp.lzma",
@@ -32532,6 +32547,11 @@
                       "path":  "data/things/1524/sprites-28369c8a37a43a6a6b417e2c2fc3ddabe32dbf01e588ed8d4d4e4ac6fb6cc234.bmp.lzma",
                       "sha256":  "392105c7dcd50f93681847098c6c2e85f7af609bab5f8b999cedd19e83bba3ad",
                       "size":  15688
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-283bc3f4f7e616e5e48ab1113f8f5881cd88ba14216fb7320f98fd8a936743de.bmp.lzma",
+                      "sha256":  "7d4c813653e66e730f92a9b96522c1f59a61c03252665a84d848950eb5246b13",
+                      "size":  22453
                   },
                   {
                       "path":  "data/things/1524/sprites-283f235b9763d0921ad83cadb75a30256bbdefb7c7a0cb5fef47b9a6bc98aa38.bmp.lzma",
@@ -36202,6 +36222,11 @@
                       "path":  "data/things/1524/sprites-423a8113805669de62df0b2e8ec2284c7a1b00a1d8e570978af5ab05192b4346.bmp.lzma",
                       "sha256":  "876c0e5a187682188e7ca7468f07ef8e62615b7485dd34d44830d3fa7f143965",
                       "size":  6916
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-42453eaa780a6d3275901bae3d680cf6533c9ea707abaf27f888eb0a7a022115.bmp.lzma",
+                      "sha256":  "c263e1ca015c7126aedf700b63b9ab60aff53f2c49ab68e41d0098f0c343ff99",
+                      "size":  38852
                   },
                   {
                       "path":  "data/things/1524/sprites-4250f3792b937914fabccbf408fe19830eeefb3ea93aa6b1a4904fc076b9125d.bmp.lzma",
@@ -40127,6 +40152,11 @@
                       "path":  "data/things/1524/sprites-5fd4a3797f7b692f536fc7a7cd83f33acb11e32c0fed74de65360ec044d6d075.bmp.lzma",
                       "sha256":  "b5acdcd316de54b6ae76126f1d3225602da1b4075d9c994f899e01c4b0b0a741",
                       "size":  9019
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-5fd87e9622f4cb5e8c15763d4339e5e591894905dc24c8a26feb93f3c19d2144.bmp.lzma",
+                      "sha256":  "8c9475ff3f5e0f55b104a33e0b3a4ba544b31032347f872d0fc987921d399559",
+                      "size":  15395
                   },
                   {
                       "path":  "data/things/1524/sprites-5fdc80f05347c5272dcbfaca8c7a2cab2a7810d3d18421bd8c4d4a2effcceaa3.bmp.lzma",
@@ -44904,6 +44934,11 @@
                       "size":  13879
                   },
                   {
+                      "path":  "data/things/1524/sprites-82746f5c33cb42a9b445de9c62b3f46db27ebc52668e716539504fe116910441.bmp.lzma",
+                      "sha256":  "0a63314cddfb5f37f42aa6d3d9a0feae4640ffd1f59c068c35898d7cfc5974ef",
+                      "size":  28468
+                  },
+                  {
                       "path":  "data/things/1524/sprites-827a014af09b9dccb801935e1ab3a8cdea046d581e07fa411bfcb0401cb84f4a.bmp.lzma",
                       "sha256":  "1a84bc56cb4e83ebee83f1646ea14a144cb296bb4b6133ffdb549d0a39cc1cea",
                       "size":  10974
@@ -46209,6 +46244,11 @@
                       "size":  7614
                   },
                   {
+                      "path":  "data/things/1524/sprites-8bbc26dc5859fcc2db5090e63a458c20d6bf0469959c53c1b348d78a91d4a289.bmp.lzma",
+                      "sha256":  "701d3faab1b2794d68c43190395322a7c91362104dbb35885a0c88dc11794fd8",
+                      "size":  19943
+                  },
+                  {
                       "path":  "data/things/1524/sprites-8bcb5568d5fd5763ef06934b4200d6d7f3054b604a55add2f40c4671171215e1.bmp.lzma",
                       "sha256":  "8c562296cbb37c9522033acc607a5c9029f05b98f0b15238d0bb3e8ba3693a2c",
                       "size":  10670
@@ -46722,6 +46762,11 @@
                       "path":  "data/things/1524/sprites-8f96a60555516579026f7744564ef61a75d489ce8d864a0502574853de778513.bmp.lzma",
                       "sha256":  "e8d76c9dacb9aeb35f9c0eeea6c6663d92903386e8d3e03bf9fca29b59a321cf",
                       "size":  10926
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-8f9755600b66f1a3cf271c5ca198bae5f0ee48bbe365af827a70947ae0d8dbc0.bmp.lzma",
+                      "sha256":  "75898c51867427487a653fb9d2092f53da8c445ef436b93c95c02be115021ba0",
+                      "size":  42168
                   },
                   {
                       "path":  "data/things/1524/sprites-8faf15906c8c54bbe64520b1d9ed65e6ad1e9aa69d84dfd592043e301ebfd17a.bmp.lzma",
@@ -49067,6 +49112,11 @@
                       "path":  "data/things/1524/sprites-a113d00004530d12d2d89b162f3d8538bdaebe669a3ffd4c68fc9f881bf5b0ff.bmp.lzma",
                       "sha256":  "80aae97429508ba98086963d2904dad09737237ecc21156278c896d5606eb737",
                       "size":  16407
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-a11d68971b19f340152c13f6a7adbdfff7b5ce7b1b269c3af098aa11399885ff.bmp.lzma",
+                      "sha256":  "25f135ec551d1263fa6bc0d1f40a6f53c76d78529f1446fcc7807549c6d64145",
+                      "size":  48192
                   },
                   {
                       "path":  "data/things/1524/sprites-a122b64cecbcfd9650784f7aea9838b36a7cc9e897ae9b74a83795d2de294c7f.bmp.lzma",
@@ -53184,6 +53234,11 @@
                       "size":  7604
                   },
                   {
+                      "path":  "data/things/1524/sprites-be35e9f094f7cac17581417f4db2943bba8ffaf85645595bd5d65967bc497463.bmp.lzma",
+                      "sha256":  "b64392417a622b78cd4006653f461540ac62bea580c26170c05ef7e3fa786b7e",
+                      "size":  54123
+                  },
+                  {
                       "path":  "data/things/1524/sprites-be46bf3196a696c0211fdbaf74ad646a35ed46001695970af711c9b601afecd1.bmp.lzma",
                       "sha256":  "1ad8e52a902f8f4fcea1d48de5c81cf949aa26188dd52687efc5f6408312b82e",
                       "size":  9960
@@ -57072,6 +57127,11 @@
                       "path":  "data/things/1524/sprites-da5ddc2b74cdad969f56d490830b31288da79491ea1ab51a4f481bcbd68b0a8e.bmp.lzma",
                       "sha256":  "779f3de6c6c12ac3313889a5fbf56d13b13ecb5c243db9eb47c885ae279f6b95",
                       "size":  12692
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-da6d6b5da42fa88c9cb5c6c41803118be8e33774415b755859dff5f448bb215f.bmp.lzma",
+                      "sha256":  "c66ba7e338dcea9daa39933f4e324285eeb2f46cb902667f704c8abe1258347c",
+                      "size":  22802
                   },
                   {
                       "path":  "data/things/1524/sprites-da806e8cb6d2f09c396ac35fa892acde094fd896dec7efcc9cb7096b6e1d97b7.bmp.lzma",
@@ -63320,8 +63380,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/dataset.lua",
-                      "sha256":  "ff049c846f29a48e287ada499172e4b3b357142363634c8b8cc73ad7754a0285",
-                      "size":  72387
+                      "sha256":  "5aa3a8eaaac0d702db5af038dccc36451f63fed75ce84a9b48ee1ef0c7d40636",
+                      "size":  72772
                   },
                   {
                       "path":  "mods/client_settings/classes/GameOptions.lua",
@@ -63400,8 +63460,8 @@
                   },
                   {
                       "path":  "mods/client_settings/options/graphics.otui",
-                      "sha256":  "6bb3f1a23e2be3dec8f2b97346b72642ac9c3f95cd6496acda22a4b9d12e44e4",
-                      "size":  9577
+                      "sha256":  "e33d5a5f79c66e59f4df2e7c828cb78e8c792322f10e3288e8d7eca203f0a6bd",
+                      "size":  9691
                   },
                   {
                       "path":  "mods/client_settings/options/help.otui",
@@ -63450,8 +63510,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "58b913d1cc8b163b9e64f59daf08cb9e9327ea98ca83f8bfb3d924af30907fb8",
-                      "size":  86412
+                      "sha256":  "8f335e0128bcb557fe15960e99de49c6104998bd5004553b2383e14485da250d",
+                      "size":  86882
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -67360,8 +67420,8 @@
                   },
                   {
                       "path":  "modules/game_shaders/shaders.lua",
-                      "sha256":  "c2b5b61fd0a131188212f21bceda139178b82d02643793a3869431cce33b5a81",
-                      "size":  8757
+                      "sha256":  "779edb7dc50bfc74704d4fbdd6ff31d982beef0934c4fb012b8c2cfce876238a",
+                      "size":  9635
                   },
                   {
                       "path":  "modules/game_shaders/shaders.otmod",
@@ -67387,6 +67447,16 @@
                       "path":  "modules/game_shaders/shaders/map/heat_distortion_vertex.frag",
                       "sha256":  "2bf9ce26e8ce871407a9924179b969013ed88edacd3d3863670631f635f4cd92",
                       "size":  392
+                  },
+                  {
+                      "path":  "modules/game_shaders/shaders/map/map_upscale_fragment.frag",
+                      "sha256":  "4a5731d32125ecb299dc88d4b38eb5ad621f5bd6adfa04bf9f8d333ecda89154",
+                      "size":  4482
+                  },
+                  {
+                      "path":  "modules/game_shaders/shaders/map/map_upscale_vertex.frag",
+                      "sha256":  "d2a96bf0bf34460a75c92cf2a4788a88cd1d54bf114536b974e35c5354bfc7dd",
+                      "size":  596
                   },
                   {
                       "path":  "modules/game_sidebuttons/sidebuttons.lua",
@@ -67625,8 +67695,8 @@
                   },
                   {
                       "path":  "modules/game_walking/walking.lua",
-                      "sha256":  "5d83e8c3c785b9a25158c085d7b9fa43be3bcb55cc752734bfc5f26dc26695ec",
-                      "size":  22957
+                      "sha256":  "9484a5fd68f14b3d5ba9649928adc9133604bdd2a0d7ad30a107634f13ac1394",
+                      "size":  24234
                   },
                   {
                       "path":  "modules/game_walking/walking.otmod",
@@ -67855,7 +67925,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "ed6dc33de402b4fde618f85a016312f50452a4168fc4eb7ad0c3a2ef4e8a0afb",
+                      "sha256":  "04bedba7d3f5ba82d7c24c7a7fcad67dd1afa3af31fcb1462cbd7a2b374f9bd9",
                       "size":  9
                   },
                   {
