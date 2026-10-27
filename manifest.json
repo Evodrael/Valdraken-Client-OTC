@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.124",
-    "generated":  "2026-10-26T16:27:20-03:00",
-    "count":  13504,
+    "version":  "15.24.125",
+    "generated":  "2026-10-27T12:48:16-03:00",
+    "count":  13506,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -22869,9 +22869,9 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-47d0ebf0fbba8da91615f0ab1fb1efd698cad44a692c58ac7194609f9e0a2615.dat",
-                      "sha256":  "47d0ebf0fbba8da91615f0ab1fb1efd698cad44a692c58ac7194609f9e0a2615",
-                      "size":  5480515
+                      "path":  "data/things/1524/appearances-b96f325f522290c1f39f66ec0dc8f5e7d4c16bdf838000f879fe89b6b92988e1.dat",
+                      "sha256":  "b96f325f522290c1f39f66ec0dc8f5e7d4c16bdf838000f879fe89b6b92988e1",
+                      "size":  5481026
                   },
                   {
                       "path":  "data/things/1524/backdrop_map-c92739d7eaacf08338f2af80ea3b54829897a77f82f5630b1dcd4368807c4639.jpg",
@@ -22880,8 +22880,8 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "23c08b74e6cca4bd887a0ac44bc2bc571659ab2544e90dab987d6044920c8518",
-                      "size":  1513785
+                      "sha256":  "a8dd6128b91a3faf9ee0860160e643304030cf1e6b9dd750441d3b638d9a9f01",
+                      "size":  1514143
                   },
                   {
                       "path":  "data/things/1524/map-149b61053e2a4339363323799f63c6741ef7430730e74a9c51698db12a4c1e93.dat",
@@ -32217,6 +32217,11 @@
                       "path":  "data/things/1524/sprites-26712a63a3218de3fc29389a7c380842cc5f7e54471744a244de94b6a1adb893.bmp.lzma",
                       "sha256":  "a69bf6f4a595f71218f3536ed3b95c2ac233366d6fab9e07d3827057d1149617",
                       "size":  16272
+                  },
+                  {
+                      "path":  "data/things/1524/sprites-2671ffd584ad868367d47c7b491a9461ea2c0abd9b858baa5bd95a42479bbd03.bmp.lzma",
+                      "sha256":  "72e71f3710cfeee3777e4db9de9b48a420d718e919bd05e56a06f5dbad506448",
+                      "size":  13624
                   },
                   {
                       "path":  "data/things/1524/sprites-2675157753bb5316041d7bc7ff0a895ce8185a81bf42619afd3ee2100fabb717.bmp.lzma",
@@ -60169,6 +60174,11 @@
                       "size":  13338
                   },
                   {
+                      "path":  "data/things/1524/sprites-f3f803dfe3198369d2ad315ad0260315df9308d0c8b6f2970a2da4b836bea2ac.bmp.lzma",
+                      "sha256":  "6ea19fe54473882d70c080f117ae8c5b4b1ad96577b8b5e389236428afe11258",
+                      "size":  19511
+                  },
+                  {
                       "path":  "data/things/1524/sprites-f418b67b00aa10612924740cec2c2b75d02880272ff4b2e496a2cc9ed1fbac95.bmp.lzma",
                       "sha256":  "90b5c9777f24cc533a5cb507d5ae3970408db68828b6c3191e9c96036860a67b",
                       "size":  9201
@@ -67515,7 +67525,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "7b9fd83d4cc398da8ef53d3e8d828e23cb5534a438a86a16928dba9e51722cda",
+                      "sha256":  "e6b7718f68d189710922f7e159aa02f167a5d6051c319af2b9bfbc3032d7466a",
                       "size":  9
                   },
                   {
