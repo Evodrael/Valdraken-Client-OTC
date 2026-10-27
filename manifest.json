@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.126",
-    "generated":  "2026-10-27T13:23:35-03:00",
+    "version":  "15.24.127",
+    "generated":  "2026-10-27T20:13:13-03:00",
     "count":  13511,
     "files":  [
                   {
@@ -66920,8 +66920,8 @@
                   },
                   {
                       "path":  "modules/game_outfit/outfit.lua",
-                      "sha256":  "11cda76b2c56849d7f68c4011b10bbfec2463aacfb3b8763103fd36529071881",
-                      "size":  40129
+                      "sha256":  "f859745166beea1e68f64d5cf69fbfd97709e78b2f4f8a0c7e895a5f0fc7b794",
+                      "size":  41439
                   },
                   {
                       "path":  "modules/game_outfit/outfit.otmod",
@@ -67550,7 +67550,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "8dc00c715ae9152f7513404dd88554f819267ecf786f7efe638f108c37fd8be5",
+                      "sha256":  "e1e1044d0830ac862c86fc21dd57470b9318f7b2ecd01f61798c5da20b23eab2",
                       "size":  9
                   },
                   {
