@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.130",
-    "generated":  "2026-10-27T21:12:58-03:00",
+    "version":  "15.24.131",
+    "generated":  "2026-10-28T14:55:37-03:00",
     "count":  13586,
     "files":  [
                   {
@@ -63615,8 +63615,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/HuntingAnalyser.lua",
-                      "sha256":  "531e23d5f47dfff22a7b6efea9eb03f1cbdbaff41a368b3f5b6dc58994683022",
-                      "size":  27475
+                      "sha256":  "75f19c07b397b159e3e1df98d5ddd601370841246cf6a37c4bc658afb4fed5c6",
+                      "size":  28101
                   },
                   {
                       "path":  "mods/game_analyser/classes/ImpactAnalyser.lua",
@@ -67925,7 +67925,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "c62503bdc0e79acb6993ed9054f35beb7d69e97a3e38e1f84a22a26c5806c284",
+                      "sha256":  "3ba360f93461a91f90e7c4a3fb588c66098d55dfec4dd24b3f3ec56c0eb5a172",
                       "size":  9
                   },
                   {
