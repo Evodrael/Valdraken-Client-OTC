@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.132",
-    "generated":  "2026-10-28T19:26:20-03:00",
+    "version":  "15.24.133",
+    "generated":  "2026-10-29T12:42:26-03:00",
     "count":  13753,
     "files":  [
                   {
@@ -67600,8 +67600,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "ea1c6ffcaa8045f0a83287162c7421748bd934004e8d923e5a08bd3c7d86f498",
-                      "size":  23106
+                      "sha256":  "e1f3e9e3eb997043b707e86a82e9650a2a554f89fa834a42d09e4aaf96da4f51",
+                      "size":  24683
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
@@ -67735,13 +67735,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "2705e7a770e6e99296279ad25b64c043aeaf27f2fbf0db887b72100733d7fe1f",
-                      "size":  78851
+                      "sha256":  "c836e7af34e1b27141d84f76b0735ef5729753942f339700d14cdaaba62f3f39",
+                      "size":  79218
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "11ae26a2b9f21384d170336c1813fca2cccdedd3648e971ffbc44255b665fde6",
-                      "size":  23422
+                      "sha256":  "fe8ebf90fdb1dac176d808a9799f44a32198e365634f066bb54a0cd1f395bea4",
+                      "size":  23475
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_defense.lua",
@@ -68760,7 +68760,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "95af57b57b397735ad17f3b28a5d0ee4ac1c421301e7913cb4eaae7b0443f426",
+                      "sha256":  "0a1ada435101b848ccdd8aa1dc3c486f5602953ea8052d46e3b06bf5d8de5026",
                       "size":  9
                   },
                   {
