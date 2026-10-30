@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.133",
-    "generated":  "2026-10-29T12:42:26-03:00",
+    "version":  "15.24.134",
+    "generated":  "2026-10-30T13:04:36-03:00",
     "count":  13753,
     "files":  [
                   {
@@ -64215,8 +64215,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/dataset.lua",
-                      "sha256":  "5aa3a8eaaac0d702db5af038dccc36451f63fed75ce84a9b48ee1ef0c7d40636",
-                      "size":  72772
+                      "sha256":  "04113ed6bb615a2be6f02d7c8873831efd903fd5c92b4399e88744cd99a868c2",
+                      "size":  74460
                   },
                   {
                       "path":  "mods/client_settings/classes/GameOptions.lua",
@@ -64275,8 +64275,8 @@
                   },
                   {
                       "path":  "mods/client_settings/options/effects.otui",
-                      "sha256":  "6593f38ee26b4da0b071b923bb052ffb866ff48e3fccd22b3f09944a75bad117",
-                      "size":  10715
+                      "sha256":  "73cbf83f739d6fdd9ce0fd436655ed8fa31bcc38bd7ab697eb3f2b081a6379aa",
+                      "size":  13270
                   },
                   {
                       "path":  "mods/client_settings/options/gameplay.otui",
@@ -64345,8 +64345,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "8f335e0128bcb557fe15960e99de49c6104998bd5004553b2383e14485da250d",
-                      "size":  86882
+                      "sha256":  "1ba3203d3a27cb4d480b508ba84d07f9f0994f742c1799e9c6da00b985681913",
+                      "size":  87030
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -68760,7 +68760,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "0a1ada435101b848ccdd8aa1dc3c486f5602953ea8052d46e3b06bf5d8de5026",
+                      "sha256":  "5e0b5d59af5d23e57c428ab2d0a4da9746ce092eaab07eeb92543d13c67d5fef",
                       "size":  9
                   },
                   {
