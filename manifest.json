@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.136",
-    "generated":  "2026-10-30T14:13:27-03:00",
+    "version":  "15.24.137",
+    "generated":  "2026-10-30T19:23:40-03:00",
     "count":  13780,
     "files":  [
                   {
@@ -7375,13 +7375,13 @@
                   },
                   {
                       "path":  "data/images/game/icons/quests/7.png",
-                      "sha256":  "fa61fc32fff2eba946e6acac2e467b89e010127ab2918b018ffe8cfdde83dbd6",
-                      "size":  621
+                      "sha256":  "33b0072a12b25829916d6b3c3ffcf7f82b2374b98d6f542a150c250b4927751e",
+                      "size":  204
                   },
                   {
                       "path":  "data/images/game/icons/quests/8.png",
-                      "sha256":  "2e46d7df0df0dab0662ddfdabedc3b4b7e5c06012acee17388ccb8cc5f58e32f",
-                      "size":  629
+                      "sha256":  "a1da89b90c1421e9776c26c2c509557dd031c212052d68527db8e346633ba277",
+                      "size":  213
                   },
                   {
                       "path":  "data/images/game/icons/quests/9.png",
@@ -7390,8 +7390,8 @@
                   },
                   {
                       "path":  "data/images/game/icons/quests/quests.png",
-                      "sha256":  "e75d14c3846a38b27659f2e971d56b2ac2bc73bbbe4d54b90d39d26867e98d07",
-                      "size":  2982
+                      "sha256":  "863934fa0c128bfd1f15801e18ed9a297793b15018ab9980c02bb12a91bcce2b",
+                      "size":  1537
                   },
                   {
                       "path":  "data/images/game/imbuing/100percent.png",
@@ -68895,7 +68895,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "cad6af13536c8521b5d9b1777a47712af28dd02338fda8f2f607053eda47905e",
+                      "sha256":  "90fa3ce7d75dd7bddc1bc118bfd677fa4ab55a0137a970f0c5b538ec0b5b01f6",
                       "size":  9
                   },
                   {
