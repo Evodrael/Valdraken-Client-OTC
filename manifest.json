@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.144",
-    "generated":  "2026-11-01T10:24:26-03:00",
+    "version":  "15.24.145",
+    "generated":  "2026-11-01T19:15:47-03:00",
     "count":  13784,
     "files":  [
                   {
@@ -22874,9 +22874,9 @@
                       "size":  41
                   },
                   {
-                      "path":  "data/things/1524/appearances-c76c6a54779453a03c6cfa5cf4d08d7bdb37cf2c8bca28e83eccae96bdee1f70.dat",
-                      "sha256":  "c76c6a54779453a03c6cfa5cf4d08d7bdb37cf2c8bca28e83eccae96bdee1f70",
-                      "size":  5569291
+                      "path":  "data/things/1524/appearances-a29c489bfbcf86eb3efb02ab9f3a7743865be91b5ab89478f91b66575b7d6b21.dat",
+                      "sha256":  "a29c489bfbcf86eb3efb02ab9f3a7743865be91b5ab89478f91b66575b7d6b21",
+                      "size":  5569293
                   },
                   {
                       "path":  "data/things/1524/backdrop_map-c92739d7eaacf08338f2af80ea3b54829897a77f82f5630b1dcd4368807c4639.jpg",
@@ -22885,7 +22885,7 @@
                   },
                   {
                       "path":  "data/things/1524/catalog-content.json",
-                      "sha256":  "2da713933f90bbf432ef404cb3149119a3407021eda78b4d4b12ad188619bba4",
+                      "sha256":  "4821ba350147dba2863c1e6d2593160f01a65e58aa172d6ab9199afa20b29478",
                       "size":  1572672
                   },
                   {
@@ -68915,7 +68915,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "47a35a1327a3879ecad3df7b139c4d550e83982cb4044eeddf20a7165a5db95c",
+                      "sha256":  "9a644ab71765900004e72d4f78051b233e30f0682860e087ffbabb8c5a9149a6",
                       "size":  9
                   },
                   {
