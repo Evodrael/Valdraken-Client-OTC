@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.142",
-    "generated":  "2026-11-01T00:44:28-03:00",
+    "version":  "15.24.143",
+    "generated":  "2026-11-01T10:09:47-03:00",
     "count":  13780,
     "files":  [
                   {
@@ -14225,8 +14225,8 @@
                   },
                   {
                       "path":  "data/json/compendium.json",
-                      "sha256":  "594141b62d7ee5642cabfaa9c2dbf3062bdef4324db4983efad85461afddd2da",
-                      "size":  268832
+                      "sha256":  "c2b715ee4df8e8cd48f88ca3e44f3b82c2f71ca2b4735b51f1b140300395017f",
+                      "size":  172396
                   },
                   {
                       "path":  "data/json/default-options.json",
@@ -64780,8 +64780,8 @@
                   },
                   {
                       "path":  "mods/game_compendium/compendium.lua",
-                      "sha256":  "298e1f75b25abb4792dee8436bde3c1fd455386020c6192115bd174f82609d84",
-                      "size":  20048
+                      "sha256":  "2c0c8e2919646ebd9ae9b12b09e33e14db14cfc01480746428fc052e798e13de",
+                      "size":  20807
                   },
                   {
                       "path":  "mods/game_compendium/compendium.otmod",
@@ -68895,7 +68895,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "debb8ecb132b0b59901d55dc1b58376eb15e75af950864d996a0165f5153d58f",
+                      "sha256":  "50479a65d2dcf33021497f6396ba10496ff49f17265b1da7ea7c848f8f71e778",
                       "size":  9
                   },
                   {
