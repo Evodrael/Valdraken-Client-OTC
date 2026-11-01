@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.143",
-    "generated":  "2026-11-01T10:09:47-03:00",
-    "count":  13780,
+    "version":  "15.24.144",
+    "generated":  "2026-11-01T10:24:26-03:00",
+    "count":  13784,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -12372,6 +12372,11 @@
                       "path":  "data/images/topbuttons/button_codex.png",
                       "sha256":  "531ec5c6c83f49d11ef619b478fd9aabb6e4fb5797e7549b8145dd18ef258f91",
                       "size":  1028
+                  },
+                  {
+                      "path":  "data/images/topbuttons/button_commands.png",
+                      "sha256":  "dd41773babce06c9af3b0c081e442016d67cb18763e77409ae515bca52e09b71",
+                      "size":  1227
                   },
                   {
                       "path":  "data/images/topbuttons/button_dungeons.png",
@@ -67534,6 +67539,21 @@
                       "size":  129
                   },
                   {
+                      "path":  "modules/game_commands/commands.lua",
+                      "sha256":  "c4a03c1ace867c1d68d4a11593737f1790fae5802ea8c9522abb11b6b3b5f5fe",
+                      "size":  8835
+                  },
+                  {
+                      "path":  "modules/game_commands/commands.otmod",
+                      "sha256":  "69a9a73ae1c632f15e8e31948991f2528b0472c9141eff21a866636a8a6bf878",
+                      "size":  330
+                  },
+                  {
+                      "path":  "modules/game_commands/commands.otui",
+                      "sha256":  "54ec70b8cc6197efa3bcf6dafb450f64500e31d1fc87e391dbe54e7eb17a4408",
+                      "size":  3703
+                  },
+                  {
                       "path":  "modules/game_console/channelswindow.otui",
                       "sha256":  "61124adcc88e0dce2ce7d7d0a325da030767cf53787822c85d56fca25fd9cc7f",
                       "size":  2010
@@ -67690,8 +67710,8 @@
                   },
                   {
                       "path":  "modules/game_interface/interface.otmod",
-                      "sha256":  "3139f39f58b20d222079c066cec78eaac09ad81bdca6cb111bf67a114ebd7ce8",
-                      "size":  1703
+                      "sha256":  "0bdb751c79c2a7be8aa5e4796e1e23147bb689ae63baf90aa0f162dac5e0dc41",
+                      "size":  1723
                   },
                   {
                       "path":  "modules/game_interface/styles/countwindow.otui",
@@ -67920,8 +67940,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "cf5d5c46cb91c5a42aca6654e2b6a58e5ba260f2fe1ce5fb5ce331dc7064d94b",
-                      "size":  44341
+                      "sha256":  "9e8dee380c4cc7692c0b00005ef440bb66b443eb28eac4504bdfbb47c9895b2e",
+                      "size":  45269
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
@@ -68255,8 +68275,8 @@
                   },
                   {
                       "path":  "modules/game_outfit/outfit.lua",
-                      "sha256":  "f859745166beea1e68f64d5cf69fbfd97709e78b2f4f8a0c7e895a5f0fc7b794",
-                      "size":  41439
+                      "sha256":  "a500f954af2dc63737e0e40ae621c9540708ab91683900e5252daa75bbfd571d",
+                      "size":  43412
                   },
                   {
                       "path":  "modules/game_outfit/outfit.otmod",
@@ -68430,8 +68450,8 @@
                   },
                   {
                       "path":  "modules/game_sidebuttons/sidebuttons.lua",
-                      "sha256":  "db93522b9b01684d75a4380be5cf60adc98909c26f5e99a4ca204ea951efecff",
-                      "size":  26832
+                      "sha256":  "0a5cebd9b549403da7fd81e7be308620abb39d8ffc7b14b279135584e4d5a285",
+                      "size":  27319
                   },
                   {
                       "path":  "modules/game_sidebuttons/sidebuttons.otmod",
@@ -68700,8 +68720,8 @@
                   },
                   {
                       "path":  "modules/gamelib/const.lua",
-                      "sha256":  "04e62ee5bc9e227943b0fae0bf7fc86eb2e074b89462e07eec98b7e9adc67d3e",
-                      "size":  26612
+                      "sha256":  "6e171abdd56f70cad0ed70788d8bae314de5ecc25bc1a60d0c5785b9487436ac",
+                      "size":  26694
                   },
                   {
                       "path":  "modules/gamelib/core/markers.lua",
@@ -68895,7 +68915,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "50479a65d2dcf33021497f6396ba10496ff49f17265b1da7ea7c848f8f71e778",
+                      "sha256":  "47a35a1327a3879ecad3df7b139c4d550e83982cb4044eeddf20a7165a5db95c",
                       "size":  9
                   },
                   {
