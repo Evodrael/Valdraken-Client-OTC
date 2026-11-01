@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.141",
-    "generated":  "2026-10-31T14:47:39-03:00",
+    "version":  "15.24.142",
+    "generated":  "2026-11-01T00:44:28-03:00",
     "count":  13780,
     "files":  [
                   {
@@ -66015,8 +66015,8 @@
                   },
                   {
                       "path":  "mods/game_forge/classes/Forge.lua",
-                      "sha256":  "aff21fb4275f85652fe2e35dfd2644141aeb56d4195e6490f3e9e30cd422d994",
-                      "size":  67096
+                      "sha256":  "b8d8cedeb0d2e10540da98c567f6ba76784c002fe3276fa2bcc28e931ce0e47d",
+                      "size":  67476
                   },
                   {
                       "path":  "mods/game_forge/forge.lua",
@@ -67745,8 +67745,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "afadf2ba0db0eb624f410b003c93272483cacba1b88a4f3c9172ec9520c48022",
-                      "size":  81937
+                      "sha256":  "7e86c22a3cf4605726ef7f684f6f62e00bb74c1d2906de3068a5e9d789d73e92",
+                      "size":  88139
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -67770,13 +67770,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.lua",
-                      "sha256":  "a5b0dde22e1e3ebe5da58a0bcb7f69095f35300851e09f02c3444a5b368555bf",
-                      "size":  16459
+                      "sha256":  "4ec3e74789007f1d38244c80451a7bca6d11a3dac66a060e9c2680b3a2e990c8",
+                      "size":  17291
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.otui",
-                      "sha256":  "d4678abe234351b4eee596f808b2937520906e45906b6d5d2893e8e3261f7c1a",
-                      "size":  11585
+                      "sha256":  "04111f159db48278b95ab5c4b25eddfb9f944c2af3e47de12b97c81a699e118b",
+                      "size":  12421
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
@@ -67800,23 +67800,23 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.lua",
-                      "sha256":  "152afa5290faac3ec2280ad57c91f9cdc1fa55981e64df9523e8a993d236344f",
-                      "size":  37777
+                      "sha256":  "14b30cfc67783e8d92341a723f0a0c67df955cee7cf8a218e01999a7467b2c0a",
+                      "size":  39886
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.otui",
-                      "sha256":  "214869dc56ad400446b54c5d0ed1dd98f775c39f72a3f1938faa88e391203e48",
-                      "size":  20266
+                      "sha256":  "18cd6f72be1cbc95ee9078f4c143b258d24c5f506182daad1b51f638885baade",
+                      "size":  20205
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_rings.lua",
-                      "sha256":  "73064d2b83ab0585ffe92ae2b1328cad2cbd822c5fb5acc6225cefb060508d9d",
-                      "size":  37152
+                      "sha256":  "32cce41f91506aee3fb7dbfc241d98c5ca6058dbb340889609515fc77c812c54",
+                      "size":  39705
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_rings.otui",
-                      "sha256":  "34c79fdd003a081d11ff2f6fc076f718071add9af812a0b869e01f5c16aa417c",
-                      "size":  20256
+                      "sha256":  "87face73cfc512e1ec893c86883d797f486305eb2934cc16f3a0eb21752845a0",
+                      "size":  20147
                   },
                   {
                       "path":  "modules/game_minibot/pages/healing_conditions.lua",
@@ -67920,13 +67920,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "43bf41b3d0425db834121008a906add2db5f8526acd6cfdfa005f92f49d00c17",
-                      "size":  41762
+                      "sha256":  "cf5d5c46cb91c5a42aca6654e2b6a58e5ba260f2fe1ce5fb5ce331dc7064d94b",
+                      "size":  44341
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
-                      "sha256":  "a5269fe20e7eea998494f3ad63d8e476311ab6abcf95f845c17fafb83e442b3f",
-                      "size":  17036
+                      "sha256":  "18e5d93d6a99432e5ce680fdd43809bba0e0c4e4fa1c95d282d566ab0fba942f",
+                      "size":  18240
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_manashield.lua",
@@ -67940,13 +67940,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/zerobot_scripts.lua",
-                      "sha256":  "beae6b537c73b8206ad84baecbbd3eaa56afddd46f138126f32582bb3a3e94ab",
-                      "size":  6682
+                      "sha256":  "f4f7333720d0f43229182300a48b831ec6a5306b0579fc5ac024158f6dbea375",
+                      "size":  7487
                   },
                   {
                       "path":  "modules/game_minibot/pages/zerobot_scripts.otui",
-                      "sha256":  "ecab1781c82b4a08d4abb20e7a28c802e940c95b31d715102ac3f54ecc39a16a",
-                      "size":  4357
+                      "sha256":  "36b33d21288d7e4eac72348f073ec7fbb78c4a1a3e737ef58be126db1f339f57",
+                      "size":  4748
                   },
                   {
                       "path":  "modules/game_minibot/select.otui",
@@ -68675,13 +68675,13 @@
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_api.lua",
-                      "sha256":  "9671cf2030af121581ca626658a833cd2dc5f435d5ea12d34b396eb1f55ab136",
-                      "size":  44720
+                      "sha256":  "d870c9d262ef4d27b008648935ae2333191344b1d34ca16f253db1b818195380",
+                      "size":  44755
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_compat.lua",
-                      "sha256":  "2f37e02a65d478a2cd549941833c739c51ae5aadc7f4af7f5bb0efd22b5aedc0",
-                      "size":  17532
+                      "sha256":  "73c35cf1dfcc0ac9597eece2150561deacb3330b762e0e24c183b3fb501de102",
+                      "size":  19754
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_compat.otmod",
@@ -68885,17 +68885,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "2108c54974429dc61d4dd8b343f83a08f4a48a2f928028ce4d65daa3acb330c2",
-                      "size":  37023744
+                      "sha256":  "f9645bcef8b4ccab1f3d43437bbe9347602d4ff66bd8b6d89b7a6845ac3acabc",
+                      "size":  37037568
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "072a4a15927587c22e82ff1d953373b1715b5359e974d37db7517114457813a4",
-                      "size":  29163520
+                      "sha256":  "46cab74e37834aa58d62628b7fce6de9f8866cef57448193f7cd3311c7d2e526",
+                      "size":  29177344
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "d3e7d35a276db0fbf93ad212c7513bac35f272decfc919da5afd4b49b0c441cb",
+                      "sha256":  "debb8ecb132b0b59901d55dc1b58376eb15e75af950864d996a0165f5153d58f",
                       "size":  9
                   },
                   {
