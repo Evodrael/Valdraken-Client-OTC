@@ -1,0 +1,16 @@
+Perfis do ZeroBot no Assistente do client Valdraken
+===================================================
+
+1. Copie para esta pasta o arquivo .json do seu personagem. No ZeroBot ele fica
+   em Documentos\ZeroBot\<nome do personagem>.json.
+2. No jogo, abra o Assistente e clique em "Importar" > "Perfil do ZeroBot (.json)".
+3. Escolha o arquivo. O perfil vira um preset NOVO na lista; os seus presets
+   atuais nao mudam. Clique no preset novo para usar.
+
+Entram o perfil selecionado de cada modulo do ZeroBot: Healing (vida e mana),
+Magic Shooter, Targeting, Timers, haste, magic shield, auto mount, troca de
+moedas e reconnect. Buffs que estavam no Shooter do ZeroBot (utito tempo, por
+exemplo) vao para os Timers. Ao terminar, o Assistente mostra o que entrou e o
+que ficou de fora.
+
+Confira as entradas antes de ligar o preset.

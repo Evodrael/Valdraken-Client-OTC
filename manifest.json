@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.150",
-    "generated":  "2026-11-02T13:07:25-03:00",
-    "count":  13787,
+    "version":  "15.24.151",
+    "generated":  "2026-11-02T15:21:07-03:00",
+    "count":  13789,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -67785,13 +67785,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
-                      "sha256":  "bf4144ffaa24be9093d871d3b598ac6dddd61a1b274c7031d665a53e8f1f56a9",
-                      "size":  635
+                      "sha256":  "32093188ea09a166785f8219b47f58a522eb6e8a506904f5490aab2d89dd29cb",
+                      "size":  652
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otui",
-                      "sha256":  "f94db11afaee8a2c3da84d36679a6ddf224f1a2df3fd3ddef82ec684cc8aaeca",
-                      "size":  8541
+                      "sha256":  "e8c8ee0d542615a0e2cb92f3a237a0ead8292b9c36cbe1dde49ff9cd09abc44e",
+                      "size":  8545
                   },
                   {
                       "path":  "modules/game_minibot/minibot_editpreset.otui",
@@ -67987,6 +67987,11 @@
                       "path":  "modules/game_minibot/select.otui",
                       "sha256":  "5dfe642c93b3e5b97d477b40e846680d07355b6ff8de0ec4486faab00e653c9a",
                       "size":  2242
+                  },
+                  {
+                      "path":  "modules/game_minibot/zerobot_profile.lua",
+                      "sha256":  "bf461024e4123d7810c6dcfeb4d6a03c41eeca9aeff28b395cdeaf9217919a6f",
+                      "size":  18371
                   },
                   {
                       "path":  "modules/game_minimap/flagwindow.otui",
@@ -68930,8 +68935,13 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "7ab1c63a28fc30c78d77921b21ee693e5e6c31c410eaf80fdb14a7d9fc0de161",
+                      "sha256":  "5163f2dcd157f9d7021dfa7f9b45d5f761040d02414f7a583432c652d48a4c56",
                       "size":  9
+                  },
+                  {
+                      "path":  "zerobot_profiles/LEIAME.txt",
+                      "sha256":  "c636aaf8ddd2dd0c5fe766b27bdf127ea6294b11d36b07af651f66c4ffe39eb5",
+                      "size":  829
                   },
                   {
                       "path":  "zerobot_scripts/LEIAME.txt",
