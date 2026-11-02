@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.151",
-    "generated":  "2026-11-02T15:21:07-03:00",
+    "version":  "15.24.152",
+    "generated":  "2026-11-02T15:31:27-03:00",
     "count":  13789,
     "files":  [
                   {
@@ -67815,8 +67815,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
-                      "sha256":  "d0d2de4a0363abb0dc4ac9b7aeb67b85d475573f380a6054b95d3a2ae9963bd6",
-                      "size":  95946
+                      "sha256":  "0fca85d108b3e1f51d3d7ab6faf1d408e4bfcbac62869235a4547691dec5672d",
+                      "size":  96175
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.otui",
@@ -68935,7 +68935,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "5163f2dcd157f9d7021dfa7f9b45d5f761040d02414f7a583432c652d48a4c56",
+                      "sha256":  "799f805b53e8f4e1eb17167799d94155fbe14b29b0e8a8ef70e2de64a1d5797b",
                       "size":  9
                   },
                   {
