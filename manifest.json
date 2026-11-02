@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.154",
-    "generated":  "2026-11-02T16:11:45-03:00",
+    "version":  "15.24.155",
+    "generated":  "2026-11-02T18:33:08-03:00",
     "count":  13789,
     "files":  [
                   {
@@ -67770,8 +67770,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "e1f3e9e3eb997043b707e86a82e9650a2a554f89fa834a42d09e4aaf96da4f51",
-                      "size":  24683
+                      "sha256":  "5ad57177221020e5b0a84d04852980bfd6f8ab8eaeadb73ff56aa97af4380619",
+                      "size":  34760
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
@@ -67905,13 +67905,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "f72ff3d94dabd291a5fe3e69c38069a79f143d0980df490de56a0d1a8f6121ed",
-                      "size":  80931
+                      "sha256":  "4fda5e610d0af8df48aa72ceff343bb409f62824fb4184e8dcb8fb37c3c5ada7",
+                      "size":  98506
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "fe8ebf90fdb1dac176d808a9799f44a32198e365634f066bb54a0cd1f395bea4",
-                      "size":  23475
+                      "sha256":  "cd24420438aa4d9ee1d31a4b69372edd210488fc43c9ce70b6e5a634d5361bd0",
+                      "size":  28889
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_defense.lua",
@@ -68485,8 +68485,8 @@
                   },
                   {
                       "path":  "modules/game_skills/skills.lua",
-                      "sha256":  "20c81780e012e060175c11dc06cef778895e55cb5ce705f19e95af9d567e818a",
-                      "size":  51244
+                      "sha256":  "51cfaf875db96c625afcac15e788f0948332bff20716803d924f7be28c01b9c3",
+                      "size":  56906
                   },
                   {
                       "path":  "modules/game_skills/skills.otmod",
@@ -68495,8 +68495,8 @@
                   },
                   {
                       "path":  "modules/game_skills/skills.otui",
-                      "sha256":  "3734bb594ab8b515088517be08975d77297825b559ceb8e2ab326ec599370670",
-                      "size":  22022
+                      "sha256":  "6dceefafb8b00598e633770de0830b7cee511a2a4d587767b1fce1deabe3ec4f",
+                      "size":  23301
                   },
                   {
                       "path":  "modules/game_stats/stats.lua",
@@ -68715,13 +68715,13 @@
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_api.lua",
-                      "sha256":  "8001027826062853919475fc06e78c0af3f5378b515f817081b2b5aea1fa95b1",
-                      "size":  111496
+                      "sha256":  "827eb5de749274cc61c59cf5b9e877df7c8b07d20fc2d812bf6dfd9f941cc0b9",
+                      "size":  112864
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_compat.lua",
-                      "sha256":  "ec15add4d92398e08e55fe11e918abfa6ae2d0409f3611ae357c1edf930d9202",
-                      "size":  26323
+                      "sha256":  "feccfced645a7f3db2767698590e759f7beab6031deb316094938ca06a5761db",
+                      "size":  27692
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_compat.otmod",
@@ -68935,7 +68935,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "e08cef35de99d283fb7cb617311853a0625867dc97f2ee9f2ecf5b0733539342",
+                      "sha256":  "1c4ca79339609b2bd57939504020f5aaf9206d061e79175c7019344267261857",
                       "size":  9
                   },
                   {
