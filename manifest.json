@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.157",
-    "generated":  "2026-11-02T19:38:13-03:00",
+    "version":  "15.24.158",
+    "generated":  "2026-11-02T19:50:42-03:00",
     "count":  13800,
     "files":  [
                   {
@@ -68540,8 +68540,8 @@
                   },
                   {
                       "path":  "modules/game_skills/skills.lua",
-                      "sha256":  "38b2383581d42becdf7885582fb70bb487718a790678558fc8b6b2208f842fc8",
-                      "size":  57339
+                      "sha256":  "1be866c9bd825fe18cd507420962c81abaec46d3f79dc7713442916b20311413",
+                      "size":  58970
                   },
                   {
                       "path":  "modules/game_skills/skills.otmod",
@@ -68550,8 +68550,8 @@
                   },
                   {
                       "path":  "modules/game_skills/skills.otui",
-                      "sha256":  "2d28f18b77e0203038140d372da7aff241069d603f9cf0f0bd25311578622656",
-                      "size":  21954
+                      "sha256":  "b9864e7c35d2f7a9915de9f9a5083cd68641f7f14c2296f3a25c241e69abd13b",
+                      "size":  21971
                   },
                   {
                       "path":  "modules/game_stats/stats.lua",
@@ -68990,7 +68990,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "7e66f9f4b1239e77e819f97774d121827a6d353e779f2706a778b106cb876aff",
+                      "sha256":  "3dccca3b198163cd3d72e846227d0691360c5b59c5d51641ec26633a40f02eef",
                       "size":  9
                   },
                   {
