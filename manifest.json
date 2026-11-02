@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.153",
-    "generated":  "2026-11-02T15:40:28-03:00",
+    "version":  "15.24.154",
+    "generated":  "2026-11-02T16:11:45-03:00",
     "count":  13789,
     "files":  [
                   {
@@ -67780,8 +67780,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "fd4bdfe5527f015236d7e17e729fdb655390b4bff5692bf2b639bfd283781b82",
-                      "size":  93067
+                      "sha256":  "0661768e8a81c7077139c5f63ba51a6acaa225a7dd00e10c237f314e9f896d92",
+                      "size":  96426
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -67805,13 +67805,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.lua",
-                      "sha256":  "c1d23d1060f9910a5dfaa4e7cc339e2fa394b1b247968488448064e9aed432db",
-                      "size":  28469
+                      "sha256":  "a06a7dce7a4d311e90329d1ed675d0bef4f5af7a0bc387e71a800b460116f8ce",
+                      "size":  29764
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.otui",
-                      "sha256":  "b286b5be346a30307eb05220c39be6e633381f22592b822e2cca1112267fc49e",
-                      "size":  19415
+                      "sha256":  "782b25147fb0ff9e7f4632b55b1dea95085be5de9c83a10803e669d889045411",
+                      "size":  20149
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
@@ -67825,13 +67825,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
-                      "sha256":  "75f8b401e55e5ffc2304fb71451be1dd0c022bc93795415d9642f291d3253653",
-                      "size":  62701
+                      "sha256":  "3b2ac9ce06c32f37972e2818487121a34d42d83820392f50fe520a0b4322ff74",
+                      "size":  64129
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.otui",
-                      "sha256":  "afa8cda65b8e64332f5052e4de11e008e4efa82ef64342ae9ed7d79c969c51c9",
-                      "size":  26150
+                      "sha256":  "3cc029563d9d89775f7dd7b8ed5fb714f8373ef75d3d5d4d80e38100152cf0a4",
+                      "size":  26668
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.lua",
@@ -68925,17 +68925,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "872daa03557bfb608ae2f72dad0fd68d615d5daa085595a1c4770ee3de3ac85a",
-                      "size":  37072384
+                      "sha256":  "dfb32cb3e99c652b5297d865af1fe164b324b646110d9f35b20db03f67beb0c8",
+                      "size":  37072896
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "a9f7f6378abb059495c192ad4080ab954e7559c047f8dc655f85f30ebd05c25e",
-                      "size":  29213696
+                      "sha256":  "5c292248e9c45663055d8a61ad73262e06104ac697e2167cb0866d23a217267f",
+                      "size":  29214720
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "a0f560b02d9fb8deccb77d8d44b051531146dd8a5ee4a02a0da556b3df10db94",
+                      "sha256":  "e08cef35de99d283fb7cb617311853a0625867dc97f2ee9f2ecf5b0733539342",
                       "size":  9
                   },
                   {
