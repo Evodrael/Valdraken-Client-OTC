@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.156",
-    "generated":  "2026-11-02T18:58:26-03:00",
-    "count":  13789,
+    "version":  "15.24.157",
+    "generated":  "2026-11-02T19:38:13-03:00",
+    "count":  13800,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -9742,6 +9742,61 @@
                       "path":  "data/images/game/skills/skill_xp.png",
                       "sha256":  "318f8956dff752ce9980c29edd084fbd953ff6e673572e6d898e939664091c31",
                       "size":  591
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/amplification.png",
+                      "sha256":  "8e7c79b7e3ac6a9a702464b023f29cf6ef30c11feb79c5b447eb19eeb463eb47",
+                      "size":  3140
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/critical.png",
+                      "sha256":  "ba2c46b6184058315eec9ed35b19b4289c7209ec0afa1f718776fe288b56ba32",
+                      "size":  245
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/damagehealing.png",
+                      "sha256":  "c710f0b42f3a00feda5c7348c99df9e8b3608b825e85def91e5d0c707a9a5f80",
+                      "size":  3139
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/lifeleech.png",
+                      "sha256":  "bb8ca2d6ea59293344ba4d21188692f0a498b5d565b67de47f9b81d932ff3009",
+                      "size":  189
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/manaleech.png",
+                      "sha256":  "ac74f8d3b2cc16aed13e95cf0e35a56156847fe580fbe78bbe367a0a8cbf2ae3",
+                      "size":  189
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/mitigation.png",
+                      "sha256":  "f0ee8e9446417e181feb19a73168ee8a1baf5b86fdfd1324895b60aac2d7ed6d",
+                      "size":  3152
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/momentum.png",
+                      "sha256":  "1e89d40f241dcb73864b19f19683f3c43f324444dde2181aac3ad2355a3496b6",
+                      "size":  364
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/onslaught.png",
+                      "sha256":  "daaf538549025a11ad7c2149130e8391fb988ce2dc25f562681e7ce7349ce062",
+                      "size":  255
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/reflection.png",
+                      "sha256":  "3d794231b4f7f85e5ddad7c55a3ec05cadd17365c49d7d62bc0f169d56958928",
+                      "size":  3116
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/ruse.png",
+                      "sha256":  "d8f99e85491833d47de0627d2fdbd7f8eb380d8707dba03f51a6d3261b3c8b3a",
+                      "size":  443
+                  },
+                  {
+                      "path":  "data/images/game/skills/stats/transcendence.png",
+                      "sha256":  "58025b7975b0137aa35a653cb3ed560d7224e6090ee7d6f1c37b0ddd149ee8cf",
+                      "size":  339
                   },
                   {
                       "path":  "data/images/game/skills/xp_boost.png",
@@ -67910,7 +67965,7 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "cd24420438aa4d9ee1d31a4b69372edd210488fc43c9ce70b6e5a634d5361bd0",
+                      "sha256":  "aa1a6d6f76e314a6908785111d9bdc4ffa0419f14c2320d626e4386d73447062",
                       "size":  28889
                   },
                   {
@@ -68485,8 +68540,8 @@
                   },
                   {
                       "path":  "modules/game_skills/skills.lua",
-                      "sha256":  "51cfaf875db96c625afcac15e788f0948332bff20716803d924f7be28c01b9c3",
-                      "size":  56906
+                      "sha256":  "38b2383581d42becdf7885582fb70bb487718a790678558fc8b6b2208f842fc8",
+                      "size":  57339
                   },
                   {
                       "path":  "modules/game_skills/skills.otmod",
@@ -68495,8 +68550,8 @@
                   },
                   {
                       "path":  "modules/game_skills/skills.otui",
-                      "sha256":  "6dceefafb8b00598e633770de0830b7cee511a2a4d587767b1fce1deabe3ec4f",
-                      "size":  23301
+                      "sha256":  "2d28f18b77e0203038140d372da7aff241069d603f9cf0f0bd25311578622656",
+                      "size":  21954
                   },
                   {
                       "path":  "modules/game_stats/stats.lua",
@@ -68935,7 +68990,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "169387a28e53fccfaaaf61cf74f767340887932c185c765d41adfc1e3f55341f",
+                      "sha256":  "7e66f9f4b1239e77e819f97774d121827a6d353e779f2706a778b106cb876aff",
                       "size":  9
                   },
                   {
