@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.161",
-    "generated":  "2026-11-03T11:09:59-03:00",
+    "version":  "15.24.162",
+    "generated":  "2026-11-03T12:50:52-03:00",
     "count":  13800,
     "files":  [
                   {
@@ -68010,8 +68010,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "8d7f973ddeed6e4bf4d1809d4a168272bf9f3636620b937a429d87ec54ad3522",
-                      "size":  45780
+                      "sha256":  "9418ccfda42b31882f63528edd46e08cd4ddf4a00f1b0b6d3badf9a91a054e87",
+                      "size":  46372
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
@@ -68990,7 +68990,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "ae6929f0536077f03d2d5b87a9cd924268174b8db1cb45aa51d9b977d17642a2",
+                      "sha256":  "dafa4b1db384aa896854f1787d11613c431fdd96fa6c5b222eb9abff75db3d95",
                       "size":  9
                   },
                   {
