@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.158",
-    "generated":  "2026-11-02T19:50:42-03:00",
+    "version":  "15.24.159",
+    "generated":  "2026-11-03T01:44:09-03:00",
     "count":  13800,
     "files":  [
                   {
@@ -67825,8 +67825,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "8cc9e19a60480c82a1c03a3bd49cc5808c208454481e8530c120102b748b7dc7",
-                      "size":  36210
+                      "sha256":  "28e5272364d5c69a034ec03e8eb0a5d919c0db7cf6e02c8a0a349c562e55363f",
+                      "size":  36415
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
@@ -67880,8 +67880,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
-                      "sha256":  "3b2ac9ce06c32f37972e2818487121a34d42d83820392f50fe520a0b4322ff74",
-                      "size":  64129
+                      "sha256":  "54f086f1b9562411430d928a1692ceb865aa476b1e1d2cbe810d70a3d9026681",
+                      "size":  64957
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.otui",
@@ -67960,13 +67960,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "4fda5e610d0af8df48aa72ceff343bb409f62824fb4184e8dcb8fb37c3c5ada7",
-                      "size":  98506
+                      "sha256":  "3392a478ac4a76708a6892dfad051b9e98eb85b95b6a802899158007e70d0c08",
+                      "size":  105671
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "aa1a6d6f76e314a6908785111d9bdc4ffa0419f14c2320d626e4386d73447062",
-                      "size":  28889
+                      "sha256":  "73b72afc4679d83cf75835382d83b7254e38e6c296f7f76de9dc9a83f82e2744",
+                      "size":  29858
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_defense.lua",
@@ -67990,13 +67990,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_settings.lua",
-                      "sha256":  "74c6d50f20f4be5167998c95362845a7b3885a2020b91c0a74ea2bc0a43e9528",
-                      "size":  65502
+                      "sha256":  "23219469f95740bf14e1f9a4786f3e53a8288d2113353e8dffae56135f00bd84",
+                      "size":  66043
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_settings.otui",
-                      "sha256":  "4bef515bf1f3bc9908a12c3baabd6a79894312b8bcc11c1c7ca4eb075592a4ca",
-                      "size":  35086
+                      "sha256":  "db1325a0587d82c72697adf1826fcff8989c23665c4b5996bf28ed68597376c7",
+                      "size":  35064
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_extras.lua",
@@ -68010,8 +68010,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "9e8dee380c4cc7692c0b00005ef440bb66b443eb28eac4504bdfbb47c9895b2e",
-                      "size":  45269
+                      "sha256":  "d46cef6f4cef107c5f75f3ce72d6b8ab8bb917b4e011d70b66bf22f90965df83",
+                      "size":  45364
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
@@ -68980,17 +68980,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "dfb32cb3e99c652b5297d865af1fe164b324b646110d9f35b20db03f67beb0c8",
-                      "size":  37072896
+                      "sha256":  "f46f35e459dd3c5978e09046b6a5305e126ea218ff924c1c7e1ad73f1c6e1197",
+                      "size":  37073408
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "5c292248e9c45663055d8a61ad73262e06104ac697e2167cb0866d23a217267f",
+                      "sha256":  "e595d64e3d174c2c1c31031662622247538e033290bb9a0d4b3ff54ae0903aec",
                       "size":  29214720
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "3dccca3b198163cd3d72e846227d0691360c5b59c5d51641ec26633a40f02eef",
+                      "sha256":  "3d413eefe3af5fd8252579e5d864e5ee3796c7df574af6c4e6c05d9bfa74a734",
                       "size":  9
                   },
                   {
