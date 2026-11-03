@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.160",
-    "generated":  "2026-11-03T09:49:54-03:00",
+    "version":  "15.24.161",
+    "generated":  "2026-11-03T11:09:59-03:00",
     "count":  13800,
     "files":  [
                   {
@@ -67835,8 +67835,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "088cbf3e081c601e7af293c9010c1add8a60f833c23668560e8fda3e80f8f77f",
-                      "size":  97845
+                      "sha256":  "5a5cad16735321d1e748bcf4d292898affdbf45c4f2738c3c8d5322660d8ac4d",
+                      "size":  98053
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -67860,13 +67860,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.lua",
-                      "sha256":  "a06a7dce7a4d311e90329d1ed675d0bef4f5af7a0bc387e71a800b460116f8ce",
-                      "size":  29764
+                      "sha256":  "a488efe993bacdc39b586f0bea576438e77a5371055f0922aa8077a5a33aa697",
+                      "size":  30123
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.otui",
-                      "sha256":  "782b25147fb0ff9e7f4632b55b1dea95085be5de9c83a10803e669d889045411",
-                      "size":  20149
+                      "sha256":  "430b1718cb29503b05aaeb3f7517423603a474ff4ad864bbf6145351da0c8ee3",
+                      "size":  19494
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
@@ -68990,7 +68990,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "005632fed35476dd5d3ed8904634f4ade2ba8340e40609fcd8c56a7dac0cb5be",
+                      "sha256":  "ae6929f0536077f03d2d5b87a9cd924268174b8db1cb45aa51d9b977d17642a2",
                       "size":  9
                   },
                   {
