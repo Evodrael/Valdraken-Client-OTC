@@ -1,7 +1,7 @@
 {
-    "version":  "15.24.169",
-    "generated":  "2026-11-04T13:58:14-03:00",
-    "count":  13801,
+    "version":  "15.24.170",
+    "generated":  "2026-11-04T16:20:50-03:00",
+    "count":  13805,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -11854,6 +11854,11 @@
                       "size":  199
                   },
                   {
+                      "path":  "data/images/store/icon-live-button.png",
+                      "sha256":  "438edebea0885c071b0710ec88506957c57f752f76c629b1c40fc82af343ddda",
+                      "size":  178
+                  },
+                  {
                       "path":  "data/images/store/icon-no.png",
                       "sha256":  "6a1873fe1994683ae2ba85a578021577e54cec1bff1257767303338b4ee64bed",
                       "size":  216
@@ -11917,6 +11922,11 @@
                       "path":  "data/images/store/icon-store-home.png",
                       "sha256":  "ed79db92e2d39fad1bde181b1b8cb9ac314d5f7bb0692d4f7a5254d73d9160e9",
                       "size":  202
+                  },
+                  {
+                      "path":  "data/images/store/icon-store-live.png",
+                      "sha256":  "29786a0c35ca71687a87856c04a7212daf5754a1a3d0b12816dfe748fe0bb901",
+                      "size":  158
                   },
                   {
                       "path":  "data/images/store/icon-store-search-result.png",
@@ -66650,8 +66660,8 @@
                   },
                   {
                       "path":  "mods/game_store/classes/Categories.lua",
-                      "sha256":  "35639612daca671a90263b06be697098d40f0ac0ec44a6244d45ed7f3fcb2155",
-                      "size":  7612
+                      "sha256":  "549e7fc8288281390da94c50e84cf6a0b41b6fa690ebc08a45282c3003ac0987",
+                      "size":  7963
                   },
                   {
                       "path":  "mods/game_store/classes/Gift.lua",
@@ -66662,6 +66672,11 @@
                       "path":  "mods/game_store/classes/Home.lua",
                       "sha256":  "159f9644b8111cbeab7b9e1cf71c3299947ecad90ea2701b56423d41a3268e03",
                       "size":  21719
+                  },
+                  {
+                      "path":  "mods/game_store/classes/LiveStore.lua",
+                      "sha256":  "8d41e753e6560f4c11e1810b31f38cb4683c2cff7ecd9cedb8c4a93833898d73",
+                      "size":  5696
                   },
                   {
                       "path":  "mods/game_store/classes/Offers.lua",
@@ -66675,13 +66690,13 @@
                   },
                   {
                       "path":  "mods/game_store/store.lua",
-                      "sha256":  "65c3ebdc524e9f936304607947c8d7e35f500569d75cf2cadfcdae48af120755",
-                      "size":  28358
+                      "sha256":  "83ba95d715d1252da42b077e71a00d4d22237d4c8fdbe0f9a53d38fb619199d9",
+                      "size":  28706
                   },
                   {
                       "path":  "mods/game_store/store.otmod",
-                      "sha256":  "c0e5b257690de016ff140fa8691f735e253b11e35c23500e391adf7310612cbc",
-                      "size":  309
+                      "sha256":  "b28664916a069b68c040d340db604bc373644e881510e257ab8925732896c9ab",
+                      "size":  328
                   },
                   {
                       "path":  "mods/game_store/store.otui",
@@ -66727,6 +66742,11 @@
                       "path":  "mods/game_store/styles/home.otui",
                       "sha256":  "10431b8a8d81285143d8b51aceec22d4de9b85f4dad1c2bf4505ae88c59e8cf8",
                       "size":  4465
+                  },
+                  {
+                      "path":  "mods/game_store/styles/livestore.otui",
+                      "sha256":  "0e04ab0abd07bddfc54cd5f5f691edaeaec5f21b6b6ddd683e160bd15438612f",
+                      "size":  4125
                   },
                   {
                       "path":  "mods/game_store/styles/namechange.otui",
@@ -67795,8 +67815,8 @@
                   },
                   {
                       "path":  "modules/game_inventory/inventory.lua",
-                      "sha256":  "cd9ba4d799f44ba4f7b74768206f83bc35336d813fe08a079f8a53066029b14f",
-                      "size":  29162
+                      "sha256":  "56a984cba793bce746574028feeba015048f97c209334d10c350203e427007ab",
+                      "size":  29668
                   },
                   {
                       "path":  "modules/game_inventory/inventory.otmod",
@@ -67805,8 +67825,8 @@
                   },
                   {
                       "path":  "modules/game_inventory/inventory.otui",
-                      "sha256":  "60910d68e4b193cb9f958525dc42ecbf6a9c0857e9a17cda7129c6bd9b7d1d1d",
-                      "size":  13006
+                      "sha256":  "288e00cce5b1da4f3c77250669ff537b9385b29aca54088f6646a40fd1117ac1",
+                      "size":  14121
                   },
                   {
                       "path":  "modules/game_itemselector/itemselector.lua",
@@ -68995,7 +69015,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "8d2a01c054992586fbd8ebf13ce5ee705325672d99b3301f778673db9fa8d277",
+                      "sha256":  "2b07f5b7508af334c8a0ba542fd1288731d46558c8e708b3955996d4e491d2df",
                       "size":  9
                   },
                   {
