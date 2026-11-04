@@ -3,5 +3,5 @@ EnterGameWindow < StaticMainWindow
   text-offset: 0 1
   font: $var-cip-font
   color: #909090
-  size: 280 231
+  size: 300 200
   margin-top: 10

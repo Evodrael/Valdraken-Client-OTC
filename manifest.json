@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.167",
-    "generated":  "2026-11-04T09:46:44-03:00",
+    "version":  "15.24.168",
+    "generated":  "2026-11-04T10:43:11-03:00",
     "count":  13801,
     "files":  [
                   {
@@ -12365,8 +12365,8 @@
                   },
                   {
                       "path":  "data/images/title.png",
-                      "sha256":  "6bbd713e315c781b013493c23769e0d4521e55290f07d2b79bc31b1483228aa2",
-                      "size":  5414563
+                      "sha256":  "63090e6d4eeec9104d01a1189dcc09c8d2663eab18a47d14fc51a89749e5efa6",
+                      "size":  4269147
                   },
                   {
                       "path":  "data/images/topbuttons/analyticsSelectorWidget.png",
@@ -22880,7 +22880,7 @@
                   },
                   {
                       "path":  "data/styles/40-entergame.otui",
-                      "sha256":  "7b6d208cd5152a967e8cdf86629a6cda08a23acd6708822a35fac2c3f6134ac8",
+                      "sha256":  "19fef85d0d94f6084193196af1d765231309c3f8b4861f32ab9195c5b5a54458",
                       "size":  157
                   },
                   {
@@ -66965,8 +66965,8 @@
                   },
                   {
                       "path":  "modules/client_background/background.lua",
-                      "sha256":  "1dad47062727b4692dbcc4376403211452459c8830f27e07cb0fa08e2aa03a9c",
-                      "size":  8394
+                      "sha256":  "ea58dac98e4613966d04c86a502c8a4216a569fe5103dd3a31b978acc59204cb",
+                      "size":  8636
                   },
                   {
                       "path":  "modules/client_background/background.otmod",
@@ -66975,8 +66975,8 @@
                   },
                   {
                       "path":  "modules/client_background/background.otui",
-                      "sha256":  "e65c19bce3b5267615302e7cef6a6d1d6b7ac497cc57da81ad8a257530bb5f47",
-                      "size":  11310
+                      "sha256":  "276bed28e97086b03d99fb5b16c9b8a26e309aaf34dfb6d6f13ac6444b66e2f4",
+                      "size":  11335
                   },
                   {
                       "path":  "modules/client_background/schedule.lua",
@@ -67010,8 +67010,8 @@
                   },
                   {
                       "path":  "modules/client_entergame/entergame.lua",
-                      "sha256":  "e877ecec3af0bfe90d27b1c4f0944c39c8708bbca53e515b0eeb9da3274903c0",
-                      "size":  24288
+                      "sha256":  "4988cea27ce8e364b947e5800f519325604c2707160cb87d6bec00b899b3d0fe",
+                      "size":  24535
                   },
                   {
                       "path":  "modules/client_entergame/entergame.otmod",
@@ -67020,8 +67020,8 @@
                   },
                   {
                       "path":  "modules/client_entergame/entergame.otui",
-                      "sha256":  "f5befc5e2eda2e85de8b0017fb096c3fcbca8bed508e864c302e1450bc98562b",
-                      "size":  7593
+                      "sha256":  "113ea0e602eea594f2c890e68de9da73a200e21aba320c411c170af9aa5296ac",
+                      "size":  7764
                   },
                   {
                       "path":  "modules/client_entergame/logpass.otui",
@@ -68995,7 +68995,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "fb8e7eb6b5871a4d14928984489053918e54ae9a8edb5c4890cd8b2c620169da",
+                      "sha256":  "e4fa77a1e53ddd75e7695bd523ae57893a17a8260509f277cb28f9cce4e3d455",
                       "size":  9
                   },
                   {
