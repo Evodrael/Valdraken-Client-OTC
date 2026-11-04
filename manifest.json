@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.170",
-    "generated":  "2026-11-04T16:20:50-03:00",
+    "version":  "15.24.171",
+    "generated":  "2026-11-04T16:25:25-03:00",
     "count":  13805,
     "files":  [
                   {
@@ -66660,8 +66660,8 @@
                   },
                   {
                       "path":  "mods/game_store/classes/Categories.lua",
-                      "sha256":  "549e7fc8288281390da94c50e84cf6a0b41b6fa690ebc08a45282c3003ac0987",
-                      "size":  7963
+                      "sha256":  "1560421955d30abb8e21fcdf53146e1692278058a4c134334bc3ac77d4cd966c",
+                      "size":  7987
                   },
                   {
                       "path":  "mods/game_store/classes/Gift.lua",
@@ -69015,7 +69015,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "2b07f5b7508af334c8a0ba542fd1288731d46558c8e708b3955996d4e491d2df",
+                      "sha256":  "a5aebd0695dfe0ccfe1e536fc72cb763e0bd22c6b2633d76d7c04a49f3efc9a9",
                       "size":  9
                   },
                   {
