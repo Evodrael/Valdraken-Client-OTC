@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.176",
-    "generated":  "2026-11-05T16:56:41-03:00",
+    "version":  "15.24.177",
+    "generated":  "2026-11-05T21:14:08-03:00",
     "count":  13805,
     "files":  [
                   {
@@ -66100,8 +66100,8 @@
                   },
                   {
                       "path":  "mods/game_forge/classes/Forge.lua",
-                      "sha256":  "b8d8cedeb0d2e10540da98c567f6ba76784c002fe3276fa2bcc28e931ce0e47d",
-                      "size":  67476
+                      "sha256":  "673678798dd39e7cb09db652757e176d6672a62a8ed9d3d3821ca1d69840d421",
+                      "size":  67688
                   },
                   {
                       "path":  "mods/game_forge/forge.lua",
@@ -69015,7 +69015,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "a1a419d845ea54b413341b3486f07676c49d28ad9e6a452c046782f2b2c69792",
+                      "sha256":  "496243568ad2db745acf9e219f65b5e88cb868599318a6a22a61812235ae403d",
                       "size":  9
                   },
                   {
