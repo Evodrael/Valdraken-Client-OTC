@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.171",
-    "generated":  "2026-11-04T16:25:25-03:00",
+    "version":  "15.24.172",
+    "generated":  "2026-11-05T01:25:02-03:00",
     "count":  13805,
     "files":  [
                   {
@@ -66505,8 +66505,8 @@
                   },
                   {
                       "path":  "mods/game_questlog/questlog.lua",
-                      "sha256":  "1c73ea19484c4481e7bc60c5c7e316f89e825f030ed6b10e5b48a7c2977b2f2a",
-                      "size":  20580
+                      "sha256":  "bbccccd6612f4eb50cca373f52bcc057cdbd74dbf8a43d531ffc612b4d5e8e35",
+                      "size":  21635
                   },
                   {
                       "path":  "mods/game_questlog/questlog.otmod",
@@ -69015,7 +69015,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "a5aebd0695dfe0ccfe1e536fc72cb763e0bd22c6b2633d76d7c04a49f3efc9a9",
+                      "sha256":  "7bb0feb7ab88a137ee06e647063296127f3a7b0aa02252ce47d3bacbd54f4124",
                       "size":  9
                   },
                   {
