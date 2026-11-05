@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.172",
-    "generated":  "2026-11-05T01:25:02-03:00",
+    "version":  "15.24.173",
+    "generated":  "2026-11-05T02:16:25-03:00",
     "count":  13805,
     "files":  [
                   {
@@ -64670,8 +64670,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/HuntingAnalyser.lua",
-                      "sha256":  "75f19c07b397b159e3e1df98d5ddd601370841246cf6a37c4bc658afb4fed5c6",
-                      "size":  28101
+                      "sha256":  "c5cd3c33e4f335d09664d3d00381931967a6181d1acbbe67b952227a02675cde",
+                      "size":  27174
                   },
                   {
                       "path":  "mods/game_analyser/classes/ImpactAnalyser.lua",
@@ -64680,8 +64680,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/InputAnalyser.lua",
-                      "sha256":  "a4fa18889d8dba2c4e2df464a1cf7e07028bd41e4653db5cf386be661edb4c0b",
-                      "size":  15806
+                      "sha256":  "f1adccc0e88e72642e80a72a8896561e5df9ed9d38b4db8a6bd41a9c9aa6d243",
+                      "size":  16088
                   },
                   {
                       "path":  "mods/game_analyser/classes/LootAnalyser.lua",
@@ -66675,8 +66675,8 @@
                   },
                   {
                       "path":  "mods/game_store/classes/LiveStore.lua",
-                      "sha256":  "8d41e753e6560f4c11e1810b31f38cb4683c2cff7ecd9cedb8c4a93833898d73",
-                      "size":  5696
+                      "sha256":  "d09be72c65b5adf5af61316c8fbd851dea4be0554b1eff6def3a65696a81d82e",
+                      "size":  6283
                   },
                   {
                       "path":  "mods/game_store/classes/Offers.lua",
@@ -66745,8 +66745,8 @@
                   },
                   {
                       "path":  "mods/game_store/styles/livestore.otui",
-                      "sha256":  "0e04ab0abd07bddfc54cd5f5f691edaeaec5f21b6b6ddd683e160bd15438612f",
-                      "size":  4125
+                      "sha256":  "791c94808b74ec66fa31e066e10a1c7163cdefac833675d67da8a7466a6178a8",
+                      "size":  5221
                   },
                   {
                       "path":  "mods/game_store/styles/namechange.otui",
@@ -69015,7 +69015,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "7bb0feb7ab88a137ee06e647063296127f3a7b0aa02252ce47d3bacbd54f4124",
+                      "sha256":  "83354ad3959c707537b9771c8c5e508347be09761931c5863aa9a0fa82715f43",
                       "size":  9
                   },
                   {
