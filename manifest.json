@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.178",
-    "generated":  "2026-11-07T10:59:43-03:00",
+    "version":  "15.24.179",
+    "generated":  "2026-11-09T19:43:30-03:00",
     "count":  14248,
     "files":  [
                   {
@@ -67150,8 +67150,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/magical_archive/spells.json",
-                      "sha256":  "9b50031378c014cb87cc5634302ae38b7c170bfccf891022e5a1909ec54cd733",
-                      "size":  345063
+                      "sha256":  "61bf4eeaee651ed406ca0f8589bd76bdceba295753e5ba96320fbe20f7c6c219",
+                      "size":  345115
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/magical_archive/spells-preview.json",
@@ -71130,8 +71130,8 @@
                   },
                   {
                       "path":  "modules/gamelib/spells.lua",
-                      "sha256":  "b0aada5e6ce30a95f6f785ad3d662c53fb34fc0b805fc52f92414fdd555b0ea1",
-                      "size":  86641
+                      "sha256":  "616e31c510b6047e0e3d62e344cec7e98298d26ee327f37dad52dbf8399c498d",
+                      "size":  86695
                   },
                   {
                       "path":  "modules/gamelib/textmessages.lua",
@@ -71230,7 +71230,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "fb95c00b858de107c85d44408b62ad2f03aabe23cfda867054c6111042736e13",
+                      "sha256":  "56d54c1327ce4c0a559d9220fe850081c7fc85e3942bf592728d433daf81c20d",
                       "size":  9
                   },
                   {
