@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.183",
-    "generated":  "2026-11-11T01:07:58-03:00",
+    "version":  "15.24.184",
+    "generated":  "2026-11-11T02:15:27-03:00",
     "count":  14249,
     "files":  [
                   {
@@ -14385,8 +14385,8 @@
                   },
                   {
                       "path":  "data/minimap/minimap.otmm",
-                      "sha256":  "d07a83f86c38a10e8a7cf65cfddcc6cb63ef86a5ee6708d1c241e785673269a3",
-                      "size":  1584086
+                      "sha256":  "1e8d0c94718b2e34f553455d536dae74cc9ae6f14fef0008e36f1b610e237787",
+                      "size":  925657
                   },
                   {
                       "path":  "data/minimap/regions/0-(33640-31251-7)subarea-0394-7c3642d2117a1651a8d9f0c064ec1e00ecdd7e6b74dae59f2afaf0ef20119b26.png",
@@ -70300,8 +70300,8 @@
                   },
                   {
                       "path":  "modules/game_minimap/minimap.lua",
-                      "sha256":  "4e71b32d882a107c07396fda5304281ec3aa7780a7f78133c7ab8838e648242e",
-                      "size":  35538
+                      "sha256":  "041d5886e1518ed57c6e5b202f73569ceac2c1d47fba9ed71bb8fd8b73c4b30a",
+                      "size":  36045
                   },
                   {
                       "path":  "modules/game_minimap/minimap.otmod",
@@ -71235,7 +71235,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "43d706c7aec19d947b88a368b99cc3ff0433ddedfb89c17dc6e5e31d9571b847",
+                      "sha256":  "3afd08123808ed9dbf6fb5d2bfaa4a4bbef699998f1cbf423a3730b0266db87e",
                       "size":  9
                   },
                   {
