@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.182",
-    "generated":  "2026-11-10T20:17:17-03:00",
+    "version":  "15.24.183",
+    "generated":  "2026-11-11T01:07:58-03:00",
     "count":  14249,
     "files":  [
                   {
@@ -69480,8 +69480,8 @@
                   },
                   {
                       "path":  "modules/corelib/keybinds.lua",
-                      "sha256":  "592a7e44633ec921e516fe9319492d2362f6d7cbe255b5c5ee26e43de37581c7",
-                      "size":  47749
+                      "sha256":  "66c5f2629f11d96416ffe94a222d24d60f803c01db03b4680378934f24c71050",
+                      "size":  48612
                   },
                   {
                       "path":  "modules/corelib/keyboard.lua",
@@ -70065,8 +70065,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "28e5272364d5c69a034ec03e8eb0a5d919c0db7cf6e02c8a0a349c562e55363f",
-                      "size":  36415
+                      "sha256":  "a06929b63e901b7429cb63e3f11c8887022ea3d03d6c0e9c81a7b8865f9a3698",
+                      "size":  49303
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
@@ -70075,8 +70075,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "5a5cad16735321d1e748bcf4d292898affdbf45c4f2738c3c8d5322660d8ac4d",
-                      "size":  98053
+                      "sha256":  "f0c8d1349ee683cbbf0e1da394efb6051db28aa5937f20008a30b08275be9ec3",
+                      "size":  98198
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -70200,13 +70200,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "b378d3d39dce9fd47294a877786ac244763269a1f20012d9a622fd3c6a4aeb3d",
-                      "size":  105826
+                      "sha256":  "5993a416d709fe3d61b493ea3ce96c1f2a7a796f793616163dabe300023c744b",
+                      "size":  123841
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
-                      "sha256":  "73b72afc4679d83cf75835382d83b7254e38e6c296f7f76de9dc9a83f82e2744",
-                      "size":  29858
+                      "sha256":  "c9d8a77916c14474f24768fb07bb23118ba75a312a91f144507a092be9376560",
+                      "size":  31396
                   },
                   {
                       "path":  "modules/game_minibot/pages/main_defense.lua",
@@ -70270,13 +70270,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/zerobot_scripts.lua",
-                      "sha256":  "03a07d6bd52adf4c92dc5de64fef21d253eb79f518403a07d32b7dd86a7728f2",
-                      "size":  7784
+                      "sha256":  "c39ca69430d269a5a70fa0bc1068c0d3f740654afecbdc5716c466564a9bf2d7",
+                      "size":  10377
                   },
                   {
                       "path":  "modules/game_minibot/pages/zerobot_scripts.otui",
-                      "sha256":  "57cf89b4a10b607c1d3190014512f5d5ea4d8137a24fc4753628463ecbe15668",
-                      "size":  5211
+                      "sha256":  "370c0efc3e1161e31681d7e4c63bd9ff6645d2d90b006f3be6a7a07abf207151",
+                      "size":  5546
                   },
                   {
                       "path":  "modules/game_minibot/select.otui",
@@ -71235,7 +71235,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "1d16ed8db2ab381dc9031a853a75bf6648e0f8c3a01d0098a41af2c1bf4cfc9d",
+                      "sha256":  "43d706c7aec19d947b88a368b99cc3ff0433ddedfb89c17dc6e5e31d9571b847",
                       "size":  9
                   },
                   {
