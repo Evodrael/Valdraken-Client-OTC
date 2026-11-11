@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.184",
-    "generated":  "2026-11-11T02:15:27-03:00",
+    "version":  "15.24.185",
+    "generated":  "2026-11-11T18:42:12-03:00",
     "count":  14249,
     "files":  [
                   {
@@ -70075,8 +70075,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "f0c8d1349ee683cbbf0e1da394efb6051db28aa5937f20008a30b08275be9ec3",
-                      "size":  98198
+                      "sha256":  "f0c4e0204899abdf9ac9a31367d1dd8a991087006b8f4b48c5e62d9007d30af8",
+                      "size":  98501
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -70250,13 +70250,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "9753050aeeb129e6a5ca2dbbcb426fbdd50b61f92dfbcfdb7d1b7ae41c1c3c0c",
-                      "size":  46826
+                      "sha256":  "558ea36291411d5a03145aa458ce86b60e12fcd8bb0fdfbb3a74d2da44fde075",
+                      "size":  48559
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
-                      "sha256":  "dc32e8ba1f870579409389146666b169ff9a7cc69d8663d24099c4cd6005c58d",
-                      "size":  18462
+                      "sha256":  "7e98cd543f7dc7e0b3d9a85a5cbb01a787685d46822fd65c157e05f0869a9beb",
+                      "size":  19219
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_manashield.lua",
@@ -71235,7 +71235,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "3afd08123808ed9dbf6fb5d2bfaa4a4bbef699998f1cbf423a3730b0266db87e",
+                      "sha256":  "2f707ab7d546c038a7985935216134248e967e8be9209ee129c5a1f1eccd80ed",
                       "size":  9
                   },
                   {
