@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.191",
-    "generated":  "2026-11-12T16:44:16-03:00",
+    "version":  "15.24.192",
+    "generated":  "2026-11-12T20:10:00-03:00",
     "count":  14249,
     "files":  [
                   {
@@ -66650,8 +66650,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/dataset.lua",
-                      "sha256":  "04113ed6bb615a2be6f02d7c8873831efd903fd5c92b4399e88744cd99a868c2",
-                      "size":  74460
+                      "sha256":  "de2d78aeb0d5e48cd8080316b8b57f37bae77f3fa1ea890377f6dacc7ff6f02b",
+                      "size":  75702
                   },
                   {
                       "path":  "mods/client_settings/classes/GameOptions.lua",
@@ -66710,8 +66710,8 @@
                   },
                   {
                       "path":  "mods/client_settings/options/effects.otui",
-                      "sha256":  "73cbf83f739d6fdd9ce0fd436655ed8fa31bcc38bd7ab697eb3f2b081a6379aa",
-                      "size":  13270
+                      "sha256":  "557ae5958d7458ed3a7929e554b4c9c4c69577a82f7ab04f1a9bcf38e731c16b",
+                      "size":  17288
                   },
                   {
                       "path":  "mods/client_settings/options/gameplay.otui",
@@ -66780,8 +66780,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "1ba3203d3a27cb4d480b508ba84d07f9f0994f742c1799e9c6da00b985681913",
-                      "size":  87030
+                      "sha256":  "93bdea8e4c0064b60e4f16acfb802531780baab9c34e26ba54b1f445c3480aa9",
+                      "size":  87269
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -66855,8 +66855,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/analyser.lua",
-                      "sha256":  "bf8c833ab349303641a37bdcf5bbf8fc7a04e07fa4d62f530edc12b7473f286e",
-                      "size":  17258
+                      "sha256":  "30a76a5dfbef244f37500fb3f3f6bf11b4e0c784b2615d832a7415aa06674043",
+                      "size":  18543
                   },
                   {
                       "path":  "mods/game_analyser/analyser.otmod",
@@ -66865,8 +66865,8 @@
                   },
                   {
                       "path":  "mods/game_analyser/analyser.otui",
-                      "sha256":  "683854a6175a4402f9b12989935bec9f3cb9dd201331fa297c46b410f8f78cef",
-                      "size":  4659
+                      "sha256":  "57a6d3470b6911871bc80f650d1195b6a9001f124828ecdf237f149b44d7efaf",
+                      "size":  4661
                   },
                   {
                       "path":  "mods/game_analyser/classes/BossCooldown.lua",
@@ -66885,43 +66885,43 @@
                   },
                   {
                       "path":  "mods/game_analyser/classes/HuntingAnalyser.lua",
-                      "sha256":  "c5cd3c33e4f335d09664d3d00381931967a6181d1acbbe67b952227a02675cde",
-                      "size":  27174
+                      "sha256":  "74457638103377922bb20cb6d974b2afdc7b62927bb95b8e17ce476e64f90231",
+                      "size":  27239
                   },
                   {
                       "path":  "mods/game_analyser/classes/ImpactAnalyser.lua",
-                      "sha256":  "d0797ed2c38fad554fe00b80dc1e93f0bae0c4733b33d7821cdf5344b284e907",
-                      "size":  23256
+                      "sha256":  "da5b17d5fbf0736821843f7e114e4ecfadda80fad225817ffdcc7d2f5bce3593",
+                      "size":  23629
                   },
                   {
                       "path":  "mods/game_analyser/classes/InputAnalyser.lua",
-                      "sha256":  "f1adccc0e88e72642e80a72a8896561e5df9ed9d38b4db8a6bd41a9c9aa6d243",
-                      "size":  16088
+                      "sha256":  "65f2aa7fc84dc25b0bc73ce9cbe9aa4c836d4eadfb7f4f9721f6797c31b726bc",
+                      "size":  16076
                   },
                   {
                       "path":  "mods/game_analyser/classes/LootAnalyser.lua",
-                      "sha256":  "9acf46506ae06e3a14be026300b900711083934e72eb98e6a818c986058ea2f1",
-                      "size":  8298
+                      "sha256":  "cf910148e54897fd87172a9e20c26eb96f64c4599070a926c4a7e702d62a258f",
+                      "size":  8290
                   },
                   {
                       "path":  "mods/game_analyser/classes/MiscAnalyzer.lua",
-                      "sha256":  "9524a75041fc6d87d427961fd109f55d6aa8bfec51fd19f0013c5cd94640562b",
-                      "size":  12579
+                      "sha256":  "b44e5c08f88c179779701e08f2529695baf35531cc1d3ad1f92114bf4c7f1322",
+                      "size":  12576
                   },
                   {
                       "path":  "mods/game_analyser/classes/PartyHuntAnalyser.lua",
-                      "sha256":  "628a9a484f07f9c35c4b63f51fb7553f4eb7eb4fd03a6cc88061b6164468e5b3",
-                      "size":  10436
+                      "sha256":  "319a72e549c8656378c82dbf68fd2f19926d27e009388ba368149b14e5cd662c",
+                      "size":  10444
                   },
                   {
                       "path":  "mods/game_analyser/classes/SupplyAnalyser.lua",
-                      "sha256":  "789d297af10d27dd4581e4e3808ce4b7ad93658dedc14bb2f946ab6c414656c4",
-                      "size":  9231
+                      "sha256":  "d17c27ede6fb4f1e530bb2ff24fb2cb8178ee52be8568e678296924380323165",
+                      "size":  9223
                   },
                   {
                       "path":  "mods/game_analyser/classes/XPAanalyser.lua",
-                      "sha256":  "f28b61bcc20dc921e71065d9d0730b9887e308aed086f8a8d35ec1ae08c8bb56",
-                      "size":  12281
+                      "sha256":  "1d56d93fdcf5b2015876ca59cf12027468b769c78db6ec4938ac594762b886fc",
+                      "size":  12318
                   },
                   {
                       "path":  "mods/game_analyser/styles/boss.otui",
@@ -67115,8 +67115,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/character.lua",
-                      "sha256":  "53c33a4326c3b524337eace564b5d4b97ce8fdee736c728ad190f5510d5ab09c",
-                      "size":  88663
+                      "sha256":  "3a4e71cfb7bdaa94be773257f334276109e691e431269b78a3ae5226beae4415",
+                      "size":  85585
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/charms.lua",
@@ -67140,23 +67140,23 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/magical_archive/magical_archive.lua",
-                      "sha256":  "a29be60df2158c3c2ee3a74d293eb917c898b69cf818b864f75a772709f3e11c",
-                      "size":  39922
+                      "sha256":  "fc60345435cb4f24b6698533b1e4ad1d8f0ee4d2e97a26da562f7fad69029f04",
+                      "size":  40127
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/magical_archive/magical_const.lua",
-                      "sha256":  "b4e6f1ce60154a30496902e22cb7cbf7bbbc40df0cd9ac1578952610c2bfadb1",
-                      "size":  8569
+                      "sha256":  "78dde21122e24d9ff9e71b1a09c194155d3e29acff86d6b7fa4371d6db638d01",
+                      "size":  8665
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/magical_archive/spells.json",
-                      "sha256":  "61bf4eeaee651ed406ca0f8589bd76bdceba295753e5ba96320fbe20f7c6c219",
-                      "size":  345115
+                      "sha256":  "ccb2f24da1fe696783142905d5b03855d6bfb39fce096ff97eef07b505c8b8ec",
+                      "size":  330575
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/magical_archive/spells-preview.json",
-                      "sha256":  "bf5b3aa65c514d9a4f677066ad638ae7cc1874d22fd605870abd55d05a515526",
-                      "size":  378202
+                      "sha256":  "b7482d874fe4084dddc018da9efcfc1ee26072a493ff66d6107fba6465048ce6",
+                      "size":  378817
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/map.lua",
@@ -68700,8 +68700,8 @@
                   },
                   {
                       "path":  "mods/game_proficiency/proficiency.lua",
-                      "sha256":  "510dd544941d254cd6d377853485e132913c2bcd275e583f2588ee94ebb7e387",
-                      "size":  43912
+                      "sha256":  "e6cd3fc1e42d4ee5af4dd822fd8efaed82fc7ac5fbdfc3cdca720d863653d3dc",
+                      "size":  44465
                   },
                   {
                       "path":  "mods/game_proficiency/proficiency_data.lua",
@@ -69725,8 +69725,8 @@
                   },
                   {
                       "path":  "modules/game_actionbar/actionbar.lua",
-                      "sha256":  "286580dc5f51fc74fd01034bd6addb970d003ff6dd3498ab9f9e14234f77a582",
-                      "size":  108836
+                      "sha256":  "66f13692f0a9db870a9f3ada1e477873793e64a84f7db66cb8302a234d772c60",
+                      "size":  109707
                   },
                   {
                       "path":  "modules/game_actionbar/actionbar.otmod",
@@ -69870,8 +69870,8 @@
                   },
                   {
                       "path":  "modules/game_console/classes/Chat.lua",
-                      "sha256":  "3863a5a2cbc72f6d1141f4a2073d97752c8c224338680be55b49ec1845464a7d",
-                      "size":  29362
+                      "sha256":  "340a609bba11ce77cb97ff3ebc53c387b93efdf995ca8f0026e417106217142b",
+                      "size":  29755
                   },
                   {
                       "path":  "modules/game_console/classes/Communication.lua",
@@ -70110,13 +70110,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
-                      "sha256":  "6006cf451db4fd0ed1a867528a67e3a5e99e3ffab7b6656d34a6f155d62dcc50",
-                      "size":  98677
+                      "sha256":  "4e1bb83cb617ee9fc0467b9164206acda567b8aa2a18fbf28d851aef21d63274",
+                      "size":  100751
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.otui",
-                      "sha256":  "312a0237ff2f8ecfef5c6b61c7d60af74539dca6c359c43dea922d4493149e34",
-                      "size":  31934
+                      "sha256":  "0304bd1553bffd864b1f865f2bf9da5b8fca959f638db63f63c2fb4bc9ae69b6",
+                      "size":  32526
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
@@ -70595,8 +70595,8 @@
                   },
                   {
                       "path":  "modules/game_outfit/outfit.lua",
-                      "sha256":  "a500f954af2dc63737e0e40ae621c9540708ab91683900e5252daa75bbfd571d",
-                      "size":  43412
+                      "sha256":  "bc435f8fd16afe2f9d5551d48c343ddeb5004f17b9bf1d43d3c5fb7e72b49d3c",
+                      "size":  43870
                   },
                   {
                       "path":  "modules/game_outfit/outfit.otmod",
@@ -70835,13 +70835,13 @@
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_otcv8_bridge.lua",
-                      "sha256":  "f807d86d4198b0aaa799fdbe99b103819b7bc6047516e14be215eeb3c5af4919",
-                      "size":  31492
+                      "sha256":  "63ab0f84c2ddf911a3def126571442cacbae3f4348f473f338c4f037fe287e06",
+                      "size":  32194
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_preferred.lua",
-                      "sha256":  "69666486b1ed95a0e4f91c8d754e8e58597d3774b63042a10c29e097678bfd84",
-                      "size":  25817
+                      "sha256":  "8693419cd834eb6ddbc9c7e5223561bcc3a46d56cbe3b7e72ecfc687e8b1b1ae",
+                      "size":  25865
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_shop.lua",
@@ -71135,8 +71135,8 @@
                   },
                   {
                       "path":  "modules/gamelib/spells.lua",
-                      "sha256":  "616e31c510b6047e0e3d62e344cec7e98298d26ee327f37dad52dbf8399c498d",
-                      "size":  86695
+                      "sha256":  "e376dc0061b56de14f3b0b42c63d9d1e7edec7db68b5cea6bad9061b5cd57ca8",
+                      "size":  87312
                   },
                   {
                       "path":  "modules/gamelib/textmessages.lua",
@@ -71225,17 +71225,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "6696906fb7182b92bf24ac873e691df31b64d4f57db9095490c0b7444fb74e55",
-                      "size":  37090816
+                      "sha256":  "f1d7bd85a1a8370215e56e9e58c06d8ba6c182c2df54d1659ba49490a34d0cd4",
+                      "size":  37102592
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "ee0900510ae71d26b4c2dac9fae716e41517978233015e6e4d0f48519153dcd6",
-                      "size":  29231616
+                      "sha256":  "8cd485be2a22933c4a167505ebf6c5d560011347ceaae7e942e3c703f46a0a42",
+                      "size":  29243904
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "4175f3027e8b9bdb17d69d2f5163faf030bb392684e8f1a40acbc5cee4cee640",
+                      "sha256":  "d28130be91d8c2a2d87ffffb847a302864cb7663e23167c5f171ffab073a938e",
                       "size":  9
                   },
                   {
