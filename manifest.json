@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.186",
-    "generated":  "2026-11-11T23:56:03-03:00",
+    "version":  "15.24.187",
+    "generated":  "2026-11-12T16:15:58-03:00",
     "count":  14249,
     "files":  [
                   {
@@ -2480,8 +2480,8 @@
                   },
                   {
                       "path":  "data/images/game/battlepass/battlePass-anim.png",
-                      "sha256":  "89c8f37cda87757f44f1774d554c6b34fca8b508ce55bc3ef1c21b02d68f2e5e",
-                      "size":  624822
+                      "sha256":  "b96cabf528f0d2ef2fe11660a410f1521b1f05a674ef41a115ae0f82a3024df8",
+                      "size":  605233
                   },
                   {
                       "path":  "data/images/game/battlepass/battlepass-hourglass.png",
@@ -71235,7 +71235,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "23502d56c4ad7382961861b7b1d3f5864ef0da798fe949a7da833aa8ec2cb844",
+                      "sha256":  "5616692f24efad507034f8cd6d32b3673656fd42de97b07a541165b3490873c3",
                       "size":  9
                   },
                   {
