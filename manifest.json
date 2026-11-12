@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.189",
-    "generated":  "2026-11-12T16:24:07-03:00",
+    "version":  "15.24.190",
+    "generated":  "2026-11-12T16:28:32-03:00",
     "count":  14249,
     "files":  [
                   {
@@ -70065,8 +70065,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "abea5a0ed59b01683d6b8b7632c5b06f59270d5cb7fd3e77394d030ca6eba3ee",
-                      "size":  49687
+                      "sha256":  "0ab25e0a007cc84090f07c5be840f2ee39aa518c3c7698ce65388561f54bceb2",
+                      "size":  50453
                   },
                   {
                       "path":  "modules/game_minibot/GUIA_MINIBOT.md",
@@ -70200,8 +70200,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "5993a416d709fe3d61b493ea3ce96c1f2a7a796f793616163dabe300023c744b",
-                      "size":  123841
+                      "sha256":  "98503fa9eef555d0eb1313132235275864081fe933b41f55af039b37a013d7db",
+                      "size":  138677
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
@@ -71235,7 +71235,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "51e5743800a1188388c89ac0ec8cf88e32791cf8bae1ded7d45edc275efdc4c4",
+                      "sha256":  "25e53121352035263328c0b9bbd076119741ccf084c3d09bfa576c4f130d9ff7",
                       "size":  9
                   },
                   {
