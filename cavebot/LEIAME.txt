@@ -2,20 +2,37 @@ Pasta do Cave Bot do client Valdraken
 =====================================
 
 SESSOES DO CAVE BOT (.vcb)
-Cada sessao do Assistente > Cave Bot > Recorder e um arquivo desta pasta:
-a sessao "Dragonling 7" e o arquivo "Dragonling 7.vcb". O client grava sozinho
-sempre que voce muda a rota.
+Cada sessao do Assistente > Cave Bot > Recorder e um arquivo .vcb, guardado
+na pasta do personagem dono dela:
 
-- Fazer copia de seguranca: copie os arquivos .vcb para outro lugar.
-- Passar uma rota para um amigo: mande o arquivo .vcb; ele coloca nesta pasta.
-- Apagar ou renomear o arquivo aqui apaga ou renomeia a sessao.
+  cavebot\Evodrael\Dragonling 7.vcb   -> aparece so para o Evodrael
+  cavebot\Comum\Asura.vcb             -> aparece para todos os personagens
+
+Ao entrar com um personagem, a lista mostra as sessoes dele e, embaixo, as de
+Comum. Sessao criada no jogo vai para a pasta do personagem logado. O client
+grava sozinho sempre que voce muda a rota.
+
+No jogo, botao direito numa sessao:
+- "Mover para <personagem>" / "Mover para Comum" / "Mover para outro personagem..."
+- "Abrir a pasta desta sessao"
+Botao direito no titulo do grupo (nome do personagem ou "Comum"): abrir as
+pastas e "Sessoes de outro personagem..." (faz uma copia para quem esta logado).
+O mesmo esta em Import > "Sessao de outro personagem...".
+
+Pelo Windows:
+- Fazer copia de seguranca: copie a pasta cavebot para outro lugar.
+- Passar uma rota para um amigo: mande o arquivo .vcb; ele coloca na pasta do
+  personagem dele (ou solta aqui, que ela vai para Comum).
+- Mover o arquivo de uma pasta para outra muda o dono da sessao.
+- Apagar ou renomear o arquivo apaga ou renomeia a sessao.
 As mudancas feitas aqui aparecem quando voce abre o Recorder de novo.
-Botao direito numa sessao > "Abrir a pasta das sessoes" abre esta pasta.
 
 ROTAS DO ZEROBOT (.cb)
-1. Coloque aqui os arquivos .cb do ZeroBot (os de Documentos\ZeroBot).
+1. Coloque aqui os arquivos .cb do ZeroBot (os de Documentos\ZeroBot); pode
+   manter as subpastas.
 2. No jogo: Assistente > Cave Bot > Recorder > Import > "Rota do ZeroBot (.cb)..."
-   e escolha o arquivo. Ele vira uma sessao nova; o arquivo original nao muda.
+   e escolha o arquivo. Ele vira uma sessao nova do personagem logado; o
+   arquivo original nao muda.
 3. Selecione a sessao, confira a aba "Rota" (opcoes de lure) e ligue o Cave Bot.
 
 Rotas salvas com "Encrypt CaveBot on Save" nao podem ser importadas.
