@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.197",
-    "generated":  "2026-11-13T23:46:15-03:00",
+    "version":  "15.24.198",
+    "generated":  "2026-11-13T23:47:16-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -66650,8 +66650,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/dataset.lua",
-                      "sha256":  "de2d78aeb0d5e48cd8080316b8b57f37bae77f3fa1ea890377f6dacc7ff6f02b",
-                      "size":  75702
+                      "sha256":  "f2ae19e9b928006f85796df284da53a8831fdfd6b1ca590b7f4470bdb261e541",
+                      "size":  76249
                   },
                   {
                       "path":  "mods/client_settings/classes/GameOptions.lua",
@@ -66715,8 +66715,8 @@
                   },
                   {
                       "path":  "mods/client_settings/options/gameplay.otui",
-                      "sha256":  "5a11fd4cb19dfa953d330f248c4b83303f4917e4550b36ac22e755cb2d7940f9",
-                      "size":  5345
+                      "sha256":  "c8e63bf740743772567d4c975aa0b72a6678d7ae24298d9c695e8b3ee6e0af20",
+                      "size":  6414
                   },
                   {
                       "path":  "mods/client_settings/options/gameWindow.otui",
@@ -69915,8 +69915,8 @@
                   },
                   {
                       "path":  "modules/game_containers/containers.lua",
-                      "sha256":  "5b357eaed2a87390f060b96be73ea2f98f275b0f86032a01398348ec33972c07",
-                      "size":  14526
+                      "sha256":  "b0b5f5b966e1851932e076d9fe1bd8ce53eb37f0dd5502fd8cdf6fe214baa5f7",
+                      "size":  15309
                   },
                   {
                       "path":  "modules/game_containers/containers.otmod",
@@ -70005,8 +70005,8 @@
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.lua",
-                      "sha256":  "4438146809329e5c9bf954cc1b647e66b135158ad886bbb450d539584469a7b7",
-                      "size":  95543
+                      "sha256":  "6e0ba922b2442f3443f211571b5459d6da0931eeb3429506a40d879c6269436e",
+                      "size":  101341
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.otui",
@@ -70080,8 +70080,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "d024dcd7d57efccb691a3dcf79a2a005761db2d1bfe8ce5002247ab84d8886d8",
-                      "size":  99320
+                      "sha256":  "030d941b8f8714fe5140630988e1143d4b34065dd6e26f1e1f95ceab38f873d8",
+                      "size":  101760
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -70255,13 +70255,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.lua",
-                      "sha256":  "558ea36291411d5a03145aa458ce86b60e12fcd8bb0fdfbb3a74d2da44fde075",
-                      "size":  48559
+                      "sha256":  "2c3b6b0f7d6520e59cf2c1490eb390e06837aecf0b9b9ce887b2c9ba7fe05e05",
+                      "size":  52399
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_general.otui",
-                      "sha256":  "7e98cd543f7dc7e0b3d9a85a5cbb01a787685d46822fd65c157e05f0869a9beb",
-                      "size":  19219
+                      "sha256":  "1f46dd234943958b7235e1088dec8e753d82854637c225ca88fe6e217078a8bb",
+                      "size":  20077
                   },
                   {
                       "path":  "modules/game_minibot/pages/support_manashield.lua",
@@ -71180,8 +71180,8 @@
                   },
                   {
                       "path":  "modules/npc_dialog/npc_dialog.lua",
-                      "sha256":  "d97f54e6390de032e0e653d697aea6d13e68453909f851956b97432bf65988a2",
-                      "size":  20628
+                      "sha256":  "fca322c9f5526662679fa4c1c13dd6faf59dff0fe558107aee6fba6a2e75929d",
+                      "size":  21605
                   },
                   {
                       "path":  "modules/npc_dialog/npc_dialog.otmod",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "90f090d4102cb3c69f64e268607186530fe6ed04b417b45e8a046f48ace3ae77",
+                      "sha256":  "5275756da1c245d4eb0dcf817158e0dc06c15a769888989d44780ed41253acbc",
                       "size":  9
                   },
                   {
