@@ -1,10 +1,21 @@
-Rotas do ZeroBot (.cb) no Cave Bot do client Valdraken
-======================================================
+Pasta do Cave Bot do client Valdraken
+=====================================
 
+SESSOES DO CAVE BOT (.vcb)
+Cada sessao do Assistente > Cave Bot > Recorder e um arquivo desta pasta:
+a sessao "Dragonling 7" e o arquivo "Dragonling 7.vcb". O client grava sozinho
+sempre que voce muda a rota.
+
+- Fazer copia de seguranca: copie os arquivos .vcb para outro lugar.
+- Passar uma rota para um amigo: mande o arquivo .vcb; ele coloca nesta pasta.
+- Apagar ou renomear o arquivo aqui apaga ou renomeia a sessao.
+As mudancas feitas aqui aparecem quando voce abre o Recorder de novo.
+Botao direito numa sessao > "Abrir a pasta das sessoes" abre esta pasta.
+
+ROTAS DO ZEROBOT (.cb)
 1. Coloque aqui os arquivos .cb do ZeroBot (os de Documentos\ZeroBot).
 2. No jogo: Assistente > Cave Bot > Recorder > Import > "Rota do ZeroBot (.cb)..."
    e escolha o arquivo. Ele vira uma sessao nova; o arquivo original nao muda.
 3. Selecione a sessao, confira a aba "Rota" (opcoes de lure) e ligue o Cave Bot.
 
 Rotas salvas com "Encrypt CaveBot on Save" nao podem ser importadas.
-Waypoints de script (Script) ainda sao ignorados na importacao.
