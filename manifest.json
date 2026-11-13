@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.192",
-    "generated":  "2026-11-12T20:10:00-03:00",
+    "version":  "15.24.193",
+    "generated":  "2026-11-13T01:38:51-03:00",
     "count":  14249,
     "files":  [
                   {
@@ -520,8 +520,8 @@
                   },
                   {
                       "path":  "data/fonts/Verdana Bold-11px-wheel.png",
-                      "sha256":  "1c8b172e9ae3140ed45aebd6c7d8e337994eff5ff670cc3864c366676f45ebf9",
-                      "size":  6636
+                      "sha256":  "786dce8b4de6c4d2e8adb211a5d257ab9bc4f834f917ac1a68b5f0ed0bb782cc",
+                      "size":  6583
                   },
                   {
                       "path":  "data/fonts/Verdana Bold-13px.otfont",
@@ -8740,8 +8740,8 @@
                   },
                   {
                       "path":  "data/images/game/prey/prey_smallstore.png",
-                      "sha256":  "d9895c7b03a911792d1898ca6c79a2bdf3518de507f1280e8c4351a468c80efb",
-                      "size":  1859
+                      "sha256":  "19ef0ae1715ad8db3a939e4dce0102a826521b750316314ddaa0978b37e15706",
+                      "size":  1656
                   },
                   {
                       "path":  "data/images/game/prey/prey_star.png",
@@ -9800,8 +9800,8 @@
                   },
                   {
                       "path":  "data/images/game/skills/xp_boost.png",
-                      "sha256":  "caf80b7aa3a17988ea198287f1c4a6774b38b09ab83b72fe00380285c814890a",
-                      "size":  5184
+                      "sha256":  "3f5bc8ba315fde8b485d73d99794aa60ae7dc0137e5c8fd035748bef46ed40c6",
+                      "size":  3683
                   },
                   {
                       "path":  "data/images/game/skull_progress.png",
@@ -10280,8 +10280,8 @@
                   },
                   {
                       "path":  "data/images/game/topbar/boost.png",
-                      "sha256":  "5d41ba7526ccdd5c3d7130fbb82b6d2cc9d06559cd0fa1d5f4dc3212871df8ce",
-                      "size":  4944
+                      "sha256":  "4cbca47c3cf4865d58a37815b19ad57a6b56477fd1c8177a3d39ae24e49d3aeb",
+                      "size":  3438
                   },
                   {
                       "path":  "data/images/game/topbar/boost-vertical.png",
@@ -11700,13 +11700,13 @@
                   },
                   {
                       "path":  "data/images/store/button-store-down.png",
-                      "sha256":  "d2dda6d07d000dcf00a21c1712029e37cead00ff230ad8219df1d7e7257e6819",
-                      "size":  4947
+                      "sha256":  "afcbef60a9c45beb91b45375efef7f8471c337627ca9f22e8642b1d20ab251c4",
+                      "size":  3479
                   },
                   {
                       "path":  "data/images/store/button-storeicon.png",
-                      "sha256":  "c1f47da39f1407a70d296e08fb681a4c6786d1624c8b1fa875ff36c9016f65f7",
-                      "size":  2547
+                      "sha256":  "22f376ecc853b29c9463eaeb7d2069c36dc93f261ea6ab45d37d928df8424522",
+                      "size":  1198
                   },
                   {
                       "path":  "data/images/store/button-store-new.png",
@@ -11720,18 +11720,18 @@
                   },
                   {
                       "path":  "data/images/store/button-store-small-down.png",
-                      "sha256":  "3d203c8b831d7f8f884960a29944a9e49aa9ee9f0e61b0688feebc4813cec157",
-                      "size":  4079
+                      "sha256":  "8c63a175e35a6f00c83736115e2d017d35ecab9170d3b2c8fe31b94be1190b7f",
+                      "size":  2628
                   },
                   {
                       "path":  "data/images/store/button-store-small-up.png",
-                      "sha256":  "88d80dc1ece641b1cd33e9b4486545aecb1b0157c3b75dac5086379ade0964ae",
-                      "size":  4095
+                      "sha256":  "5e7ef878723ce3992f5c04a7d8aff379b523b6e6588ab7fa4021dc08c0cdb8c5",
+                      "size":  2641
                   },
                   {
                       "path":  "data/images/store/button-store-up.png",
-                      "sha256":  "9f2d5250eaca5c5db10ad30467998219a8b04eb035713147c5f5efd3462c5785",
-                      "size":  5192
+                      "sha256":  "474d394d885eff2906a4065b164902162c9961d9e55c61e0a8585ea91fae2239",
+                      "size":  3486
                   },
                   {
                       "path":  "data/images/store/buybutton - Copia.png",
@@ -11785,18 +11785,18 @@
                   },
                   {
                       "path":  "data/images/store/get.png",
-                      "sha256":  "7baf7c2c250d345d4d01e931752f5f0e753fd098eb64825942214d445453e22f",
-                      "size":  3854
+                      "sha256":  "1a832ee440d2427759a70ebbee40f456d11f07206207951c476b36e69d892d63",
+                      "size":  3412
                   },
                   {
                       "path":  "data/images/store/hl-button-store-down.png",
-                      "sha256":  "ab73b31cd0ab5a60098d6b477b713baa8f1b1cca929bf2fd2abc7b40e22187cc",
-                      "size":  5191
+                      "sha256":  "dbad4a030ecdb5f6cc053c1d03a351dec5708c4f66c92513583eb540b74d349a",
+                      "size":  3761
                   },
                   {
                       "path":  "data/images/store/hl-button-store-up.png",
-                      "sha256":  "216de21412da7843ed29d4dfecdad2957741e023bd8ca0cbfc2c41ebd56c7080",
-                      "size":  5267
+                      "sha256":  "7730378e8c4bb7c3e4ecfbca2fc3602028a7e13b1357f28bf52c4a0795eb4044",
+                      "size":  3836
                   },
                   {
                       "path":  "data/images/store/icon_no.png",
@@ -11935,18 +11935,18 @@
                   },
                   {
                       "path":  "data/images/store/icon-tibiacoin.png",
-                      "sha256":  "09bddcdef0cf5eae5af429fea663498f9180486b6352367c2eecabe296c39536",
-                      "size":  382
+                      "sha256":  "a57b31f5cf74e1e337f385d8d8fca40485f103a66bec4d2468bebe6b409003c8",
+                      "size":  274
                   },
                   {
                       "path":  "data/images/store/icon-tibiacointransferable.png",
-                      "sha256":  "982a096490accd3c1c3a81aca8f81874cee69f9472df5e97d9db6031a25deca0",
-                      "size":  373
+                      "sha256":  "5aa1e86518912741741db7798acd74a7ce3410c8c6158bad1dfc6f1aa90499a9",
+                      "size":  274
                   },
                   {
                       "path":  "data/images/store/icon-tibiastore.png",
-                      "sha256":  "870e3e291c054cb817fb3bc9178f3f0e776baad6d11fce1901baf01648e3c3c6",
-                      "size":  1856
+                      "sha256":  "5ab2dcb0f922a73e95977c202132cd0bcbac8a0e5f0a333530b9f95815940c25",
+                      "size":  510
                   },
                   {
                       "path":  "data/images/store/icon-yes.png",
@@ -12075,13 +12075,13 @@
                   },
                   {
                       "path":  "data/images/store/store-offer-box.png",
-                      "sha256":  "8f9f44107c5dd808518db1679bb9571bcc92c4cf2708b82f94859210c9e23593",
-                      "size":  68259
+                      "sha256":  "22a05c385a252f4a8b6eb26db1308d1e2ac215107ab150310be5bfa2b90fce4e",
+                      "size":  66159
                   },
                   {
                       "path":  "data/images/store/store-offer-box-home.png",
-                      "sha256":  "8a9107951caa262b74d04929cbb373696db2d9c2afc251539d88316819e32b70",
-                      "size":  36511
+                      "sha256":  "eb9ba3b6f01e281929c2b313675c548f401e1d3b855dbeb4a52a1ef3bc519007",
+                      "size":  35413
                   },
                   {
                       "path":  "data/images/store/store-rerol.png",
@@ -12100,8 +12100,8 @@
                   },
                   {
                       "path":  "data/images/store/transfer-coin.png",
-                      "sha256":  "8c1ee92d1cc87b3f879b1f366a9bafd0f36907135c5d46d352c583125bd0eaaf",
-                      "size":  3977
+                      "sha256":  "d06f32b7ea47d151efa75cc0f1dc137254a7f52677d09f47b8219a0d0d2d02eb",
+                      "size":  3533
                   },
                   {
                       "path":  "data/images/store/trash-button.png",
@@ -12700,8 +12700,8 @@
                   },
                   {
                       "path":  "data/images/topbuttons/shop.png",
-                      "sha256":  "cd6c618d8d12a42f7e52b3d99d276586a29df9a75c93fcf7d44a9b6c1067f3ab",
-                      "size":  2662
+                      "sha256":  "ec71376f9dc589c6b415fd1d5fbf5674727bf908f3eb4534527059c69cecd3e4",
+                      "size":  1252
                   },
                   {
                       "path":  "data/images/topbuttons/skills.png",
@@ -13285,8 +13285,8 @@
                   },
                   {
                       "path":  "data/images/ui/getCoins.png",
-                      "sha256":  "7baf7c2c250d345d4d01e931752f5f0e753fd098eb64825942214d445453e22f",
-                      "size":  3854
+                      "sha256":  "1a832ee440d2427759a70ebbee40f456d11f07206207951c476b36e69d892d63",
+                      "size":  3412
                   },
                   {
                       "path":  "data/images/ui/google.png",
@@ -14135,8 +14135,8 @@
                   },
                   {
                       "path":  "data/images/ui/shop.png",
-                      "sha256":  "454881e747936303ecab23346fd96b5ac4e1300b9fe3eb9aac4acbb381287901",
-                      "size":  5041
+                      "sha256":  "cbfdf856a8e901ae6479bd19cb204ea840f6f1c13ed40059b22ffd5306909fa2",
+                      "size":  2529
                   },
                   {
                       "path":  "data/images/ui/sideBottom.png",
@@ -14175,8 +14175,8 @@
                   },
                   {
                       "path":  "data/images/ui/store-purse.png",
-                      "sha256":  "6d27afc21b89bb24e816a0806d9d60cdf7d8d1d86c00a1473706419ab989fa87",
-                      "size":  3247
+                      "sha256":  "ed584f031f6cc9e0cfdf4005d6f15beb78d738e57238d3dfd8bbdc9aae7a4350",
+                      "size":  3098
                   },
                   {
                       "path":  "data/images/ui/surprise_offer.png",
@@ -71235,7 +71235,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "d28130be91d8c2a2d87ffffb847a302864cb7663e23167c5f171ffab073a938e",
+                      "sha256":  "9a71cd00564f27e6768750869025feee8c1bea0d5e7fe91b3de9c97431942958",
                       "size":  9
                   },
                   {
