@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.196",
-    "generated":  "2026-11-13T20:58:01-03:00",
+    "version":  "15.24.197",
+    "generated":  "2026-11-13T23:46:15-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -70065,8 +70065,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "20d8a03b03ba5956e32ac8892f175d2d597083cdb68165a67afb397519b32735",
-                      "size":  63921
+                      "sha256":  "e06e6492c859f1f7219c0869685d8e247d06e2005587f98a1ccf8e93604425ee",
+                      "size":  66890
                   },
                   {
                       "path":  "modules/game_minibot/cavebot_files.lua",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "931847ba21af09d3557505fb284255693eb7dc9a0e666650bb892e679685262b",
+                      "sha256":  "90f090d4102cb3c69f64e268607186530fe6ed04b417b45e8a046f48ace3ae77",
                       "size":  9
                   },
                   {
