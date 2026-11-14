@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.205",
-    "generated":  "2026-11-14T20:18:21-03:00",
+    "version":  "15.24.206",
+    "generated":  "2026-11-14T20:21:27-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -68890,8 +68890,8 @@
                   },
                   {
                       "path":  "mods/game_store/classes/LiveStore.lua",
-                      "sha256":  "d09be72c65b5adf5af61316c8fbd851dea4be0554b1eff6def3a65696a81d82e",
-                      "size":  6283
+                      "sha256":  "a762fcb9c7ddd45ca61c6e509481f9a2bbcecddab653f191189688dd01ad2597",
+                      "size":  6309
                   },
                   {
                       "path":  "mods/game_store/classes/Offers.lua",
@@ -68960,8 +68960,8 @@
                   },
                   {
                       "path":  "mods/game_store/styles/livestore.otui",
-                      "sha256":  "791c94808b74ec66fa31e066e10a1c7163cdefac833675d67da8a7466a6178a8",
-                      "size":  5221
+                      "sha256":  "07f4dee4224bb0d76753fb7f05b3b69da6a484ab945bf5a73e0bcaf85e74c288",
+                      "size":  5242
                   },
                   {
                       "path":  "mods/game_store/styles/namechange.otui",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "be48a40ee8ee51efb2b54d01953f45e2349d7336c726a04b2dfd5c16528a7031",
+                      "sha256":  "124c8f45706fc6d1edca5d5b51e2dcc2282c17a8f07e94624f001dae4216dea6",
                       "size":  9
                   },
                   {
