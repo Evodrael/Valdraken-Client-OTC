@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.206",
-    "generated":  "2026-11-14T20:21:27-03:00",
+    "version":  "15.24.207",
+    "generated":  "2026-11-14T20:26:06-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -69555,8 +69555,8 @@
                   },
                   {
                       "path":  "modules/corelib/ui/tooltip.lua",
-                      "sha256":  "d682bad7e86309f58c6d65299dab8a968cf271415c5ee8c9c369cff4a18e9b0d",
-                      "size":  5892
+                      "sha256":  "8af6dc611946bc2a890ff715408180cda2a03ccc9bdd75696707bc0c4828b4a9",
+                      "size":  6235
                   },
                   {
                       "path":  "modules/corelib/ui/uibutton.lua",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "124c8f45706fc6d1edca5d5b51e2dcc2282c17a8f07e94624f001dae4216dea6",
+                      "sha256":  "f414ae9c3d48d4b99eec1fb61112f81b8907f1c8cca218b0b67d2263090b12a3",
                       "size":  9
                   },
                   {
