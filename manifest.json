@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.201",
-    "generated":  "2026-11-14T00:57:20-03:00",
+    "version":  "15.24.202",
+    "generated":  "2026-11-14T01:53:19-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -69055,13 +69055,13 @@
                   },
                   {
                       "path":  "mods/game_trackers/classes/bestiary_tracker.lua",
-                      "sha256":  "4d4f4e6fcbc01a4d16a45cce26bea9784ada81138f0fe94d5814f5610ad706b3",
-                      "size":  13514
+                      "sha256":  "5023fe9eddbd36698ebf07fa7465359866c0904da11758bea30cb9449142f6e1",
+                      "size":  14105
                   },
                   {
                       "path":  "mods/game_trackers/classes/boss_tracker.lua",
-                      "sha256":  "6256e249213a5595aa7cd5fd8f611748060c9ae35a7b37b329fd4c75ce5dbc9b",
-                      "size":  12622
+                      "sha256":  "30f530982498f6d2d9f9c94e499ed4210c4333d5fd5659035b52bc5acbf00f17",
+                      "size":  13152
                   },
                   {
                       "path":  "mods/game_trackers/classes/imbuement_tracker.lua",
@@ -69080,13 +69080,13 @@
                   },
                   {
                       "path":  "mods/game_trackers/styles/bestiary_tracker.otui",
-                      "sha256":  "3910a955475273f60f8a1e2810727376e80367b112edb21dc5482f28501096f8",
-                      "size":  3310
+                      "sha256":  "1c0e76e1f6cca4ccfc664bd8e4162e22e974ddae4f5ed92c95226ae11e39f10b",
+                      "size":  3321
                   },
                   {
                       "path":  "mods/game_trackers/styles/boss_tracker.otui",
-                      "sha256":  "d2055726996a363158ca62a8fa838d55c4fa3c686d7a41b0917d981c90480135",
-                      "size":  3454
+                      "sha256":  "1b1dfcd735a99fe810c7db8a05448c1a46a21d1024d797007fadcbd6eabf9b0e",
+                      "size":  3465
                   },
                   {
                       "path":  "mods/game_trackers/styles/imbui_tracker.otui",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "4c7c2ad9148002134cd49f246784b724b2577f1a168ac1d6ea2ae517858175f3",
+                      "sha256":  "4c1ba1860d7dd3fa64019f5397b5a53748af8031a77e9deb912311d18d167bd4",
                       "size":  9
                   },
                   {
