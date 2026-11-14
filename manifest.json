@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.204",
-    "generated":  "2026-11-14T20:17:23-03:00",
+    "version":  "15.24.205",
+    "generated":  "2026-11-14T20:18:21-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -70840,13 +70840,13 @@
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_otcv8_bridge.lua",
-                      "sha256":  "63ab0f84c2ddf911a3def126571442cacbae3f4348f473f338c4f037fe287e06",
-                      "size":  32194
+                      "sha256":  "c143227598b26c970a2bba68c4dab5a2476c44d471f650036dbe764dd1f5a4f1",
+                      "size":  32244
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_preferred.lua",
-                      "sha256":  "8693419cd834eb6ddbc9c7e5223561bcc3a46d56cbe3b7e72ecfc687e8b1b1ae",
-                      "size":  25865
+                      "sha256":  "36c685d90b85bd12d02f56f7ccfba72be88367692f34ce6139227cf85914bcec",
+                      "size":  25885
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_shop.lua",
@@ -70860,13 +70860,13 @@
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_utility.lua",
-                      "sha256":  "5c0915e251a159cc7fd73e1951058492b99803a5045054e2055915ec3c0b2457",
-                      "size":  4279
+                      "sha256":  "efde7938b33d0f950ca6eeb16144038ea656b1a58b60606e81e78888e3dddeac",
+                      "size":  4793
                   },
                   {
                       "path":  "modules/game_taskhunting/taskhunting_weekly.lua",
-                      "sha256":  "bba58d53b29943add462ab90bb9dca942c334bff3efa32f0cc2d6098666461bc",
-                      "size":  17082
+                      "sha256":  "28f7eb955b46332e98a7b7eab7e14383b7c720728c7b279f3f941ebcbc6410e6",
+                      "size":  17102
                   },
                   {
                       "path":  "modules/game_textmessage/textmessage.lua",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "1d3aa283719cbca60e1314fca9ac6db6d135b067499dd2ad15139e27d6aaf341",
+                      "sha256":  "be48a40ee8ee51efb2b54d01953f45e2349d7336c726a04b2dfd5c16528a7031",
                       "size":  9
                   },
                   {
