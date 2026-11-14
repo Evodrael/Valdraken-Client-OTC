@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.200",
-    "generated":  "2026-11-14T00:39:38-03:00",
+    "version":  "15.24.201",
+    "generated":  "2026-11-14T00:57:20-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -70065,8 +70065,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "e06e6492c859f1f7219c0869685d8e247d06e2005587f98a1ccf8e93604425ee",
-                      "size":  66890
+                      "sha256":  "ad4e8ad8d27f45d75691430c4bc3cdf1691bbc974455c187da590ef11aa1b664",
+                      "size":  70159
                   },
                   {
                       "path":  "modules/game_minibot/cavebot_files.lua",
@@ -70205,8 +70205,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "c336ae6509d1ac1791b04d17268f3bd7c93ea99d22ef55bad8cd572f94cc868f",
-                      "size":  143818
+                      "sha256":  "39b0fdb222ba3cb24e8945a81e1d2f5dd776e5fd8aa1333eaca5f8df84f82d92",
+                      "size":  143861
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
@@ -71020,13 +71020,13 @@
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_api.lua",
-                      "sha256":  "20f6d2ca249e6657326078ee1f0cbdaa1b7007024272c15bb08b3611def8aa4e",
-                      "size":  112899
+                      "sha256":  "4f55fe0cc3e7c15c062a5482e9c6f9722c693d86d5078a18e40f9171124b3362",
+                      "size":  115403
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_compat.lua",
-                      "sha256":  "d7ae2e0b42bac8e383f5c1cd91d0c323b89496d6a09ac605556d0f547ed4cbf9",
-                      "size":  29736
+                      "sha256":  "d24761432bded1558bdf0571e24ff9a51ade6459699fc6de378fbc3649d6faf1",
+                      "size":  30990
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_compat.otmod",
@@ -71040,8 +71040,8 @@
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_util.lua",
-                      "sha256":  "a03bb5e38cb27673dce611ddf1753e3ff4ec317a0aa18f1579f6e164ea6188c4",
-                      "size":  24696
+                      "sha256":  "fbaab6986b64d5338d3cb13f615d06cd05a56b9f12266fecf36bf2703fc4ffb0",
+                      "size":  37984
                   },
                   {
                       "path":  "modules/gamelib/const.lua",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "e66d44db5a68f2ad048eb0cadf71e579f110253f64ee7490ebc0f2af650377f4",
+                      "sha256":  "4c7c2ad9148002134cd49f246784b724b2577f1a168ac1d6ea2ae517858175f3",
                       "size":  9
                   },
                   {
