@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.216",
-    "generated":  "2026-11-15T20:16:14-03:00",
+    "version":  "15.24.217",
+    "generated":  "2026-11-15T21:48:48-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70005,8 +70005,8 @@
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.lua",
-                      "sha256":  "022ab47a97ef6d931be015063fde53edc490e32a7a67fb3594bcd8cc8112ec93",
-                      "size":  103523
+                      "sha256":  "e817bc945bd4d6c0a1e51ea4dfb3ae4ff25f8fc19c6821b32226637e6110cd6c",
+                      "size":  104844
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.otui",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "906218eda22e55271727ce966618e4dddd1ba83f6c686a19410b1a080013070f",
+                      "sha256":  "aa075e6b42181d62828a86107645bbbdf834664053168f112b129f4a2f6ed3ad",
                       "size":  9
                   },
                   {
