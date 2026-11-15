@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.215",
-    "generated":  "2026-11-15T03:25:49-03:00",
+    "version":  "15.24.216",
+    "generated":  "2026-11-15T20:16:14-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70085,8 +70085,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "030d941b8f8714fe5140630988e1143d4b34065dd6e26f1e1f95ceab38f873d8",
-                      "size":  101760
+                      "sha256":  "adb9c3e0f40fcf77589cc2664713fb6dee82ff8860aaa2649dbc8083e3b06433",
+                      "size":  102024
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -70105,8 +70105,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot_importpreset.otui",
-                      "sha256":  "cb1025cf4f97e7df0a52e9fa5ad5c83cb63cfda81845fbec574fcd7ab5074e9f",
-                      "size":  1691
+                      "sha256":  "53133b9426d4b5e9262eb9ae373609d0985da892c92cc3999941c529aeafe448",
+                      "size":  1694
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.lua",
@@ -70210,8 +70210,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "67d2e27d12f48a24c2b5bf73a19474306d7bb637a45a48e5c3ec93de034704ca",
-                      "size":  154205
+                      "sha256":  "744d97e2dfc565d7990d757d24f01905d9dd426141cf3ef82b413cf00df7198d",
+                      "size":  154208
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "74cc779aa0a49ee617c396843f314f6fef8505cb595ed4708e74155078fd9e91",
+                      "sha256":  "906218eda22e55271727ce966618e4dddd1ba83f6c686a19410b1a080013070f",
                       "size":  9
                   },
                   {
