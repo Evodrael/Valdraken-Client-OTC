@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.210",
-    "generated":  "2026-11-15T02:01:58-03:00",
+    "version":  "15.24.211",
+    "generated":  "2026-11-15T02:17:17-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -69785,8 +69785,8 @@
                   },
                   {
                       "path":  "modules/game_battle/battle.lua",
-                      "sha256":  "a71f7b64f89cbe022ccfdecc91c70a602e8b6b902abbe169f13f88bc80034294",
-                      "size":  16493
+                      "sha256":  "2243b00df909830b9555c3ab93dca25616e5b1f6c761fbd421053f435ef10cae",
+                      "size":  16739
                   },
                   {
                       "path":  "modules/game_battle/battle.otmod",
@@ -70005,8 +70005,8 @@
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.lua",
-                      "sha256":  "6e0ba922b2442f3443f211571b5459d6da0931eeb3429506a40d879c6269436e",
-                      "size":  101341
+                      "sha256":  "7b4351e3a457ec89946f413652b98d16730f736331dbdcfac05d506e23270127",
+                      "size":  101180
                   },
                   {
                       "path":  "modules/game_interface/gameinterface.otui",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "ef87f3f049b88844a716944c13fd7f46bcdbede396d8885e29c516bd49faff17",
+                      "sha256":  "2546079a04e0c36c8ee2bba3df6afadca66a7efbd69e628c11226a5b5226b224",
                       "size":  9
                   },
                   {
