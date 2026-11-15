@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.207",
-    "generated":  "2026-11-14T20:26:06-03:00",
+    "version":  "15.24.208",
+    "generated":  "2026-11-15T01:23:04-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -66585,8 +66585,8 @@
                   },
                   {
                       "path":  "init.lua",
-                      "sha256":  "eb3aa347a98f348a006716e11b75e693594e21a224e4699a63bea55983398789",
-                      "size":  4342
+                      "sha256":  "140d642ab3ba2b7c51507a596d9a994916af1f4486c9cda340f47aee1f290535",
+                      "size":  7971
                   },
                   {
                       "path":  "libEGL.dll",
@@ -69455,8 +69455,8 @@
                   },
                   {
                       "path":  "modules/corelib/corelib.otmod",
-                      "sha256":  "c1228a7b461c5af863c5626046c5c6282306624f7ba5523395af0fb34214e64a",
-                      "size":  735
+                      "sha256":  "53f9a61cd258d1fb733f5833a471241dd38604334dc1080e97d08fbb3e4f8ac0",
+                      "size":  836
                   },
                   {
                       "path":  "modules/corelib/globals.lua",
@@ -69525,8 +69525,8 @@
                   },
                   {
                       "path":  "modules/corelib/settings.lua",
-                      "sha256":  "a20121b891b4a232bbf17464eff1b28e94327f153ed76cd75b62d05d8c646624",
-                      "size":  114
+                      "sha256":  "663f5b23cb072941248f9771378cb82529c50743dd65be6c9f4c9102022ae304",
+                      "size":  7646
                   },
                   {
                       "path":  "modules/corelib/string.lua",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "f414ae9c3d48d4b99eec1fb61112f81b8907f1c8cca218b0b67d2263090b12a3",
+                      "sha256":  "f2b0f2f777195f3a9a0f9b751395af4b66b98c7b47db4967cb0e180ef0832f52",
                       "size":  9
                   },
                   {
