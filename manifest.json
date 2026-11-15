@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.212",
-    "generated":  "2026-11-15T02:20:47-03:00",
+    "version":  "15.24.213",
+    "generated":  "2026-11-15T03:20:34-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -71185,8 +71185,8 @@
                   },
                   {
                       "path":  "modules/npc_dialog/npc_dialog.lua",
-                      "sha256":  "fca322c9f5526662679fa4c1c13dd6faf59dff0fe558107aee6fba6a2e75929d",
-                      "size":  21605
+                      "sha256":  "4807f9ddf11503a89c72e2dfa2b6d8ee6906d51e4951f1033094c7584f9776a3",
+                      "size":  25986
                   },
                   {
                       "path":  "modules/npc_dialog/npc_dialog.otmod",
@@ -71195,8 +71195,8 @@
                   },
                   {
                       "path":  "modules/npc_dialog/npc_dialog.otui",
-                      "sha256":  "ef18f97e7960262a5f9e943f793ae693910016b8b4a3308daecd69ab032dd611",
-                      "size":  7325
+                      "sha256":  "50454be5f3d62a33822594d13ebffd1a062db93d3f687667439cb275d6fa833c",
+                      "size":  7438
                   },
                   {
                       "path":  "modules/npc_dialog/static/images/backdrop-npcdialog-podestal.png",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "2be7654e72026e22635a61932d80d4fe2779c634ca26f6eb512b716146ab8143",
+                      "sha256":  "b68bd09d889cf3df294cb4db7db0e6c2e28f61b792b1f52a518b3b84acd427e7",
                       "size":  9
                   },
                   {
