@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.218",
-    "generated":  "2026-11-15T22:03:26-03:00",
+    "version":  "15.24.219",
+    "generated":  "2026-11-15T22:11:05-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70140,8 +70140,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.lua",
-                      "sha256":  "e112301f767505204f8234a26d1a24589369f3ba0a93fa5d6ec0f902456b871c",
-                      "size":  40157
+                      "sha256":  "027b2e5fea1cb4f3e3017100d9c489b937dc5d92b3b93e520483f24a113d025b",
+                      "size":  40151
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.otui",
@@ -70150,8 +70150,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_rings.lua",
-                      "sha256":  "d9bffa25699f2c4e50d5284858c8e4c55494896733da904af4e3e69d06dde901",
-                      "size":  39987
+                      "sha256":  "7b723fef48e906d98b78f9f9576f9fc369d4dec334babfa2f0457faecfbd31b8",
+                      "size":  40035
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_rings.otui",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "aaa006a5302281eedd354f882f60024d9773ac8aada0586b208947102255c615",
+                      "sha256":  "91dd07f59623fff6e84ab2bb36a33652cd1d2c97fb7aa3ce7f96bbc515417ef1",
                       "size":  9
                   },
                   {
