@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.217",
-    "generated":  "2026-11-15T21:48:48-03:00",
+    "version":  "15.24.218",
+    "generated":  "2026-11-15T22:03:26-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -69025,8 +69025,8 @@
                   },
                   {
                       "path":  "mods/game_tibia_market/t_market.lua",
-                      "sha256":  "d92e260376788eb34bec24db5b228c0794113af10c5ac18d66f69df35d4763f1",
-                      "size":  74628
+                      "sha256":  "639a3b27340f77430d39774974d04f7b283a70d1e5f284ada33c7613a0556b2f",
+                      "size":  76470
                   },
                   {
                       "path":  "mods/game_tibia_market/t_market.otmod",
@@ -69035,8 +69035,8 @@
                   },
                   {
                       "path":  "mods/game_tibia_market/t_market.otui",
-                      "sha256":  "806be0a8f167c1b26ed58768e65afd0b5fc4499dc311e43465e5ad7d1e939ddf",
-                      "size":  53041
+                      "sha256":  "fdadbbd6a8f8c9dd7f88f975f8cc29a48ee869b88804fb907a791e57a3b4a676",
+                      "size":  53043
                   },
                   {
                       "path":  "mods/game_tibia_spelllist/t_spelllist.lua",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "aa075e6b42181d62828a86107645bbbdf834664053168f112b129f4a2f6ed3ad",
+                      "sha256":  "aaa006a5302281eedd354f882f60024d9773ac8aada0586b208947102255c615",
                       "size":  9
                   },
                   {
