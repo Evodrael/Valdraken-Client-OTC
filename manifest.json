@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.214",
-    "generated":  "2026-11-15T03:21:48-03:00",
+    "version":  "15.24.215",
+    "generated":  "2026-11-15T03:25:49-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70025,8 +70025,8 @@
                   },
                   {
                       "path":  "modules/game_interface/widgets/uigamemap.lua",
-                      "sha256":  "c31bac54dcf1e9b8376703cd851e6a344554fb3f387633df353db7660a39fcb5",
-                      "size":  13658
+                      "sha256":  "b2921b9976151766978ebb366472b85b9b066732990aef7818bdbe923ab1735c",
+                      "size":  15062
                   },
                   {
                       "path":  "modules/game_inventory/inventory.lua",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "5cf67a502864ee86c65516f3531c35e18380d60f0ea59f11e7b7e220ffcd9869",
+                      "sha256":  "74cc779aa0a49ee617c396843f314f6fef8505cb595ed4708e74155078fd9e91",
                       "size":  9
                   },
                   {
