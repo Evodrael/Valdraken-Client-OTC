@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.221",
-    "generated":  "2026-11-15T22:18:22-03:00",
+    "version":  "15.24.222",
+    "generated":  "2026-11-15T22:28:28-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70065,8 +70065,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/cavebot.lua",
-                      "sha256":  "e526d68f43e7a5541cf9caedf32e69038960ec5c4ffd4b2379df448a73c965a8",
-                      "size":  80794
+                      "sha256":  "487974926afed02a0000653d507de2a12ab35963cd6044c5eeb3daef33cae108",
+                      "size":  81464
                   },
                   {
                       "path":  "modules/game_minibot/cavebot_files.lua",
@@ -70085,8 +70085,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "adb9c3e0f40fcf77589cc2664713fb6dee82ff8860aaa2649dbc8083e3b06433",
-                      "size":  102024
+                      "sha256":  "8242616a8204d8b0d44233e641b43116b42c7ef2b66dd7f21b54a2dd44056043",
+                      "size":  102640
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -70120,13 +70120,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
-                      "sha256":  "4e1bb83cb617ee9fc0467b9164206acda567b8aa2a18fbf28d851aef21d63274",
-                      "size":  100751
+                      "sha256":  "069000371db1db81604e5c852d79540bd8d4022b47dca3fe7cc64a48fd060f35",
+                      "size":  114737
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.otui",
-                      "sha256":  "0304bd1553bffd864b1f865f2bf9da5b8fca959f638db63f63c2fb4bc9ae69b6",
-                      "size":  32526
+                      "sha256":  "917fc076adef4691dc264694df4bb7c8b5c61b2708a05f9d9e15ae584c88662e",
+                      "size":  33010
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
@@ -70210,8 +70210,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.lua",
-                      "sha256":  "744d97e2dfc565d7990d757d24f01905d9dd426141cf3ef82b413cf00df7198d",
-                      "size":  154208
+                      "sha256":  "91bd8803fd3c2f0586d3174a4c64cb38064dde12eccaae2f4a2e2382fb4d9d81",
+                      "size":  155516
                   },
                   {
                       "path":  "modules/game_minibot/pages/hunting_recorder.otui",
@@ -71235,17 +71235,17 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "ba59d030f1ef66fe6ffb7fe9aaa88278ce72fdc122a0c089b5a0728fc5fdc2dd",
-                      "size":  37105664
+                      "sha256":  "84fcea955208dbfbc17aa462608e0ead7274bbb41a823fc74830a406370bb8d8",
+                      "size":  37106688
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "c959fff8b848d0802c13183dbefdda0b2188ad9ddebde1cb40fe341b7291a728",
-                      "size":  29246464
+                      "sha256":  "b864923d46b96beb565d0d6912b9d1982baad45d62a3fa7728add4c4948d836a",
+                      "size":  29247488
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "f71802e4da8cafeb0d543db887f8b8b80b33a6d294fed780d08dd35746ed73c4",
+                      "sha256":  "739ab1a486b8dc6335487be41d97c0ecdd4228aa055d179428bbc5dc5c881b60",
                       "size":  9
                   },
                   {
