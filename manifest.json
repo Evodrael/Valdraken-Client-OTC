@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.208",
-    "generated":  "2026-11-15T01:23:04-03:00",
+    "version":  "15.24.209",
+    "generated":  "2026-11-15T01:27:57-03:00",
     "count":  14250,
     "files":  [
                   {
@@ -70325,8 +70325,8 @@
                   },
                   {
                       "path":  "modules/game_modaldialog/modaldialog.lua",
-                      "sha256":  "4b96fffe27ea54a04de5f26cf3493ee02f0a3ca8768ded542bf7c061410410f7",
-                      "size":  4664
+                      "sha256":  "183688061afe29e57591677366a6bae49504d342179bd33ef89e16a883c40f16",
+                      "size":  5158
                   },
                   {
                       "path":  "modules/game_modaldialog/modaldialog.otmod",
@@ -71240,7 +71240,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "f2b0f2f777195f3a9a0f9b751395af4b66b98c7b47db4967cb0e180ef0832f52",
+                      "sha256":  "c38d1b610eb3167c1703b9f0f4e91ebe1a9db8da214e95632bb61f90f0a8484a",
                       "size":  9
                   },
                   {
