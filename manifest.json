@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.213",
-    "generated":  "2026-11-15T03:20:34-03:00",
+    "version":  "15.24.214",
+    "generated":  "2026-11-15T03:21:48-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70545,8 +70545,8 @@
                   },
                   {
                       "path":  "modules/game_npctrade/npctrade.lua",
-                      "sha256":  "51e89aea39c13007fc2b0b4c3e2b00462289f6b3a1259ed80dc63e11144feef8",
-                      "size":  44480
+                      "sha256":  "ad51ff082d2b092ba77fac17cd8e63da7daaf0e0db302cd362d77a3a840d130b",
+                      "size":  46375
                   },
                   {
                       "path":  "modules/game_npctrade/npctrade.otmod",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "b68bd09d889cf3df294cb4db7db0e6c2e28f61b792b1f52a518b3b84acd427e7",
+                      "sha256":  "5cf67a502864ee86c65516f3531c35e18380d60f0ea59f11e7b7e220ffcd9869",
                       "size":  9
                   },
                   {
