@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.219",
-    "generated":  "2026-11-15T22:11:05-03:00",
+    "version":  "15.24.220",
+    "generated":  "2026-11-15T22:17:40-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70545,8 +70545,8 @@
                   },
                   {
                       "path":  "modules/game_npctrade/npctrade.lua",
-                      "sha256":  "ad51ff082d2b092ba77fac17cd8e63da7daaf0e0db302cd362d77a3a840d130b",
-                      "size":  46375
+                      "sha256":  "5fec1daefcf091e7ea99de0ef8f40d41e3991fc8947afb645708fe083bc0f73e",
+                      "size":  47883
                   },
                   {
                       "path":  "modules/game_npctrade/npctrade.otmod",
@@ -70560,8 +70560,8 @@
                   },
                   {
                       "path":  "modules/game_npctrade/styles/blacklist.otui",
-                      "sha256":  "e7f7ddef3fa561adb7333b002271845941dcd36e056199a366dae740658610e1",
-                      "size":  3037
+                      "sha256":  "0cbd27996ddf8f6a9bd8e1160e6bdab08b1d2b9b0857f9218fd79c7b09d600fb",
+                      "size":  4173
                   },
                   {
                       "path":  "modules/game_npctrade/styles/quicksell.otui",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "91dd07f59623fff6e84ab2bb36a33652cd1d2c97fb7aa3ce7f96bbc515417ef1",
+                      "sha256":  "b1a3d8e6c97ee6c2c64a59b82a2d7b55e5517500e9e4829ab88743e8fba5d844",
                       "size":  9
                   },
                   {
