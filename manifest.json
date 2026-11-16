@@ -1,6 +1,6 @@
 {
-    "version":  "15.24.222",
-    "generated":  "2026-11-15T22:28:28-03:00",
+    "version":  "15.24.223",
+    "generated":  "2026-11-16T03:16:51-03:00",
     "count":  14251,
     "files":  [
                   {
@@ -70310,8 +70310,8 @@
                   },
                   {
                       "path":  "modules/game_minimap/minimap.lua",
-                      "sha256":  "041d5886e1518ed57c6e5b202f73569ceac2c1d47fba9ed71bb8fd8b73c4b30a",
-                      "size":  36045
+                      "sha256":  "7457957add924400d6c0812004f80049b42effb1054101df7cce0cdd133803b2",
+                      "size":  36219
                   },
                   {
                       "path":  "modules/game_minimap/minimap.otmod",
@@ -71245,7 +71245,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "739ab1a486b8dc6335487be41d97c0ecdd4228aa055d179428bbc5dc5c881b60",
+                      "sha256":  "05e7dd7d570777a818414b9fe985cfa1ad8e8ccf3c00045c61eb536647485b4b",
                       "size":  9
                   },
                   {
