@@ -67,76 +67,125 @@ TopMenuPingLabel < Label
 TopMenu < TopMenuPanel
   id: topMenu
   width: 800
-  height: 30
+  height: 24
   anchors.horizontalCenter: parent.horizontalCenter
   anchors.top: parent.top
   &hideIngame: true
   &reverseButtons: true
 
   UIWidget
+    id: twitch
+    size: 47 16
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent.left
+    margin-left: 8
+    image-source: /images/ui/icon-twitch
+    !tooltip: tr('Streamers do Valdraken ao vivo')
+  UIWidget
+    id: twitchStreamsIcon
+    size: 11 7
+    anchors.top: parent.top
+    anchors.left: twitch.right
+    margin-top: 4
+    margin-left: 5
+    image-source: /images/ui/icon-streamers
+    phantom: true
+  Label
+    id: twitchStreams
+    anchors.verticalCenter: twitchStreamsIcon.verticalCenter
+    anchors.left: twitchStreamsIcon.right
+    margin-left: 4
+    text: 0
+    font: $var-cip-font
+    color: $var-text-cip-color
+    text-auto-resize: true
+    phantom: true
+  UIWidget
+    id: twitchViewersIcon
+    size: 11 7
+    anchors.top: twitchStreamsIcon.bottom
+    anchors.left: twitch.right
+    margin-top: 3
+    margin-left: 5
+    image-source: /images/ui/icon-viewers
+    phantom: true
+  Label
+    id: twitchViewers
+    anchors.verticalCenter: twitchViewersIcon.verticalCenter
+    anchors.left: twitchViewersIcon.right
+    margin-left: 4
+    text: 0
+    font: $var-cip-font
+    color: $var-text-cip-color
+    text-auto-resize: true
+    phantom: true
+
+  UIWidget
     id: discord
     size: 18 18
-    anchors.top: parent.top
-    anchors.left: parent.left
-    margin-top: 5
-    margin-left: 8
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: twitch.right
+    margin-left: 62
     image-source: /images/ui/discord
   UIWidget
     id: discordLabel
-    anchors.top: parent.top
-    anchors.left: prev.right
-    margin-top: 7
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: discord.right
     margin-left: 5
     text: "Join Discord"
     font: $var-cip-font
     color: $var-text-cip-color
+    text-auto-resize: true
     text-offset: 0 -1
     $hover !pressed:
       color: $var-text-cip-color-highlight
     $pressed:
       color: $var-text-cip-color-green
 
-  Label
-    anchors.top: parent.top
-    anchors.left: parent.left
-    margin-top: 6
-    margin-left: 323
-    image-source: /images/ui/people
-
   TopMenuButtonsPanel
     id: rightButtonsPanel
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-    anchors.left: prev.right
+    anchors.left: discordLabel.right
+    padding: 2 4
 
   TopMenuButtonsPanel
     id: rightGameButtonsPanel
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.left: prev.right
+    padding: 2 4
     visible: false
 
   Label
     id: onlineLabel
     !text: tr('Updating...')
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
+    anchors.verticalCenter: parent.verticalCenter
     anchors.horizontalCenter: parent.horizontalCenter
     text-align: center
-    margin-top: -1
-    margin-left: 3
+    margin-left: 12
     text-auto-resize: true
+
+  UIWidget
+    id: peopleIcon
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: onlineLabel.left
+    margin-right: 6
+    size: 11 14
+    image-source: /images/ui/people
+    phantom: true
 
   TopMenuButtonsPanel
     id: leftButtonsPanel
-    margin-top: -5
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.right: parent.right
+    padding: 2 4
 
   TopMenuButtonsPanel
     id: leftGameButtonsPanel
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.right: prev.left
+    padding: 2 4
     visible: false
