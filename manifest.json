@@ -1,7 +1,7 @@
 {
-    "version":  "15.30.0",
-    "generated":  "2026-11-20T16:15:14-03:00",
-    "count":  13329,
+    "version":  "15.30.1",
+    "generated":  "2026-11-21T17:59:11-03:00",
+    "count":  13332,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -19149,6 +19149,11 @@
                       "size":  5002660
                   },
                   {
+                      "path":  "data/things/1530/appearances-26c2a71db462c249b349d232ad61166dd9301a7720c10454b8f530c8adb9c5fb.dat",
+                      "sha256":  "26c2a71db462c249b349d232ad61166dd9301a7720c10454b8f530c8adb9c5fb",
+                      "size":  5878218
+                  },
+                  {
                       "path":  "data/things/1530/appearances-314f182ba6e84735b97c23844f5cd90e525de1278348655fc88e23b7e5b4f5d4.dat",
                       "sha256":  "314f182ba6e84735b97c23844f5cd90e525de1278348655fc88e23b7e5b4f5d4",
                       "size":  5855822
@@ -19204,6 +19209,11 @@
                       "size":  5862891
                   },
                   {
+                      "path":  "data/things/1530/appearances-eaca543aef5c660367f62a539a64db66ae8d98402d0ad8a2ac8211e4c8e2cdb2.dat",
+                      "sha256":  "eaca543aef5c660367f62a539a64db66ae8d98402d0ad8a2ac8211e4c8e2cdb2",
+                      "size":  5878220
+                  },
+                  {
                       "path":  "data/things/1530/appearances-eb8f550bcdfd3784faa1e3c535726b20093eddae9da7366485003f0ea51809a2.dat",
                       "sha256":  "eb8f550bcdfd3784faa1e3c535726b20093eddae9da7366485003f0ea51809a2",
                       "size":  5860831
@@ -19215,7 +19225,7 @@
                   },
                   {
                       "path":  "data/things/1530/catalog-content.json",
-                      "sha256":  "eb373e20a4ce6214972d99c864cd719934e3bba038614965823def48e308dcc3",
+                      "sha256":  "a1e3c99512fc4b80d8e74b139a3640937615571a8b69a4d3b8590f60fe5aab6b",
                       "size":  1505656
                   },
                   {
@@ -60854,6 +60864,11 @@
                       "size":  7275
                   },
                   {
+                      "path":  "data/things/1530/staticdata-316e80138fe5880698f2fdb1022f87c42c24716648ec1ebdfc2e0af50c8bcd2b.dat",
+                      "sha256":  "316e80138fe5880698f2fdb1022f87c42c24716648ec1ebdfc2e0af50c8bcd2b",
+                      "size":  179943
+                  },
+                  {
                       "path":  "data/things/1530/staticdata-50be29b73d42525adaccecb531a86bb74a4872a5a021985fa3cdb6a7e28a8d7b.dat",
                       "sha256":  "50be29b73d42525adaccecb531a86bb74a4872a5a021985fa3cdb6a7e28a8d7b",
                       "size":  179581
@@ -63650,8 +63665,8 @@
                   },
                   {
                       "path":  "mods/game_forge/classes/Forge.lua",
-                      "sha256":  "673678798dd39e7cb09db652757e176d6672a62a8ed9d3d3821ca1d69840d421",
-                      "size":  67688
+                      "sha256":  "97a1d7019d8f29c71895031a43a8ced195ce3cb963e5a956ac22efc8e4d62c89",
+                      "size":  67672
                   },
                   {
                       "path":  "mods/game_forge/forge.lua",
@@ -64080,8 +64095,8 @@
                   },
                   {
                       "path":  "mods/game_proficiency/perk_shaping.otui",
-                      "sha256":  "aaff693a7a55202e0d218e696e6e12465dacbc2d5fc71b872b715140681c8401",
-                      "size":  5623
+                      "sha256":  "a426718ee2634b76c4bfa9f201dfeb10c8afaf16dd098f8415360f7b7d1f6ef0",
+                      "size":  5624
                   },
                   {
                       "path":  "mods/game_proficiency/proficiency.lua",
@@ -65515,13 +65530,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.lua",
-                      "sha256":  "8cc77f21704bc660f993eb29da6048c2f92ba2e7e588feceb9ad6781fd9e8061",
-                      "size":  72375
+                      "sha256":  "4bce23bcbd01c0cdd820dbd8d6e021cf28581f2ff594989014d12369e4f8ed13",
+                      "size":  72467
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_timers.otui",
-                      "sha256":  "41e192e959e6848ce65fbe3d544cb9c7fe8d6052230cc8daa730452f4c719894",
-                      "size":  28844
+                      "sha256":  "57092b0e6bb7395fcc1c58fca71ddd135d8f53a638a771a69ad11b176f7c235c",
+                      "size":  28946
                   },
                   {
                       "path":  "modules/game_minibot/pages/equipment_amulets.lua",
@@ -66635,7 +66650,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "3ff6f23bc6374d5228372d347fabf0d36e7ebc44692afce804638ef37c1934be",
+                      "sha256":  "49aaa06fd5c9bd2fcf1189394fade9fca9c7e9d55649ad4861833c720b4b8e54",
                       "size":  7
                   },
                   {
