@@ -1,6 +1,6 @@
 {
-    "version":  "15.30.2",
-    "generated":  "2026-11-21T22:42:31-03:00",
+    "version":  "15.30.3",
+    "generated":  "2026-11-22T03:25:28-03:00",
     "count":  13333,
     "files":  [
                   {
@@ -14545,8 +14545,8 @@
                   },
                   {
                       "path":  "data/minimap/minimap.otmm",
-                      "sha256":  "1e8d0c94718b2e34f553455d536dae74cc9ae6f14fef0008e36f1b610e237787",
-                      "size":  925657
+                      "sha256":  "d68397b2e1fad84eb514e05727a899714a5434836ea6e4899a3015ae34e0cf1e",
+                      "size":  945858
                   },
                   {
                       "path":  "data/minimap/regions/0-(33640-31251-7)subarea-0394-7c3642d2117a1651a8d9f0c064ec1e00ecdd7e6b74dae59f2afaf0ef20119b26.png",
@@ -19134,6 +19134,11 @@
                       "size":  41
                   },
                   {
+                      "path":  "data/things/1530/appearances-03bf82255ae6dc3b2ca0c5d0a45eae504ac8ee5f585ba66a44b3eef88793842a.dat",
+                      "sha256":  "03bf82255ae6dc3b2ca0c5d0a45eae504ac8ee5f585ba66a44b3eef88793842a",
+                      "size":  5878260
+                  },
+                  {
                       "path":  "data/things/1530/appearances-09185f21a6b187f8247b307f3accf8fc4aba16069e7d0ebad3bfc860ac99c401.dat",
                       "sha256":  "09185f21a6b187f8247b307f3accf8fc4aba16069e7d0ebad3bfc860ac99c401",
                       "size":  5878216
@@ -19212,11 +19217,6 @@
                       "path":  "data/things/1530/appearances-eaca543aef5c660367f62a539a64db66ae8d98402d0ad8a2ac8211e4c8e2cdb2.dat",
                       "sha256":  "eaca543aef5c660367f62a539a64db66ae8d98402d0ad8a2ac8211e4c8e2cdb2",
                       "size":  5878220
-                  },
-                  {
-                      "path":  "data/things/1530/appearances-03bf82255ae6dc3b2ca0c5d0a45eae504ac8ee5f585ba66a44b3eef88793842a.dat",
-                      "sha256":  "03bf82255ae6dc3b2ca0c5d0a45eae504ac8ee5f585ba66a44b3eef88793842a",
-                      "size":  5878260
                   },
                   {
                       "path":  "data/things/1530/appearances-eb8f550bcdfd3784faa1e3c535726b20093eddae9da7366485003f0ea51809a2.dat",
@@ -65490,8 +65490,8 @@
                   },
                   {
                       "path":  "modules/game_minibot/minibot.lua",
-                      "sha256":  "81348f155cbb7ddf0e4c68d548a0670e85b8437d0351235eabf2e693e4760e92",
-                      "size":  106186
+                      "sha256":  "304fcc36850e761a19ed9a39077bd56254aef371bbc0dfe7fd3b26d390cf020f",
+                      "size":  111371
                   },
                   {
                       "path":  "modules/game_minibot/minibot.otmod",
@@ -65515,13 +65515,13 @@
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.lua",
-                      "sha256":  "a488efe993bacdc39b586f0bea576438e77a5371055f0922aa8077a5a33aa697",
-                      "size":  30123
+                      "sha256":  "ec7416f6ae2765473cf757ecfe736da66209f8da61fad86ed78ae8d2987086a0",
+                      "size":  32742
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_attack.otui",
-                      "sha256":  "430b1718cb29503b05aaeb3f7517423603a474ff4ad864bbf6145351da0c8ee3",
-                      "size":  19494
+                      "sha256":  "b68584eff6fd90d5e338a275838f51a23ad869575d4cbc583ec09c8dc75d10ab",
+                      "size":  20188
                   },
                   {
                       "path":  "modules/game_minibot/pages/combat_shooter.lua",
@@ -65715,8 +65715,8 @@
                   },
                   {
                       "path":  "modules/game_minimap/minimap.lua",
-                      "sha256":  "7457957add924400d6c0812004f80049b42effb1054101df7cce0cdd133803b2",
-                      "size":  36219
+                      "sha256":  "f69fcd56917dfce6d086abfed885d852e518134267ee04cfb26b767fc13c1595",
+                      "size":  36529
                   },
                   {
                       "path":  "modules/game_minimap/minimap.otmod",
@@ -66430,8 +66430,8 @@
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_api.lua",
-                      "sha256":  "4f55fe0cc3e7c15c062a5482e9c6f9722c693d86d5078a18e40f9171124b3362",
-                      "size":  115403
+                      "sha256":  "5de84f9c94af78d3e9dbb156c3c785fb03765e01e540a6945813d9ac8ed34aac",
+                      "size":  115771
                   },
                   {
                       "path":  "modules/game_zerobot_compat/zerobot_compat.lua",
@@ -66640,13 +66640,13 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "54c3d24c8a956bd8aee3a15d2b4aeccdf8bf933ce3b55da71eb9a6f28d15bdc8",
-                      "size":  37110784
+                      "sha256":  "e6b141882497fa938cb09af1ad628c414c504560312de721480c7a4200188182",
+                      "size":  37110272
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "9c0f2ed56a0016064a4e610f01175f36fb8c84094766ade3c8a22826ac03c412",
-                      "size":  29251584
+                      "sha256":  "5d02f3f61332c46f595674d5f1d6146d01b78c5bebaf35c556257f6b5c3bba80",
+                      "size":  29251072
                   },
                   {
                       "path":  "resources/banner.png",
@@ -66655,7 +66655,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "34c3b7149822cefb9c4cf4b87504f30620d3cc0876943ffd7fbede195213a826",
+                      "sha256":  "72e3a633f76387d8ba98a2df1af85c7e73f66d8f9963e69838cdec24ab7e6cde",
                       "size":  7
                   },
                   {
