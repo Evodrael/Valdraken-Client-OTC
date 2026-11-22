@@ -1,6 +1,6 @@
 {
-    "version":  "15.30.4",
-    "generated":  "2026-11-22T13:36:10-03:00",
+    "version":  "15.30.5",
+    "generated":  "2026-11-22T21:00:11-03:00",
     "count":  13334,
     "files":  [
                   {
@@ -62020,8 +62020,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/import-config.lua",
-                      "sha256":  "9c6d5a2a3938f2d4f2d9731e67cbaee90c004fc4e25ca974cc5c4f10eddf0d45",
-                      "size":  626
+                      "sha256":  "bbbf6858693e876fabd0df0b1dcc6010bffbb3f0774763229a60e61f442d4b3f",
+                      "size":  3959
                   },
                   {
                       "path":  "mods/client_settings/classes/ScreenShot.lua",
@@ -62060,8 +62060,8 @@
                   },
                   {
                       "path":  "mods/client_settings/options/controls.otui",
-                      "sha256":  "fa7f4962a1fccd9cef3688a7743e495bb95331fd79a99ce527aed4224400a8a4",
-                      "size":  10313
+                      "sha256":  "5f05770fa446187f509c7392875ebffc8632db3411788bbe6eb3bb3c3f7e7410",
+                      "size":  10373
                   },
                   {
                       "path":  "mods/client_settings/options/customHotkeys.otui",
@@ -62140,8 +62140,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "93bdea8e4c0064b60e4f16acfb802531780baab9c34e26ba54b1f445c3480aa9",
-                      "size":  87269
+                      "sha256":  "11526c5b5f5b249575a6bc65f78ff52258ce4689a5a9933e0dd6fd513c9ffb18",
+                      "size":  87393
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -64765,8 +64765,8 @@
                   },
                   {
                       "path":  "modules/client_options/options.lua",
-                      "sha256":  "348e6f17d527c61235a7c42d111f070fea5cad5dd2a1db47fe239e05c87e9dda",
-                      "size":  13338
+                      "sha256":  "7529f9db81883d0518f270f04121b3f27a50a54f150261dfcc9debd9315d79cc",
+                      "size":  16592
                   },
                   {
                       "path":  "modules/client_options/options.otmod",
@@ -66660,7 +66660,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "3d872d0fa5063fdf615d783f2bc265fc0ad4a99f2a6228f4f8e78fc849d1cf87",
+                      "sha256":  "f657f81491ec9390928b4809c53794d120e2494c9fe4bd23718666c352d63ef9",
                       "size":  7
                   },
                   {
