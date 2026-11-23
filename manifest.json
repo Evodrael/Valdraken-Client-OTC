@@ -1,6 +1,6 @@
 {
-    "version":  "15.30.8",
-    "generated":  "2026-11-23T20:34:37-03:00",
+    "version":  "15.30.9",
+    "generated":  "2026-11-23T21:15:08-03:00",
     "count":  13336,
     "files":  [
                   {
@@ -64285,8 +64285,8 @@
                   },
                   {
                       "path":  "mods/game_store/classes/Categories.lua",
-                      "sha256":  "1560421955d30abb8e21fcdf53146e1692278058a4c134334bc3ac77d4cd966c",
-                      "size":  7987
+                      "sha256":  "3c916993f01b9316495faf5616b3d132b7e5f138de190e155e6b68a35ca1b9ae",
+                      "size":  9239
                   },
                   {
                       "path":  "mods/game_store/classes/Gift.lua",
@@ -64325,8 +64325,8 @@
                   },
                   {
                       "path":  "mods/game_store/store.otui",
-                      "sha256":  "4a4b6b7b17f10f1c148031cee952a71820b1d82a9607856651695e1bd0365507",
-                      "size":  5497
+                      "sha256":  "bf18edb13e7ee26a8e4b578d5047adae115d4be2af276facbaf998749313e570",
+                      "size":  5971
                   },
                   {
                       "path":  "mods/game_store/styles/bazaar.otui",
@@ -66670,7 +66670,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "a57f0195cbd0603f61165b67257c5c83a15c8377aad081d25b6c1d9e7fd44e60",
+                      "sha256":  "9a7b9b6e8beb456b6be64ad9352d9dfdd6eb9506df1dd79240f9be5b13fe5618",
                       "size":  7
                   },
                   {
