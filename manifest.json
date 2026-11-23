@@ -1,6 +1,6 @@
 {
-    "version":  "15.30.9",
-    "generated":  "2026-11-23T21:15:08-03:00",
+    "version":  "15.30.10",
+    "generated":  "2026-11-23T23:00:23-03:00",
     "count":  13336,
     "files":  [
                   {
@@ -62020,8 +62020,8 @@
                   },
                   {
                       "path":  "mods/client_settings/classes/import-config.lua",
-                      "sha256":  "bbbf6858693e876fabd0df0b1dcc6010bffbb3f0774763229a60e61f442d4b3f",
-                      "size":  3959
+                      "sha256":  "55027e6152692b58c3111503dbce7e6225bc4a0da79610716ce826d0e478ee3a",
+                      "size":  17098
                   },
                   {
                       "path":  "mods/client_settings/classes/ScreenShot.lua",
@@ -62060,8 +62060,8 @@
                   },
                   {
                       "path":  "mods/client_settings/options/controls.otui",
-                      "sha256":  "5f05770fa446187f509c7392875ebffc8632db3411788bbe6eb3bb3c3f7e7410",
-                      "size":  10373
+                      "sha256":  "663edcfefb04af26de9b9c7a12476d2edd049f60b13c370a7f62d5789e367080",
+                      "size":  10352
                   },
                   {
                       "path":  "mods/client_settings/options/customHotkeys.otui",
@@ -62140,8 +62140,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.lua",
-                      "sha256":  "11526c5b5f5b249575a6bc65f78ff52258ce4689a5a9933e0dd6fd513c9ffb18",
-                      "size":  87393
+                      "sha256":  "b3b6fa11ee7f70a09318dac6423dac6e9b9dee22f77d9275441bb90440049c9e",
+                      "size":  87544
                   },
                   {
                       "path":  "mods/client_settings/settings.otmod",
@@ -62150,8 +62150,8 @@
                   },
                   {
                       "path":  "mods/client_settings/settings.otui",
-                      "sha256":  "e551a337b2b99d060729c07c32f81ceb70266f56ba5df8d5f2c4f547a1ce8dc5",
-                      "size":  3645
+                      "sha256":  "ec355f3acd411958b701de5aa57f8c9b8b800ba0c8bbfe7ef4c4964ef2e427d7",
+                      "size":  4806
                   },
                   {
                       "path":  "mods/client_settings/styles/assingobjectwindow.otui",
@@ -66655,13 +66655,13 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "da0b9b0788bbcf6bc3be7b735e29c060c24a1e8a64542f714faa5b37c8d83ec1",
-                      "size":  37114880
+                      "sha256":  "b97237d7d15451bd9983f3e96614ef4f75009cc352460c49ddb2540354e23c33",
+                      "size":  37181440
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "455857d4d2ca1f6912610cfc903fee363bc44e166738366373454f2db4799844",
-                      "size":  29255680
+                      "sha256":  "6c755b435fc9512dc5d76f8b35ccda4bceba12771ca17c4350bce54a01fd663f",
+                      "size":  29322240
                   },
                   {
                       "path":  "resources/banner.png",
@@ -66670,8 +66670,8 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "9a7b9b6e8beb456b6be64ad9352d9dfdd6eb9506df1dd79240f9be5b13fe5618",
-                      "size":  7
+                      "sha256":  "45fc106504b8eca3111ddb4f40261a7d5741cd4de3a95085eace6a876a46fe92",
+                      "size":  8
                   },
                   {
                       "path":  "zerobot_profiles/LEIAME.txt",
