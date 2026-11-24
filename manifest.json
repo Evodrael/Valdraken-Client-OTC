@@ -1,7 +1,7 @@
 {
-    "version":  "15.30.11",
-    "generated":  "2026-11-24T14:09:30-03:00",
-    "count":  13337,
+    "version":  "15.30.12",
+    "generated":  "2026-11-24T17:40:14-03:00",
+    "count":  13342,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -19174,14 +19174,14 @@
                       "size":  5855657
                   },
                   {
-                      "path":  "data/things/1530/appearances-545d564c8460d366f8ceb572abf9502563e594d7bac7602575cad1404c8afa59.dat",
-                      "sha256":  "545d564c8460d366f8ceb572abf9502563e594d7bac7602575cad1404c8afa59",
-                      "size":  5878555
-                  },
-                  {
                       "path":  "data/things/1530/appearances-57581bba714cd93f33796036e5ba0465ef005b05c0ba28b6630b14707a7d3f5d.dat",
                       "sha256":  "57581bba714cd93f33796036e5ba0465ef005b05c0ba28b6630b14707a7d3f5d",
                       "size":  5860373
+                  },
+                  {
+                      "path":  "data/things/1530/appearances-649577b5b4814a760f96cd0abb122847d06ae84d18c59fd96209d22193ad2b8b.dat",
+                      "sha256":  "649577b5b4814a760f96cd0abb122847d06ae84d18c59fd96209d22193ad2b8b",
+                      "size":  5879809
                   },
                   {
                       "path":  "data/things/1530/appearances-6a17f38607d9a2c589e07469c9a03e7c6b2d23622efc2ed36883b529916e2ad9.dat",
@@ -19235,8 +19235,8 @@
                   },
                   {
                       "path":  "data/things/1530/catalog-content.json",
-                      "sha256":  "9d482e428b615b37ef20c11c6451641d9b1338de01521b8c211abdaa07b31f3a",
-                      "size":  1505876
+                      "sha256":  "9109e121d6ff10a38ca058c43441f953dc4271c73b907a2829c504f4075135ba",
+                      "size":  1506976
                   },
                   {
                       "path":  "data/things/1530/map-9659e863947ccbb026784b5f617c21ed97ab2e1493f7333c74f222f7c115b14c.dat",
@@ -28747,6 +28747,11 @@
                       "path":  "data/things/1530/sprites-2312d9e2d84d1eb71d5b52e0fa30b7ee91a8369bc686a9c8c070844ff39cadaa.bmp.lzma",
                       "sha256":  "5584ca9b6f64d62a082cc3653802204e08e860d89e713351ceaaa489370bc906",
                       "size":  12134
+                  },
+                  {
+                      "path":  "data/things/1530/sprites-2314c748aae333887f77e494ead3aedfbd2bff6306d94f89e8fdd1612cfcdcc6.bmp.lzma",
+                      "sha256":  "9f639bdc27f5a615654b6735e5714fa6aa086bba4f006fada810bebf9194c1dc",
+                      "size":  3086
                   },
                   {
                       "path":  "data/things/1530/sprites-231707337388bf2a5f59592c83ebae9cd9e66e8d9a2445c480ecc246cbf6c8a1.bmp.lzma",
@@ -43519,6 +43524,11 @@
                       "size":  18172
                   },
                   {
+                      "path":  "data/things/1530/sprites-89e71ce5e86aedde0870dc3e5b519d3256d123bb9ff26e7432cad3de3e6b5bf6.bmp.lzma",
+                      "sha256":  "dd802b6a341cbea4fa1288b024c82b15a65b27c463bb84fc5f3ff43e4ec23eaf",
+                      "size":  15689
+                  },
+                  {
                       "path":  "data/things/1530/sprites-89ea4ecc249744f6aa129ab526b43f34e102c1192c4216b205541073cd176e02.bmp.lzma",
                       "sha256":  "89ea4ecc249744f6aa129ab526b43f34e102c1192c4216b205541073cd176e02",
                       "size":  7452
@@ -53894,6 +53904,11 @@
                       "size":  10770
                   },
                   {
+                      "path":  "data/things/1530/sprites-cebb74ff07f619c2a2713923532c9374763aef64f39cf7bcf048e68c3da2f364.bmp.lzma",
+                      "sha256":  "8dfb369783dfbfda4f5753090c0f8b665ff799b9467d0e68df0788ca764a32ef",
+                      "size":  41729
+                  },
+                  {
                       "path":  "data/things/1530/sprites-cebdb2939106c624a63053c1c816868d36948d6358136c7e949a1c8b8e861d4a.bmp.lzma",
                       "sha256":  "d57b6e5fddc2e7c7f8cf5f3c790d81a988ac706dfc10ab964889356070c041ad",
                       "size":  14124
@@ -55334,6 +55349,11 @@
                       "size":  9449
                   },
                   {
+                      "path":  "data/things/1530/sprites-d93dd6aede0af3dade69bfc2b4b557c0a8e97522350d8f9c201f39f0ac0e17ef.bmp.lzma",
+                      "sha256":  "b2d60cdd0b31b3f9d7b2b7d65f2692d8337697634c7dfecd8a664665437dec79",
+                      "size":  19205
+                  },
+                  {
                       "path":  "data/things/1530/sprites-d947ddf5b5d938655237b19dd273d116c8aa5522d6a0b565ed387e78ba6dd79e.bmp.lzma",
                       "sha256":  "cf80c013fadd9a1e509651c32811e05429f7ec635f15a307d9f8ae8514df5c78",
                       "size":  20590
@@ -55752,6 +55772,11 @@
                       "path":  "data/things/1530/sprites-dc885707c45d964d618f2aaedbe7e6c479d1d755d8c1f09cc8b9aabc5fd245c1.bmp.lzma",
                       "sha256":  "ea58379cc43752f39aea665f0dd5564d5d26600568a08228a6388fcd028f3f11",
                       "size":  11260
+                  },
+                  {
+                      "path":  "data/things/1530/sprites-dc94098823a977e1cf5b230dd96d34053e3e2736b633ccb28ba7fd02a22bbf8e.bmp.lzma",
+                      "sha256":  "01f02ecefc21ffe06d14f5275a010fc0f729c8721be0b2574ba7d6bb35f44af5",
+                      "size":  4793
                   },
                   {
                       "path":  "data/things/1530/sprites-dc94e3b0bbcb79cfea4e3a5426120732b06cdbae554e6e166be860461671e824.bmp.lzma",
@@ -66675,7 +66700,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "e84b47af00b501b72b602a4ef3e2b58f43ba965b1c8f1aafdbe700e9aee92325",
+                      "sha256":  "ea04d7ebbb29c679823fbb89d09b741c5df6613ce21262eecf289908bac1d7cf",
                       "size":  8
                   },
                   {
