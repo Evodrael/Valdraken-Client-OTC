@@ -1,6 +1,6 @@
 {
-    "version":  "15.30.12",
-    "generated":  "2026-11-24T17:40:14-03:00",
+    "version":  "15.30.13",
+    "generated":  "2026-11-24T23:58:08-03:00",
     "count":  13342,
     "files":  [
                   {
@@ -19235,7 +19235,7 @@
                   },
                   {
                       "path":  "data/things/1530/catalog-content.json",
-                      "sha256":  "9109e121d6ff10a38ca058c43441f953dc4271c73b907a2829c504f4075135ba",
+                      "sha256":  "7f544d6be8dd752698377a535e29fd22d1af125cbffe2a47bab39cdb01f1a89a",
                       "size":  1506976
                   },
                   {
@@ -29174,6 +29174,11 @@
                       "size":  6335
                   },
                   {
+                      "path":  "data/things/1530/sprites-25cc4a5ad5d3fb10d969d843e0bc376d0d79a8d67fbdcc4ac10adfe2f96bcd8e.bmp.lzma",
+                      "sha256":  "1a1f7257c800cc25d717b1e8e05f419abc1ec268c79641a1fd95ed40dd6b4d7a",
+                      "size":  12594
+                  },
+                  {
                       "path":  "data/things/1530/sprites-25d048647cd6cd4f881d9cefd86b197ebd2f73ef87ee6ead878c67792f15f52e.bmp.lzma",
                       "sha256":  "5b2c3912bcf04398c996f81418396796680bb4866ee29e55b7fb268b245e5e5e",
                       "size":  6635
@@ -37277,11 +37282,6 @@
                       "path":  "data/things/1530/sprites-5d62ca6872756568b9aad2af2f68760159ed29dc57fd90397b43368ff72985ef.bmp.lzma",
                       "sha256":  "4959621bf5785b134e720ac6aa6a6e1cfae44adcc84caeea1131deb0c1f2dd68",
                       "size":  6294
-                  },
-                  {
-                      "path":  "data/things/1530/sprites-5d75a5ee3be040985ae5c445cc45eb71fc8c48958e6ea280e4483b4e2d955b33.bmp.lzma",
-                      "sha256":  "705db53b5bdb7f4372412cb74d8fb35203cec33f4f28da055ad5588c5e57ab77",
-                      "size":  11581
                   },
                   {
                       "path":  "data/things/1530/sprites-5d793eb1e7b109c20eb211e4d755ec41df3270b707dc05bf5c9ac6275948533b.bmp.lzma",
@@ -45799,11 +45799,6 @@
                       "size":  7985
                   },
                   {
-                      "path":  "data/things/1530/sprites-9a29cda6bdb18a623ce22c3eb93fa29c92778261b36b0cf82738957d07e74b99.bmp.lzma",
-                      "sha256":  "2a6d22d0ca2cd4438c1d850fdf1f1894b00f708d434ebccd171e6260c38f61c9",
-                      "size":  4000
-                  },
-                  {
                       "path":  "data/things/1530/sprites-9a2b37dbfb7598623035677cac2effaa55af7261525b148dbbe52cd46240da22.bmp.lzma",
                       "sha256":  "76e5ade51dbb2539a20a9b0a4b8cce08685419231520e378859b57d4ab7d8080",
                       "size":  10677
@@ -46517,6 +46512,11 @@
                       "path":  "data/things/1530/sprites-9ed46c2c8ada029f16a55159ddb36242fe854c627a9b94a3b5b3f541f5a9075f.bmp.lzma",
                       "sha256":  "239067706b4ad7fc0f918e4e66e69d45b25cc7e487f88e29157ec4e1c696be9d",
                       "size":  13399
+                  },
+                  {
+                      "path":  "data/things/1530/sprites-9ed90d374215b86a2dc4c2db5564338bfedcbf6cae58200d3b6e6a9700b5593b.bmp.lzma",
+                      "sha256":  "afe6e2e5a54aaea2b21a462ca64f61cc4aa49a5c2c0486cf116ba0f52f5f1e08",
+                      "size":  30441
                   },
                   {
                       "path":  "data/things/1530/sprites-9ee510f23f8df6931e9c4fd8d4123c7f8f70128b1f4df78c18558e57f629b73f.bmp.lzma",
@@ -52369,6 +52369,11 @@
                       "size":  9548
                   },
                   {
+                      "path":  "data/things/1530/sprites-c5773c85719e52a4aea10d0219144054ad423f65d9fc050c976fc70d5c74f71f.bmp.lzma",
+                      "sha256":  "52aac1d535d61ffc93c79596c5b2823c9b06d73eb01c015e7ed0a9cfd2f637b3",
+                      "size":  5002
+                  },
+                  {
                       "path":  "data/things/1530/sprites-c577ca8bf8d0f387a13c1dc51fc7a1b29963c2be88ae7bc21cd08f183249e2c9.bmp.lzma",
                       "sha256":  "1e4271e83c5b93be06d589a4ec86d9bb1ae3db9b38490df7c8c804cd0cb6e035",
                       "size":  53851
@@ -56092,11 +56097,6 @@
                       "path":  "data/things/1530/sprites-deaa227bbced706a5f0c3ed20d84f34b2f08a7fd678b5087890df1fc23f05cbf.bmp.lzma",
                       "sha256":  "5674172ad3e9868b2edcce3ae8da5bf9cd37c857f475cc60f5211714f01eba8f",
                       "size":  8714
-                  },
-                  {
-                      "path":  "data/things/1530/sprites-deb9430c4cb9024931ad572146ab96b093171bbb9f6fbde4c0f4d5d1c4a02946.bmp.lzma",
-                      "sha256":  "b26286b75a1c2183b9314d9123e73142877274ce792e2722ac2f0845b1115541",
-                      "size":  31666
                   },
                   {
                       "path":  "data/things/1530/sprites-debc77aec7e887526ca93b602bf644da24190c7febb74db9336c4f032f5eb793.bmp.lzma",
@@ -66055,8 +66055,8 @@
                   },
                   {
                       "path":  "modules/game_outfit/outfit.lua",
-                      "sha256":  "bc435f8fd16afe2f9d5551d48c343ddeb5004f17b9bf1d43d3c5fb7e72b49d3c",
-                      "size":  43870
+                      "sha256":  "f0a98087c5e5cc16d6ee682b140c294b87e5f2c14e7ca2bad50f8efd0d6d74c2",
+                      "size":  44529
                   },
                   {
                       "path":  "modules/game_outfit/outfit.otmod",
@@ -66685,13 +66685,13 @@
                   },
                   {
                       "path":  "otclient_dx_x64.exe",
-                      "sha256":  "b97237d7d15451bd9983f3e96614ef4f75009cc352460c49ddb2540354e23c33",
-                      "size":  37181440
+                      "sha256":  "80270319caaba7ffef7aff936ecdf171a3aaf1839c98893328563b97d611bba6",
+                      "size":  37181952
                   },
                   {
                       "path":  "otclient_gl_x64.exe",
-                      "sha256":  "6c755b435fc9512dc5d76f8b35ccda4bceba12771ca17c4350bce54a01fd663f",
-                      "size":  29322240
+                      "sha256":  "795ec9d705c27fdad39c0c047bdf89716b13869e90e4e7542e203a637913e165",
+                      "size":  29322752
                   },
                   {
                       "path":  "resources/banner.png",
@@ -66700,7 +66700,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "ea04d7ebbb29c679823fbb89d09b741c5df6613ce21262eecf289908bac1d7cf",
+                      "sha256":  "49f7d5f74d0673649b111a1636e90927dae55b37013421cacc8a259ed5330eed",
                       "size":  8
                   },
                   {
