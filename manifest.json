@@ -1,7 +1,7 @@
 {
-    "version":  "15.30.14",
-    "generated":  "2026-11-25T01:49:14-03:00",
-    "count":  13343,
+    "version":  "15.30.15",
+    "generated":  "2026-11-25T09:47:25-03:00",
+    "count":  13344,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -64025,8 +64025,13 @@
                   },
                   {
                       "path":  "mods/game_novidades1530/novidades1530.otmod",
-                      "sha256":  "27aa0911b6651f6a600cd9928ca8dce48a529227fd1f71bcaae6774558d00ff9",
-                      "size":  385
+                      "sha256":  "eac2582711039de8080090bb6bc94af3b76e7db08d6b9ef1665d35df7aab228e",
+                      "size":  454
+                  },
+                  {
+                      "path":  "mods/game_novidades1530/povtimer.lua",
+                      "sha256":  "6c48502246c17fa147bbeec93e9546aefeebcbdc85b20c6085a2bf288b776d18",
+                      "size":  3406
                   },
                   {
                       "path":  "mods/game_novidades1530/stances.lua",
@@ -66705,7 +66710,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "d1362e109e1f6491f4e347b1593673c79ba5e18b7caf0bb6eebeb6b5d01c1a4c",
+                      "sha256":  "dda0088d088ab969074d9b9a922cebb91b8ed523cbc702aa525bf6542380d5ca",
                       "size":  8
                   },
                   {
