@@ -1,7 +1,7 @@
 {
-    "version":  "15.30.17",
-    "generated":  "2026-11-25T23:09:41-03:00",
-    "count":  13345,
+    "version":  "15.30.18",
+    "generated":  "2026-11-26T15:09:16-03:00",
+    "count":  13348,
     "files":  [
                   {
                       "path":  "cacert.pem",
@@ -62479,6 +62479,21 @@
                       "size":  2833
                   },
                   {
+                      "path":  "mods/game_bonusativo/bonusativo.lua",
+                      "sha256":  "b4d20d549d679f7fdd98051fd26f96d9313c5b5f833768d41dde83ef3bec86cd",
+                      "size":  7510
+                  },
+                  {
+                      "path":  "mods/game_bonusativo/bonusativo.otmod",
+                      "sha256":  "c5b1ccd12e6071fd26f1c13a0536e08385bbbc1eeb57d325fa43be2a4a6d2b27",
+                      "size":  294
+                  },
+                  {
+                      "path":  "mods/game_bonusativo/bonusativo.otui",
+                      "sha256":  "dd0f44ecdf6d18e8167ae201037cf877d80827de46d063536ad61714ddd3c5df",
+                      "size":  2678
+                  },
+                  {
                       "path":  "mods/game_compendium/compendium.lua",
                       "sha256":  "2c0c8e2919646ebd9ae9b12b09e33e14db14cfc01480746428fc052e798e13de",
                       "size":  20807
@@ -65470,8 +65485,8 @@
                   },
                   {
                       "path":  "modules/game_interface/interface.otmod",
-                      "sha256":  "84501f36846552a510bc5f804a67f0d9b5cc30e108a323ae4f0b83c73bc277c9",
-                      "size":  1770
+                      "sha256":  "432166292497b154f6f47b8ddd7050fd36f90aac929b37275affcb250910479d",
+                      "size":  1792
                   },
                   {
                       "path":  "modules/game_interface/styles/countwindow.otui",
@@ -66715,7 +66730,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "4fa347959333f3ee63b7feac7492c36838cd1eb64ab8b85d19ddd59d63b3a18d",
+                      "sha256":  "579cc5251f674c9d9a263e08fe650d881004310072bf318d7c0c497f8bfe3991",
                       "size":  8
                   },
                   {
