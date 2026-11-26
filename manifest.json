@@ -1,6 +1,6 @@
 {
-    "version":  "15.30.18",
-    "generated":  "2026-11-26T15:09:16-03:00",
+    "version":  "15.30.19",
+    "generated":  "2026-11-26T15:33:14-03:00",
     "count":  13348,
     "files":  [
                   {
@@ -62535,8 +62535,8 @@
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/charms.lua",
-                      "sha256":  "b050c1b9aa216d52a5261d74ad069771c668682d1131ba73dd335729e11b6fb3",
-                      "size":  28855
+                      "sha256":  "da0ed742b2f01463332bd49b837e4fad76e006aa2f67b75a70567f599abf10c5",
+                      "size":  28235
                   },
                   {
                       "path":  "mods/game_cyclopedia/classes/house.lua",
@@ -66730,7 +66730,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "579cc5251f674c9d9a263e08fe650d881004310072bf318d7c0c497f8bfe3991",
+                      "sha256":  "76e9779562120b2137b51f411ac885d09eb2873239147222e46a5ae7c4fa4c8f",
                       "size":  8
                   },
                   {
