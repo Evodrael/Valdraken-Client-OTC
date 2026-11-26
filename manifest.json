@@ -1,6 +1,6 @@
 {
-    "version":  "15.30.19",
-    "generated":  "2026-11-26T15:33:14-03:00",
+    "version":  "15.30.20",
+    "generated":  "2026-11-26T21:19:35-03:00",
     "count":  13348,
     "files":  [
                   {
@@ -64700,8 +64700,8 @@
                   },
                   {
                       "path":  "modules/client_entergame/classes/login.lua",
-                      "sha256":  "80a48509512aacc6a6ad27af6481013f06c261d9847da819b010b98e06c6d08c",
-                      "size":  5302
+                      "sha256":  "0bbc01c643982361a46de793f63ee0d16f129e97ea0683325e1be8189ca56f5b",
+                      "size":  6437
                   },
                   {
                       "path":  "modules/client_entergame/classes/proxy.lua",
@@ -66730,7 +66730,7 @@
                   },
                   {
                       "path":  "version.txt",
-                      "sha256":  "76e9779562120b2137b51f411ac885d09eb2873239147222e46a5ae7c4fa4c8f",
+                      "sha256":  "8b36376324b39a6d630f16623cb3452b4a0e89365f132d30482962bb5e00523d",
                       "size":  8
                   },
                   {
